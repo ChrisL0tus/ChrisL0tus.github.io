@@ -63,7 +63,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 2
+			总文章数 3
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -164,6 +164,85 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-知识回顾（二）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/">谈谈近期学到的简单的东西(二)</a>
+    </h1>
+  
+
+        <!--显示阅读次数-->
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2022-08-02T08:41:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="兔兔的-printf功能中fmtstr格式化字符串漏洞-write-up"><a href="#兔兔的-printf功能中fmtstr格式化字符串漏洞-write-up" class="headerlink" title="兔兔的%printf功能中fmtstr格式化字符串漏洞 write up"></a>兔兔的%printf功能中fmtstr格式化字符串漏洞 write up</h1><p>   这是一道pwn方向的入门题。格式化字符串的成因在于像printf&#x2F;sprintf&#x2F;snprintf等格式化打印函数都是接受可变参数的，一旦程序编写不规范例如将<code>printf(&quot;%s&quot;,a)</code>，偷懒写成<code>printf(a)</code>，此时就存在格式化字符串漏洞。关于这一题我们需要用到的知识点不多：<br>   一、用$来表示第几个参数例如<code>%printf(&quot;%d%3$d&quot;,1,2,3)</code>输出为3。<br>   二、%n的使用，%n是往对应参数指向的内存写入已经输出的字符数量。这句话中有两个要点，1该参数为一个指针，2写入的值为<strong>字符数量</strong>。<br>   三、利用%p输出指针所指的地址。<br>   四、关于<code>%&quot;数字&quot;c</code> 的用法，在C之前可以加上数字，其作用是产生对应长度的参数，可以与%n配合向地址中写入数字(当然该数字指的是该参数的长度)。<br>        好，那么知道了这四点我们就可以来获取flag啦~<br>
+        
+          <a class="article-more-a" href="/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">格式化字符串漏洞</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-知识回顾（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -187,7 +266,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="兔兔的SQL注入-write-up"><a href="#兔兔的SQL注入-write-up" class="headerlink" title="兔兔的SQL注入 write up"></a>兔兔的SQL注入 write up</h1><p>   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出所有学长的blog 2、找到flag。<br>   那就来试试简单的SQL注入吧~<br>
+        <h1 id="兔兔的-Blog功能中的SQL注入-write-up"><a href="#兔兔的-Blog功能中的SQL注入-write-up" class="headerlink" title="兔兔的%Blog功能中的SQL注入 write up"></a>兔兔的%Blog功能中的SQL注入 write up</h1><p>   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出所有学长的blog 2、找到flag。这也算是一道web的入门题，面向零基础的小白（比如L0tus）<br>   那就一起来试试简单的SQL注入吧~<br>
         
           <a class="article-more-a" href="/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/#more">more >></a>
         
@@ -203,7 +282,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">仲夏</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQL注入</a>
         		</li>
       		
 		</ul>
@@ -427,7 +506,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">仲夏</a>
+                <a href="javascript:void(0)" class="js-tag color1">SQL注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">格式化字符串漏洞</a>
               </li>
             
             <div class="clearfix"></div>

