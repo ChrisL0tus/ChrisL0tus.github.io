@@ -183,8 +183,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="ret2libc"><a href="#ret2libc" class="headerlink" title="ret2libc"></a>ret2libc</h1><h3 id="开篇碎碎念"><a href="#开篇碎碎念" class="headerlink" title="开篇碎碎念"></a>开篇碎碎念</h3><p> 依旧是栈溢出漏洞的利用，但是难度相较于ret2text显然有很大的增加。</p>
-
+        <h1 id="ret2libc"><a href="#ret2libc" class="headerlink" title="ret2libc"></a>ret2libc</h1><p> ret2libc与ret2text本质是一样的都是利用栈溢出改写返回地址，构造栈空间使程序运行到我们想要的函数，传入自己想要的参数，从而获取shell。不过这题没有system函数，那么我们需要做的就是引用libc库中的system并传入&#x2F;bin&#x2F;sh参数。<br> 关于ret2libc详细的介绍可以参考<a target="_blank" rel="noopener" href="https://github.com/ChrisL0tus/mess-files/blob/main/ret2libc.pdf">白夜学长这篇文章</a>，我就不过多赘述，直接做题。<br>
+        
+          <a class="article-more-a" href="/2022/09/10/ret2libc/#more">more >></a>
+        
       
 
       
@@ -198,6 +200,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
         		</li>
       		
 		</ul>
@@ -283,7 +289,7 @@ gitalk.render('gitalk-container')
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="非常简单的pwn题学习"><a href="#非常简单的pwn题学习" class="headerlink" title="非常简单的pwn题学习"></a>非常简单的pwn题学习</h1><h3 id="开篇碎碎念"><a href="#开篇碎碎念" class="headerlink" title="开篇碎碎念"></a>开篇碎碎念</h3><p>  开学到现在这几天每天都是1点左右入睡，不需要任何轻音乐，基本就是一闭眼就能睡着，明明什么都没做但又感觉做了很多事非常累，我不喜欢这种“无效的疲惫”。<br>  招新群进了很多专业对口的大佬，焦虑倒还好已经不在乎了，自己慢慢学便是。<br>  学ctf这方面就是不能急，谁急谁就学不好。协会一直强调“万丈高楼平地起，勿在浮沙筑高台”。<br>
+        <h1 id="非常简单的pwn学习过程-两道ret2text-wp"><a href="#非常简单的pwn学习过程-两道ret2text-wp" class="headerlink" title="非常简单的pwn学习过程+两道ret2text wp"></a>非常简单的pwn学习过程+两道ret2text wp</h1><h3 id="开篇碎碎念"><a href="#开篇碎碎念" class="headerlink" title="开篇碎碎念"></a>开篇碎碎念</h3><p>  开学到现在这几天每天都是1点左右入睡，不需要任何轻音乐，基本就是一闭眼就能睡着，明明什么都没做但又感觉做了很多事非常累，我不喜欢这种“无效的疲惫”。<br>  招新群进了很多专业对口的大佬，焦虑倒还好已经不在乎了，自己慢慢学便是。<br>  学ctf这方面就是不能急，谁急谁就学不好。协会一直强调“万丈高楼平地起，勿在浮沙筑高台”。<br>
         
           <a class="article-more-a" href="/2022/09/05/ret2text/#more">more >></a>
         
@@ -304,6 +310,10 @@ gitalk.render('gitalk-container')
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
         		</li>
       		
 		</ul>
@@ -714,7 +724,11 @@ gitalk.render('gitalk-container')
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">格式化字符串漏洞</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
         		</li>
       		
 		</ul>
@@ -817,6 +831,10 @@ gitalk.render('gitalk-container')
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQL注入</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
         		</li>
       		
 		</ul>
@@ -1100,10 +1118,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">格式化字符串漏洞</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日记</a>
               </li>
              
@@ -1117,6 +1131,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">pwn笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">write up</a>
               </li>
             
             <div class="clearfix"></div>
