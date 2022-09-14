@@ -6,16 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>Archives: 2022/8 | L0tus&#39; blog</title>
+  <title>9.14汇编 实验（一） | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="L0tus&#39; blog">
-<meta property="og:url" content="http://l0tus.vip/archives/2022/08/index.html">
+  <meta name="description" content="环境搭建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9.14汇编 实验（一）">
+<meta property="og:url" content="http://l0tus.vip/2022/09/14/9.14%E6%B1%87%E7%BC%96/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
+<meta property="og:description" content="环境搭建">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-r.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-d.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-e.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-u.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-t.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-a.png">
+<meta property="article:published_time" content="2022-09-14T10:58:21.162Z">
+<meta property="article:modified_time" content="2022-09-14T13:23:22.488Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="汇编学习之路">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-r.png">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
   
@@ -158,225 +169,211 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-9.14汇编" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      9.14汇编 实验（一）
+    </h1>
+  
+
+        <!--显示阅读次数-->
+        
+          <br/>
+         <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+         <span class="icon-sort"></span>
+         <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+          	阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+          </span>
+          </a>
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2022/09/14/9.14%E6%B1%87%E7%BC%96/" class="archive-article-date">
+  	<time datetime="2022-09-14T10:58:21.162Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-14</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><span id="more"></span>
+<p>无论是cj学长那时的win10还是我现在的win11都没有DEBUG.EXE和DOS<br>所以首先第一步搭建环境非常重要，可以直接照着<a target="_blank" rel="noopener" href="https://cjovi.icu/asm-learn/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html">cj学长这篇文章</a>来搭建,非常详细而且很贴心文末有一个工具包（cj学长我的超人！）</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>第一个实验没什么难度，都是些很基本的操作比如用R查看、改变寄存器的内容</p>
+<h2 id="R命令"><a href="#R命令" class="headerlink" title="R命令"></a>R命令</h2><p>直接输入<code>R</code>即可查看，若想对某个具体的寄存器内容进行修改那可以在R之后接上寄存器的名字，如<code>R ax</code>就可以输入ax的值。<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-r.png" alt="debug-r"></p>
+<h2 id="D命令"><a href="#D命令" class="headerlink" title="D命令"></a>D命令</h2><p>用<code>d 段地址:偏移地址</code>查看内存中的内容，我们可以输入<code>d 1000:0</code>来查看内存1000处的内容。用d指令时，debug将列出从指定内存单元开始的128个内存单元的内容<br>用d时，显示内容有三部分，左边是每行的起始地址，中间是16进制表示的内存内容，右边是对应的ASCII字符（有点像hex view）<br>还可以使用<code>d 段地址:起始偏移地址 结尾偏移地址</code>来查看指定IP范围的内容<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-d.png" alt="debug-d"></p>
+<h2 id="E命令"><a href="#E命令" class="headerlink" title="E命令"></a>E命令</h2><p><code>E 起始地址 数据 数据 数据……</code>可以改写从起始地址开始的n个单元的内容,enter键结束。<br><code>E 起始地址</code>可以以提问的方式逐一修改内容，以空格为一次修改结束，直接输入空格则不修改，enter键结束<br><code>E 数字 ‘字符’ 数字 ‘字符’……</code>这样的写入形式会将数字直接写入内存单元，而字符则会转化为ASCII码再写入内存单元<br>当然E命令也可以写入机器码<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-e.png" alt="debug-e"></p>
+<h2 id="U命令"><a href="#U命令" class="headerlink" title="U命令"></a>U命令</h2><p>U命令的作用是查看机器码，如果内存单元中储存的是机器码那么用U命令加起始地址就可以将机器码翻译成汇编指令再输出<br>同样，其输出有三部分，分别是地址、指令的16进制数据表示、汇编语言<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-u.png" alt="debug-u"></p>
+<h2 id="T命令"><a href="#T命令" class="headerlink" title="T命令"></a>T命令</h2><p>用T命令可以执行CS:IP指向的指令，直接输入t即可<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-t.png" alt="debug-t"></p>
+<h2 id="A命令"><a href="#A命令" class="headerlink" title="A命令"></a>A命令</h2><p>前面有说E命令可以写入机指令，但是很不方便，于是有了可以直接写入汇编语言的A命令<br><code>a 起始地址</code><br>这样就可以写入一条条汇编指令，并且计算机会自动计算输入的汇编所占的内存长度，自动将IP加到下一个写入位置，我们需要做的就是一条条写就可以啦<br>如果不写起始地址而直接输入A，那么就会从CS:IP指向的地方开始写入<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/debug-a.png" alt="debug-a"></p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>这章的实验比较简单l0tus<del>懒狗</del>就不做了</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/25/%E5%A4%A7%E5%AD%A6%E7%AC%AC%E4%B8%80%E5%A4%A9/" class="archive-article-date">
-  	<time datetime="2022-08-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/25/%E5%A4%A7%E5%AD%A6%E7%AC%AC%E4%B8%80%E5%A4%A9/">日记：大学第一天</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/09/14/9.14%E6%B1%87%E7%BC%96/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/17/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
-  	<time datetime="2022-08-16T17:10:35.042Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/09/13/9.13%E6%B1%87%E7%BC%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">9.13汇编语言（第二章）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/17/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/">C++：类和对象的学习过程（更新中）</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">类和对象</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/14/nervous/" class="archive-article-date">
-  	<time datetime="2022-08-14T15:41:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/14/nervous/">日记：最近非常焦虑...</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2022-08-02T08:41:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/02/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%BA%8C%EF%BC%89/">谈谈近期学到的简单的东西(二)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2022-08-01T15:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/">谈谈近期学到的简单的东西(一)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQL注入</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
 
+  
+
+  
+
+
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+if(true){
+    var gitalk = new Gitalk({
+    clientID: 'd7ed634dc972bb7fd909',
+    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
+    repo: 'comments.github.io',
+    owner: 'ChrisL0tus',
+    admin: ['ChrisL0tus'],
+    id: 'Wed Sep 14 2022 18:58:21 GMT+0800',
+    distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
 
           </div>
         </div>
@@ -408,8 +405,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
