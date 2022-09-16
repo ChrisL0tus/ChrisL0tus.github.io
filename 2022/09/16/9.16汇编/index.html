@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>9.16汇编语言 | L0tus&#39; blog</title>
+  <title>9.16汇编语言（第四章） | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="先放个标题">
+  <meta name="description" content="第一个汇编程序">
 <meta property="og:type" content="article">
-<meta property="og:title" content="9.16汇编语言">
+<meta property="og:title" content="9.16汇编语言（第四章）">
 <meta property="og:url" content="http://l0tus.vip/2022/09/16/9.16%E6%B1%87%E7%BC%96/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
-<meta property="og:description" content="先放个标题">
+<meta property="og:description" content="第一个汇编程序">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-16T06:05:37.574Z">
+<meta property="article:modified_time" content="2022-09-16T12:54:39.599Z">
 <meta property="article:author" content="L0tus">
 <meta property="article:tag" content="汇编学习之路">
 <meta name="twitter:card" content="summary">
@@ -170,7 +170,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      9.16汇编语言
+      9.16汇编语言（第四章）
     </h1>
   
 
@@ -194,7 +194,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="先放个标题"><a href="#先放个标题" class="headerlink" title="先放个标题"></a>先放个标题</h1>
+        <h1 id="第一个汇编程序"><a href="#第一个汇编程序" class="headerlink" title="第一个汇编程序"></a>第一个汇编程序</h1><span id="more"></span>
+<h2 id="segment-amp-ends"><a href="#segment-amp-ends" class="headerlink" title="segment &amp; ends"></a>segment &amp; ends</h2><p>伪指令，由编译器执行，用来定义一个段,格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">段名 segment</span><br><span class="line"> ·</span><br><span class="line"> ·</span><br><span class="line"> ·</span><br><span class="line">段名 ends</span><br></pre></td></tr></table></figure>
+<p>注意区分ends和end，ends是标记一个段的结束，end是标记整个程序的结束</p>
+<h2 id="运行可执行文件"><a href="#运行可执行文件" class="headerlink" title="运行可执行文件"></a>运行可执行文件</h2><p>一个程序P2在可执行文件中，必须有一个正在运行的P1，将P2加载入内存，将CPU控制权给P2，P2运行完毕将控制权还给P1<br>既然要实现以上步骤就必须认识一个过程：<strong>程序返回</strong>，目前只需要知道</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax,4c00H</span><br><span class="line">int 21H</span><br></pre></td></tr></table></figure>
+<p>这样两条指令加在程序末尾就可以实现程序返回</p>
+
       
 
       
