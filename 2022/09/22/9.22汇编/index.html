@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/emu1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/emu2.png">
 <meta property="article:published_time" content="2022-09-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-22T11:20:33.554Z">
+<meta property="article:modified_time" content="2022-09-22T13:16:06.971Z">
 <meta property="article:author" content="L0tus">
 <meta property="article:tag" content="汇编学习之路">
 <meta name="twitter:card" content="summary">
@@ -198,16 +198,18 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="emu8086"><a href="#emu8086" class="headerlink" title="emu8086"></a>emu8086</h1><span id="more"></span>
-<p>answer哥推荐给我的一个工具，和dosbox一样是老古董，但是emu确实比较nb<br>简洁的编辑界面：<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/emu1.png"><br><strong>先进的后退一步执行功能：</strong><br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/emu2.png"></p>
+<p>answer哥推荐的一个工具，和dosbox一样是老古董，但是emu确实比较nb<br>简洁的编辑界面：<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/emu1.png"><br><strong>先进的后退一步执行功能：</strong><br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/emu2.png"></p>
 <h1 id="mov-ax-bx-与-mov-ax-bx"><a href="#mov-ax-bx-与-mov-ax-bx" class="headerlink" title="mov ax,bx 与 mov ax,[bx]"></a>mov ax,bx 与 mov ax,[bx]</h1><p>前者是将bx中存的内容(地址或具体数据)传入ax中，后者是将ds:bx这块地址中的内容传给ax</p>
 <h1 id="mov-bx-ax"><a href="#mov-bx-ax" class="headerlink" title="mov [bx],ax"></a>mov [bx],ax</h1><p>将ax这块寄存器中的内容(地址或数据)传入ds:bx这块地址的内容中<br>小总结：带[]的是指对应地址的内容，其中的寄存器里的数据必须是一块地址。不带的是指一个寄存器。</p>
-<h1 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov cx,10</span><br><span class="line">  s:inc bx ;inc指令可以使寄存器中的值自加一</span><br><span class="line">    loop s </span><br></pre></td></tr></table></figure>
+<h1 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov cx,10</span><br><span class="line">  s:inc bx #inc指令可以使寄存器中的值自加一</span><br><span class="line">    loop s </span><br></pre></td></tr></table></figure>
 <p>一个很好理解的循环指令，每次循环到s，cx都会-1，相当于for循环里的i，cx-1之后若不为零，则向前转至s处执行。若为0则不跳转直接向下执行<br>标号s要在loop前面，循环执行的指令在标号和loop中间</p>
 <h1 id="g指令和p指令"><a href="#g指令和p指令" class="headerlink" title="g指令和p指令"></a>g指令和p指令</h1><p>在debug中，<code>g IP</code>可以跳转到指定的IP，可以实现快速运行到指定IP位置，但并不是将中间的跳过，而是一路执行到该指令<br>如过想要一次执行完循环语句直接输入p指令即可完成循环</p>
 <h1 id="一些杂注意事项"><a href="#一些杂注意事项" class="headerlink" title="一些杂注意事项"></a>一些杂注意事项</h1><p>在汇编源程序中，数据不能以字母开头，所以要在前面加0</p>
 <h1 id="段前缀"><a href="#段前缀" class="headerlink" title="段前缀"></a>段前缀</h1><p>简单的一条指令：<br><code>mov ax,[bx]</code><br>这里bx表示偏移地址，默认段地址位ds<br>加上段前缀：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax,ds:[bx]</span><br><span class="line">mov ax,cs:[bx]</span><br><span class="line">mov ax,ss:[bx]</span><br><span class="line">mov ax,es:[bx]</span><br><span class="line">mov ax,ss:[0]</span><br><span class="line">mov ax,cs:[0]</span><br></pre></td></tr></table></figure>
-<p>以上cs,ss,es,ds等明显指明段地址的指令称为“短前缀”<br>很好理解</p>
+<p>以上cs,ss,es,ds等明显指明段地址的指令称为“段前缀”<br>很好理解</p>
+<h1 id="define-word"><a href="#define-word" class="headerlink" title="define word"></a>define word</h1><p>指令<strong>dw</strong>表示define word，作用是定义字型数据，其后直接写数据，几个数据之间用逗号隔开，每个数据占一个字的长度<br>dw定义的数据处于代码段的最开始，偏移地址为0，2，4…… 逐个加2<br>书本第125页图6.1中写<code>DS = 0B2D</code>，而且程序dw了8个数据，那么真正的代码存放就从<code>0B3D:0000</code>开始，因为8个数据每个数据占2个字节，一共16个字节相当于<strong>0010h</strong>，代码段的开头就被这些数据占用了，那么真正的代码就从<strong>0B3D:0000</strong>开始</p>
+<h1 id="start"><a href="#start" class="headerlink" title="start"></a>start</h1><p><strong>start</strong>用于指明入口所在，告诉编译器从这里开始执行，结尾要加上<strong>end start</strong>告知结束，当然这里的end体现了一个新的功能，除了结束之外还显示出通知入口在何处的功能</p>
 
       
 
