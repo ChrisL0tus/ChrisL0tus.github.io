@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/emu1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/emu2.png">
 <meta property="article:published_time" content="2022-09-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-22T13:16:06.971Z">
+<meta property="article:modified_time" content="2022-09-22T14:27:41.999Z">
 <meta property="article:author" content="L0tus">
 <meta property="article:tag" content="汇编学习之路">
 <meta name="twitter:card" content="summary">
@@ -210,6 +210,9 @@
 <p>以上cs,ss,es,ds等明显指明段地址的指令称为“段前缀”<br>很好理解</p>
 <h1 id="define-word"><a href="#define-word" class="headerlink" title="define word"></a>define word</h1><p>指令<strong>dw</strong>表示define word，作用是定义字型数据，其后直接写数据，几个数据之间用逗号隔开，每个数据占一个字的长度<br>dw定义的数据处于代码段的最开始，偏移地址为0，2，4…… 逐个加2<br>书本第125页图6.1中写<code>DS = 0B2D</code>，而且程序dw了8个数据，那么真正的代码存放就从<code>0B3D:0000</code>开始，因为8个数据每个数据占2个字节，一共16个字节相当于<strong>0010h</strong>，代码段的开头就被这些数据占用了，那么真正的代码就从<strong>0B3D:0000</strong>开始</p>
 <h1 id="start"><a href="#start" class="headerlink" title="start"></a>start</h1><p><strong>start</strong>用于指明入口所在，告诉编译器从这里开始执行，结尾要加上<strong>end start</strong>告知结束，当然这里的end体现了一个新的功能，除了结束之外还显示出通知入口在何处的功能</p>
+<h1 id="在代码段中使用栈"><a href="#在代码段中使用栈" class="headerlink" title="在代码段中使用栈"></a>在代码段中使用栈</h1><p>这里我们自己在代码段中用内容为0的字型数据”搭建”一段栈空间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">dw 0123h,0234h,0345h,0456h,0567h,0678h,0789h,0abch</span><br><span class="line">dw 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</span><br><span class="line"></span><br><span class="line">start:</span><br><span class="line">mov ax,cs</span><br><span class="line">mov ss,ax</span><br><span class="line">mov sp,30h #将栈顶指针ss:sp指向cs:30</span><br><span class="line"></span><br><span class="line">mov bx,0</span><br><span class="line">mov cx,8</span><br><span class="line"></span><br><span class="line">s:push cs:[bx]</span><br><span class="line">add bx,2</span><br><span class="line">loop s</span><br><span class="line"></span><br><span class="line">mov bx,2</span><br><span class="line">mov cx,8</span><br><span class="line">s0:pop cs:[bx]</span><br><span class="line">add bx,2</span><br><span class="line">loop s0</span><br><span class="line"></span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>这里用dw定义16个字型数据0，当作栈空间用。那么怎么把这一段内存当作栈空间呢？我们联想到之前学到过的一些指针，如果要把一段内存当成栈，那就肯定要有一个栈顶指针来指向这段内存的起点，于是我们将ss:sp指向数据0的起点。接下来进行的push，pop等操作就是直接将这一段内存当成一段栈来操作的。那么cs:[bx]指向的这一段的开头那8个数据就可以一次压入栈</p>
 
       
 
