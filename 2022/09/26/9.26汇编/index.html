@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>Tag: 汇编学习之路 | L0tus&#39; blog</title>
+  <title>9.26汇编语言(第八章) | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="L0tus&#39; blog">
-<meta property="og:url" content="http://l0tus.vip/tags/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/index.html">
+  <meta name="description" content="对于一些寄存器的总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9.26汇编语言(第八章)">
+<meta property="og:url" content="http://l0tus.vip/2022/09/26/9.26%E6%B1%87%E7%BC%96/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
+<meta property="og:description" content="对于一些寄存器的总结">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-26T09:21:40.410Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="汇编学习之路">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
@@ -159,36 +163,74 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-9.26汇编" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      9.26汇编语言(第八章)
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/26/9.26%E6%B1%87%E7%BC%96/" class="archive-article-date">
+
+        <!--显示阅读次数-->
+        
+          <br/>
+         <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+         <span class="icon-sort"></span>
+         <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+          	阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+          </span>
+          </a>
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2022/09/26/9.26%E6%B1%87%E7%BC%96/" class="archive-article-date">
   	<time datetime="2022-09-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-26</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/26/9.26%E6%B1%87%E7%BC%96/">9.26汇编语言(第八章)</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="对于一些寄存器的总结"><a href="#对于一些寄存器的总结" class="headerlink" title="对于一些寄存器的总结"></a>对于一些寄存器的总结</h1><span id="more"></span>
+<p>8086cpu中只有<strong>bx,si,di,bp</strong>四个寄存器可以用在<code>[...]</code>中进行内存单元的寻址<br>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,[bx+si]</span><br><span class="line">mov ax,[bp+si]</span><br><span class="line">mov ax,[bp+di]</span><br></pre></td></tr></table></figure>
+<p>都是正确的，而</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov ax,[cx]</span><br><span class="line">mov ax,[ax]</span><br><span class="line">mov ax,[dx]</span><br><span class="line">mov ax,[ds]</span><br></pre></td></tr></table></figure>
+<p>这些指令都是错误的。<br><strong>bx和bp，si和di不能组合出现</strong>，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax,[bx+si+idata]        正确的</span><br><span class="line">mov ax,[bx+di+idata]        正确的</span><br><span class="line">mov ax,[bp+si+idata]        正确的</span><br><span class="line">mov ax,[bp+di+idata]        正确的</span><br><span class="line"></span><br><span class="line">mov ax,[bx+bp]              错误的</span><br><span class="line">mov ax,[si+di]              错误的 </span><br></pre></td></tr></table></figure>
+<p><strong>使用bp但是没有给出段地址时，段地址默认在ss中：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,[bp+si]              含义：(ax)=((ss)*16+(bp))</span><br><span class="line">mov ax,[bp+idata]           含义：(ax)=((ss)*16+(bp)+idata)</span><br><span class="line">mov ax,[bp+si+idata]        含义：(ax)=((ss)*16+(bp)+(si)+idata)</span><br></pre></td></tr></table></figure>
+      
 
-        <div class="article-info info-on-right">
-          
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -200,328 +242,141 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/09/26/9.26%E6%B1%87%E7%BC%96/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/25/9.25%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-25</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2077/09/12/%E8%A7%84%E5%88%92/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          近期的规划
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/09/25/9.25%E6%B1%87%E7%BC%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">9.25汇编语言(第七章) 以及我最近在干嘛</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/25/9.25%E6%B1%87%E7%BC%96/">9.25汇编语言(第七章) 以及我最近在干嘛</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/22/9.22%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/22/9.22%E6%B1%87%E7%BC%96/">9.22汇编语言（第五、六章）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/22/%E6%B1%87%E7%BC%96%E5%AE%9E%E9%AA%8C%E5%9B%9B/" class="archive-article-date">
-  	<time datetime="2022-09-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/22/%E6%B1%87%E7%BC%96%E5%AE%9E%E9%AA%8C%E5%9B%9B/">汇编实验四</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/16/9.16%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/16/9.16%E6%B1%87%E7%BC%96/">9.16汇编语言（第四章）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/15/9.15%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/15/9.15%E6%B1%87%E7%BC%96/">9.15汇编语言（第三章）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/14/9.14%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-14T10:58:21.162Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/14/9.14%E6%B1%87%E7%BC%96/">9.14汇编语言 （实验一）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/13/9.13%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-12T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/13/9.13%E6%B1%87%E7%BC%96/">9.13汇编语言（第二章）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/12/9.12%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-12T11:39:56.165Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/12/9.12%E6%B1%87%E7%BC%96/">9.12汇编语言（第一章）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
 
+  
+
+  
+
+
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+if(true){
+    var gitalk = new Gitalk({
+    clientID: 'd7ed634dc972bb7fd909',
+    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
+    repo: 'comments.github.io',
+    owner: 'ChrisL0tus',
+    admin: ['ChrisL0tus'],
+    id: 'Mon Sep 26 2022 00:00:00 GMT+0800',
+    distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
 
           </div>
         </div>
@@ -553,9 +408,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
