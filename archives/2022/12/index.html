@@ -6,19 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>9.12汇编语言（第一章） | L0tus&#39; blog</title>
+  <title>Archives: 2022/12 | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一章 基础知识这一章非常基础很多硬件知识，这里记一些一开始不太清楚的知识点。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="9.12汇编语言（第一章）">
-<meta property="og:url" content="http://l0tus.vip/2022/09/12/9.12%E6%B1%87%E7%BC%96/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="L0tus&#39; blog">
+<meta property="og:url" content="http://l0tus.vip/archives/2022/12/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
-<meta property="og:description" content="第一章 基础知识这一章非常基础很多硬件知识，这里记一些一开始不太清楚的知识点。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-12T11:39:56.165Z">
-<meta property="article:modified_time" content="2022-09-13T01:17:56.124Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="汇编学习之路">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
@@ -163,217 +159,61 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-9.12汇编" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      9.12汇编语言（第一章）
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2022/12/11/heap/" class="archive-article-date">
+  	<time datetime="2022-12-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-11</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/12/11/heap/">HEAP</a>
     </h1>
   
 
-        <!--显示阅读次数-->
-        
-          <br/>
-         <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-         <span class="icon-sort"></span>
-         <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-          	阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-          </span>
-          </a>
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2022/09/12/9.12%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-12T11:39:56.165Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="第一章-基础知识"><a href="#第一章-基础知识" class="headerlink" title="第一章 基础知识"></a>第一章 基础知识</h1><p>这一章非常基础很多硬件知识，这里记一些一开始不太清楚的知识点。</p>
-<span id="more"></span>
-<h2 id="cpu寻址的最小单位"><a href="#cpu寻址的最小单位" class="headerlink" title="cpu寻址的最小单位"></a>cpu寻址的最小单位</h2><p>做检测点1.1的时候遇到了一个容易搞混的概念，cpu的最小寻址单位是“字”，也就是 1 Byte ，而非一个bit。<br>the same as 一个存储单元，指的同样也是 1 Byte &#x3D;&#x3D; 8 bit.<br>两个例子很好理解<br><code>1个cpu的寻址能力为8KB，那么它的地址总线的宽度是13</code><br><code>16根地址总线的寻址能力为 2^6 KB，32根为 4 GB</code></p>
-<h2 id="数据线"><a href="#数据线" class="headerlink" title="数据线"></a>数据线</h2><p>数据线的宽度对应bit，宽度为8那就是 8 bits &#x3D;&#x3D; 1 Byte<br>在存储器中，数据和程序以<strong>二进制代码</strong>形式存放</p>
-<h2 id="RAM-ROM-硬盘-之间的区别（转自百度知道）"><a href="#RAM-ROM-硬盘-之间的区别（转自百度知道）" class="headerlink" title="RAM ROM 硬盘 之间的区别（转自百度知道）"></a>RAM ROM 硬盘 之间的区别（转自百度知道）</h2><p><em>原作者讲的非常透彻，我就直接转载了</em><br><strong>RAM是随机存取存储器（random access memory），是计算机内部存储器中的一种，也是其中最重要的，计算机和手机中一般把其叫做（运行）内存，它的速度要比硬盘快得多，所以用运行程序在RAM中，而存放运行时不用的数据则在硬盘中，什么时候需要数据，便把数据从硬盘中拿到内存，但同时RAM断电会丢失数据，所以我们电脑如果断电了就会丢失原来正在运行的数据。所以，手机中的RAM和电脑中的RAM的概念是相同的，RAM即内存越大，能同时在内存中执行的程序就越多，性能一般是越好的。</strong><br><strong>ROM是只读存储器（Read-Only Memory），也是计算机内部存储器中的一种，而硬盘是外部存储器，所以对于大学学子来说，考试时你如果把这两个混为一种东西绝对是错误的，当然，如果出选择题让你选，那么BIOS应该是用到ROM的那个。那么ROM究竟是干什么的，ROM和硬盘是否就没有任何关系呢？这就要从其发展历程说起，早期，乃至现在，我们的主要存储介质都是磁性存储，也就是磁盘，分为硬盘和软盘，硬盘不太适合做移动存储，因为其磁头容易损坏，不耐摔，而且体积较大，就算是缩小容量仍然很难缩小其体积，软盘虽然用作移动介质还算方便，但软盘容量过于小，不够用，而光盘虽然容量大但不易擦写，同时体积也不够小，这时就很适合使用半导体存储介质——ROM和RAM，ROM用来嵌入电脑主板或者做移动存储介质就很合适了，其体积够小，提供的容量可以比光盘和软盘的大，速度也更快，但成本相对更高，而且早期的ROM因为技术不成熟所以无法擦写，出厂后就只能读数据，所以叫只读存储器，后来随着技术的发展，在ROM的基础上出现了新的半导体存储介质EPROM和EEPROM，这两种可擦写，这就不符合ROM的命名，但是由于是在ROM的技术上衍变出来的，所以延用了一部分原来的叫法，此时非易失的半导体存储介质开始得以广泛应用，被大量用于电脑主板的bios和嵌入式存储，而后来在这两种技术的发展上又发展出了NAND FLASH闪存，这就是我们现在用的U盘中用到的技术，同样，因为其体积小，容量和速度均不错，现在手机存储中的emmc颗粒也是用的这种技术，所以有手机厂商就把手机的存储容量约定俗成为ROM，其继承ROM断电不丢失数据的特性，而且有着较快的速度。</strong><br><strong>那么电脑硬盘和ROM有什么关系呢？由于ROM和硬盘都可以存储数据而且断电不会丢失，而有都广泛运用于电子产品中，所以有人就对两者产生了混淆。硬盘分为两种，一种是机械硬盘（即磁盘HDD）,一种是固态硬盘（SSD），磁盘和ROM没什么关系，但是固态硬盘就不一样了，固态硬盘用到的颗粒也是基于NAND FLASH技术，和u盘以及手机存储有点相似，所以说硬盘和ROM还是有关系的，固态硬盘的存储颗粒是ROM技术发展的产物，但不能说ROM就是硬盘。</strong><br>另外也没有什么特别值得记的内容啦，第一章就过了~</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/09/12/9.12%E6%B1%87%E7%BC%96/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-  
-<nav id="article-nav">
-  
-    <a href="/2022/09/13/9.13%E6%B1%87%E7%BC%96/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          9.13汇编语言（第二章）
-        
-      </div>
-    </a>
   
   
-    <a href="/2022/09/12/%E5%AE%9E%E6%97%B6%E6%95%B0%E6%8D%AE%E7%9B%91%E6%B5%8Bwp/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">谈谈最近学到的简单的东西（六）</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
+    
 
-  
-
-  
-
-
-
-  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-<script type="text/javascript">
-
-if(true){
-    var gitalk = new Gitalk({
-    clientID: 'd7ed634dc972bb7fd909',
-    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
-    repo: 'comments.github.io',
-    owner: 'ChrisL0tus',
-    admin: ['ChrisL0tus'],
-    id: 'Mon Sep 12 2022 19:39:56 GMT+0800',
-    distractionFreeMode: 'true'
-})
-gitalk.render('gitalk-container') 
-}
-</script>
-  
 
           </div>
         </div>
@@ -405,8 +245,8 @@ gitalk.render('gitalk-container')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

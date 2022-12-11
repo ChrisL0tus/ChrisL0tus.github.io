@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>9.12汇编语言（第一章） | L0tus&#39; blog</title>
+  <title>HEAP | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一章 基础知识这一章非常基础很多硬件知识，这里记一些一开始不太清楚的知识点。">
+  <meta name="description" content="malloc &amp; free">
 <meta property="og:type" content="article">
-<meta property="og:title" content="9.12汇编语言（第一章）">
-<meta property="og:url" content="http://l0tus.vip/2022/09/12/9.12%E6%B1%87%E7%BC%96/index.html">
+<meta property="og:title" content="HEAP">
+<meta property="og:url" content="http://l0tus.vip/2022/12/11/heap/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
-<meta property="og:description" content="第一章 基础知识这一章非常基础很多硬件知识，这里记一些一开始不太清楚的知识点。">
+<meta property="og:description" content="malloc &amp; free">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-12T11:39:56.165Z">
-<meta property="article:modified_time" content="2022-09-13T01:17:56.124Z">
+<meta property="article:published_time" content="2022-12-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-11T05:38:27.309Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="汇编学习之路">
+<meta property="article:tag" content="pwn笔记">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
@@ -163,14 +163,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-9.12汇编" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-heap" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      9.12汇编语言（第一章）
+      HEAP
     </h1>
   
 
@@ -186,19 +186,23 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2022/09/12/9.12%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-12T11:39:56.165Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-12</time>
+        <a href="/2022/12/11/heap/" class="archive-article-date">
+  	<time datetime="2022-12-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="第一章-基础知识"><a href="#第一章-基础知识" class="headerlink" title="第一章 基础知识"></a>第一章 基础知识</h1><p>这一章非常基础很多硬件知识，这里记一些一开始不太清楚的知识点。</p>
-<span id="more"></span>
-<h2 id="cpu寻址的最小单位"><a href="#cpu寻址的最小单位" class="headerlink" title="cpu寻址的最小单位"></a>cpu寻址的最小单位</h2><p>做检测点1.1的时候遇到了一个容易搞混的概念，cpu的最小寻址单位是“字”，也就是 1 Byte ，而非一个bit。<br>the same as 一个存储单元，指的同样也是 1 Byte &#x3D;&#x3D; 8 bit.<br>两个例子很好理解<br><code>1个cpu的寻址能力为8KB，那么它的地址总线的宽度是13</code><br><code>16根地址总线的寻址能力为 2^6 KB，32根为 4 GB</code></p>
-<h2 id="数据线"><a href="#数据线" class="headerlink" title="数据线"></a>数据线</h2><p>数据线的宽度对应bit，宽度为8那就是 8 bits &#x3D;&#x3D; 1 Byte<br>在存储器中，数据和程序以<strong>二进制代码</strong>形式存放</p>
-<h2 id="RAM-ROM-硬盘-之间的区别（转自百度知道）"><a href="#RAM-ROM-硬盘-之间的区别（转自百度知道）" class="headerlink" title="RAM ROM 硬盘 之间的区别（转自百度知道）"></a>RAM ROM 硬盘 之间的区别（转自百度知道）</h2><p><em>原作者讲的非常透彻，我就直接转载了</em><br><strong>RAM是随机存取存储器（random access memory），是计算机内部存储器中的一种，也是其中最重要的，计算机和手机中一般把其叫做（运行）内存，它的速度要比硬盘快得多，所以用运行程序在RAM中，而存放运行时不用的数据则在硬盘中，什么时候需要数据，便把数据从硬盘中拿到内存，但同时RAM断电会丢失数据，所以我们电脑如果断电了就会丢失原来正在运行的数据。所以，手机中的RAM和电脑中的RAM的概念是相同的，RAM即内存越大，能同时在内存中执行的程序就越多，性能一般是越好的。</strong><br><strong>ROM是只读存储器（Read-Only Memory），也是计算机内部存储器中的一种，而硬盘是外部存储器，所以对于大学学子来说，考试时你如果把这两个混为一种东西绝对是错误的，当然，如果出选择题让你选，那么BIOS应该是用到ROM的那个。那么ROM究竟是干什么的，ROM和硬盘是否就没有任何关系呢？这就要从其发展历程说起，早期，乃至现在，我们的主要存储介质都是磁性存储，也就是磁盘，分为硬盘和软盘，硬盘不太适合做移动存储，因为其磁头容易损坏，不耐摔，而且体积较大，就算是缩小容量仍然很难缩小其体积，软盘虽然用作移动介质还算方便，但软盘容量过于小，不够用，而光盘虽然容量大但不易擦写，同时体积也不够小，这时就很适合使用半导体存储介质——ROM和RAM，ROM用来嵌入电脑主板或者做移动存储介质就很合适了，其体积够小，提供的容量可以比光盘和软盘的大，速度也更快，但成本相对更高，而且早期的ROM因为技术不成熟所以无法擦写，出厂后就只能读数据，所以叫只读存储器，后来随着技术的发展，在ROM的基础上出现了新的半导体存储介质EPROM和EEPROM，这两种可擦写，这就不符合ROM的命名，但是由于是在ROM的技术上衍变出来的，所以延用了一部分原来的叫法，此时非易失的半导体存储介质开始得以广泛应用，被大量用于电脑主板的bios和嵌入式存储，而后来在这两种技术的发展上又发展出了NAND FLASH闪存，这就是我们现在用的U盘中用到的技术，同样，因为其体积小，容量和速度均不错，现在手机存储中的emmc颗粒也是用的这种技术，所以有手机厂商就把手机的存储容量约定俗成为ROM，其继承ROM断电不丢失数据的特性，而且有着较快的速度。</strong><br><strong>那么电脑硬盘和ROM有什么关系呢？由于ROM和硬盘都可以存储数据而且断电不会丢失，而有都广泛运用于电子产品中，所以有人就对两者产生了混淆。硬盘分为两种，一种是机械硬盘（即磁盘HDD）,一种是固态硬盘（SSD），磁盘和ROM没什么关系，但是固态硬盘就不一样了，固态硬盘用到的颗粒也是基于NAND FLASH技术，和u盘以及手机存储有点相似，所以说硬盘和ROM还是有关系的，固态硬盘的存储颗粒是ROM技术发展的产物，但不能说ROM就是硬盘。</strong><br>另外也没有什么特别值得记的内容啦，第一章就过了~</p>
+        <h1 id="malloc-amp-free"><a href="#malloc-amp-free" class="headerlink" title="malloc &amp; free"></a>malloc &amp; free</h1><span id="more"></span>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  malloc(size_t n)</span></span><br><span class="line"><span class="comment">  Returns a pointer to a newly allocated chunk of at least n bytes, or null</span></span><br><span class="line"><span class="comment">  if no space is available. Additionally, on failure, errno is</span></span><br><span class="line"><span class="comment">  set to ENOMEM on ANSI C systems.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  If n is zero, malloc returns a minumum-sized chunk. (The minimum</span></span><br><span class="line"><span class="comment">  size is 16 bytes on most 32bit systems, and 24 or 32 bytes on 64bit</span></span><br><span class="line"><span class="comment">  systems.)  On most systems, size_t is an unsigned type, so calls</span></span><br><span class="line"><span class="comment">  with negative arguments are interpreted as requests for huge amounts</span></span><br><span class="line"><span class="comment">  of space, which will often fail. The maximum supported value of n</span></span><br><span class="line"><span class="comment">  differs across systems, but is in all cases less than the maximum</span></span><br><span class="line"><span class="comment">  representable value of a size_t.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  free(void* p)</span></span><br><span class="line"><span class="comment">  Releases the chunk of memory pointed to by p, that had been previously</span></span><br><span class="line"><span class="comment">  allocated using malloc or a related routine such as realloc.</span></span><br><span class="line"><span class="comment">  It has no effect if p is null. It can have arbitrary (i.e., bad!)</span></span><br><span class="line"><span class="comment">  effects if p has already been freed.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  Unless disabled (using mallopt), freeing very large spaces will</span></span><br><span class="line"><span class="comment">  when possible, automatically trigger operations that give</span></span><br><span class="line"><span class="comment">  back unused memory to the system, thus reducing program footprint.</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>free函数只是将参数指针指向的内存归还给操作系统，并不会把参数指针置NULL，为了以后访问到被操作系统重新分配后的错误数据，所以在调用free之后，通常需要手动将指针置NULL。从另一个角度来看，内存这种底层资源都是由操作系统来管理的，而不是编译器，编译器只是向操作系统提出申请。所以free函数是没有能力去真正的free内存的。只是告诉操作系统它归还了内存，然后操作系统就可以修改内存分配表，以供下次分配。</p>
+<p>free(str)后指针仍然指向原来的堆地址，即你仍然可以继续使用，但很危险，因为操作系统已经认为这块内存可以使用，他会毫不考虑的将他分配给其他程序，于是你下次使用的时候可能就已经被别的程序改掉了，这种情况就叫“野指针”，所以最好free（）了以后再置空<br>str &#x3D; NULL;<br>即本程序已经放弃再使用他。<br>何谓“野指针”，在这里补充一下。</p>
+<p>野指针是指程序员或操作者不能控制的指针。野指针不是NULL指针，而是指向“垃圾”的指针。</p>
+<p>造成“野指针”的原因主要有</p>
+<p>1.指针变量没有初始化，任何指针变量刚被创建时不会自动成为NULL指针，它的缺省值是随机的，它会乱指一气。在初始化的时候要么指向合法的指针，要么指向NULL。</p>
+<p>2.指针变量被free或delete之后，没有设置为NULL。它们只是把指针所指的内存给释放掉，但并没有把指针本身干掉。通常会用语句if (p !&#x3D; NULL)进行防错处理。很遗憾，此时if语句起不到防错作用，因为即便p不是NULL指针，它也不指向合法的内存块。上文DEMO则是这种情况。</p>
+<p>3.指针操作超越了变量的作用范围。 注意其生命周期。<br>(转载)</p>
 
       
 
@@ -233,7 +237,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
         		</li>
       		
 		</ul>
@@ -289,7 +293,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/09/12/9.12%E6%B1%87%E7%BC%96/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/12/11/heap/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -305,18 +309,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/09/13/9.13%E6%B1%87%E7%BC%96/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2077/09/12/%E8%A7%84%E5%88%92/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          9.13汇编语言（第二章）
+          近期的规划
         
       </div>
     </a>
   
   
-    <a href="/2022/09/12/%E5%AE%9E%E6%97%B6%E6%95%B0%E6%8D%AE%E7%9B%91%E6%B5%8Bwp/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">谈谈最近学到的简单的东西（六）</div>
+    <a href="/2022/09/28/canary/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">谈谈最近学到的简单的东西（八）</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -367,7 +371,7 @@ if(true){
     repo: 'comments.github.io',
     owner: 'ChrisL0tus',
     admin: ['ChrisL0tus'],
-    id: 'Mon Sep 12 2022 19:39:56 GMT+0800',
+    id: 'Sun Dec 11 2022 00:00:00 GMT+0800',
     distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
