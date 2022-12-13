@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>9.25汇编语言(第七章) 以及我最近在干嘛 | L0tus&#39; blog</title>
+  <title>Archives: 2022 | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="and or">
-<meta property="og:type" content="article">
-<meta property="og:title" content="9.25汇编语言(第七章) 以及我最近在干嘛">
-<meta property="og:url" content="http://l0tus.vip/2022/09/25/9.25%E6%B1%87%E7%BC%96/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="L0tus&#39; blog">
+<meta property="og:url" content="http://l0tus.vip/archives/2022/page/3/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
-<meta property="og:description" content="and or">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-24T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-26T09:02:59.112Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="日记">
-<meta property="article:tag" content="汇编学习之路">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
@@ -164,228 +159,69 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-9.25汇编" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      9.25汇编语言(第七章) 以及我最近在干嘛
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2022-08-01T15:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-01</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/08/01/%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/">谈谈近期学到的简单的东西(一)</a>
     </h1>
   
 
-        <!--显示阅读次数-->
-        
-          <br/>
-         <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-         <span class="icon-sort"></span>
-         <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-          	阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-          </span>
-          </a>
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2022/09/25/9.25%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="and-or"><a href="#and-or" class="headerlink" title="and or"></a>and or</h1><span id="more"></span>
-<p>高中就学过的与或指令，与：全1出1，有0出0；或：全0出0，有1出1</p>
-<h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p>就是我们最熟悉的那种编码</p>
-<h2 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h2><p>汇编代码内用<code>&#39; &#39;</code>包起来的内容就是字符型，编译器会将其编译成ASCII码。在程序开头定义字符型时可以用与数字型类似的方法，db(define bytes)</p>
-<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><p>用ASCII码±20h就可以实现。但是书中提到了一种方法：<strong>大写字母的ASCII码第五位是0（位数从0开始算起），小写字母为1。这样无论原先是大写还是小写，将其第五位置0就必将变成大写，将其第五位置1就必将变成小写。</strong>而置0&#x2F;1的方法就是and or</p>
-<h3 id="bx-idata"><a href="#bx-idata" class="headerlink" title="[bx + idata]"></a>[bx + idata]</h3><p>以指令<code>mov ax,[bx+200]</code>为例，其相当于<code>(ax)=((ds)*16+(bx)+200)</code>，段地址依旧在ds中，偏移地址直接用<code>[bx + idata]</code>表示。</p>
-<h2 id="bx-idata-的数组应用"><a href="#bx-idata-的数组应用" class="headerlink" title="[bx + idata]的数组应用"></a>[bx + idata]的数组应用</h2><p>可以用idata表示我们需要的起始偏移，再用bx来进行偏移。类似于C语言的<code>a[i],b[i]</code>用汇编表示就是<code>0[bx],5[bx]</code></p>
-<h2 id="SI-amp-DI"><a href="#SI-amp-DI" class="headerlink" title="SI &amp; DI"></a>SI &amp; DI</h2><p>功能与bx相近，但不能分成两个8位寄存器来使用。在数据的复制这方面可以提升效率</p>
-<h2 id="bx-si-amp-bx-di"><a href="#bx-si-amp-bx-di" class="headerlink" title="[bx + si] &amp; [bx + di]"></a>[bx + si] &amp; [bx + di]</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,[bx + si]</span><br><span class="line">数字化描述：</span><br><span class="line">(ax) = ((ds) * 16 + (bx) + (si))</span><br></pre></td></tr></table></figure>
-<h2 id="bx-si-idata-amp-bx-di-idata"><a href="#bx-si-idata-amp-bx-di-idata" class="headerlink" title="[bx + si + idata] &amp; [bx + di + idata]"></a>[bx + si + idata] &amp; [bx + di + idata]</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax,[bx + si + idata]</span><br><span class="line">可以写成如下常用格式：</span><br><span class="line">mov ax,[bx +200 + si]</span><br><span class="line">mov ax,200[bx][si]</span><br><span class="line">mov ax,[bx].200[si]</span><br><span class="line">mov ax,[bx][si].200</span><br></pre></td></tr></table></figure>
-<p>这章内容比较简单，就写这些</p>
-<h1 id="最近我在做什么"><a href="#最近我在做什么" class="headerlink" title="最近我在做什么"></a>最近我在做什么</h1><p>在写这篇文章之前我决定先洗个澡，之后好好写一下最近发生的事。<br>So, firstly and undeniably, I came across a love. Yeah ah, it really surprised me a lot and I just can’t believe it. But it has literally happened and I accepted. Tbh, I really get confused at first and asked my “psycological teacher” HZN for help. Btw, I neither felt afraid of it nor want to escape. I just don’t know how to deal with it. I can convincely tell that I myself is a literally good people but I can’t say that I’m a good boyfriend. I think there is no need to present too much waste words in this blog, so I’ll be brief. Eventually, I chose to take it easy. I’ll try my best to balance my time of studying and accompanying my girl. That’s the reason why I don’t go to the Association these days.<br>OK,再来讲讲学习方面的，杭电助手技术部的一面我过了，二面是一个小开发任务，需要学习GO语言，emm，我觉得难度应该不会很大，只要再学学GO就可以做好。ddl是10.7。不算很紧张，应该能完成。<br>汇编语言按照要求还差4章，不过我并不是急功近利地再看，我虽说很想早点进提前批但是我更觉得把该学的学好才最重要。<br>原本就很紧张的时间也许会变得更紧张，但是我觉得我是能做好的。<br>也许辜负了当初立的规划，emm，但也还好吧，我在进步，罪不重。</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQL注入</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/09/25/9.25%E6%B1%87%E7%BC%96/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-  
-<nav id="article-nav">
-  
-    <a href="/2022/09/26/9.26%E6%B1%87%E7%BC%96/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          9.26汇编语言(第八章)
-        
-      </div>
-    </a>
   
   
-    <a href="/2022/09/22/ret2syscall/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">谈谈最近学到的简单的东西（七）</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/2022/page/2/">上一页</a><a class="page-number" href="/archives/2022/">1</a><a class="page-number" href="/archives/2022/page/2/">2</a><span class="page-number current">3</span>
+    </nav>
   
 
-  
-
-  
-
-
-
-  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-<script type="text/javascript">
-
-if(true){
-    var gitalk = new Gitalk({
-    clientID: 'd7ed634dc972bb7fd909',
-    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
-    repo: 'comments.github.io',
-    owner: 'ChrisL0tus',
-    admin: ['ChrisL0tus'],
-    id: 'Sun Sep 25 2022 00:00:00 GMT+0800',
-    distractionFreeMode: 'true'
-})
-gitalk.render('gitalk-container') 
-}
-</script>
-  
 
           </div>
         </div>
@@ -417,8 +253,8 @@ gitalk.render('gitalk-container')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

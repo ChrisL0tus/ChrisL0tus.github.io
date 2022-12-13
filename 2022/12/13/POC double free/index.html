@@ -6,21 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>9.25汇编语言(第七章) 以及我最近在干嘛 | L0tus&#39; blog</title>
+  <title>POC double_free | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="and or">
+  <meta name="description" content="Source code">
 <meta property="og:type" content="article">
-<meta property="og:title" content="9.25汇编语言(第七章) 以及我最近在干嘛">
-<meta property="og:url" content="http://l0tus.vip/2022/09/25/9.25%E6%B1%87%E7%BC%96/index.html">
+<meta property="og:title" content="POC double_free">
+<meta property="og:url" content="http://l0tus.vip/2022/12/13/POC%20double%20free/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
-<meta property="og:description" content="and or">
+<meta property="og:description" content="Source code">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-24T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-26T09:02:59.112Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_7.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_8.png">
+<meta property="article:published_time" content="2022-12-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-13T16:46:38.616Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="日记">
-<meta property="article:tag" content="汇编学习之路">
+<meta property="article:tag" content="pwn笔记">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_1.png">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
   
@@ -164,14 +172,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-9.25汇编" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-POC double free" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      9.25汇编语言(第七章) 以及我最近在干嘛
+      POC double_free
     </h1>
   
 
@@ -187,26 +195,20 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2022/09/25/9.25%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  	<time datetime="2022-09-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-25</time>
+        <a href="/2022/12/13/POC%20double%20free/" class="archive-article-date">
+  	<time datetime="2022-12-12T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="and-or"><a href="#and-or" class="headerlink" title="and or"></a>and or</h1><span id="more"></span>
-<p>高中就学过的与或指令，与：全1出1，有0出0；或：全0出0，有1出1</p>
-<h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p>就是我们最熟悉的那种编码</p>
-<h2 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h2><p>汇编代码内用<code>&#39; &#39;</code>包起来的内容就是字符型，编译器会将其编译成ASCII码。在程序开头定义字符型时可以用与数字型类似的方法，db(define bytes)</p>
-<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><p>用ASCII码±20h就可以实现。但是书中提到了一种方法：<strong>大写字母的ASCII码第五位是0（位数从0开始算起），小写字母为1。这样无论原先是大写还是小写，将其第五位置0就必将变成大写，将其第五位置1就必将变成小写。</strong>而置0&#x2F;1的方法就是and or</p>
-<h3 id="bx-idata"><a href="#bx-idata" class="headerlink" title="[bx + idata]"></a>[bx + idata]</h3><p>以指令<code>mov ax,[bx+200]</code>为例，其相当于<code>(ax)=((ds)*16+(bx)+200)</code>，段地址依旧在ds中，偏移地址直接用<code>[bx + idata]</code>表示。</p>
-<h2 id="bx-idata-的数组应用"><a href="#bx-idata-的数组应用" class="headerlink" title="[bx + idata]的数组应用"></a>[bx + idata]的数组应用</h2><p>可以用idata表示我们需要的起始偏移，再用bx来进行偏移。类似于C语言的<code>a[i],b[i]</code>用汇编表示就是<code>0[bx],5[bx]</code></p>
-<h2 id="SI-amp-DI"><a href="#SI-amp-DI" class="headerlink" title="SI &amp; DI"></a>SI &amp; DI</h2><p>功能与bx相近，但不能分成两个8位寄存器来使用。在数据的复制这方面可以提升效率</p>
-<h2 id="bx-si-amp-bx-di"><a href="#bx-si-amp-bx-di" class="headerlink" title="[bx + si] &amp; [bx + di]"></a>[bx + si] &amp; [bx + di]</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,[bx + si]</span><br><span class="line">数字化描述：</span><br><span class="line">(ax) = ((ds) * 16 + (bx) + (si))</span><br></pre></td></tr></table></figure>
-<h2 id="bx-si-idata-amp-bx-di-idata"><a href="#bx-si-idata-amp-bx-di-idata" class="headerlink" title="[bx + si + idata] &amp; [bx + di + idata]"></a>[bx + si + idata] &amp; [bx + di + idata]</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax,[bx + si + idata]</span><br><span class="line">可以写成如下常用格式：</span><br><span class="line">mov ax,[bx +200 + si]</span><br><span class="line">mov ax,200[bx][si]</span><br><span class="line">mov ax,[bx].200[si]</span><br><span class="line">mov ax,[bx][si].200</span><br></pre></td></tr></table></figure>
-<p>这章内容比较简单，就写这些</p>
-<h1 id="最近我在做什么"><a href="#最近我在做什么" class="headerlink" title="最近我在做什么"></a>最近我在做什么</h1><p>在写这篇文章之前我决定先洗个澡，之后好好写一下最近发生的事。<br>So, firstly and undeniably, I came across a love. Yeah ah, it really surprised me a lot and I just can’t believe it. But it has literally happened and I accepted. Tbh, I really get confused at first and asked my “psycological teacher” HZN for help. Btw, I neither felt afraid of it nor want to escape. I just don’t know how to deal with it. I can convincely tell that I myself is a literally good people but I can’t say that I’m a good boyfriend. I think there is no need to present too much waste words in this blog, so I’ll be brief. Eventually, I chose to take it easy. I’ll try my best to balance my time of studying and accompanying my girl. That’s the reason why I don’t go to the Association these days.<br>OK,再来讲讲学习方面的，杭电助手技术部的一面我过了，二面是一个小开发任务，需要学习GO语言，emm，我觉得难度应该不会很大，只要再学学GO就可以做好。ddl是10.7。不算很紧张，应该能完成。<br>汇编语言按照要求还差4章，不过我并不是急功近利地再看，我虽说很想早点进提前批但是我更觉得把该学的学好才最重要。<br>原本就很紧张的时间也许会变得更紧张，但是我觉得我是能做好的。<br>也许辜负了当初立的规划，emm，但也还好吧，我在进步，罪不重。</p>
+        <h1 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h1><span id="more"></span>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">        <span class="type">size_t</span> * ptr[<span class="number">12</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">12</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">                ptr[i]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> a=<span class="number">10</span>;</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">1</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">2</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">3</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">4</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">5</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">6</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">7</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">8</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">9</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">10</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">9</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">7</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">                ptr[i]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        ptr[<span class="number">7</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">//9</span></span><br><span class="line">        *(ptr[<span class="number">7</span>])=&amp;a;</span><br><span class="line">        ptr[<span class="number">8</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">//10</span></span><br><span class="line">        ptr[<span class="number">9</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">//9</span></span><br><span class="line">        ptr[<span class="number">10</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">        ptr[<span class="number">11</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h2><p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_1.png" alt="test"></p>
+<h2 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h2><p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_2.png" alt="test"><br>Plus -g ensures that we can see the source code<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_3.png" alt="test"><br>Check the bins when all the freeings done.<br>We can figure out that the first seven chuncks were sent to the suitable place of tcache while the last were sent to fast bin.<br>And here we have made the double free. There formed a loop in fast bin.<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_4.png" alt="test"><br>Check the bins again when the fist seven chuncks were malloced. We can see that the rest chuncks in fast bin were then sent to tcache.<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_5.png" alt="test"><br>Check the bins when the 9th chunck had been freed and exploited, we made it point to an address on stack, successfully.<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_6.png" alt="test"><br>Done.</p>
+<h2 id="review"><a href="#review" class="headerlink" title="review"></a>review</h2><p>This can be a image of tcache after double free:<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_7.png" alt="test"><br>Both the upside and down can be correct.<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_8.png" alt="test"><br>After malloc again and redirect.</p>
+<p>Here comes the vulnerability: if we double free and redirect the chunck to some dangerous function like system and set the parameter as “&#x2F;bin&#x2F;sh” then we got the shell.</p>
 
       
 
@@ -241,11 +243,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">汇编学习之路</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
         		</li>
       		
 		</ul>
@@ -301,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/09/25/9.25%E6%B1%87%E7%BC%96/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/12/13/POC%20double%20free/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -317,18 +315,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/09/26/9.26%E6%B1%87%E7%BC%96/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/12/13/%E4%B8%8E%E4%BD%9B%E8%AE%BA%E7%A6%85/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          9.26汇编语言(第八章)
+          与佛论禅
         
       </div>
     </a>
   
   
-    <a href="/2022/09/22/ret2syscall/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">谈谈最近学到的简单的东西（七）</div>
+    <a href="/2022/12/12/0rays/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">0rays Recruiting Contest</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -379,7 +377,7 @@ if(true){
     repo: 'comments.github.io',
     owner: 'ChrisL0tus',
     admin: ['ChrisL0tus'],
-    id: 'Sun Sep 25 2022 00:00:00 GMT+0800',
+    id: 'Tue Dec 13 2022 00:00:00 GMT+0800',
     distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
