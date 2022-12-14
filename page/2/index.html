@@ -64,7 +64,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 23
+			总文章数 24
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -160,6 +160,112 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-ret2syscall" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/22/ret2syscall/">谈谈最近学到的简单的东西（七）</a>
+    </h1>
+  
+
+        <!--显示阅读次数-->
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2022/09/22/ret2syscall/" class="archive-article-date">
+  	<time datetime="2022-09-22T15:23:45.120Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ret2syscall"><a href="#ret2syscall" class="headerlink" title="ret2syscall"></a>ret2syscall</h1>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/22/ret2syscall/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+if(true){
+    var gitalk = new Gitalk({
+    clientID: 'd7ed634dc972bb7fd909',
+    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
+    repo: 'comments.github.io',
+    owner: 'ChrisL0tus',
+    admin: ['ChrisL0tus'],
+    id: '',
+    distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
   
     <article id="post-9.22汇编" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1034,112 +1140,6 @@ gitalk.render('gitalk-container')
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/09/11/%E5%BC%80%E5%85%B3%E9%87%9C%E6%8E%A7%E5%88%B6wp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-<script type="text/javascript">
-
-if(true){
-    var gitalk = new Gitalk({
-    clientID: 'd7ed634dc972bb7fd909',
-    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
-    repo: 'comments.github.io',
-    owner: 'ChrisL0tus',
-    admin: ['ChrisL0tus'],
-    id: '',
-    distractionFreeMode: 'true'
-})
-gitalk.render('gitalk-container') 
-}
-</script>
-  
-
-  
-    <article id="post-ret2libc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/10/ret2libc/">谈谈最近学到的简单的东西（四）</a>
-    </h1>
-  
-
-        <!--显示阅读次数-->
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2022/09/10/ret2libc/" class="archive-article-date">
-  	<time datetime="2022-09-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ret2libc"><a href="#ret2libc" class="headerlink" title="ret2libc"></a>ret2libc</h1><p> ret2libc与ret2text本质是一样的都是利用栈溢出改写返回地址，构造栈空间使程序运行到我们想要的函数，传入自己想要的参数，从而获取shell。不过这题没有system函数，那么我们需要做的就是引用libc库中的system并传入&#x2F;bin&#x2F;sh参数。<br> 关于ret2libc详细的介绍可以参考<a target="_blank" rel="noopener" href="https://github.com/ChrisL0tus/mess-files/blob/main/ret2libc.pdf">白夜学长这篇文章</a>，我就不过多赘述，直接做题。<br>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">write up</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/10/ret2libc/">展开全文 >></a>
         </p>
       
 
