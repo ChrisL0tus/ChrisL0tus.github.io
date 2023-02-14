@@ -478,9 +478,48 @@
   <!-- top end -->
   
 
+  <a href="/cn/XCTF-dice_game-WP/">
+    <h2 class="post-title">
+      XCTF-dice_game-WP
+    </h2>
+    <h3 class="post-subtitle">
+      题目复现累了，找个简单题练练手
+    </h3>
+    <div class="post-content-preview">
+      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
+
+这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
+
+目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-02-14
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#write up" title="write up">write up</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/2023西湖论剑/">
     <h2 class="post-title">
-      2023西湖论剑 部分pwn题复现
+      2023西湖论剑 部分pwn题WP
     </h2>
     <h3 class="post-subtitle">
       水平比较低只能理解两道题
@@ -824,46 +863,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/ret2syscall/">
-    <h2 class="post-title">
-      ret2syscall
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      先把白夜学长这篇文章放这，关于ret2syscall的深入浅出，一看就能学会！
-下载题目附件后拖入ida，看到vuln函数如下：
-
-思路：
-这次不用libc而是使用系统调用(syscall)，那么我们就要自己构造系统调用链
-其原理就是在Linux的glibc中，大部分系统调用已经被封装成普通的函数，如 read ， write ， open ， execve等，同时也将 syscall 指令......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2022-09-22
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -916,11 +915,11 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="10">pwn笔记</a>
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="11">pwn笔记</a>
     
     
     
-    <a href="/tags/#write up" title="write up" rel="6">write up</a>
+    <a href="/tags/#write up" title="write up" rel="7">write up</a>
     
     
     
@@ -1010,8 +1009,12 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 <div class="widget">
   <ul>
     
+    <a href="cn/XCTF-dice_game-WP/">
+      <li>XCTF-dice_game-WP</li>
+    </a>
+    
     <a href="cn/2023%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
-      <li>2023西湖论剑 部分pwn题复现</li>
+      <li>2023西湖论剑 部分pwn题WP</li>
     </a>
     
     <a href="cn/JS%20%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%B9%E6%80%A7%EF%BC%9A%E5%8E%9F%E5%9E%8B%E9%93%BE%EF%BC%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%8C%E9%97%AD%E5%8C%85/">
@@ -1024,10 +1027,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     <a href="cn/%E7%9C%81%E8%B5%9Bbabyheap/">
       <li>迟到三个月的省赛wp</li>
-    </a>
-    
-    <a href="cn/stackmove/">
-      <li>Stackmove</li>
     </a>
     
   </ul>
@@ -1082,7 +1081,7 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">4</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">4</span></li></ul>
 </div>
 
 
@@ -1102,6 +1101,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>2023西湖论剑</li>
     </a>
     
+    <a href="/categories/#XCTF">
+      <li>XCTF</li>
+    </a>
+    
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
@@ -1118,16 +1121,16 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>tcache_poisoning</li>
     </a>
     
+    <a href="/categories/#HEAP">
+      <li>HEAP</li>
+    </a>
+    
     <a href="/categories/#ret2libc">
       <li>ret2libc</li>
     </a>
     
     <a href="/categories/#ret2syscall">
       <li>ret2syscall</li>
-    </a>
-    
-    <a href="/categories/#HEAP">
-      <li>HEAP</li>
     </a>
     
     <a href="/categories/#Stackmove">
