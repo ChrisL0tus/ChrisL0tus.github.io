@@ -247,17 +247,6 @@
           
           
           <li>
-            <a href="/about/">
-              
-              ABOUT
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/archive/">
               
               ARCHIVES
@@ -272,6 +261,17 @@
             <a href="/categories/">
               
               CATEGORIES
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/about/">
+              
+              ABOUT
               
               
             </a>
@@ -508,6 +508,55 @@ ctf方面
   <div class="tags">
     
     <a href="/tags/#规划" title="规划">规划</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/tgbot/">
+    <h2 class="post-title">
+      ChatGPT接入Telegram Bot教程
+    </h2>
+    <h3 class="post-subtitle">
+      一次简单的开发经历
+    </h3>
+    <div class="post-content-preview">
+      
+目前主流的方法有两种，其中一种已经失效
+
+接入openai.com官方的API keys
+
+这种方式实现的是单句问答，无上下文，也是目前唯一可实现的方式。
+
+前提
+
+拥有一台海外vps（为什么是海外，因为telegram bot在收发指令时会先经过telegram服务器再发送到自己的vps，如果再国内则会被墙）
+
+创建tg bot
+1、tg搜素BotFather
+2、/start
+3、/n......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-02-20
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#ChatGPT" title="ChatGPT">ChatGPT</a>
+    
+    <a href="/tags/#Bot" title="Bot">Bot</a>
     
   </div>
   
@@ -843,44 +892,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/ez_heap/">
-    <h2 class="post-title">
-      tcache_poisoning
-    </h2>
-    <h3 class="post-subtitle">
-      一种简单的堆利用方式
-    </h3>
-    <div class="post-content-preview">
-      泄露libc
-首先申请index为0-7，size为0x100x的八个chunk，第7-1号chunk在逆序free后进入tcache，第0号进入unsorted bin.
-
-free完成后可以查看bin的情况，可以看到unsorted bin中的最后一位（这里只有一位），也就是第一个被free进入unsorted bin当中的chunk会指回libc中main_arena的某处地址，同时d......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2022-12-14
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#heap" title="heap">heap</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -933,15 +944,11 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#JS" title="JS" rel="1">JS</a>
-    
-    
-    
-    <a href="/tags/#转载" title="转载" rel="1">转载</a>
-    
-    
-    
     <a href="/tags/#pwn笔记" title="pwn笔记" rel="13">pwn笔记</a>
+    
+    
+    
+    <a href="/tags/#write up" title="write up" rel="9">write up</a>
     
     
     
@@ -953,7 +960,19 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#write up" title="write up" rel="9">write up</a>
+    <a href="/tags/#JS" title="JS" rel="1">JS</a>
+    
+    
+    
+    <a href="/tags/#转载" title="转载" rel="1">转载</a>
+    
+    
+    
+    <a href="/tags/#ChatGPT" title="ChatGPT" rel="1">ChatGPT</a>
+    
+    
+    
+    <a href="/tags/#Bot" title="Bot" rel="1">Bot</a>
     
     
     
@@ -1033,6 +1052,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 <div class="widget">
   <ul>
     
+    <a href="cn/tgbot/">
+      <li>ChatGPT接入Telegram Bot教程</li>
+    </a>
+    
     <a href="cn/pwnable.tw-start-WP/">
       <li>pwnable.tw-start-WP</li>
     </a>
@@ -1047,10 +1070,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     <a href="cn/2023%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
       <li>2023西湖论剑 部分pwn题WP</li>
-    </a>
-    
-    <a href="cn/JS%20%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%B9%E6%80%A7%EF%BC%9A%E5%8E%9F%E5%9E%8B%E9%93%BE%EF%BC%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%8C%E9%97%AD%E5%8C%85/">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
   </ul>
@@ -1105,7 +1124,7 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1121,14 +1140,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>2022年终总结</li>
     </a>
     
-    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
-    </a>
-    
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
-    </a>
-    
     <a href="/categories/#2023西湖论剑">
       <li>2023西湖论剑</li>
     </a>
@@ -1137,16 +1148,32 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>XCTF</li>
     </a>
     
-    <a href="/categories/#tcache_poisoning">
-      <li>tcache_poisoning</li>
+    <a href="/categories/#PoC double_free">
+      <li>PoC double_free</li>
+    </a>
+    
+    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
+      <li>JS的一些特性：原型链，作用域，闭包</li>
+    </a>
+    
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
     </a>
     
     <a href="/categories/#HEAP">
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
+    <a href="/categories/#tcache_poisoning">
+      <li>tcache_poisoning</li>
+    </a>
+    
+    <a href="/categories/#ChatGPT接入Telegram Bot教程">
+      <li>ChatGPT接入Telegram Bot教程</li>
+    </a>
+    
+    <a href="/categories/#Stackmove">
+      <li>Stackmove</li>
     </a>
     
     <a href="/categories/#ret2libc">
@@ -1157,20 +1184,16 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>ret2syscall</li>
     </a>
     
-    <a href="/categories/#Stackmove">
-      <li>Stackmove</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
+    <a href="/categories/#2022浙江省赛">
+      <li>2022浙江省赛</li>
     </a>
     
     <a href="/categories/#规划">
       <li>规划</li>
     </a>
     
-    <a href="/categories/#2022浙江省赛">
-      <li>2022浙江省赛</li>
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
     </a>
     
   </ul>
