@@ -522,6 +522,44 @@ ctf方面
   <!-- top end -->
   
 
+  <a href="/cn/ez_heap/">
+    <h2 class="post-title">
+      tcache_poisoning
+    </h2>
+    <h3 class="post-subtitle">
+      一种简单的堆利用方式
+    </h3>
+    <div class="post-content-preview">
+      泄露libc
+首先申请index为0-7，size为0x100x的八个chunk，第7-1号chunk在逆序free后进入tcache，第0号进入unsorted bin.
+
+free完成后可以查看bin的情况，可以看到unsorted bin中的最后一位（这里只有一位），也就是第一个被free进入unsorted bin当中的chunk会指回libc中main_arena的某处地址，同时d......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2022-12-14
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#heap" title="heap">heap</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/POC_double_free/">
     <h2 class="post-title">
       PoC double_free
@@ -815,6 +853,10 @@ ctf方面
     
     
     
+    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
+    
+    
+    
     <a href="/tags/#ChatGPT" title="ChatGPT" rel="1">ChatGPT</a>
     
     
@@ -823,7 +865,7 @@ ctf方面
     
     
     
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
     
@@ -899,6 +941,10 @@ ctf方面
 <div class="widget">
   <ul>
     
+    <a href="../../%E5%A4%A7%E4%B8%80%E4%B8%8A%E7%9A%84%E6%80%BB%E7%BB%93/">
+      <li>写在大一上结束</li>
+    </a>
+    
     <a href="../../tgbot/">
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
@@ -913,10 +959,6 @@ ctf方面
     
     <a href="../../XCTF-dice_game-WP/">
       <li>XCTF-dice_game-WP</li>
-    </a>
-    
-    <a href="../../2023%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
-      <li>2023西湖论剑 部分pwn题WP</li>
     </a>
     
   </ul>
@@ -971,7 +1013,7 @@ ctf方面
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -987,16 +1029,16 @@ ctf方面
       <li>2022年终总结</li>
     </a>
     
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
-    </a>
-    
     <a href="/categories/#XCTF">
       <li>XCTF</li>
     </a>
     
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
+    </a>
+    
+    <a href="/categories/#2023西湖论剑">
+      <li>2023西湖论剑</li>
     </a>
     
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
@@ -1007,20 +1049,12 @@ ctf方面
       <li>pwnable.tw</li>
     </a>
     
-    <a href="/categories/#HEAP">
-      <li>HEAP</li>
-    </a>
-    
     <a href="/categories/#tcache_poisoning">
       <li>tcache_poisoning</li>
     </a>
     
-    <a href="/categories/#ChatGPT接入Telegram Bot教程">
-      <li>ChatGPT接入Telegram Bot教程</li>
-    </a>
-    
-    <a href="/categories/#Stackmove">
-      <li>Stackmove</li>
+    <a href="/categories/#HEAP">
+      <li>HEAP</li>
     </a>
     
     <a href="/categories/#ret2libc">
@@ -1031,16 +1065,28 @@ ctf方面
       <li>ret2syscall</li>
     </a>
     
+    <a href="/categories/#Stackmove">
+      <li>Stackmove</li>
+    </a>
+    
+    <a href="/categories/#ChatGPT接入Telegram Bot教程">
+      <li>ChatGPT接入Telegram Bot教程</li>
+    </a>
+    
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
+    </a>
+    
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
+    </a>
+    
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
     </a>
     
     <a href="/categories/#规划">
       <li>规划</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
     </a>
     
   </ul>
