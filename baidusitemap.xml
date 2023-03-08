@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://l0tus.vip/cn/XCTF-forgot-WP/</loc>
+    <lastmod>2023-03-07</lastmod>
+  </url>
+  <url>
+    <loc>http://l0tus.vip/cn/paper_reading_fuzz/</loc>
+    <lastmod>2023-03-04</lastmod>
+  </url>
+  <url>
     <loc>http://l0tus.vip/cn/%E5%A4%A7%E4%B8%80%E4%B8%8A%E7%9A%84%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2023-02-24</lastmod>
   </url>
