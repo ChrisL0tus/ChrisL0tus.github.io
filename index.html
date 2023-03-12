@@ -522,6 +522,49 @@ ctf方面
   <!-- top end -->
   
 
+  <a href="/cn/totolink/">
+    <h2 class="post-title">
+      TOTOLINK路由器漏洞复现笔记
+    </h2>
+    <h3 class="post-subtitle">
+      IoT漏洞的入门靶场
+    </h3>
+    <div class="post-content-preview">
+      前言
+从nameless师兄那里借来了TOTOLINK T6设备，当作入门IoT漏洞挖掘研究的起点
+开始
+固件 -&gt; telnet -&gt; busybox -&gt; 固件
+串口调试这一步我暂时还没做。直接从固件开始做起
+在TOTOLINK的官网可以直接下载到T6/T10的固件
+binwalk解包一下得到一个.web.extract文件夹
+
+发现webscte文件夹，进去看到tel......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-03-10
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#漏洞复现" title="漏洞复现">漏洞复现</a>
+    
+    <a href="/tags/#IoT" title="IoT">IoT</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/XCTF-forgot-WP/">
     <h2 class="post-title">
       XCTF-forgot-WP
@@ -848,51 +891,6 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/2023西湖论剑/">
-    <h2 class="post-title">
-      2023西湖论剑 部分pwn题WP
-    </h2>
-    <h3 class="post-subtitle">
-      水平比较低只能理解两道题
-    </h3>
-    <div class="post-content-preview">
-      message board
-漏洞在这里：
-
-保护：
-
-没有canary和pie，libc版本是2.31
-
-禁了execve，需要使用orw
-思路与hgame2023_week1_pwn_orw基本一致（白夜牛逼）栈迁移orw，泄露libc的手法略有不同，这题存在一次格式化字符串漏洞用来泄露libc
-对于fmtstr的题目一直不太熟悉，泄露libc尤为手生
-通过这题再练一下，调试的时候看到**......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-02-02
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -953,19 +951,19 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     
     
-    <a href="/tags/#JS" title="JS" rel="1">JS</a>
-    
-    
-    
-    <a href="/tags/#转载" title="转载" rel="1">转载</a>
-    
-    
-    
     <a href="/tags/#heap" title="heap" rel="2">heap</a>
     
     
     
     <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
+    
+    
+    
+    <a href="/tags/#JS" title="JS" rel="1">JS</a>
+    
+    
+    
+    <a href="/tags/#转载" title="转载" rel="1">转载</a>
     
     
     
@@ -986,6 +984,14 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     
     <a href="/tags/#Bot" title="Bot" rel="1">Bot</a>
+    
+    
+    
+    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
+    
+    
+    
+    <a href="/tags/#IoT" title="IoT" rel="1">IoT</a>
     
     
     
@@ -1065,6 +1071,10 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
 <div class="widget">
   <ul>
     
+    <a href="cn/totolink/">
+      <li>TOTOLINK路由器漏洞复现笔记</li>
+    </a>
+    
     <a href="cn/XCTF-forgot-WP/">
       <li>XCTF-forgot-WP</li>
     </a>
@@ -1079,10 +1089,6 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     <a href="cn/%E5%A4%A7%E4%B8%80%E4%B8%8A%E7%9A%84%E6%80%BB%E7%BB%93/">
       <li>写在大一上结束</li>
-    </a>
-    
-    <a href="cn/tgbot/">
-      <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
   </ul>
@@ -1137,7 +1143,7 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/03/">March 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/03/">March 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1157,16 +1163,16 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       <li>2023西湖论剑</li>
     </a>
     
-    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
-    </a>
-    
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
     </a>
     
     <a href="/categories/#XCTF">
       <li>XCTF</li>
+    </a>
+    
+    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
+      <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
     <a href="/categories/#tcache_poisoning">
@@ -1199,6 +1205,14 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     <a href="/categories/#ChatGPT接入Telegram Bot教程">
       <li>ChatGPT接入Telegram Bot教程</li>
+    </a>
+    
+    <a href="/categories/#IoT">
+      <li>IoT</li>
+    </a>
+    
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
     <a href="/categories/#学期总结">
