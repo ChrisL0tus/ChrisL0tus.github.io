@@ -258,17 +258,6 @@
           
           
           <li>
-            <a href="/tags/">
-              
-              标签
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/about/">
               
               关于
@@ -283,6 +272,17 @@
             <a href="/categories/">
               
               分类
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              标签
               
               
             </a>
@@ -522,6 +522,46 @@ ctf方面
   <!-- top end -->
   
 
+  <a href="/cn/ret2syscall/">
+    <h2 class="post-title">
+      ret2syscall
+    </h2>
+    <h3 class="post-subtitle">
+      
+    </h3>
+    <div class="post-content-preview">
+      先把白夜学长这篇文章放这，关于ret2syscall的深入浅出，一看就能学会！
+下载题目附件后拖入ida，看到vuln函数如下：
+
+思路：
+这次不用libc而是使用系统调用(syscall)，那么我们就要自己构造系统调用链
+其原理就是在Linux的glibc中，大部分系统调用已经被封装成普通的函数，如 read ， write ， open ， execve等，同时也将 syscall 指令......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2022-09-22
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#write up" title="write up">write up</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/实时数据监测wp/">
     <h2 class="post-title">
       XCTF-实时数据检测-WP
@@ -642,19 +682,19 @@ ctf方面
     
     
     
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="17">pwn笔记</a>
+    
+    
+    
+    <a href="/tags/#write up" title="write up" rel="12">write up</a>
+    
+    
+    
     <a href="/tags/#JS" title="JS" rel="1">JS</a>
     
     
     
     <a href="/tags/#转载" title="转载" rel="1">转载</a>
-    
-    
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="16">pwn笔记</a>
-    
-    
-    
-    <a href="/tags/#write up" title="write up" rel="11">write up</a>
     
     
     
@@ -694,11 +734,11 @@ ctf方面
     
     
     
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
-    
-    
-    
     <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    
+    
+    
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
     
@@ -774,6 +814,10 @@ ctf方面
 <div class="widget">
   <ul>
     
+    <a href="../../XCTF-final-shellgame-WP/">
+      <li>XCTF-final-shellgame &amp;&amp; photos of travelling</li>
+    </a>
+    
     <a href="../../%E5%A0%86%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
       <li>malloc相关源码解读</li>
     </a>
@@ -788,10 +832,6 @@ ctf方面
     
     <a href="../../XCTF-greeting-150-WP/">
       <li>XCTF-greeting-150-WP</li>
-    </a>
-    
-    <a href="../../paper_reading_fuzz/">
-      <li>Paper Reading &#34;Fuzzing :A Survey for Roadmap&#34;</li>
     </a>
     
   </ul>
@@ -854,7 +894,7 @@ ctf方面
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -870,20 +910,24 @@ ctf方面
       <li>2022年终总结</li>
     </a>
     
+    <a href="/categories/#2023西湖论剑">
+      <li>2023西湖论剑</li>
+    </a>
+    
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
+    <a href="/categories/#PoC double_free">
+      <li>PoC double_free</li>
     </a>
     
     <a href="/categories/#XCTF">
       <li>XCTF</li>
     </a>
     
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
+    <a href="/categories/#2023XCTF-final">
+      <li>2023XCTF-final</li>
     </a>
     
     <a href="/categories/#Paper Reading">
@@ -894,16 +938,20 @@ ctf方面
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#tcache_poisoning">
-      <li>tcache_poisoning</li>
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
     </a>
     
     <a href="/categories/#ret2libc">
       <li>ret2libc</li>
     </a>
     
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
+    <a href="/categories/#tcache_poisoning">
+      <li>tcache_poisoning</li>
+    </a>
+    
+    <a href="/categories/#ret2syscall">
+      <li>ret2syscall</li>
     </a>
     
     <a href="/categories/#Stackmove">
@@ -914,12 +962,12 @@ ctf方面
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#ret2syscall">
-      <li>ret2syscall</li>
-    </a>
-    
     <a href="/categories/#IoT">
       <li>IoT</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#学期总结">
@@ -930,20 +978,16 @@ ctf方面
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#规划">
-      <li>规划</li>
-    </a>
-    
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
+    </a>
+    
+    <a href="/categories/#规划">
+      <li>规划</li>
     </a>
     
   </ul>

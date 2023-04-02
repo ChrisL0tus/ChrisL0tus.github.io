@@ -258,17 +258,6 @@
           
           
           <li>
-            <a href="/tags/">
-              
-              标签
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/about/">
               
               关于
@@ -283,6 +272,17 @@
             <a href="/categories/">
               
               分类
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              标签
               
               
             </a>
@@ -470,6 +470,43 @@
       <!-- Main Content -->
 
 
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/XCTF-final-shellgame-WP/">
+    <h2 class="post-title">
+      XCTF-final-shellgame && photos of travelling
+    </h2>
+    <h3 class="post-subtitle">
+      2023南京-XCTF决赛一道misc中的pwn题
+    </h3>
+    <div class="post-content-preview">
+      赛题
+没想到第一次校外的线下赛居然是这么大型的XCTF总决赛，虽然老学长们杀进冠军直通的时候我还没上大学，现在居然有幸和战队一起去南京。决赛12小时，我做了一下午的这道misc里的pwn。到头来也只是有了个思路，比赛结束后我在qq上找出题人空白爷要来了exp，现在就作为复现一下赛题。
+题目思路大概是通过给出的10个序列，爆破种子，恢复160个随机数。计算每一步需要加的随机数个数拼凑明文she......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-04-01
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#write up" title="write up">write up</a>
+    
+  </div>
+  
+
+</div>
+<hr>
 
 <div class="post-preview">
   
@@ -847,45 +884,6 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/XCTF-dice_game-WP/">
-    <h2 class="post-title">
-      XCTF-dice_game-WP
-    </h2>
-    <h3 class="post-subtitle">
-      题目复现累了，找个简单题练练手
-    </h3>
-    <div class="post-content-preview">
-      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
-
-这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
-
-目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-02-14
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -938,19 +936,19 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     
     
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="17">pwn笔记</a>
+    
+    
+    
+    <a href="/tags/#write up" title="write up" rel="12">write up</a>
+    
+    
+    
     <a href="/tags/#JS" title="JS" rel="1">JS</a>
     
     
     
     <a href="/tags/#转载" title="转载" rel="1">转载</a>
-    
-    
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="16">pwn笔记</a>
-    
-    
-    
-    <a href="/tags/#write up" title="write up" rel="11">write up</a>
     
     
     
@@ -990,11 +988,11 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     
     
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
-    
-    
-    
     <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    
+    
+    
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
     
@@ -1070,6 +1068,10 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
 <div class="widget">
   <ul>
     
+    <a href="XCTF-final-shellgame-WP/">
+      <li>XCTF-final-shellgame &amp;&amp; photos of travelling</li>
+    </a>
+    
     <a href="%E5%A0%86%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
       <li>malloc相关源码解读</li>
     </a>
@@ -1084,10 +1086,6 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     <a href="XCTF-greeting-150-WP/">
       <li>XCTF-greeting-150-WP</li>
-    </a>
-    
-    <a href="paper_reading_fuzz/">
-      <li>Paper Reading &#34;Fuzzing :A Survey for Roadmap&#34;</li>
     </a>
     
   </ul>
@@ -1150,7 +1148,7 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1166,20 +1164,24 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       <li>2022年终总结</li>
     </a>
     
+    <a href="/categories/#2023西湖论剑">
+      <li>2023西湖论剑</li>
+    </a>
+    
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
+    <a href="/categories/#PoC double_free">
+      <li>PoC double_free</li>
     </a>
     
     <a href="/categories/#XCTF">
       <li>XCTF</li>
     </a>
     
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
+    <a href="/categories/#2023XCTF-final">
+      <li>2023XCTF-final</li>
     </a>
     
     <a href="/categories/#Paper Reading">
@@ -1190,16 +1192,20 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#tcache_poisoning">
-      <li>tcache_poisoning</li>
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
     </a>
     
     <a href="/categories/#ret2libc">
       <li>ret2libc</li>
     </a>
     
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
+    <a href="/categories/#tcache_poisoning">
+      <li>tcache_poisoning</li>
+    </a>
+    
+    <a href="/categories/#ret2syscall">
+      <li>ret2syscall</li>
     </a>
     
     <a href="/categories/#Stackmove">
@@ -1210,12 +1216,12 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#ret2syscall">
-      <li>ret2syscall</li>
-    </a>
-    
     <a href="/categories/#IoT">
       <li>IoT</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#学期总结">
@@ -1226,20 +1232,16 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#规划">
-      <li>规划</li>
-    </a>
-    
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
+    </a>
+    
+    <a href="/categories/#规划">
+      <li>规划</li>
     </a>
     
   </ul>
