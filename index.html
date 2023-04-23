@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              CATEGORIES
+              ARCHIVES
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/categories/">
               
-              TAGS
+              CATEGORIES
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              ARCHIVES
+              TAGS
               
               
             </a>
@@ -522,6 +522,42 @@ ctf方面
   <!-- top end -->
   
 
+  <a href="/cn/CVE-2022-26258/">
+    <h2 class="post-title">
+      CVE-2022-26258
+    </h2>
+    <h3 class="post-subtitle">
+      FirmAE仿真模拟 && D-link CVE复现
+    </h3>
+    <div class="post-content-preview">
+      最近读的论文是关于firmware emulation和firm fuzz的，正好这几天看了关于FirmAE的文章，就试着使用FirmAE来进行一次仿真模拟。
+FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行分析，然后模拟起来它的web服务。比较舒服的地方在于它自动化程度较高，一行指令就能从固件起到web服务。至于成功率用论文的原话来说就是：“successfully......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-04-21
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#IoT" title="IoT">IoT</a>
+    
+    <a href="/tags/#CVE复现" title="CVE复现">CVE复现</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/XCTF-final-shellgame-WP/">
     <h2 class="post-title">
       XCTF-final-shellgame && photos of travelling
@@ -624,9 +660,9 @@ binwalk解包一下得到一个.web.extract文件夹
   </p>
   <div class="tags">
     
-    <a href="/tags/#漏洞复现" title="漏洞复现">漏洞复现</a>
-    
     <a href="/tags/#IoT" title="IoT">IoT</a>
+    
+    <a href="/tags/#漏洞复现" title="漏洞复现">漏洞复现</a>
     
   </div>
   
@@ -845,48 +881,6 @@ SEYIT CAMTEPE, CSIRO Data61, Austr......
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/pwnable.tw-start-WP/">
-    <h2 class="post-title">
-      pwnable.tw-start-WP
-    </h2>
-    <h3 class="post-subtitle">
-      两小时做了第一题，不愧是pwnable.tw
-    </h3>
-    <div class="post-content-preview">
-      现阶段就是复现难题的同时四处找题目刷，今天开始做pwnable.tw。结果这第一道名为start的题目就做了挺久的。
-start
-
-和国内常见的起始题目完全不同的风格，程序通过很短的汇编实现了write、read
-看着不像是用ROP的做法，保护全关了，这里考虑利用NX关闭，堆栈可执行实现shellcode
-光看汇编比较抽象，自己画一下示意图
-
-这个是起始的栈示意图，注意到程序开头push了e......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-02-15
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -947,6 +941,14 @@ start
     
     
     
+    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
+    
+    
+    
+    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
+    
+    
+    
     <a href="/tags/#JS" title="JS" rel="1">JS</a>
     
     
@@ -984,10 +986,6 @@ start
     
     
     <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
-    
-    
-    
-    <a href="/tags/#IoT" title="IoT" rel="1">IoT</a>
     
     
     
@@ -1071,6 +1069,10 @@ start
 <div class="widget">
   <ul>
     
+    <a href="cn/CVE-2022-26258/">
+      <li>CVE-2022-26258</li>
+    </a>
+    
     <a href="cn/XCTF-final-shellgame-WP/">
       <li>XCTF-final-shellgame &amp;&amp; photos of travelling</li>
     </a>
@@ -1085,10 +1087,6 @@ start
     
     <a href="cn/XCTF-forgot-WP/">
       <li>XCTF-forgot-WP</li>
-    </a>
-    
-    <a href="cn/XCTF-greeting-150-WP/">
-      <li>XCTF-greeting-150-WP</li>
     </a>
     
   </ul>
@@ -1151,7 +1149,7 @@ start
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/04/">April 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1171,6 +1169,10 @@ start
       <li>2023西湖论剑</li>
     </a>
     
+    <a href="/categories/#IoT">
+      <li>IoT</li>
+    </a>
+    
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
@@ -1185,6 +1187,10 @@ start
     
     <a href="/categories/#2023XCTF-final">
       <li>2023XCTF-final</li>
+    </a>
+    
+    <a href="/categories/#CVE复现">
+      <li>CVE复现</li>
     </a>
     
     <a href="/categories/#tcache_poisoning">
@@ -1219,16 +1225,12 @@ start
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#IoT">
-      <li>IoT</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
     <a href="/categories/#源码阅读">
       <li>源码阅读</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
     </a>
     
     <a href="/categories/#学期总结">
@@ -1237,6 +1239,10 @@ start
     
     <a href="/categories/#漏洞复现">
       <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
     </a>
     
     <a href="/categories/#2022浙江省赛">
