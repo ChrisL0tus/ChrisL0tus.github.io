@@ -247,17 +247,6 @@
           
           
           <li>
-            <a href="/archive/">
-              
-              ARCHIVES
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/categories/">
               
               CATEGORIES
@@ -269,9 +258,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              ABOUT
+              ARCHIVES
               
               
             </a>
@@ -283,6 +272,17 @@
             <a href="/tags/">
               
               TAGS
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/about/">
+              
+              ABOUT
               
               
             </a>
@@ -470,6 +470,55 @@
       <!-- Main Content -->
 
 
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/tgbot/">
+    <h2 class="post-title">
+      ChatGPT接入Telegram Bot教程
+    </h2>
+    <h3 class="post-subtitle">
+      一次简单的开发经历
+    </h3>
+    <div class="post-content-preview">
+      
+目前主流的方法有两种，其中一种已经失效
+
+接入openai.com官方的API keys
+
+这种方式实现的是单句问答，无上下文，也是目前唯一可实现的方式。
+
+前提
+
+拥有一台海外vps（为什么是海外，因为telegram bot在收发指令时会先经过telegram服务器再发送到自己的vps，如果再国内则会被墙）
+
+创建tg bot
+1、tg搜素BotFather
+2、/start
+3、/n......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-02-20
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#ChatGPT" title="ChatGPT">ChatGPT</a>
+    
+    <a href="/tags/#Bot" title="Bot">Bot</a>
+    
+  </div>
+  
+
+</div>
+<hr>
 
 <div class="post-preview">
   
@@ -837,44 +886,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/POC_double_free/">
-    <h2 class="post-title">
-      PoC double_free
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      Source code
-1234567891011121314151617181920212223242526272829303132333435#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;int main()&#123;        size_t * ptr[12];        for(int i=0;i&lt;12;i++)    ......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2022-12-13
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#heap" title="heap">heap</a>
-    
-    <a href="/tags/#PoC" title="PoC">PoC</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -931,11 +942,11 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="17">pwn笔记</a>
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="18">pwn笔记</a>
     
     
     
-    <a href="/tags/#write up" title="write up" rel="12">write up</a>
+    <a href="/tags/#write up" title="write up" rel="13">write up</a>
     
     
     
@@ -987,11 +998,11 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
-    
-    
-    
     <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
+    
+    
+    
+    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
     
     
     
@@ -1067,6 +1078,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 <div class="widget">
   <ul>
     
+    <a href="../../cn/aliyunctf_rustpwn/">
+      <li>阿里云CTF2023-babypwn-WP</li>
+    </a>
+    
     <a href="../../cn/CVE-2022-26258/">
       <li>CVE-2022-26258</li>
     </a>
@@ -1081,10 +1096,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     <a href="../../cn/totolink/">
       <li>TOTOLINK路由器漏洞复现笔记</li>
-    </a>
-    
-    <a href="../../cn/XCTF-forgot-WP/">
-      <li>XCTF-forgot-WP</li>
     </a>
     
   </ul>
@@ -1147,7 +1158,7 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1191,6 +1202,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>CVE复现</li>
     </a>
     
+    <a href="/categories/#pwn笔记">
+      <li>pwn笔记</li>
+    </a>
+    
     <a href="/categories/#tcache_poisoning">
       <li>tcache_poisoning</li>
     </a>
@@ -1199,12 +1214,12 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
-    </a>
-    
     <a href="/categories/#pwnable.tw">
       <li>pwnable.tw</li>
+    </a>
+    
+    <a href="/categories/#Paper Reading">
+      <li>Paper Reading</li>
     </a>
     
     <a href="/categories/#ret2libc">
@@ -1227,10 +1242,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
     <a href="/categories/#学期总结">
       <li>学期总结</li>
     </a>
@@ -1243,12 +1254,20 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#2022浙江省赛">
-      <li>2022浙江省赛</li>
+    <a href="/categories/#write up">
+      <li>write up</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#规划">
       <li>规划</li>
+    </a>
+    
+    <a href="/categories/#2022浙江省赛">
+      <li>2022浙江省赛</li>
     </a>
     
   </ul>

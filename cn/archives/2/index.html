@@ -247,17 +247,6 @@
           
           
           <li>
-            <a href="/archive/">
-              
-              归档
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/categories/">
               
               分类
@@ -269,9 +258,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              关于
+              归档
               
               
             </a>
@@ -283,6 +272,17 @@
             <a href="/tags/">
               
               标签
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/about/">
+              
+              关于
               
               
             </a>
@@ -470,6 +470,48 @@
       <!-- Main Content -->
 
 
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/pwnable.tw-start-WP/">
+    <h2 class="post-title">
+      pwnable.tw-start-WP
+    </h2>
+    <h3 class="post-subtitle">
+      两小时做了第一题，不愧是pwnable.tw
+    </h3>
+    <div class="post-content-preview">
+      现阶段就是复现难题的同时四处找题目刷，今天开始做pwnable.tw。结果这第一道名为start的题目就做了挺久的。
+start
+
+和国内常见的起始题目完全不同的风格，程序通过很短的汇编实现了write、read
+看着不像是用ROP的做法，保护全关了，这里考虑利用NX关闭，堆栈可执行实现shellcode
+光看汇编比较抽象，自己画一下示意图
+
+这个是起始的栈示意图，注意到程序开头push了e......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-02-15
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#write up" title="write up">write up</a>
+    
+  </div>
+  
+
+</div>
+<hr>
 
 <div class="post-preview">
   
@@ -833,40 +875,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/heap/">
-    <h2 class="post-title">
-      HEAP
-    </h2>
-    <h3 class="post-subtitle">
-      堆相关知识
-    </h3>
-    <div class="post-content-preview">
-      malloc &amp; free
-1234567891011121314151617181920212223242526/*  malloc(size_t n)  Returns a pointer to a newly allocated chunk of at least n bytes, or null  if no space is available. Additionally,......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2022-12-11
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -923,11 +931,11 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="17">pwn笔记</a>
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="18">pwn笔记</a>
     
     
     
-    <a href="/tags/#write up" title="write up" rel="12">write up</a>
+    <a href="/tags/#write up" title="write up" rel="13">write up</a>
     
     
     
@@ -979,11 +987,11 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
-    
-    
-    
     <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
+    
+    
+    
+    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
     
     
     
@@ -1059,6 +1067,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 <div class="widget">
   <ul>
     
+    <a href="../../aliyunctf_rustpwn/">
+      <li>阿里云CTF2023-babypwn-WP</li>
+    </a>
+    
     <a href="../../CVE-2022-26258/">
       <li>CVE-2022-26258</li>
     </a>
@@ -1073,10 +1085,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     <a href="../../totolink/">
       <li>TOTOLINK路由器漏洞复现笔记</li>
-    </a>
-    
-    <a href="../../XCTF-forgot-WP/">
-      <li>XCTF-forgot-WP</li>
     </a>
     
   </ul>
@@ -1139,7 +1147,7 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1183,6 +1191,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>CVE复现</li>
     </a>
     
+    <a href="/categories/#pwn笔记">
+      <li>pwn笔记</li>
+    </a>
+    
     <a href="/categories/#tcache_poisoning">
       <li>tcache_poisoning</li>
     </a>
@@ -1191,12 +1203,12 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
-    </a>
-    
     <a href="/categories/#pwnable.tw">
       <li>pwnable.tw</li>
+    </a>
+    
+    <a href="/categories/#Paper Reading">
+      <li>Paper Reading</li>
     </a>
     
     <a href="/categories/#ret2libc">
@@ -1219,10 +1231,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
     <a href="/categories/#学期总结">
       <li>学期总结</li>
     </a>
@@ -1235,12 +1243,20 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#2022浙江省赛">
-      <li>2022浙江省赛</li>
+    <a href="/categories/#write up">
+      <li>write up</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#规划">
       <li>规划</li>
+    </a>
+    
+    <a href="/categories/#2022浙江省赛">
+      <li>2022浙江省赛</li>
     </a>
     
   </ul>
