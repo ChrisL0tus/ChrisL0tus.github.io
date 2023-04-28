@@ -244,28 +244,6 @@
 
           
           
-          <li>
-            <a href="/archive/">
-              
-              归档
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          
-          
-          <li>
-            <a href="/categories/">
-              
-              分类
-              
-              
-            </a>
-          </li>
-          
           
           
           <li>
@@ -280,9 +258,31 @@
           
           
           <li>
+            <a href="/archive/">
+              
+              归档
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
             <a href="/tags/">
               
               标签
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/categories/">
+              
+              分类
               
               
             </a>
@@ -412,7 +412,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">277</span> In Total
+              Words <span class="post-count">273</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -474,29 +474,10 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h1>Source code</h1>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">size_t</span> * ptr[<span class="number">12</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">12</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">                ptr[i]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">1</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">2</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">3</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">4</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">5</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">6</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">7</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">8</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">9</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">10</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">9</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">7</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">                ptr[i]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        ptr[<span class="number">7</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">//9</span></span><br><span class="line">        *(ptr[<span class="number">7</span>])=&amp;a;</span><br><span class="line">        ptr[<span class="number">8</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">//10</span></span><br><span class="line">        ptr[<span class="number">9</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">//9</span></span><br><span class="line">        ptr[<span class="number">10</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">        ptr[<span class="number">11</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="compile">compile</h2>
-<p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_1.png" alt="test"></p>
-<h2 id="debug">debug</h2>
-<p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_2.png" alt="test"><br>
-Plus -g ensures that we can see the source code<br>
-<img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_3.png" alt="test"><br>
-Check the bins when all the freeings done.<br>
-We can figure out that the first seven chunks were sent to the suitable place of tcache while the last were sent to fast bin.<br>
-And here we have made the double free. There formed a loop in fast bin.<br>
-<img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_4.png" alt="test"><br>
-Check the bins again when the fist seven chunks were malloced. We can see that the rest chunks in fast bin were then sent to tcache.<br>
-<img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_5.png" alt="test"><br>
-Check the bins when the 9th chunk had been freed and exploited, we made it point to an address on stack, successfully.<br>
-<img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_6.png" alt="test"><br>
-Done.</p>
-<h2 id="review">review</h2>
-<p>This can be a image of tcache after double free:<br>
-<img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_7.png" alt="test"><br>
-Both the upside and down can be correct.<br>
-<img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_8.png" alt="test"><br>
-After malloc again and redirect.</p>
+        <h1 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">size_t</span> * ptr[<span class="number">12</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">12</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">                ptr[i]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">1</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">2</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">3</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">4</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">5</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">6</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">7</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">8</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">9</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">10</span>]);</span><br><span class="line">        <span class="built_in">free</span>(ptr[<span class="number">9</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">7</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">                ptr[i]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        ptr[<span class="number">7</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">//9</span></span><br><span class="line">        *(ptr[<span class="number">7</span>])=&amp;a;</span><br><span class="line">        ptr[<span class="number">8</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">//10</span></span><br><span class="line">        ptr[<span class="number">9</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">//9</span></span><br><span class="line">        ptr[<span class="number">10</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">        ptr[<span class="number">11</span>]=<span class="built_in">malloc</span>(<span class="number">0x30</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h2><p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_1.png" alt="test"></p>
+<h2 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h2><p><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_2.png" alt="test"><br>Plus -g ensures that we can see the source code<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_3.png" alt="test"><br>Check the bins when all the freeings done.<br>We can figure out that the first seven chunks were sent to the suitable place of tcache while the last were sent to fast bin.<br>And here we have made the double free. There formed a loop in fast bin.<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_4.png" alt="test"><br>Check the bins again when the fist seven chunks were malloced. We can see that the rest chunks in fast bin were then sent to tcache.<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_5.png" alt="test"><br>Check the bins when the 9th chunk had been freed and exploited, we made it point to an address on stack, successfully.<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_6.png" alt="test"><br>Done.</p>
+<h2 id="review"><a href="#review" class="headerlink" title="review"></a>review</h2><p>This can be a image of tcache after double free:<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_7.png" alt="test"><br>Both the upside and down can be correct.<br><img src="https://raw.githubusercontent.com/ChrisL0tus/mess-pictures/main/poc_double_free_8.png" alt="test"><br>After malloc again and redirect.</p>
 <p>Here comes the vulnerability: if we double free and redirect the chunk to some dangerous function like system and set the parameter as “/bin/sh” then we got the shell.</p>
 
 
@@ -647,7 +628,7 @@ After malloc again and redirect.</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Source code</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#compile"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">compile</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#debug"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">debug</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#review"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">review</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Source-code"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Source code</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#compile"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">compile</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#debug"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">debug</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#review"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">review</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -716,11 +697,19 @@ After malloc again and redirect.</p>
           </li>
           
           <li>
-            <a href="https://JBNRZ.com.cn" target="_blank">RZ</a>
+            <a href="https://me.liki.link/" target="_blank">liki</a>
+          </li>
+          
+          <li>
+            <a href="https://JBNRZ.com.cn" target="_blank">JBNRZ</a>
           </li>
           
           <li>
             <a href="http://gtg.ink/" target="_blank">gtg</a>
+          </li>
+          
+          <li>
+            <a href="https://mmmmchong.github.io" target="_blank">Humb1e-华维帝皇铠甲</a>
           </li>
           
           <li>
@@ -736,10 +725,6 @@ After malloc again and redirect.</p>
           </li>
           
           <li>
-            <a href="https://me.liki.link/" target="_blank">liki</a>
-          </li>
-          
-          <li>
             <a href="https://xyxsw.ltd/" target="_blank">TS</a>
           </li>
           
@@ -749,10 +734,6 @@ After malloc again and redirect.</p>
           
           <li>
             <a href="http://www.luelueking.com/" target="_blank">luelueking</a>
-          </li>
-          
-          <li>
-            <a href="https://mmmmchong.github.io" target="_blank">humb1e</a>
           </li>
           
           <li>
