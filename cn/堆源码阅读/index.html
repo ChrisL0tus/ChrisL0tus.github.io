@@ -247,6 +247,17 @@
           
           
           <li>
+            <a href="/archive/">
+              
+              归档
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
             <a href="/categories/">
               
               分类
@@ -272,17 +283,6 @@
             <a href="/tags/">
               
               标签
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/archive/">
-              
-              归档
               
               
             </a>
@@ -406,11 +406,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">40</span> Minutes
+              Estimated Reading Time <span class="post-count">39</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">8.5k</span> In Total
+              Words <span class="post-count">8.4k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -629,9 +629,6 @@ small bin分配的源码如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">do</span> &#123;</span><br><span class="line">   p = atomic_exchange_acq (fb, <span class="literal">NULL</span>);</span><br><span class="line">   <span class="keyword">if</span> (p != <span class="number">0</span>) &#123;</span><br><span class="line">     <span class="keyword">do</span> &#123;</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (__glibc_unlikely (misaligned_chunk (p)))</span><br><span class="line">    malloc_printerr (<span class="string">&quot;malloc_consolidate(): &quot;</span></span><br><span class="line">		     <span class="string">&quot;unaligned fastbin chunk detected&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> idx = fastbin_index (chunksize (p));</span><br><span class="line">  <span class="keyword">if</span> ((&amp;fastbin (av, idx)) != fb)</span><br><span class="line">    malloc_printerr (<span class="string">&quot;malloc_consolidate(): invalid chunk size&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">check_inuse_chunk(av, p);</span><br><span class="line">nextp = REVEAL_PTR (p-&gt;fd);</span><br></pre></td></tr></table></figure>
 <p>对于每一个fastbin中的链表，首先atomic_exchange_acq又是一个CAS操作，该函数取出fb指针存放到p中，并将原来的chunk链表头指针的值设为0，表示chunk链表空闲了，这都是atomic_exchange_acq做的事。如果p不为0，则表明这个链表当中有chunk，然后首先会有一个循环对链表中存在的chunk进行合法性检查，检查是否对齐和size合法性。分别对应的是misaligned_chunk()函数和fastbin_index()把chunksize转化为fastbin的链表索引然后通过这个索引去找fastbin，未找到则size不合法。<br>
 通过以上检查以后就到了主要的合并逻辑：</p>
-<h4 id="向前合并">向前合并</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">check_inuse_chunk(av, p);</span><br><span class="line">nextp = REVEAL_PTR (p-&gt;fd);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Slightly streamlined version of consolidation code in free() */</span></span><br><span class="line">size = chunksize (p);</span><br><span class="line">nextchunk = chunk_at_offset(p, size);</span><br><span class="line">nextsize = chunksize(nextchunk);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!prev_inuse(p)) &#123;</span><br><span class="line">  prevsize = prev_size (p);</span><br><span class="line">  size += prevsize;</span><br><span class="line">  p = chunk_at_offset(p, -((<span class="keyword">long</span>) prevsize));</span><br><span class="line">  <span class="keyword">if</span> (__glibc_unlikely (chunksize(p) != prevsize))</span><br><span class="line">    malloc_printerr (<span class="string">&quot;corrupted size vs. prev_size in fastbins&quot;</span>);</span><br><span class="line">  unlink_chunk (av, p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>首先定义了一些局部变量</p>
 
 
         <hr>
@@ -781,7 +778,7 @@ small bin分配的源码如下：</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">从一个chunk的结构开始讲起</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">malloc_state</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">_heap_info</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">malloc</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-33%EF%BC%88%E6%9C%89hook%EF%BC%89"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">2.33（有hook）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96malloc"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">初始化malloc</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%BF%9B%E5%85%A5tcache%E5%88%86%E6%94%AF"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">进入tcache分支</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcache%E5%A3%B0%E6%98%8E"><span class="toc-nav-number">4.3.1.</span> <span class="toc-nav-text">tcache声明</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96tcache"><span class="toc-nav-number">4.3.2.</span> <span class="toc-nav-text">初始化tcache</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcache%E5%88%86%E9%85%8D"><span class="toc-nav-number">4.3.3.</span> <span class="toc-nav-text">tcache分配</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcache-get"><span class="toc-nav-number">4.3.4.</span> <span class="toc-nav-text">tcache_get()</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#int-malloc"><span class="toc-nav-number">4.4.</span> <span class="toc-nav-text">_int_malloc</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-nav-number">4.4.1.</span> <span class="toc-nav-text">局部变量</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86"><span class="toc-nav-number">4.4.2.</span> <span class="toc-nav-text">第一部分</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#CAS"><span class="toc-nav-number">4.4.3.</span> <span class="toc-nav-text">CAS</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fast-bin"><span class="toc-nav-number">4.4.4.</span> <span class="toc-nav-text">fast bin</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#fastbin-stash"><span class="toc-nav-number">4.4.4.1.</span> <span class="toc-nav-text">fastbin stash</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#small-bin"><span class="toc-nav-number">4.4.5.</span> <span class="toc-nav-text">small bin</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#malloc-consolidate"><span class="toc-nav-number">4.4.6.</span> <span class="toc-nav-text">malloc consolidate</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%90%91%E5%89%8D%E5%90%88%E5%B9%B6"><span class="toc-nav-number">4.4.6.1.</span> <span class="toc-nav-text">向前合并</span></a></li></ol></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">从一个chunk的结构开始讲起</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">malloc_state</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">_heap_info</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">malloc</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-33%EF%BC%88%E6%9C%89hook%EF%BC%89"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">2.33（有hook）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96malloc"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">初始化malloc</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%BF%9B%E5%85%A5tcache%E5%88%86%E6%94%AF"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">进入tcache分支</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcache%E5%A3%B0%E6%98%8E"><span class="toc-nav-number">4.3.1.</span> <span class="toc-nav-text">tcache声明</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96tcache"><span class="toc-nav-number">4.3.2.</span> <span class="toc-nav-text">初始化tcache</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcache%E5%88%86%E9%85%8D"><span class="toc-nav-number">4.3.3.</span> <span class="toc-nav-text">tcache分配</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcache-get"><span class="toc-nav-number">4.3.4.</span> <span class="toc-nav-text">tcache_get()</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#int-malloc"><span class="toc-nav-number">4.4.</span> <span class="toc-nav-text">_int_malloc</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-nav-number">4.4.1.</span> <span class="toc-nav-text">局部变量</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86"><span class="toc-nav-number">4.4.2.</span> <span class="toc-nav-text">第一部分</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#CAS"><span class="toc-nav-number">4.4.3.</span> <span class="toc-nav-text">CAS</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fast-bin"><span class="toc-nav-number">4.4.4.</span> <span class="toc-nav-text">fast bin</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#fastbin-stash"><span class="toc-nav-number">4.4.4.1.</span> <span class="toc-nav-text">fastbin stash</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#small-bin"><span class="toc-nav-number">4.4.5.</span> <span class="toc-nav-text">small bin</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#malloc-consolidate"><span class="toc-nav-number">4.4.6.</span> <span class="toc-nav-text">malloc consolidate</span></a></li></ol></li></ol></li></ol>
         
         </div>
       </aside>
