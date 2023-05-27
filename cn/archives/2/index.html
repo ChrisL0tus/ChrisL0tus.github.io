@@ -244,17 +244,6 @@
 
           
           
-          <li>
-            <a href="/archive/">
-              
-              归档
-              
-              
-            </a>
-          </li>
-          
-          
-          
           
           
           <li>
@@ -269,9 +258,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/categories/">
               
-              标签
+              分类
               
               
             </a>
@@ -280,9 +269,20 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              标签
               
               
             </a>
@@ -470,6 +470,47 @@
       <!-- Main Content -->
 
 
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/paper_reading_fuzz/">
+    <h2 class="post-title">
+      Paper Reading "Fuzzing :A Survey for Roadmap"
+    </h2>
+    <h3 class="post-subtitle">
+      First paper from tutor.
+    </h3>
+    <div class="post-content-preview">
+      Abstract
+Information
+
+Corresponding author:
+XIAOGANG ZHU, Swinburne University of Technology, Australia
+SHENG WEN∗ , Swinburne University of Technology, Australia
+SEYIT CAMTEPE, CSIRO Data61, Austr......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-03-05
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#Fuzz" title="Fuzz">Fuzz</a>
+    
+    <a href="/tags/#Paper Reading" title="Paper Reading">Paper Reading</a>
+    
+  </div>
+  
+
+</div>
+<hr>
 
 <div class="post-preview">
   
@@ -843,45 +884,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/stackmove/">
-    <h2 class="post-title">
-      Stackmove
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      开篇碎碎念
-近期的进度应该已经进入堆题的学习阶段了，但是我还没有完整做过一道栈迁移的题。倍感惭愧，正好前几天赛博的比赛nameless✌出了一道栈迁移，可惜当时时间很紧。我的想法是现学堆题的知识，然后把ez_heap整出来，但是我太菜了就把大把的时间花费在了理解堆管理器上，到结束也没做出来。也就没心思看这道栈迁移了，不过回头看来，这道题应该是当时可以拿下的。
-题目
-
-题目给了execve的地......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2022-12-15
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#stackmove" title="stackmove">stackmove</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -958,14 +960,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#JS" title="JS" rel="1">JS</a>
-    
-    
-    
-    <a href="/tags/#转载" title="转载" rel="1">转载</a>
-    
-    
-    
     <a href="/tags/#heap" title="heap" rel="2">heap</a>
     
     
@@ -974,11 +968,27 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
+    <a href="/tags/#JS" title="JS" rel="1">JS</a>
+    
+    
+    
+    <a href="/tags/#转载" title="转载" rel="1">转载</a>
+    
+    
+    
     <a href="/tags/#Fuzz" title="Fuzz" rel="1">Fuzz</a>
     
     
     
     <a href="/tags/#Paper Reading" title="Paper Reading" rel="1">Paper Reading</a>
+    
+    
+    
+    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸" rel="1">虚拟机逃逸</a>
+    
+    
+    
+    <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="1">qemu逃逸</a>
     
     
     
@@ -1002,15 +1012,15 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
-    
-    
-    
     <a href="/tags/#操作系统" title="操作系统" rel="1">操作系统</a>
     
     
     
     <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
+    
+    
+    
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
     
@@ -1086,8 +1096,12 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 <div class="widget">
   <ul>
     
+    <a href="../../qemu_escape/">
+      <li>虚拟机逃逸初探(更新中)</li>
+    </a>
+    
     <a href="../../%E7%8E%B0%E4%BB%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
-      <li>《现代操作系统》阅读笔记</li>
+      <li>《现代操作系统》阅读笔记（持续更新中）</li>
     </a>
     
     <a href="../../5%E6%9C%8811%E6%97%A5/">
@@ -1100,10 +1114,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     <a href="../../CVE-2022-26258/">
       <li>CVE-2022-26258</li>
-    </a>
-    
-    <a href="../../XCTF-final-shellgame-WP/">
-      <li>XCTF-final-shellgame &amp;&amp; photos of travelling</li>
     </a>
     
   </ul>
@@ -1168,7 +1178,7 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1184,20 +1194,16 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>2022年终总结</li>
     </a>
     
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
-    </a>
-    
     <a href="/categories/#pwn笔记">
       <li>pwn笔记</li>
     </a>
     
-    <a href="/categories/#IoT">
-      <li>IoT</li>
+    <a href="/categories/#2023西湖论剑">
+      <li>2023西湖论剑</li>
     </a>
     
-    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
+    <a href="/categories/#IoT">
+      <li>IoT</li>
     </a>
     
     <a href="/categories/#PoC double_free">
@@ -1208,16 +1214,20 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>XCTF</li>
     </a>
     
-    <a href="/categories/#2023XCTF-final">
-      <li>2023XCTF-final</li>
-    </a>
-    
     <a href="/categories/#write up">
       <li>write up</li>
     </a>
     
+    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
+      <li>JS的一些特性：原型链，作用域，闭包</li>
+    </a>
+    
     <a href="/categories/#CVE复现">
       <li>CVE复现</li>
+    </a>
+    
+    <a href="/categories/#2023XCTF-final">
+      <li>2023XCTF-final</li>
     </a>
     
     <a href="/categories/#tcache_poisoning">
@@ -1230,6 +1240,14 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     <a href="/categories/#Paper Reading">
       <li>Paper Reading</li>
+    </a>
+    
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
+    </a>
+    
+    <a href="/categories/#日记">
+      <li>日记</li>
     </a>
     
     <a href="/categories/#pwnable.tw">
@@ -1256,40 +1274,40 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#日记">
-      <li>日记</li>
-    </a>
-    
     <a href="/categories/#源码阅读">
       <li>源码阅读</li>
-    </a>
-    
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
     </a>
     
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
     <a href="/categories/#操作系统">
       <li>操作系统</li>
     </a>
     
-    <a href="/categories/#规划">
-      <li>规划</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#读书笔记">
+      <li>读书笔记</li>
+    </a>
+    
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
     </a>
     
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
     </a>
     
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
+    <a href="/categories/#规划">
+      <li>规划</li>
     </a>
     
   </ul>
