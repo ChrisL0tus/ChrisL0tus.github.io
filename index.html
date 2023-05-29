@@ -244,12 +244,23 @@
 
           
           
+          <li>
+            <a href="/about/">
+              
+              ABOUT
+              
+              
+            </a>
+          </li>
+          
+          
+          
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              ARCHIVES
+              TAGS
               
               
             </a>
@@ -269,20 +280,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              ABOUT
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/tags/">
-              
-              TAGS
+              ARCHIVES
               
               
             </a>
@@ -506,6 +506,46 @@ ctf方面:
   <div class="tags">
     
     <a href="/tags/#规划" title="规划">规划</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/V-shuttle/">
+    <h2 class="post-title">
+      论文阅读："V-Shuttle：Scalable and Semantics-Aware Hypervisor Virtual Device Fuzzing"
+    </h2>
+    <h3 class="post-subtitle">
+      
+    </h3>
+    <div class="post-content-preview">
+      ABSTRACT
+hypervisor也被称作Virtual Machine Monitor(VMM)。可以理解为多个虚拟机的管理核心，但是hypervisor存在利用方式可以做到逃逸和提权。但虚拟机中以DMA(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来），因此这篇论文提出了结合FUZZ的......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-05-29
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#fuzz" title="fuzz">fuzz</a>
+    
+    <a href="/tags/#论文阅读" title="论文阅读">论文阅读</a>
+    
+    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸">虚拟机逃逸</a>
+    
+    <a href="/tags/#qemu逃逸" title="qemu逃逸">qemu逃逸</a>
     
   </div>
   
@@ -833,49 +873,6 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/totolink/">
-    <h2 class="post-title">
-      TOTOLINK路由器漏洞复现笔记
-    </h2>
-    <h3 class="post-subtitle">
-      IoT漏洞的入门靶场
-    </h3>
-    <div class="post-content-preview">
-      前言
-从nameless师兄那里借来了TOTOLINK T6设备，当作入门IoT漏洞挖掘研究的起点
-开始
-固件 -&gt; telnet -&gt; busybox -&gt; 固件
-串口调试这一步我暂时还没做。直接从固件开始做起
-在TOTOLINK的官网可以直接下载到T6/T10的固件
-binwalk解包一下得到一个.web.extract文件夹
-
-发现webscte文件夹，进去看到tel......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-03-15
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#IoT" title="IoT">IoT</a>
-    
-    <a href="/tags/#漏洞复现" title="漏洞复现">漏洞复现</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -940,6 +937,22 @@ binwalk解包一下得到一个.web.extract文件夹
     
     
     
+    <a href="/tags/#fuzz" title="fuzz" rel="1">fuzz</a>
+    
+    
+    
+    <a href="/tags/#论文阅读" title="论文阅读" rel="1">论文阅读</a>
+    
+    
+    
+    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸" rel="2">虚拟机逃逸</a>
+    
+    
+    
+    <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="2">qemu逃逸</a>
+    
+    
+    
     <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
     
     
@@ -976,15 +989,19 @@ binwalk解包一下得到一个.web.extract文件夹
     
     
     
-    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸" rel="1">虚拟机逃逸</a>
-    
-    
-    
-    <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="1">qemu逃逸</a>
-    
-    
-    
     <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
+    
+    
+    
+    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    
+    
+    
+    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
+    
+    
+    
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
     
@@ -996,15 +1013,7 @@ binwalk解包一下得到一个.web.extract文件夹
     
     
     
-    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
-    
-    
-    
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
-    
-    
-    
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
+    <a href="/tags/#规划" title="规划" rel="1">规划</a>
     
     
     
@@ -1013,10 +1022,6 @@ binwalk解包一下得到一个.web.extract文件夹
     
     
     <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
-    
-    
-    
-    <a href="/tags/#规划" title="规划" rel="1">规划</a>
     
     
   </div>
@@ -1088,6 +1093,10 @@ binwalk解包一下得到一个.web.extract文件夹
 <div class="widget">
   <ul>
     
+    <a href="cn/V-shuttle/">
+      <li>论文阅读：&#34;V-Shuttle：Scalable and Semantics-Aware Hypervisor Virtual Device Fuzzing&#34;</li>
+    </a>
+    
     <a href="cn/ciscn2023/">
       <li>CISCN2023 部分PWN题wp</li>
     </a>
@@ -1102,10 +1111,6 @@ binwalk解包一下得到一个.web.extract文件夹
     
     <a href="cn/5%E6%9C%8811%E6%97%A5/">
       <li>近期一些想写的东西</li>
-    </a>
-    
-    <a href="cn/aliyunctf_rustpwn/">
-      <li>阿里云CTF2023-babypwn-WP</li>
     </a>
     
   </ul>
@@ -1124,6 +1129,8 @@ binwalk解包一下得到一个.web.extract文件夹
   <li><a href="https://www.hakuya.work/" target="_blank">白夜</a></li>
   
   <li><a href="http://nameless.top/" target="_blank">nameless</a></li>
+  
+  <li><a href="https://ba1van4.icu/" target="_blank">Balvan4</a></li>
   
   <li><a href="https://eson.ninja/" target="_blank">esonhugh</a></li>
   
@@ -1170,7 +1177,7 @@ binwalk解包一下得到一个.web.extract文件夹
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/05/">May 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1186,12 +1193,16 @@ binwalk解包一下得到一个.web.extract文件夹
       <li>2022年终总结</li>
     </a>
     
+    <a href="/categories/#pwn笔记">
+      <li>pwn笔记</li>
+    </a>
+    
     <a href="/categories/#2023西湖论剑">
       <li>2023西湖论剑</li>
     </a>
     
-    <a href="/categories/#pwn笔记">
-      <li>pwn笔记</li>
+    <a href="/categories/#fuzz">
+      <li>fuzz</li>
     </a>
     
     <a href="/categories/#IoT">
@@ -1202,20 +1213,24 @@ binwalk解包一下得到一个.web.extract文件夹
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
+    <a href="/categories/#write up">
+      <li>write up</li>
     </a>
     
     <a href="/categories/#XCTF">
       <li>XCTF</li>
     </a>
     
-    <a href="/categories/#write up">
-      <li>write up</li>
+    <a href="/categories/#PoC double_free">
+      <li>PoC double_free</li>
     </a>
     
     <a href="/categories/#2023XCTF-final">
       <li>2023XCTF-final</li>
+    </a>
+    
+    <a href="/categories/#论文阅读">
+      <li>论文阅读</li>
     </a>
     
     <a href="/categories/#CVE复现">
@@ -1234,44 +1249,40 @@ binwalk解包一下得到一个.web.extract文件夹
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
+    <a href="/categories/#日记">
+      <li>日记</li>
     </a>
     
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
+    <a href="/categories/#Paper Reading">
+      <li>Paper Reading</li>
     </a>
     
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
     </a>
     
-    <a href="/categories/#ret2libc">
-      <li>ret2libc</li>
-    </a>
-    
     <a href="/categories/#ret2syscall">
       <li>ret2syscall</li>
+    </a>
+    
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
+    </a>
+    
+    <a href="/categories/#ret2libc">
+      <li>ret2libc</li>
     </a>
     
     <a href="/categories/#Stackmove">
       <li>Stackmove</li>
     </a>
     
-    <a href="/categories/#日记">
-      <li>日记</li>
-    </a>
-    
-    <a href="/categories/#ChatGPT接入Telegram Bot教程">
-      <li>ChatGPT接入Telegram Bot教程</li>
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#漏洞复现">
       <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#学期总结">
@@ -1282,28 +1293,36 @@ binwalk解包一下得到一个.web.extract文件夹
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
+    <a href="/categories/#ChatGPT接入Telegram Bot教程">
+      <li>ChatGPT接入Telegram Bot教程</li>
+    </a>
+    
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
+    </a>
+    
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#规划">
+      <li>规划</li>
+    </a>
+    
     <a href="/categories/#操作系统">
       <li>操作系统</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
     </a>
     
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
     </a>
     
-    <a href="/categories/#规划">
-      <li>规划</li>
+    <a href="/categories/#读书笔记">
+      <li>读书笔记</li>
     </a>
     
   </ul>
