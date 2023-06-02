@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              归档
+              关于
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              关于
+              归档
               
               
             </a>
@@ -410,11 +410,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">8</span> Minutes
+              Estimated Reading Time <span class="post-count">9</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">2.2k</span> In Total
+              Words <span class="post-count">2.5k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -478,13 +478,20 @@
 
         <h1>ABSTRACT</h1>
 <p><code>hypervisor</code>也被称作<code>Virtual Machine Monitor</code>(VMM),它可以在一台主机中隔离多个虚拟机。可以理解为多个虚拟机的管理核心，但是<code>hypervisor</code>存在利用方式可以做到逃逸和提权。但虚拟机中以<code>DMA</code>(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来），这篇论文提出了结合<code>FUZZ</code>的方法，寻找DMA交互的漏洞。论文作者创造了<a target="_blank" rel="noopener" href="https://github.com/hustdebug/v-shuttle">V-SHUTTLE</a>,规模化和语义感知的虚拟机模拟设备模糊测试，最终作者通过V-shuttle发现了35个bug，其中17个签发了CVE。</p>
-<h1>关键词</h1>
+<h1>KEYWORDS</h1>
 <p><strong>Hypervisor; Virtual Device; Fuzzing; Vulnerability</strong></p>
 <h1>INTRODUCTION</h1>
 <p>Intro部分主要是ABSTRACT的扩写。</p>
 <h1>BACKGROUND AND MOTIVATION</h1>
-<p>这部分讲了一些关于hypervisor和虚拟机的背景知识，为后面V-shuttle的设计做铺垫。</p>
+<p>这部分讲一些关于hypervisor和虚拟机的背景知识，为后面V-shuttle的设计做铺垫。</p>
 <h2 id="Virtual-Devices-of-Hypervisors">Virtual Devices of Hypervisors</h2>
+<p>用户在虚拟机里使用的设备是经hypervisor提供的模拟的硬件，能实现和真实硬件一样，这就意味着在客户虚拟机操作系统中可以驱动虚拟设备。现在的hypervisor能够模拟绝大多数计算机硬件，比如显卡、网卡、usb、储存设备等等。</p>
+<h2 id="Driver-Device-Interaction">Driver-Device Interaction</h2>
+<p>虚拟设备的交互方式有三种，MMIO、PMIO、DMA，前二者我们已经比较熟悉，在CTF的qemu逃逸题目里常有用到。本论文研究重点在DMA，DMA全称是<code>direct memory access</code>。设备的初始化工作往往是由MMIO和PMIO来做的，比如设备注册、地址初始化。初始化完成之后设备开始工作并进行更大型的数据交互，比如usb设备数据传输和网卡的网络数据包传输等，这时候最主要的交互方式就是DMA，因为DMA能进行更大、更复杂的数据的交互。也正因此，这一步也更容易导致安全隐患。下图简单描述了hypervisor虚拟机的交互流程。<br>
+<img src="v0.png" alt="pic"><br>
+如下的表给出了数据交互中用到DMA的虚拟设备：<br>
+<img src="v1.png" alt="pic"></p>
+<h2 id="Core-Challenge-Nested-Structures">Core Challenge-Nested Structures</h2>
 <h1>笔者后记</h1>
 <p>这篇文章是浙江大学网安学院潘高宁博士在2021年发表的文章，潘博士也是AAA战队的成员，在CTF中打pwn方向。这篇文章是他的代表作，凭借这篇文章他获得了ACM年度最佳论文奖，在我们的阅读过程中也感受到了逻辑的条理和严谨。<br>
 笔者的导师擅长模糊测试这方面的研究，笔者本人对虚拟机逃逸技术/模糊测试格外痴迷，潘博士所做的研究将二者在某方面完美结合并且获得了巨大成功，在笔者眼里简直就是梦一般的向往。<br>
@@ -704,7 +711,7 @@ linux发行版：Ubuntu20.04.6，系统镜像安装地址：<a target="_blank" r
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">ABSTRACT</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">关键词</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">INTRODUCTION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">BACKGROUND AND MOTIVATION</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Virtual-Devices-of-Hypervisors"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">Virtual Devices of Hypervisors</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">笔者后记</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">实践-V-shuttle使用初探</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91afl"><span class="toc-nav-number">6.2.</span> <span class="toc-nav-text">编译afl</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91qemu"><span class="toc-nav-number">6.3.</span> <span class="toc-nav-text">编译qemu</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E7%A7%8D%E5%AD%90"><span class="toc-nav-number">6.4.</span> <span class="toc-nav-text">获取种子</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#fuzz"><span class="toc-nav-number">6.5.</span> <span class="toc-nav-text">fuzz</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#gdb-attach"><span class="toc-nav-number">6.6.</span> <span class="toc-nav-text">gdb attach</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">ABSTRACT</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">KEYWORDS</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">INTRODUCTION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">BACKGROUND AND MOTIVATION</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Virtual-Devices-of-Hypervisors"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">Virtual Devices of Hypervisors</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Driver-Device-Interaction"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">Driver-Device Interaction</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Core-Challenge-Nested-Structures"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">Core Challenge-Nested Structures</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">笔者后记</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">实践-V-shuttle使用初探</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91afl"><span class="toc-nav-number">6.2.</span> <span class="toc-nav-text">编译afl</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91qemu"><span class="toc-nav-number">6.3.</span> <span class="toc-nav-text">编译qemu</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E7%A7%8D%E5%AD%90"><span class="toc-nav-number">6.4.</span> <span class="toc-nav-text">获取种子</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#fuzz"><span class="toc-nav-number">6.5.</span> <span class="toc-nav-text">fuzz</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#gdb-attach"><span class="toc-nav-number">6.6.</span> <span class="toc-nav-text">gdb attach</span></a></li></ol></li></ol>
         
         </div>
       </aside>
