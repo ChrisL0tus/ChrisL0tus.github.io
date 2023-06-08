@@ -244,6 +244,17 @@
 
           
           
+          <li>
+            <a href="/archive/">
+              
+              归档
+              
+              
+            </a>
+          </li>
+          
+          
+          
           
           
           <li>
@@ -261,17 +272,6 @@
             <a href="/categories/">
               
               分类
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/archive/">
-              
-              归档
               
               
             </a>
@@ -410,11 +410,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">11</span> Minutes
+              Estimated Reading Time <span class="post-count">12</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">2.9k</span> In Total
+              Words <span class="post-count">3.3k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -481,7 +481,7 @@
 <h1>KEYWORDS</h1>
 <p><strong>Hypervisor; Virtual Device; Fuzzing; Vulnerability</strong></p>
 <h1>INTRODUCTION</h1>
-<p>Intro部分主要是ABSTRACT的扩写。</p>
+<p>Intro部分主要是ABSTRACT前半部分的扩写。就不做解读了。</p>
 <h1>BACKGROUND AND MOTIVATION</h1>
 <p>这部分讲一些关于hypervisor和虚拟机的背景知识，为后面V-shuttle的设计做铺垫。</p>
 <h2 id="Virtual-Devices-of-Hypervisors">Virtual Devices of Hypervisors</h2>
@@ -494,16 +494,32 @@
 <h2 id="Core-Challenge-Nested-Structures">Core Challenge-Nested Structures</h2>
 <p>这部分主要是讲在DMA中fuzz的一些困难。hypervisor在进行和DMA相关的数据传输时主要是通过几个重要的API，也就是一些函数比如<code>pci_dma_read</code>和<code>pci_dma_write</code>等，<code>pci_dma_read</code>作用是从客户机里读，也就是就将虚拟机里的数据复制到宿主机的缓冲区中，<code>pci_dma_write</code>则与之相反做的是往虚拟机里写。如果能精确控制地址参数，能实现任意地址读写。<br>
 但是经DMA传输的数据往往有很复杂的结构<br>
-<img src="v2.png" alt="pic"><br>
-如上图，经DMA传输的数据往往会有很多结构体以及互相指向的指针。会阻碍fuzz。</p>
+经DMA传输的数据往往会有很多结构体以及互相指向的指针。会阻碍fuzz。</p>
 <h3 id="1-Nested-Form-Construction">1)Nested Form Construction.</h3>
 <p>1、从总体看，由DMA传输的复杂数据可以看成是一层一层的结构，总体形成一个树状结构。每个节点都是数据。同时这个树也可以看成是递归的因为一个树中会包含其他的树作为元素。这样对于传统的fuzz很不友好。<br>
 2、从每个节点的角度看，每个节点都是数据+指针的结构。指针在其所处的结构体中地址的偏移也是不确定的。同时其指向应该是一个有意义的地址，如果模糊测试的时候生成了一个节点，其指向是一个完全随机的地址，那就肯定会有问题。因此，在节点层面需要引入语义感知，如此才能生成符合逻辑的结构体类型和指针。也就是说fuzzer需要能够感知数据组织的语义和节点内部的结构。</p>
 <h3 id="2-Node-Yype-Awareness">2)Node Yype Awareness</h3>
+<p>大多数指针的指向只有在runtime才能被感知。因此，fuzzer需要在运行时才能感知指针的指向，这就需要fuzzer能够感知数据的语义。这样才能生成有意义的数据。<br>
+以USB-UHCI为例，UHCI全称Universal Host Controller Interface，作用是往客户虚拟机里提供虚拟USB设备。<br>
+其部分结构如下图<br>
+<img src="v2.png" alt="pic"><br>
+指针的细节我就不去阅读了。<br>
+处理这种复杂结构的最直白的方法是采用结构感知的模糊测试，结构感知的意思就是基于模型，前者通过模糊测试获得一部分结构特征，后者基于前者的模型继续对所有可能的结构进行模糊测试，如此一来次数多了最终可以得出正确的结构，但问题很明显，时间成本和测试次数都太多。因此V-shuttle的设想是创造一种能够提升效率和准确率的感知方式。</p>
+<h1>V-SHUTTLE DESIGN</h1>
+<p>这部分讲述了V-Shuttle的设计</p>
+<h2 id="Threat-Model">Threat Model</h2>
+<p>V-Shuttle的攻击测试基于root权限，这很正常因为每个用户在自己的虚拟机里都可以达到root权限。可实现的攻击有DoS、信息泄露、提权。一旦一个客户机能实现逃逸获得hypervisor的shell，那么就可以接管其他在同一个host下的虚拟机。</p>
+<h2 id="System-Overview">System Overview</h2>
+<p><img src="v3.png" alt="pic"><br>
+这部分是对V-Shuttle整体结构的描述，</p>
+<h2 id="DMA-Redirection">DMA Redirection</h2>
+<h2 id="Semantics-Aware-Fuzzing-via-SeedPools">Semantics-Aware Fuzzing via SeedPools</h2>
+<h2 id="Lightweight-Fuzzing-Loop">Lightweight Fuzzing Loop</h2>
+<h1>IMPLEMENTATION</h1>
 <h1>笔者后记</h1>
-<p>这篇文章是浙江大学网安学院潘高宁博士在2021年发表的文章，潘博士也是AAA战队的成员，在CTF中打pwn方向。这篇文章是他的代表作，凭借这篇文章他获得了ACM年度最佳论文奖，在我们的阅读过程中也感受到了逻辑的条理和严谨。<br>
-笔者的导师擅长模糊测试这方面的研究，笔者本人对虚拟机逃逸技术/模糊测试格外痴迷，潘博士所做的研究将二者在某方面完美结合并且获得了巨大成功，在笔者眼里简直就是梦一般的向往。<br>
-笔者的导师在上上周把这篇论文发给我了，慢慢吞吞一直看到现在。很巧的是，上周笔者学校的网安学院邀请了潘博士来开了个讲座，笔者怀着激动、兴奋和对知识虔诚的渴望认真听了，也很荣幸在过程中提出了两个问题。<br>
+<p>这篇文章是浙江大学网安学院潘高宁博士在2021年发表的文章，潘博士也是AAA战队的成员，在CTF中主攻pwn方向。这篇文章是他的代表作，凭借这篇文章他获得了ACM年度最佳论文奖，在我们的阅读过程中也感受到了逻辑的条理和严谨。<br>
+笔者的导师是模糊测试这方面的研究专家，笔者本人对虚拟机逃逸技术/模糊测试格外痴迷，潘博士所做的研究将二者在某方面完美结合并且获得了巨大成功，在笔者眼里简直就是梦一般的向往。<br>
+笔者的导师在上上周把这篇论文发给我了，慢慢吞吞一直看到现在。很巧的是，上周笔者学校的网安学院邀请了潘博士来开了个讲座，笔者怀着激动、兴奋和对知识虔诚的渴望认真听了，也很荣幸在过程中提出了两个问题并得到了解答。<br>
 听说潘博士在9月份可能会来笔者学校当老师，希望到时候能跟着他学到更多。</p>
 <h1>实践-V-shuttle使用初探</h1>
 <p>因为V-shuttle暂时知名度不高，而且潘博士自从2021年开源之后也没有维护/优化过，github上12个issue没咋回复，readme里也并不非常详细，比如运行环境等都没有注明，所以在搭建的时候可能会遇到一堆问题，比如各种编译报错、启动的时候缺少什么镜像、种子不合适之类的。笔者最近花了一周时间熟悉了一下V-shuttle的部署和使用，可以算作为后人留下一点初步的教程，基于此还可以进行更多优化。<br>
@@ -719,7 +735,7 @@ linux发行版：Ubuntu20.04.6，系统镜像安装地址：<a target="_blank" r
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">ABSTRACT</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">KEYWORDS</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">INTRODUCTION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">BACKGROUND AND MOTIVATION</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Virtual-Devices-of-Hypervisors"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">Virtual Devices of Hypervisors</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Driver-Device-Interaction"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">Driver-Device Interaction</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Core-Challenge-Nested-Structures"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">Core Challenge-Nested Structures</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-Nested-Form-Construction"><span class="toc-nav-number">4.3.1.</span> <span class="toc-nav-text">1)Nested Form Construction.</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-Node-Yype-Awareness"><span class="toc-nav-number">4.3.2.</span> <span class="toc-nav-text">2)Node Yype Awareness</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">笔者后记</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">实践-V-shuttle使用初探</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91afl"><span class="toc-nav-number">6.2.</span> <span class="toc-nav-text">编译afl</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91qemu"><span class="toc-nav-number">6.3.</span> <span class="toc-nav-text">编译qemu</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E7%A7%8D%E5%AD%90"><span class="toc-nav-number">6.4.</span> <span class="toc-nav-text">获取种子</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#fuzz"><span class="toc-nav-number">6.5.</span> <span class="toc-nav-text">fuzz</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#gdb-attach"><span class="toc-nav-number">6.6.</span> <span class="toc-nav-text">gdb attach</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">ABSTRACT</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">KEYWORDS</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">INTRODUCTION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">BACKGROUND AND MOTIVATION</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Virtual-Devices-of-Hypervisors"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">Virtual Devices of Hypervisors</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Driver-Device-Interaction"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">Driver-Device Interaction</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Core-Challenge-Nested-Structures"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">Core Challenge-Nested Structures</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-Nested-Form-Construction"><span class="toc-nav-number">4.3.1.</span> <span class="toc-nav-text">1)Nested Form Construction.</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-Node-Yype-Awareness"><span class="toc-nav-number">4.3.2.</span> <span class="toc-nav-text">2)Node Yype Awareness</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">V-SHUTTLE DESIGN</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Threat-Model"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">Threat Model</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#System-Overview"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">System Overview</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#DMA-Redirection"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text">DMA Redirection</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Semantics-Aware-Fuzzing-via-SeedPools"><span class="toc-nav-number">5.4.</span> <span class="toc-nav-text">Semantics-Aware Fuzzing via SeedPools</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Lightweight-Fuzzing-Loop"><span class="toc-nav-number">5.5.</span> <span class="toc-nav-text">Lightweight Fuzzing Loop</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">IMPLEMENTATION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">笔者后记</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">实践-V-shuttle使用初探</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-nav-number">8.1.</span> <span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91afl"><span class="toc-nav-number">8.2.</span> <span class="toc-nav-text">编译afl</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91qemu"><span class="toc-nav-number">8.3.</span> <span class="toc-nav-text">编译qemu</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E7%A7%8D%E5%AD%90"><span class="toc-nav-number">8.4.</span> <span class="toc-nav-text">获取种子</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#fuzz"><span class="toc-nav-number">8.5.</span> <span class="toc-nav-text">fuzz</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#gdb-attach"><span class="toc-nav-number">8.6.</span> <span class="toc-nav-text">gdb attach</span></a></li></ol></li></ol>
         
         </div>
       </aside>

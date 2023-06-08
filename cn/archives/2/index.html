@@ -244,6 +244,17 @@
 
           
           
+          <li>
+            <a href="/archive/">
+              
+              归档
+              
+              
+            </a>
+          </li>
+          
+          
+          
           
           
           <li>
@@ -261,17 +272,6 @@
             <a href="/categories/">
               
               分类
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/archive/">
-              
-              归档
               
               
             </a>
@@ -731,19 +731,21 @@ start
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-dice_game-WP/">
+  <a href="/cn/XCTF-babyheap-WP/">
     <h2 class="post-title">
-      XCTF-dice_game-WP
+      XCTF-babyheap-WP
     </h2>
     <h3 class="post-subtitle">
-      题目复现累了，找个简单题练练手
+      off-by-null
     </h3>
     <div class="post-content-preview">
-      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
+      开篇碎碎念
+XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
+还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
 
-这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
+题目
 
-目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
+这个函数存在off-by-......
     </div>
   </a>
   
@@ -770,21 +772,19 @@ start
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-babyheap-WP/">
+  <a href="/cn/XCTF-dice_game-WP/">
     <h2 class="post-title">
-      XCTF-babyheap-WP
+      XCTF-dice_game-WP
     </h2>
     <h3 class="post-subtitle">
-      off-by-null
+      题目复现累了，找个简单题练练手
     </h3>
     <div class="post-content-preview">
-      开篇碎碎念
-XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
-还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
+      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
 
-题目
+这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
 
-这个函数存在off-by-......
+目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
     </div>
   </a>
   
@@ -959,22 +959,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#fuzz" title="fuzz" rel="1">fuzz</a>
-    
-    
-    
-    <a href="/tags/#论文阅读" title="论文阅读" rel="1">论文阅读</a>
-    
-    
-    
-    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸" rel="2">虚拟机逃逸</a>
-    
-    
-    
-    <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="2">qemu逃逸</a>
-    
-    
-    
     <a href="/tags/#JS" title="JS" rel="1">JS</a>
     
     
@@ -988,6 +972,22 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
+    
+    
+    
+    <a href="/tags/#fuzz" title="fuzz" rel="1">fuzz</a>
+    
+    
+    
+    <a href="/tags/#论文阅读" title="论文阅读" rel="1">论文阅读</a>
+    
+    
+    
+    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸" rel="2">虚拟机逃逸</a>
+    
+    
+    
+    <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="2">qemu逃逸</a>
     
     
     
@@ -1023,15 +1023,15 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
-    
-    
-    
     <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
     
     
     
     <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    
+    
+    
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
     
@@ -1225,16 +1225,16 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>2023西湖论剑</li>
     </a>
     
-    <a href="/categories/#fuzz">
-      <li>fuzz</li>
-    </a>
-    
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
     <a href="/categories/#IoT">
       <li>IoT</li>
+    </a>
+    
+    <a href="/categories/#fuzz">
+      <li>fuzz</li>
     </a>
     
     <a href="/categories/#write up">
@@ -1253,6 +1253,14 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>2023XCTF-final</li>
     </a>
     
+    <a href="/categories/#CVE复现">
+      <li>CVE复现</li>
+    </a>
+    
+    <a href="/categories/#tcache_poisoning">
+      <li>tcache_poisoning</li>
+    </a>
+    
     <a href="/categories/#论文阅读">
       <li>论文阅读</li>
     </a>
@@ -1265,28 +1273,24 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#CVE复现">
-      <li>CVE复现</li>
-    </a>
-    
-    <a href="/categories/#tcache_poisoning">
-      <li>tcache_poisoning</li>
-    </a>
-    
     <a href="/categories/#日记">
       <li>日记</li>
-    </a>
-    
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
     </a>
     
     <a href="/categories/#pwnable.tw">
       <li>pwnable.tw</li>
     </a>
     
+    <a href="/categories/#Paper Reading">
+      <li>Paper Reading</li>
+    </a>
+    
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
+    </a>
+    
+    <a href="/categories/#ret2libc">
+      <li>ret2libc</li>
     </a>
     
     <a href="/categories/#Stackmove">
@@ -1297,16 +1301,8 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#ret2libc">
-      <li>ret2libc</li>
-    </a>
-    
     <a href="/categories/#ret2syscall">
       <li>ret2syscall</li>
-    </a>
-    
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
     </a>
     
     <a href="/categories/#漏洞复现">
@@ -1317,16 +1313,8 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>源码阅读</li>
     </a>
     
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
     </a>
     
     <a href="/categories/#XCTF-实时数据检测-WP">
@@ -1337,16 +1325,28 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>操作系统</li>
     </a>
     
-    <a href="/categories/#规划">
-      <li>规划</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
+    </a>
+    
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#读书笔记">
+      <li>读书笔记</li>
     </a>
     
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
     </a>
     
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
+    <a href="/categories/#规划">
+      <li>规划</li>
     </a>
     
   </ul>
