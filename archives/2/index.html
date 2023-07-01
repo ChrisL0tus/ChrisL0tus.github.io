@@ -244,6 +244,8 @@
 
           
           
+          
+          
           <li>
             <a href="/archive/">
               
@@ -255,12 +257,10 @@
           
           
           
-          
-          
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              ABOUT
+              CATEGORIES
               
               
             </a>
@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/about/">
               
-              CATEGORIES
+              ABOUT
               
               
             </a>
@@ -478,6 +478,42 @@
   <!-- top end -->
   
 
+  <a href="/cn/堆源码阅读/">
+    <h2 class="post-title">
+      malloc相关源码解读
+    </h2>
+    <h3 class="post-subtitle">
+      
+    </h3>
+    <div class="post-content-preview">
+      做比较难的堆题需要对堆这个数据结构以及glibc各种函数的实现源码有充分的掌握，因此我打算详细读一遍源码，对堆获得一个比较完备的认识。本文分析的glibc版本为glibc2.33注：本文由l0tus一人编写而成，编写过程参考了ctf wiki和A1ex、chuj等师傅的博客，如果有错误欢迎联系本人更正。
+从一个chunk的结构开始讲起在glibc源码中，可以找到malloc_chunk这个结......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-03-17
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#源码阅读" title="源码阅读">源码阅读</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/totolink/">
     <h2 class="post-title">
       TOTOLINK路由器漏洞复现笔记
@@ -486,15 +522,8 @@
       IoT漏洞的入门靶场
     </h3>
     <div class="post-content-preview">
-      前言
-从nameless师兄那里借来了TOTOLINK T6设备，当作入门IoT漏洞挖掘研究的起点
-开始
-固件 -&gt; telnet -&gt; busybox -&gt; 固件
-串口调试这一步我暂时还没做。直接从固件开始做起
-在TOTOLINK的官网可以直接下载到T6/T10的固件
-binwalk解包一下得到一个.web.extract文件夹
-
-发现webscte文件夹，进去看到tel......
+      前言从nameless师兄那里借来了TOTOLINK T6设备，当作入门IoT漏洞挖掘研究的起点
+开始固件 -&gt; telnet -&gt; busybox -&gt; 固件串口调试这一步我暂时还没做。直接从固件开始做起在TOTOLINK的官网可以直接下载到T6/T10的固件binwalk解包一下得到一个.web.extract文件夹发现webscte文件夹，进去看到telnet.htm......
     </div>
   </a>
   
@@ -521,23 +550,16 @@ binwalk解包一下得到一个.web.extract文件夹
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-greeting-150-WP/">
+  <a href="/cn/XCTF-forgot-WP/">
     <h2 class="post-title">
-      XCTF-greeting-150-WP
+      XCTF-forgot-WP
     </h2>
     <h3 class="post-subtitle">
-      .fini_array劫持 && hijack got
+      
     </h3>
     <div class="post-content-preview">
-      checksec
-
-开了canary和NX，没开reload和pie，考虑使用hijack got
-反编译
-
-可以看到一个明显的格式化字符串漏洞
-
-测试得到偏移为12，这里需要注意的是我们的输入是跟在&quot;Please tell me your name… “这句话的后头的，这句话本身长度为18，那么我们需要先输入两个字符使地址对齐，然后再用%p输出
-但是这道题的格式化字符串漏洞是在r......
+      checksec一道正常的栈题，只开了NX
+反编译第一次fgets输入长度为32，后面有一次scanf输入v2，结合栈的排布可以发现输入v2的时候可以溢出覆盖s，那么我们只需要控制好第二次输入就可以了shift+f12看到有cat flag的字符串，找到对应函数:程序最后对”v3[—v5]”的地址会直接调用，而前面的程序就是通过判断v2[i]的值是否在小写字母范围内对v5进行累加（在v5&g......
     </div>
   </a>
   
@@ -564,24 +586,16 @@ binwalk解包一下得到一个.web.extract文件夹
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-forgot-WP/">
+  <a href="/cn/XCTF-greeting-150-WP/">
     <h2 class="post-title">
-      XCTF-forgot-WP
+      XCTF-greeting-150-WP
     </h2>
     <h3 class="post-subtitle">
-      
+      .fini_array劫持 && hijack got
     </h3>
     <div class="post-content-preview">
-      checksec
-
-一道正常的栈题，只开了NX
-反编译
-
-第一次fgets输入长度为32，后面有一次scanf输入v2，结合栈的排布可以发现输入v2的时候可以溢出覆盖s，那么我们只需要控制好第二次输入就可以了
-shift+f12看到有cat flag的字符串，找到对应函数:
-
-
-程序最后对&quot;v3[–v5]&quot;的地址会直接调用，而前面的程序就是通过判断v2[i]的值是否在小写......
+      checksec开了canary和NX，没开reload和pie，考虑使用hijack got
+反编译可以看到一个明显的格式化字符串漏洞测试得到偏移为12，这里需要注意的是我们的输入是跟在”Please tell me your name… “这句话的后头的，这句话本身长度为18，那么我们需要先输入两个字符使地址对齐，然后再用%p输出但是这道题的格式化字符串漏洞是在return的时候，也就是......
     </div>
   </a>
   
@@ -616,13 +630,8 @@ shift+f12看到有cat flag的字符串，找到对应函数:
       First paper from tutor.
     </h3>
     <div class="post-content-preview">
-      Abstract
-Information
-
-Corresponding author:
-XIAOGANG ZHU, Swinburne University of Technology, Australia
-SHENG WEN∗ , Swinburne University of Technology, Australia
-SEYIT CAMTEPE, CSIRO Data61, Austr......
+      AbstractInformation
+Corresponding author:XIAOGANG ZHU, Swinburne University of Technology, AustraliaSHENG WEN∗ , Swinburne University of Technology, AustraliaSEYIT CAMTEPE, CSIRO Data61, AustraliaY......
     </div>
   </a>
   
@@ -693,19 +702,9 @@ SEYIT CAMTEPE, CSIRO Data61, Austr......
     <div class="post-content-preview">
       
 目前主流的方法有两种，其中一种已经失效
-
-接入openai.com官方的API keys
-
-这种方式实现的是单句问答，无上下文，也是目前唯一可实现的方式。
-
-前提
-
-拥有一台海外vps（为什么是海外，因为telegram bot在收发指令时会先经过telegram服务器再发送到自己的vps，如果再国内则会被墙）
-
-创建tg bot
-1、tg搜素BotFather
-2、/start
-3、/n......
+接入openai.com官方的API keys这种方式实现的是单句问答，无上下文，也是目前唯一可实现的方式。
+前提拥有一台海外vps（为什么是海外，因为telegram bot在收发指令时会先经过telegram服务器再发送到自己的vps，如果再国内则会被墙）
+创建tg bot1、tg搜素BotFather2、/start3、/newbot4、输入b......
     </div>
   </a>
   
@@ -741,13 +740,7 @@ SEYIT CAMTEPE, CSIRO Data61, Austr......
     </h3>
     <div class="post-content-preview">
       现阶段就是复现难题的同时四处找题目刷，今天开始做pwnable.tw。结果这第一道名为start的题目就做了挺久的。
-start
-
-和国内常见的起始题目完全不同的风格，程序通过很短的汇编实现了write、read
-看着不像是用ROP的做法，保护全关了，这里考虑利用NX关闭，堆栈可执行实现shellcode
-光看汇编比较抽象，自己画一下示意图
-
-这个是起始的栈示意图，注意到程序开头push了e......
+start和国内常见的起始题目完全不同的风格，程序通过很短的汇编实现了write、read看着不像是用ROP的做法，保护全关了，这里考虑利用NX关闭，堆栈可执行实现shellcode光看汇编比较抽象，自己画一下示意图这个是起始的栈示意图，注意到程序开头push了esp，并且后......
     </div>
   </a>
   
@@ -782,13 +775,8 @@ start
       off-by-null
     </h3>
     <div class="post-content-preview">
-      开篇碎碎念
-XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
-还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
-
-题目
-
-这个函数存在off-by-......
+      开篇碎碎念XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
+题目这个函数存在off-by-null这......
     </div>
   </a>
   
@@ -823,62 +811,13 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       题目复现累了，找个简单题练练手
     </h3>
     <div class="post-content-preview">
-      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
-
-这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
-
-目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
+      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCTF上的题......
     </div>
   </a>
   
   <p class="post-meta" style="margin: 10px 0;">
     Posted by l0tus on
     2023-02-14
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/2023西湖论剑/">
-    <h2 class="post-title">
-      2023西湖论剑 部分pwn题WP
-    </h2>
-    <h3 class="post-subtitle">
-      水平比较低只能理解两道题
-    </h3>
-    <div class="post-content-preview">
-      message board
-漏洞在这里：
-
-保护：
-
-没有canary和pie，libc版本是2.31
-
-禁了execve，需要使用orw
-思路与hgame2023_week1_pwn_orw基本一致（白夜牛逼）栈迁移orw，泄露libc的手法略有不同，这题存在一次格式化字符串漏洞用来泄露libc
-对于fmtstr的题目一直不太熟悉，泄露libc尤为手生
-通过这题再练一下，调试的时候看到**......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-02-02
   </p>
   <div class="tags">
     
@@ -948,15 +887,23 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     
     
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="20">pwn笔记</a>
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="21">pwn笔记</a>
     
     
     
-    <a href="/tags/#write up" title="write up" rel="14">write up</a>
+    <a href="/tags/#write up" title="write up" rel="15">write up</a>
     
     
     
     <a href="/tags/#日记" title="日记" rel="1">日记</a>
+    
+    
+    
+    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
+    
+    
+    
+    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
     
     
     
@@ -968,11 +915,11 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     
     
-    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
+    <a href="/tags/#heap" title="heap" rel="2">heap</a>
     
     
     
-    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
+    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
     
     
     
@@ -992,23 +939,7 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     
     
-    <a href="/tags/#heap" title="heap" rel="2">heap</a>
-    
-    
-    
-    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
-    
-    
-    
     <a href="/tags/#write_up" title="write_up" rel="1">write_up</a>
-    
-    
-    
-    <a href="/tags/#Fuzz" title="Fuzz" rel="1">Fuzz</a>
-    
-    
-    
-    <a href="/tags/#Paper Reading" title="Paper Reading" rel="1">Paper Reading</a>
     
     
     
@@ -1028,11 +959,19 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     
     
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
-    
-    
-    
     <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
+    
+    
+    
+    <a href="/tags/#Fuzz" title="Fuzz" rel="1">Fuzz</a>
+    
+    
+    
+    <a href="/tags/#Paper Reading" title="Paper Reading" rel="1">Paper Reading</a>
+    
+    
+    
+    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
     
     
     
@@ -1116,6 +1055,10 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
 <div class="widget">
   <ul>
     
+    <a href="../../cn/%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8D%97%E5%88%86%E5%8C%BA%E8%B5%9B2023/">
+      <li>2023国赛华东南分区赛</li>
+    </a>
+    
     <a href="../../cn/V-shuttle/">
       <li>论文阅读：&#34;V-Shuttle：Scalable and Semantics-Aware Hypervisor Virtual Device Fuzzing&#34;</li>
     </a>
@@ -1130,10 +1073,6 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     <a href="../../cn/%E7%8E%B0%E4%BB%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
       <li>《现代操作系统》阅读笔记（持续更新中）</li>
-    </a>
-    
-    <a href="../../cn/5%E6%9C%8811%E6%97%A5/">
-      <li>近期一些想写的东西</li>
     </a>
     
   </ul>
@@ -1202,7 +1141,7 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1218,36 +1157,36 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       <li>2022年终总结</li>
     </a>
     
-    <a href="/categories/#pwn笔记">
-      <li>pwn笔记</li>
-    </a>
-    
     <a href="/categories/#2023西湖论剑">
       <li>2023西湖论剑</li>
     </a>
     
-    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
+    <a href="/categories/#pwn笔记">
+      <li>pwn笔记</li>
     </a>
     
     <a href="/categories/#IoT">
       <li>IoT</li>
     </a>
     
-    <a href="/categories/#fuzz">
-      <li>fuzz</li>
-    </a>
-    
-    <a href="/categories/#write up">
-      <li>write up</li>
+    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
+      <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
     </a>
     
+    <a href="/categories/#fuzz">
+      <li>fuzz</li>
+    </a>
+    
     <a href="/categories/#XCTF">
       <li>XCTF</li>
+    </a>
+    
+    <a href="/categories/#write up">
+      <li>write up</li>
     </a>
     
     <a href="/categories/#2023XCTF-final">
@@ -1258,40 +1197,28 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       <li>CVE复现</li>
     </a>
     
-    <a href="/categories/#tcache_poisoning">
-      <li>tcache_poisoning</li>
-    </a>
-    
-    <a href="/categories/#论文阅读">
-      <li>论文阅读</li>
-    </a>
-    
     <a href="/categories/#write_up">
       <li>write_up</li>
+    </a>
+    
+    <a href="/categories/#tcache_poisoning">
+      <li>tcache_poisoning</li>
     </a>
     
     <a href="/categories/#HEAP">
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#日记">
-      <li>日记</li>
-    </a>
-    
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
-    </a>
-    
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
-    </a>
-    
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
+    <a href="/categories/#论文阅读">
+      <li>论文阅读</li>
     </a>
     
     <a href="/categories/#ret2libc">
       <li>ret2libc</li>
+    </a>
+    
+    <a href="/categories/#ret2syscall">
+      <li>ret2syscall</li>
     </a>
     
     <a href="/categories/#Stackmove">
@@ -1302,32 +1229,20 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#ret2syscall">
-      <li>ret2syscall</li>
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
+    </a>
+    
+    <a href="/categories/#日记">
+      <li>日记</li>
     </a>
     
     <a href="/categories/#漏洞复现">
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
-    </a>
-    
-    <a href="/categories/#操作系统">
-      <li>操作系统</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
+    <a href="/categories/#ciscn2023">
+      <li>ciscn2023</li>
     </a>
     
     <a href="/categories/#虚拟机逃逸">
@@ -1338,8 +1253,28 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
+    </a>
+    
+    <a href="/categories/#Paper Reading">
+      <li>Paper Reading</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
+    </a>
+    
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
+    </a>
+    
+    <a href="/categories/#操作系统">
+      <li>操作系统</li>
     </a>
     
     <a href="/categories/#2022浙江省赛">
@@ -1348,6 +1283,14 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
     
     <a href="/categories/#规划">
       <li>规划</li>
+    </a>
+    
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
+    </a>
+    
+    <a href="/categories/#读书笔记">
+      <li>读书笔记</li>
     </a>
     
   </ul>
