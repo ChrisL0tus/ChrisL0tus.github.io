@@ -258,17 +258,6 @@
           
           
           <li>
-            <a href="/categories/">
-              
-              分类
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/about/">
               
               关于
@@ -283,6 +272,17 @@
             <a href="/tags/">
               
               标签
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/categories/">
+              
+              分类
               
               
             </a>
@@ -472,36 +472,48 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这篇文章是<a target="_blank" rel="noopener" href="http://gtg.ink">@gtg</a>师傅写的，征得同意分享给了我们。<del>（l0你在装什么你根本看不懂啊喂(#`O′)！）</del><br>是好东西，我一个二进制菜狗虽然看不明白但是想在博客挂一份，或许以后会有学<br>这篇文章所有权以及一切解释归<a target="_blank" rel="noopener" href="http://gtg.ink">@gtg</a>所有，如需转载请联系<a target="_blank" rel="noopener" href="http://gtg.ink">@gtg</a>。</p>
-<h2 id="原型链prototype-chain"><a href="#原型链prototype-chain" class="headerlink" title="原型链prototype chain"></a>原型链prototype chain</h2><h3 id="没有类的实例对象"><a href="#没有类的实例对象" class="headerlink" title="没有类的实例对象"></a>没有类的实例对象</h3><blockquote>
+        <h1>前言</h1>
+<p>这篇文章是<a target="_blank" rel="noopener" href="http://gtg.ink">@gtg</a>师傅写的，征得同意分享给了我们。<s>（l0你在装什么你根本看不懂啊喂(#`O′)！）</s><br>
+是好东西，我一个二进制菜狗虽然看不明白但是想在博客挂一份，或许以后会有学<br>
+这篇文章所有权以及一切解释归<a target="_blank" rel="noopener" href="http://gtg.ink">@gtg</a>所有，如需转载请联系<a target="_blank" rel="noopener" href="http://gtg.ink">@gtg</a>。</p>
+<h2 id="原型链prototype-chain">原型链prototype chain</h2>
+<h3 id="没有类的实例对象">没有类的实例对象</h3>
+<blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2011/06/designing_ideas_of_inheritance_mechanism_in_javascript.html">Javascript继承机制的设计思想)</a>:  <strong>Brendan Eich</strong>设计 <strong>Javasciprt</strong> 的初衷只是为了浏览器与网页互动，因而主要目标就是高效。</p>
 </blockquote>
 <p>当时的热门编程语言<code>Java</code>和<code>C++</code>都使用<code>new</code>命令生成实例，如果要一个 class 要继承另一个，就直接用相应的语法继承就行了。</p>
-<p>BE在 <strong>Javascript</strong> 中学习了<code>new</code>的命令方法，但考虑到JS的简洁易用性，他不想要引入”类”的概念，转而使用”类的构造函数”(constructor)替代。</p>
-<p>比如创建对象的时候，C++的写法是：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName *object = <span class="keyword">new</span> <span class="built_in">ClassName</span>(param);</span><br></pre></td></tr></table></figure><br>Java的写法是：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo foo = <span class="keyword">new</span> Foo();</span><br></pre></td></tr></table></figure></p>
+<p>BE在 <strong>Javascript</strong> 中学习了<code>new</code>的命令方法，但考虑到JS的简洁易用性，他不想要引入&quot;类&quot;的概念，转而使用&quot;类的构造函数&quot;(constructor)替代。</p>
+<p>比如创建对象的时候，C++的写法是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName *object = <span class="keyword">new</span> <span class="built_in">ClassName</span>(param);</span><br></pre></td></tr></table></figure>
+<p>Java的写法是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo foo = <span class="keyword">new</span> Foo();</span><br></pre></td></tr></table></figure>
 <p>而Javascript:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DOG</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.name = name;		<span class="comment">//this指向新创建的实例对象，在多层访问仍然指向最初的实例</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> dogA = <span class="keyword">new</span> DOG(<span class="string">&#x27;大黄&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>可以看到 JS 中并没有声明类（ Java 和 C++ 中笔者没写出来），而是在创建实例的时候直接执行定义的<code>DOG()</code>构造函数。这样看来语法就变得简洁很多了。</p>
-<h3 id="原型链解决共享属性问题"><a href="#原型链解决共享属性问题" class="headerlink" title="原型链解决共享属性问题"></a>原型链解决共享属性问题</h3><p>上文用构造函数创建的每一个实例对象，都有自己的属性和方法的副本，不受其他对象的属性更改影响。这样不仅无法做到数据共享，也是极大的资源浪费。</p>
+<h3 id="原型链解决共享属性问题">原型链解决共享属性问题</h3>
+<p>上文用构造函数创建的每一个实例对象，都有自己的属性和方法的副本，不受其他对象的属性更改影响。这样不仅无法做到数据共享，也是极大的资源浪费。</p>
 <p>考虑到这一点，BE决定为构造函数设定一个<code>prototype</code>属性。</p>
 <p>这个<code>prototype</code>属性包含一个对象，所有需要共享的属性都放在这个对象中，不需要共享的属性则各自通过构造函数定义或直接定义。</p>
 <p>比如:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DOG</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">　　　　<span class="built_in">this</span>.name = name;</span><br><span class="line">　　&#125;</span><br><span class="line">DOG.prototype = &#123; <span class="attr">species</span> : <span class="string">&#x27;犬科&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> dogA = <span class="keyword">new</span> DOG(<span class="string">&#x27;大毛&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> dogB = <span class="keyword">new</span> DOG(<span class="string">&#x27;二毛&#x27;</span>);</span><br><span class="line"></span><br><span class="line">alert(dogA.species);		<span class="comment">// 犬科</span></span><br><span class="line">alert(dogB.species);		<span class="comment">// 犬科</span></span><br></pre></td></tr></table></figure>
-<p>这样一来就可以轻易地修改来自同一”构造函数”构造的实例对象的属性了。</p>
-<h3 id="原型访问过程"><a href="#原型访问过程" class="headerlink" title="原型访问过程"></a>原型访问过程</h3><p>既然<code>prototype</code>是赋予构造函数的原型，那在对象中是如何访问原型属性的呢？</p>
-<p>这是通过对象的<code>__proto__</code>属性实现的。比如上面的 dogA 对象，他的<code>__proto__</code>指向<code>DOG.prototype</code>。当你访问<code>dogA.species</code>时，发现<code>dogA</code>并不存在<code>species</code>属性，这时就会访问<code>dogA.__proto__.species</code>，也就是<code>DOG.prototype.species</code>，发现这个属性是存在的，所以就返回了原型的属性值”犬科”。当然如果存在多级原型关系的话，同样会去寻找<code>__proto__.__proto__.__proto__...</code>。这样的靠<code>__proto__</code>串起来的逐级访问过程就是原型链。</p>
+<p>这样一来就可以轻易地修改来自同一&quot;构造函数&quot;构造的实例对象的属性了。</p>
+<h3 id="原型访问过程">原型访问过程</h3>
+<p>既然<code>prototype</code>是赋予构造函数的原型，那在对象中是如何访问原型属性的呢？</p>
+<p>这是通过对象的<code>__proto__</code>属性实现的。比如上面的 dogA 对象，他的<code>__proto__</code>指向<code>DOG.prototype</code>。当你访问<code>dogA.species</code>时，发现<code>dogA</code>并不存在<code>species</code>属性，这时就会访问<code>dogA.__proto__.species</code>，也就是<code>DOG.prototype.species</code>，发现这个属性是存在的，所以就返回了原型的属性值&quot;犬科&quot;。当然如果存在多级原型关系的话，同样会去寻找<code>__proto__.__proto__.__proto__...</code>。这样的靠<code>__proto__</code>串起来的逐级访问过程就是原型链。</p>
 <p>而实际上，在JS中任何一个对象都具有<code>__proto__</code>属性，这一属性指向的是底层对象<code>Object.prototype</code>。当构造函数的<code>prototype</code>被指向其他对象时，你仍然可以通过<code>dogA.__proto__.__proto__</code>去访问底层<code>Object.prototype</code>，这也是原型链污染经常利用的点。</p>
 <p>方法的原型关系与属性相同，例子如下:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.log = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&#x27;, age:&#x27;</span> + <span class="built_in">this</span>.age);</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> nick = <span class="keyword">new</span> Person(<span class="string">&#x27;nick&#x27;</span>, <span class="number">18</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(nick.__proto__ === Person.prototype)		<span class="comment">// true</span></span><br><span class="line">nick.log();		<span class="comment">//输出nick, age:18</span></span><br><span class="line">nick.__proto__.log()；		<span class="comment">//undefined, age:undefined，因为this指向新创建的实例对象，在多层访问仍然指向最初的实例</span></span><br></pre></td></tr></table></figure>
 <p>这种设计使得 <strong>Javescript</strong> 语法简洁了许多，既满足了共享属性的需求，又可以通过实例的各自定义满足独立属性或方法的需求。</p>
 <p><em>需要提及的是赋值操作不会自动去访问原型，而是创建该实例的独立属性或方法，不会自动覆盖原型的属性或方法</em></p>
 <p>插入一张图片做为总结</p>
-<p><img src="1/yxl.jpg" alt="yxl" style="zoom:50%;" /></p>
+<img src="1/yxl.jpg" alt="yxl" style="zoom:50%;" />
 <blockquote>
 <p>更多细节参见：<a target="_blank" rel="noopener" href="https://blog.huli.tw/2017/08/27/the-javascripts-prototype-chain/">該來理解 JavaScript 的原型鍊了 - Huli</a></p>
 <p>注：<code>class</code>关键字以及一系列与类相关的方法在后来的<code>ES6标准</code>中出现，但仍然保留了原型关系特性（有些人认为这个类只是原型链的语法糖</p>
 </blockquote>
-<h2 id="作用域与闭包"><a href="#作用域与闭包" class="headerlink" title="作用域与闭包"></a>作用域与闭包</h2><h3 id="作用域Scope"><a href="#作用域Scope" class="headerlink" title="作用域Scope"></a>作用域Scope</h3><p>作用域就是一个变量的有效范围。哪里呼叫这个参数能指向他的存储地址的，都是其作用域。</p>
+<h2 id="作用域与闭包">作用域与闭包</h2>
+<h3 id="作用域Scope">作用域Scope</h3>
+<p>作用域就是一个变量的有效范围。哪里呼叫这个参数能指向他的存储地址的，都是其作用域。</p>
 <p>在 Javascript 中，每一个 <code>function</code> 进入之前都会有一个 <code>Execution Contexts</code> 执行环境，存放了执行需要的所有信息。这个 <code>Execution Contexts</code> 又带有一个与之对应的 <code>variable object</code> ，在这个对象中存放需要的所有变量。</p>
 <p>如果在某一个 <code>function</code> 中呼叫 <code>a</code> 变量，解释器就会从最小的、即自身的 <code>variable object</code> 中寻找 <code>a</code> 变量，然后逐级向上访问，直到访问到 <code>a</code> 的值，或访问到 <code>Global Scope</code> 没有发现而抛出错误为止。这种从 <code>Global Scope</code> 到一层层 <code>fuction</code> 就构成了整体的 <code>scope chain</code> 。</p>
 <p>举个例子</p>
@@ -511,8 +523,9 @@
 <p>比如下面这两段</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">demo</span>(<span class="params">str, a</span>) </span>&#123;</span><br><span class="line">   <span class="built_in">eval</span>(str);</span><br><span class="line">   <span class="built_in">console</span>.log(a, b);</span><br><span class="line">&#125;</span><br><span class="line">demo(<span class="string">&quot;var b = 12;&quot;</span>, <span class="number">1</span>); <span class="comment">// 1, 12</span></span><br></pre></td></tr></table></figure>
 <p>JS真费脑筋。。动态作用域具体可以参考这篇 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904199927365639#heading-11">你不知道的Javascript动态作用域 - 掘金 (juejin.cn)</a></p>
-<p>大概就是使用特殊的方法<code>eval</code>和<code>with</code>强行修改作用域，造成”欺骗”。</p>
-<h3 id="闭包Closure"><a href="#闭包Closure" class="headerlink" title="闭包Closure"></a>闭包Closure</h3><p>先看这段代码</p>
+<p>大概就是使用特殊的方法<code>eval</code>和<code>with</code>强行修改作用域，造成&quot;欺骗&quot;。</p>
+<h3 id="闭包Closure">闭包Closure</h3>
+<p>先看这段代码</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">10</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> inner</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">var</span> inner = test()</span><br><span class="line">inner()  <span class="comment">//10</span></span><br></pre></td></tr></table></figure>
 <p>将内部函数<code>inner()</code>作为返回值传出赋值给外部函数，执行后发现仍能获取<code>test()</code>内部定义的<code>a</code>变量。</p>
 <p>这意味着原有<code>test()</code>函数在执行后没有回收而是继续占用内存。只要函数<code>inner()</code>存在，<code>test()</code>函数相关的资源（包括test和a的定义）都不会被释放。这种看似执行完毕却还有东西没有释放的，就叫做<code>Closure</code>闭包。</p>
@@ -531,12 +544,14 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;=<span class="number">4</span>; i++) &#123;</span><br><span class="line">  btn[i].addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(i) <span class="comment">// 0 1 2 3 4</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>let</code>的声明方法会为每一个<code>function</code>创造一个针对他的块级作用域，使得上述代码可以理解为这样</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> i=<span class="number">0</span></span><br><span class="line">  btn[i].addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(i)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> i=<span class="number">1</span></span><br><span class="line">  btn[i].addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(i)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p><del>（看起来并不是很高效</del></p>
-<h3 id="function的建立和执行过程"><a href="#function的建立和执行过程" class="headerlink" title="function的建立和执行过程"></a>function的建立和执行过程</h3><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">一、建立全局执行环境，获取其中被定义的所有对象，进行声明（没有赋值），并记录其中哪个是函数</span><br><span class="line"></span><br><span class="line">二、执行函数外部的代码，获取全局变量组为一个对象，即`activation object`</span><br><span class="line"></span><br><span class="line">三、进入函数，获取函数传递参数与全局变量组结合为一个变量组，即`variable object`，并构造作用域链</span><br><span class="line"></span><br><span class="line">四、执行函数内部代码</span><br></pre></td></tr></table></figure>
+<p><s>（看起来并不是很高效</s></p>
+<h3 id="function的建立和执行过程">function的建立和执行过程</h3>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">一、建立全局执行环境，获取其中被定义的所有对象，进行声明（没有赋值），并记录其中哪个是函数</span><br><span class="line"></span><br><span class="line">二、执行函数外部的代码，获取全局变量组为一个对象，即`activation object`</span><br><span class="line"></span><br><span class="line">三、进入函数，获取函数传递参数与全局变量组结合为一个变量组，即`variable object`，并构造作用域链</span><br><span class="line"></span><br><span class="line">四、执行函数内部代码</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>如果說你認為閉包一定要：「離開創造它的環境」，那顯然「所有的函式都是閉包」這句話就不成立；但如果你認同閉包的定義是：「由函式和與其相關的參照環境組合而成的實體」，那就代表在 JavaScript 裡面，所有的函式都是閉包。</p>
 </blockquote>
-<h2 id="嘶"><a href="#嘶" class="headerlink" title="嘶~~"></a>嘶~~</h2><p>本来还打算做一点参数传递、变量提升的内容总结，但是我能力有限删删改改千来字，发现总结不了（（🌿</p>
+<h2 id="嘶">嘶~~</h2>
+<p>本来还打算做一点参数传递、变量提升的内容总结，但是我能力有限删删改改千来字，发现总结不了（（🌿</p>
 <p>参见<a target="_blank" rel="noopener" href="https://blog.huli.tw/recommend/">https://blog.huli.tw/recommend/</a>JavaScript 五講，非常精彩，文章大部分的参考也来自这里。</p>
 
 
@@ -687,7 +702,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BEprototype-chain"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">原型链prototype chain</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%B2%A1%E6%9C%89%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1"><span class="toc-nav-number">1.1.1.</span> <span class="toc-nav-text">没有类的实例对象</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%A7%A3%E5%86%B3%E5%85%B1%E4%BA%AB%E5%B1%9E%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-nav-number">1.1.2.</span> <span class="toc-nav-text">原型链解决共享属性问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8E%9F%E5%9E%8B%E8%AE%BF%E9%97%AE%E8%BF%87%E7%A8%8B"><span class="toc-nav-number">1.1.3.</span> <span class="toc-nav-text">原型访问过程</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E9%97%AD%E5%8C%85"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">作用域与闭包</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9FScope"><span class="toc-nav-number">1.2.1.</span> <span class="toc-nav-text">作用域Scope</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E9%97%AD%E5%8C%85Closure"><span class="toc-nav-number">1.2.2.</span> <span class="toc-nav-text">闭包Closure</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#function%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%92%8C%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-nav-number">1.2.3.</span> <span class="toc-nav-text">function的建立和执行过程</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%98%B6"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">嘶~~</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BEprototype-chain"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">原型链prototype chain</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%B2%A1%E6%9C%89%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1"><span class="toc-nav-number">1.1.1.</span> <span class="toc-nav-text">没有类的实例对象</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%A7%A3%E5%86%B3%E5%85%B1%E4%BA%AB%E5%B1%9E%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-nav-number">1.1.2.</span> <span class="toc-nav-text">原型链解决共享属性问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8E%9F%E5%9E%8B%E8%AE%BF%E9%97%AE%E8%BF%87%E7%A8%8B"><span class="toc-nav-number">1.1.3.</span> <span class="toc-nav-text">原型访问过程</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E9%97%AD%E5%8C%85"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">作用域与闭包</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9FScope"><span class="toc-nav-number">1.2.1.</span> <span class="toc-nav-text">作用域Scope</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E9%97%AD%E5%8C%85Closure"><span class="toc-nav-number">1.2.2.</span> <span class="toc-nav-text">闭包Closure</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#function%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%92%8C%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-nav-number">1.2.3.</span> <span class="toc-nav-text">function的建立和执行过程</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%98%B6"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">嘶~~</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -815,6 +830,10 @@
           
           <li>
             <a href="http://jian.pl/" target="_blank">小简</a>
+          </li>
+          
+          <li>
+            <a href="https://cameudis.github.io/" target="_blank">cameudis</a>
           </li>
           
         </ul>

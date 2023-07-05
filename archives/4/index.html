@@ -258,17 +258,6 @@
           
           
           <li>
-            <a href="/categories/">
-              
-              CATEGORIES
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/about/">
               
               ABOUT
@@ -283,6 +272,17 @@
             <a href="/tags/">
               
               TAGS
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/categories/">
+              
+              CATEGORIES
               
               
             </a>
@@ -478,6 +478,46 @@
   <!-- top end -->
   
 
+  <a href="/cn/ret2syscall/">
+    <h2 class="post-title">
+      ret2syscall
+    </h2>
+    <h3 class="post-subtitle">
+      
+    </h3>
+    <div class="post-content-preview">
+      先把白夜学长这篇文章放这，关于ret2syscall的深入浅出，一看就能学会！
+下载题目附件后拖入ida，看到vuln函数如下：
+
+思路：
+这次不用libc而是使用系统调用(syscall)，那么我们就要自己构造系统调用链
+其原理就是在Linux的glibc中，大部分系统调用已经被封装成普通的函数，如 read ， write ， open ， execve等，同时也将 syscall 指令......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2022-09-22
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#write up" title="write up">write up</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/实时数据监测wp/">
     <h2 class="post-title">
       XCTF-实时数据检测-WP
@@ -486,7 +526,9 @@
       比较经典的一道格式化字符串漏洞的题目，难度不大，l0tus在这里提供两种做法
     </h3>
     <div class="post-content-preview">
-      经典做法下载附件拖进ida之后看到明显的逻辑，不过这题是32位的1234567891011int locker()&#123;  char s[520]; // [esp+0h] [ebp-208h] BYREF  fgets(s, 512, stdin);  imagemagic(s);  if ( key == 35795746 )    return system(&quot;/bin......
+      经典做法
+下载附件拖进ida之后看到明显的逻辑，不过这题是32位的
+1234567891011int locker()&#123;  char s[520]; // [esp+0h] [ebp-208h] BYREF  fgets(s, 512, stdin);  imagemagic(s);  if ( key == 35795746 )    return system(&quot;/b......
     </div>
   </a>
   
@@ -521,8 +563,10 @@
       
     </h3>
     <div class="post-content-preview">
-       ret2libc与ret2text本质是一样的都是利用栈溢出改写返回地址，构造栈空间使程序运行到我们想要的函数，传入自己想要的参数，从而获取shell。不过这题没有system函数，那么我们需要做的就是引用libc库中的system并传入/bin/sh参数。 关于ret2libc详细的介绍可以参考白夜学长这篇文章，我就不过多赘述，直接做题。
-拖进ida 可以看到只有一个vuln函数而且没有......
+      ret2libc与ret2text本质是一样的都是利用栈溢出改写返回地址，构造栈空间使程序运行到我们想要的函数，传入自己想要的参数，从而获取shell。不过这题没有system函数，那么我们需要做的就是引用libc库中的system并传入/bin/sh参数。
+关于ret2libc详细的介绍可以参考白夜学长这篇文章，我就不过多赘述，直接做题。
+拖进ida
+可以看到只有一个vuln函数而且没有_......
     </div>
   </a>
   
@@ -622,6 +666,18 @@
     
     
     
+    <a href="/tags/#GOSSIP" title="GOSSIP" rel="1">GOSSIP</a>
+    
+    
+    
+    <a href="/tags/#期智" title="期智" rel="1">期智</a>
+    
+    
+    
+    <a href="/tags/#学习笔记" title="学习笔记" rel="1">学习笔记</a>
+    
+    
+    
     <a href="/tags/#heap" title="heap" rel="2">heap</a>
     
     
@@ -650,6 +706,14 @@
     
     
     
+    <a href="/tags/#Fuzz" title="Fuzz" rel="1">Fuzz</a>
+    
+    
+    
+    <a href="/tags/#Paper Reading" title="Paper Reading" rel="1">Paper Reading</a>
+    
+    
+    
     <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
     
     
@@ -667,14 +731,6 @@
     
     
     <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
-    
-    
-    
-    <a href="/tags/#Fuzz" title="Fuzz" rel="1">Fuzz</a>
-    
-    
-    
-    <a href="/tags/#Paper Reading" title="Paper Reading" rel="1">Paper Reading</a>
     
     
     
@@ -762,6 +818,10 @@
 <div class="widget">
   <ul>
     
+    <a href="../../cn/GOSSIP/">
+      <li>l0的暑假</li>
+    </a>
+    
     <a href="../../cn/%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8D%97%E5%88%86%E5%8C%BA%E8%B5%9B2023/">
       <li>2023国赛华东南分区赛</li>
     </a>
@@ -776,10 +836,6 @@
     
     <a href="../../cn/qemu_escape/">
       <li>虚拟机逃逸初探(更新中)</li>
-    </a>
-    
-    <a href="../../cn/%E7%8E%B0%E4%BB%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
-      <li>《现代操作系统》阅读笔记（持续更新中）</li>
     </a>
     
   </ul>
@@ -839,6 +895,8 @@
   
   <li><a href="http://jian.pl/" target="_blank">小简</a></li>
   
+  <li><a href="https://cameudis.github.io/" target="_blank">cameudis</a></li>
+  
 </ul>
 
 
@@ -848,7 +906,7 @@
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -880,6 +938,10 @@
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
+    <a href="/categories/#GOSSIP">
+      <li>GOSSIP</li>
+    </a>
+    
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
     </a>
@@ -888,12 +950,12 @@
       <li>fuzz</li>
     </a>
     
-    <a href="/categories/#XCTF">
-      <li>XCTF</li>
-    </a>
-    
     <a href="/categories/#write up">
       <li>write up</li>
+    </a>
+    
+    <a href="/categories/#XCTF">
+      <li>XCTF</li>
     </a>
     
     <a href="/categories/#2023XCTF-final">
@@ -902,6 +964,10 @@
     
     <a href="/categories/#CVE复现">
       <li>CVE复现</li>
+    </a>
+    
+    <a href="/categories/#期智">
+      <li>期智</li>
     </a>
     
     <a href="/categories/#write_up">
@@ -916,12 +982,28 @@
       <li>HEAP</li>
     </a>
     
+    <a href="/categories/#Paper Reading">
+      <li>Paper Reading</li>
+    </a>
+    
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
+    </a>
+    
     <a href="/categories/#论文阅读">
       <li>论文阅读</li>
     </a>
     
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
+    </a>
+    
     <a href="/categories/#ret2libc">
       <li>ret2libc</li>
+    </a>
+    
+    <a href="/categories/#日记">
+      <li>日记</li>
     </a>
     
     <a href="/categories/#ret2syscall">
@@ -936,16 +1018,24 @@
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#日记">
-      <li>日记</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#漏洞复现">
       <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#学习笔记">
+      <li>学习笔记</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -960,26 +1050,6 @@
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
-    </a>
-    
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
-    </a>
-    
     <a href="/categories/#操作系统">
       <li>操作系统</li>
     </a>
@@ -988,12 +1058,12 @@
       <li>2022浙江省赛</li>
     </a>
     
-    <a href="/categories/#规划">
-      <li>规划</li>
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
+    <a href="/categories/#规划">
+      <li>规划</li>
     </a>
     
     <a href="/categories/#读书笔记">

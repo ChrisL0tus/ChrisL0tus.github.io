@@ -258,17 +258,6 @@
           
           
           <li>
-            <a href="/categories/">
-              
-              分类
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/about/">
               
               关于
@@ -283,6 +272,17 @@
             <a href="/tags/">
               
               标签
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/categories/">
+              
+              分类
               
               
             </a>
@@ -414,7 +414,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">3.2k</span> In Total
+              Words <span class="post-count">3.3k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -476,27 +476,120 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h1 id="ABSTRACT"><a href="#ABSTRACT" class="headerlink" title="ABSTRACT"></a>ABSTRACT</h1><p><code>hypervisor</code>也被称作<code>Virtual Machine Monitor</code>(VMM),它可以在一台主机中隔离多个虚拟机。可以理解为多个虚拟机的管理核心，但是<code>hypervisor</code>存在利用方式可以做到逃逸和提权。但虚拟机中以<code>DMA</code>(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来），这篇论文提出了结合<code>FUZZ</code>的方法，寻找DMA交互的漏洞。论文作者创造了<a target="_blank" rel="noopener" href="https://github.com/hustdebug/v-shuttle">V-SHUTTLE</a>,规模化和语义感知的虚拟机模拟设备模糊测试，最终作者通过V-shuttle发现了35个bug，其中17个签发了CVE。</p>
-<h1 id="KEYWORDS"><a href="#KEYWORDS" class="headerlink" title="KEYWORDS"></a>KEYWORDS</h1><p><strong>Hypervisor; Virtual Device; Fuzzing; Vulnerability</strong></p>
-<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>Intro部分主要是ABSTRACT前半部分的扩写。就不做解读了。</p>
-<h1 id="BACKGROUND-AND-MOTIVATION"><a href="#BACKGROUND-AND-MOTIVATION" class="headerlink" title="BACKGROUND AND MOTIVATION"></a>BACKGROUND AND MOTIVATION</h1><p>这部分讲一些关于hypervisor和虚拟机的背景知识，为后面V-shuttle的设计做铺垫。</p>
-<h2 id="Virtual-Devices-of-Hypervisors"><a href="#Virtual-Devices-of-Hypervisors" class="headerlink" title="Virtual Devices of Hypervisors"></a>Virtual Devices of Hypervisors</h2><p>用户在虚拟机里使用的设备是经hypervisor提供的模拟的硬件，能实现和真实硬件一样，这就意味着在客户虚拟机操作系统中可以驱动虚拟设备。现在的hypervisor能够模拟绝大多数计算机硬件，比如显卡、网卡、usb、储存设备等等。</p>
-<h2 id="Driver-Device-Interaction"><a href="#Driver-Device-Interaction" class="headerlink" title="Driver-Device Interaction"></a>Driver-Device Interaction</h2><p>虚拟设备的交互方式有三种，MMIO、PMIO、DMA，前二者我们已经比较熟悉，在CTF的qemu逃逸题目里常有用到。本论文研究重点在DMA，DMA全称是<code>direct memory access</code>。设备的初始化工作往往是由MMIO和PMIO来做的，比如设备注册、地址初始化。初始化完成之后设备开始工作并进行更大型的数据交互，比如usb设备数据传输和网卡的网络数据包传输等，这时候最主要的交互方式就是DMA，因为DMA能进行更大、更复杂的数据的交互。也正因此，这一步也更容易导致安全隐患。下图简单描述了hypervisor虚拟机的交互流程。<br><img src="v0.png" alt="pic"><br>如下的表给出了数据交互中用到DMA的虚拟设备：<br><img src="v1.png" alt="pic"></p>
-<h2 id="Core-Challenge-Nested-Structures"><a href="#Core-Challenge-Nested-Structures" class="headerlink" title="Core Challenge-Nested Structures"></a>Core Challenge-Nested Structures</h2><p>这部分主要是讲在DMA中fuzz的一些困难。hypervisor在进行和DMA相关的数据传输时主要是通过几个重要的API，也就是一些函数比如<code>pci_dma_read</code>和<code>pci_dma_write</code>等，<code>pci_dma_read</code>作用是从客户机里读，也就是就将虚拟机里的数据复制到宿主机的缓冲区中，<code>pci_dma_write</code>则与之相反做的是往虚拟机里写。如果能精确控制地址参数，能实现任意地址读写。<br>但是经DMA传输的数据往往有很复杂的结构<br>经DMA传输的数据往往会有很多结构体以及互相指向的指针。会阻碍fuzz。</p>
-<h3 id="1-Nested-Form-Construction"><a href="#1-Nested-Form-Construction" class="headerlink" title="1)Nested Form Construction."></a>1)Nested Form Construction.</h3><p>1、从总体看，由DMA传输的复杂数据可以看成是一层一层的结构，总体形成一个树状结构。每个节点都是数据。同时这个树也可以看成是递归的因为一个树中会包含其他的树作为元素。这样对于传统的fuzz很不友好。<br>2、从每个节点的角度看，每个节点都是数据+指针的结构。指针在其所处的结构体中地址的偏移也是不确定的。同时其指向应该是一个有意义的地址，如果模糊测试的时候生成了一个节点，其指向是一个完全随机的地址，那就肯定会有问题。因此，在节点层面需要引入语义感知，如此才能生成符合逻辑的结构体类型和指针。也就是说fuzzer需要能够感知数据组织的语义和节点内部的结构。</p>
-<h3 id="2-Node-Yype-Awareness"><a href="#2-Node-Yype-Awareness" class="headerlink" title="2)Node Yype Awareness"></a>2)Node Yype Awareness</h3><p>大多数指针的指向只有在runtime才能被感知。因此，fuzzer需要在运行时才能感知指针的指向，这就需要fuzzer能够感知数据的语义。这样才能生成有意义的数据。<br>以USB-UHCI为例，UHCI全称Universal Host Controller Interface，作用是往客户虚拟机里提供虚拟USB设备。<br>其部分结构如下图<br><img src="v2.png" alt="pic"><br>指针的细节我就不去阅读了。<br>处理这种复杂结构的最直白的方法是采用结构感知的模糊测试，结构感知的意思就是基于模型，前者通过模糊测试获得一部分结构特征，后者基于前者的模型继续对所有可能的结构进行模糊测试，如此一来次数多了最终可以得出正确的结构，但问题很明显，时间成本和测试次数都太多。因此V-shuttle的设想是创造一种能够提升效率和准确率的感知方式。</p>
-<h1 id="V-SHUTTLE-DESIGN"><a href="#V-SHUTTLE-DESIGN" class="headerlink" title="V-SHUTTLE DESIGN"></a>V-SHUTTLE DESIGN</h1><p>这部分讲述了V-Shuttle的设计</p>
-<h2 id="Threat-Model"><a href="#Threat-Model" class="headerlink" title="Threat Model"></a>Threat Model</h2><p>V-Shuttle的攻击测试基于root权限，这很正常因为每个用户在自己的虚拟机里都可以达到root权限。可实现的攻击有DoS、信息泄露、提权。一旦一个客户机能实现逃逸获得hypervisor的shell，那么就可以接管其他在同一个host下的虚拟机。</p>
-<h2 id="System-Overview"><a href="#System-Overview" class="headerlink" title="System Overview"></a>System Overview</h2><p><img src="v3.png" alt="pic"><br>这部分是对V-Shuttle整体结构的描述，</p>
-<h2 id="DMA-Redirection"><a href="#DMA-Redirection" class="headerlink" title="DMA Redirection"></a>DMA Redirection</h2><h2 id="Semantics-Aware-Fuzzing-via-SeedPools"><a href="#Semantics-Aware-Fuzzing-via-SeedPools" class="headerlink" title="Semantics-Aware Fuzzing via SeedPools"></a>Semantics-Aware Fuzzing via SeedPools</h2><h2 id="Lightweight-Fuzzing-Loop"><a href="#Lightweight-Fuzzing-Loop" class="headerlink" title="Lightweight Fuzzing Loop"></a>Lightweight Fuzzing Loop</h2><h1 id="IMPLEMENTATION"><a href="#IMPLEMENTATION" class="headerlink" title="IMPLEMENTATION"></a>IMPLEMENTATION</h1><h1 id="笔者后记"><a href="#笔者后记" class="headerlink" title="笔者后记"></a>笔者后记</h1><p>这篇文章是浙江大学网安学院潘高宁博士在2021年发表的文章，潘博士也是AAA战队的成员，在CTF中主攻pwn方向。这篇文章是他的代表作，凭借这篇文章他获得了ACM年度最佳论文奖，在我们的阅读过程中也感受到了逻辑的条理和严谨。<br>笔者的导师是模糊测试这方面的研究专家，笔者本人对虚拟机逃逸技术/模糊测试格外痴迷，潘博士所做的研究将二者在某方面完美结合并且获得了巨大成功，在笔者眼里简直就是梦一般的向往。<br>笔者的导师在上上周把这篇论文发给我了，慢慢吞吞一直看到现在。很巧的是，上周笔者学校的网安学院邀请了潘博士来开了个讲座，笔者怀着激动、兴奋和对知识虔诚的渴望认真听了，也很荣幸在过程中提出了两个问题并得到了解答。<br>听说潘博士在9月份可能会来笔者学校当老师，希望到时候能跟着他学到更多。</p>
-<h1 id="实践-V-shuttle使用初探"><a href="#实践-V-shuttle使用初探" class="headerlink" title="实践-V-shuttle使用初探"></a>实践-V-shuttle使用初探</h1><p>因为V-shuttle暂时知名度不高，而且潘博士自从2021年开源之后也没有维护/优化过，github上12个issue没咋回复，readme里也并不非常详细，比如运行环境等都没有注明，所以在搭建的时候可能会遇到一堆问题，比如各种编译报错、启动的时候缺少什么镜像、种子不合适之类的。笔者最近花了一周时间熟悉了一下V-shuttle的部署和使用，可以算作为后人留下一点初步的教程，基于此还可以进行更多优化。<br>注：<br>笔者环境：<br>win11 + VMWARE workstation<br>linux发行版：Ubuntu20.04.6，系统镜像安装地址：<a target="_blank" rel="noopener" href="https://releases.ubuntu.com/20.04/">https://releases.ubuntu.com/20.04/</a><br>内核：Linux ubuntu 5.15.0-73-generic #80~20.04.1-Ubuntu SMP Wed May 17 14:58:14 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>直接把整个仓库扒下来就可以<br><code>git clone https://github.com/hustdebug/v-shuttle.git</code><br>装好后我们发现作者准备了V-shuttle-M和V-shuttle-S，S是增加了语义感知的，M则是基本框架，我这里就直接以S为例。</p>
-<h2 id="编译afl"><a href="#编译afl" class="headerlink" title="编译afl"></a>编译afl</h2><p>现在我们先到V-shuttle-S目录下，接着进入afl-seedpool<br><code>cd afl-seedpool</code><br>编译<br><code>make</code><br><code>make install</code><br>两条命令执行之后都会有如下报错<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Oops, the instrumentation does <span class="keyword">not</span> seem <span class="keyword">to</span> be behaving correctly!</span><br><span class="line"></span><br><span class="line">Please<span class="built_in"> ping </span>&lt;lcamtuf@google.com&gt; <span class="keyword">to</span> troubleshoot the issue.</span><br><span class="line"></span><br><span class="line">make: *** [Makefile:95: test_build] <span class="builtin-name">Error</span> 1</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>按照readme的做法是直接忽略，但我们这里采取github上某个issue里提到的hacky方式，我们执行<code>vim Makefile</code>，然后找到如下：<br><img src="v_sj0.png" alt="pic"><br>把<code>install: all</code>改成<code>install</code>，然后再执行<br><code>sudo make install</code><br>可以看到<code>sudo make install</code>之后不再报错（ps.笔者也不清楚这么做和直接忽略有没有区别以及实际影响大不大，估计是大差不差的，读者可以尝试着这么做也可以尝试忽略）<br><img src="v_sj1.png" alt="pic"></p>
-<h2 id="编译qemu"><a href="#编译qemu" class="headerlink" title="编译qemu"></a>编译qemu</h2><p>首先需要获得某个版本的qemu源码，这里以qemu5.1.0为例<br>在v-shuttle-S目录下：<code>wget https://download.qemu.org/qemu-5.1.0.tar.xz</code><br>然后提取一下就可以获得qmeu5.1.0源码文件夹<br>接着把V-shuttle-S目录下给出的<code>fuzz-seedpool.h</code> 和 <code>hook-write.h</code> 复制到 ./qemu-5.1.0/include目录<br>然后把<code>memory.c</code>复制到./qemu-5.1.0/softmmu目录，这个目录下本身存在一个memory.c，直接覆盖就可以<br>接着应用patch，V-shuttle-S目录下作者还给出了patch文件夹，里面有三个patch文件，我们挑其中一个把对应的qemu/hw/usb/文件名，patch成作者给出的样子就可以。<br>然后到V-shuttle-S/qemu-5.1.0目录下，执行<br><code>./configure --enable-debug --enable-sanitizers --enable-gcov --cc=afl-gcc --target-list=x86_64-softmmu</code><br><code>make -j8</code><br>编译qemu，这一步笔者之前在Ubuntu22.04遇到过挺多奇奇怪怪的链接问题，到20.04就没有了。<br>编译成功后会在qemu目录下生成一个<code>x86_64-softmmu</code>文件夹，里面有qemu可执行文件</p>
+        <h1>ABSTRACT</h1>
+<p><code>hypervisor</code>也被称作<code>Virtual Machine Monitor</code>(VMM),它可以在一台主机中隔离多个虚拟机。可以理解为多个虚拟机的管理核心，但是<code>hypervisor</code>存在利用方式可以做到逃逸和提权。但虚拟机中以<code>DMA</code>(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来），这篇论文提出了结合<code>FUZZ</code>的方法，寻找DMA交互的漏洞。论文作者创造了<a target="_blank" rel="noopener" href="https://github.com/hustdebug/v-shuttle">V-SHUTTLE</a>,规模化和语义感知的虚拟机模拟设备模糊测试，最终作者通过V-shuttle发现了35个bug，其中17个签发了CVE。</p>
+<h1>KEYWORDS</h1>
+<p><strong>Hypervisor; Virtual Device; Fuzzing; Vulnerability</strong></p>
+<h1>INTRODUCTION</h1>
+<p>Intro部分主要是ABSTRACT前半部分的扩写。就不做解读了。</p>
+<h1>BACKGROUND AND MOTIVATION</h1>
+<p>这部分讲一些关于hypervisor和虚拟机的背景知识，为后面V-shuttle的设计做铺垫。</p>
+<h2 id="Virtual-Devices-of-Hypervisors">Virtual Devices of Hypervisors</h2>
+<p>用户在虚拟机里使用的设备是经hypervisor提供的模拟的硬件，能实现和真实硬件一样，这就意味着在客户虚拟机操作系统中可以驱动虚拟设备。现在的hypervisor能够模拟绝大多数计算机硬件，比如显卡、网卡、usb、储存设备等等。</p>
+<h2 id="Driver-Device-Interaction">Driver-Device Interaction</h2>
+<p>虚拟设备的交互方式有三种，MMIO、PMIO、DMA，前二者我们已经比较熟悉，在CTF的qemu逃逸题目里常有用到。本论文研究重点在DMA，DMA全称是<code>direct memory access</code>。设备的初始化工作往往是由MMIO和PMIO来做的，比如设备注册、地址初始化。初始化完成之后设备开始工作并进行更大型的数据交互，比如usb设备数据传输和网卡的网络数据包传输等，这时候最主要的交互方式就是DMA，因为DMA能进行更大、更复杂的数据的交互。也正因此，这一步也更容易导致安全隐患。下图简单描述了hypervisor虚拟机的交互流程。<br>
+<img src="v0.png" alt="pic"><br>
+如下的表给出了数据交互中用到DMA的虚拟设备：<br>
+<img src="v1.png" alt="pic"></p>
+<h2 id="Core-Challenge-Nested-Structures">Core Challenge-Nested Structures</h2>
+<p>这部分主要是讲在DMA中fuzz的一些困难。hypervisor在进行和DMA相关的数据传输时主要是通过几个重要的API，也就是一些函数比如<code>pci_dma_read</code>和<code>pci_dma_write</code>等，<code>pci_dma_read</code>作用是从客户机里读，也就是就将虚拟机里的数据复制到宿主机的缓冲区中，<code>pci_dma_write</code>则与之相反做的是往虚拟机里写。如果能精确控制地址参数，能实现任意地址读写。<br>
+但是经DMA传输的数据往往有很复杂的结构<br>
+经DMA传输的数据往往会有很多结构体以及互相指向的指针。会阻碍fuzz。</p>
+<h3 id="1-Nested-Form-Construction">1)Nested Form Construction.</h3>
+<p>1、从总体看，由DMA传输的复杂数据可以看成是一层一层的结构，总体形成一个树状结构。每个节点都是数据。同时这个树也可以看成是递归的因为一个树中会包含其他的树作为元素。这样对于传统的fuzz很不友好。<br>
+2、从每个节点的角度看，每个节点都是数据+指针的结构。指针在其所处的结构体中地址的偏移也是不确定的。同时其指向应该是一个有意义的地址，如果模糊测试的时候生成了一个节点，其指向是一个完全随机的地址，那就肯定会有问题。因此，在节点层面需要引入语义感知，如此才能生成符合逻辑的结构体类型和指针。也就是说fuzzer需要能够感知数据组织的语义和节点内部的结构。</p>
+<h3 id="2-Node-Yype-Awareness">2)Node Yype Awareness</h3>
+<p>大多数指针的指向只有在runtime才能被感知。因此，fuzzer需要在运行时才能感知指针的指向，这就需要fuzzer能够感知数据的语义。这样才能生成有意义的数据。<br>
+以USB-UHCI为例，UHCI全称Universal Host Controller Interface，作用是往客户虚拟机里提供虚拟USB设备。<br>
+其部分结构如下图<br>
+<img src="v2.png" alt="pic"><br>
+指针的细节我就不去阅读了。<br>
+处理这种复杂结构的最直白的方法是采用结构感知的模糊测试，结构感知的意思就是基于模型，前者通过模糊测试获得一部分结构特征，后者基于前者的模型继续对所有可能的结构进行模糊测试，如此一来次数多了最终可以得出正确的结构，但问题很明显，时间成本和测试次数都太多。因此V-shuttle的设想是创造一种能够提升效率和准确率的感知方式。</p>
+<h1>V-SHUTTLE DESIGN</h1>
+<p>这部分讲述了V-Shuttle的设计</p>
+<h2 id="Threat-Model">Threat Model</h2>
+<p>V-Shuttle的攻击测试基于root权限，这很正常因为每个用户在自己的虚拟机里都可以达到root权限。可实现的攻击有DoS、信息泄露、提权。一旦一个客户机能实现逃逸获得hypervisor的shell，那么就可以接管其他在同一个host下的虚拟机。</p>
+<h2 id="System-Overview">System Overview</h2>
+<p><img src="v3.png" alt="pic"><br>
+这部分是对V-Shuttle整体结构的描述，</p>
+<h2 id="DMA-Redirection">DMA Redirection</h2>
+<h2 id="Semantics-Aware-Fuzzing-via-SeedPools">Semantics-Aware Fuzzing via SeedPools</h2>
+<h2 id="Lightweight-Fuzzing-Loop">Lightweight Fuzzing Loop</h2>
+<h1>IMPLEMENTATION</h1>
+<h1>笔者后记</h1>
+<p>这篇文章是浙江大学网安学院潘高宁博士在2021年发表的文章，潘博士也是AAA战队的成员，在CTF中主攻pwn方向。这篇文章是他的代表作，凭借这篇文章他获得了ACM年度最佳论文奖，在我们的阅读过程中也感受到了逻辑的条理和严谨。<br>
+笔者的导师是模糊测试这方面的研究专家，笔者本人对虚拟机逃逸技术/模糊测试格外痴迷，潘博士所做的研究将二者在某方面完美结合并且获得了巨大成功，在笔者眼里简直就是梦一般的向往。<br>
+笔者的导师在上上周把这篇论文发给我了，慢慢吞吞一直看到现在。很巧的是，上周笔者学校的网安学院邀请了潘博士来开了个讲座，笔者怀着激动、兴奋和对知识虔诚的渴望认真听了，也很荣幸在过程中提出了两个问题并得到了解答。<br>
+听说潘博士在9月份可能会来笔者学校当老师，希望到时候能跟着他学到更多。</p>
+<h1>实践-V-shuttle使用初探</h1>
+<p>因为V-shuttle暂时知名度不高，而且潘博士自从2021年开源之后也没有维护/优化过，github上12个issue没咋回复，readme里也并不非常详细，比如运行环境等都没有注明，所以在搭建的时候可能会遇到一堆问题，比如各种编译报错、启动的时候缺少什么镜像、种子不合适之类的。笔者最近花了一周时间熟悉了一下V-shuttle的部署和使用，可以算作为后人留下一点初步的教程，基于此还可以进行更多优化。<br>
+注：<br>
+笔者环境：<br>
+win11 + VMWARE workstation<br>
+linux发行版：Ubuntu20.04.6，系统镜像安装地址：<a target="_blank" rel="noopener" href="https://releases.ubuntu.com/20.04/">https://releases.ubuntu.com/20.04/</a><br>
+内核：Linux ubuntu 5.15.0-73-generic #80~20.04.1-Ubuntu SMP Wed May 17 14:58:14 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux</p>
+<h2 id="安装">安装</h2>
+<p>直接把整个仓库扒下来就可以<br>
+<code>git clone https://github.com/hustdebug/v-shuttle.git</code><br>
+装好后我们发现作者准备了V-shuttle-M和V-shuttle-S，S是增加了语义感知的，M则是基本框架，我这里就直接以S为例。</p>
+<h2 id="编译afl">编译afl</h2>
+<p>现在我们先到V-shuttle-S目录下，接着进入afl-seedpool<br>
+<code>cd afl-seedpool</code><br>
+编译<br>
+<code>make</code><br>
+<code>make install</code><br>
+两条命令执行之后都会有如下报错</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Oops, the instrumentation does <span class="keyword">not</span> seem <span class="keyword">to</span> be behaving correctly!</span><br><span class="line"></span><br><span class="line">Please<span class="built_in"> ping </span>&lt;lcamtuf@google.com&gt; <span class="keyword">to</span> troubleshoot the issue.</span><br><span class="line"></span><br><span class="line">make: *** [Makefile:95: test_build] <span class="builtin-name">Error</span> 1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>按照readme的做法是直接忽略，但我们这里采取github上某个issue里提到的hacky方式，我们执行<code>vim Makefile</code>，然后找到如下：<br>
+<img src="v_sj0.png" alt="pic"><br>
+把<code>install: all</code>改成<code>install</code>，然后再执行<br>
+<code>sudo make install</code><br>
+可以看到<code>sudo make install</code>之后不再报错（ps.笔者也不清楚这么做和直接忽略有没有区别以及实际影响大不大，估计是大差不差的，读者可以尝试着这么做也可以尝试忽略）<br>
+<img src="v_sj1.png" alt="pic"></p>
+<h2 id="编译qemu">编译qemu</h2>
+<p>首先需要获得某个版本的qemu源码，这里以qemu5.1.0为例<br>
+在v-shuttle-S目录下：<code>wget https://download.qemu.org/qemu-5.1.0.tar.xz</code><br>
+然后提取一下就可以获得qmeu5.1.0源码文件夹<br>
+接着把V-shuttle-S目录下给出的<code>fuzz-seedpool.h</code> 和 <code>hook-write.h</code> 复制到 ./qemu-5.1.0/include目录<br>
+然后把<code>memory.c</code>复制到./qemu-5.1.0/softmmu目录，这个目录下本身存在一个memory.c，直接覆盖就可以<br>
+接着应用patch，V-shuttle-S目录下作者还给出了patch文件夹，里面有三个patch文件，我们挑其中一个把对应的qemu/hw/usb/文件名，patch成作者给出的样子就可以。<br>
+然后到V-shuttle-S/qemu-5.1.0目录下，执行<br>
+<code>./configure --enable-debug --enable-sanitizers --enable-gcov --cc=afl-gcc --target-list=x86_64-softmmu</code><br>
+<code>make -j8</code><br>
+编译qemu，这一步笔者之前在Ubuntu22.04遇到过挺多奇奇怪怪的链接问题，到20.04就没有了。<br>
+编译成功后会在qemu目录下生成一个<code>x86_64-softmmu</code>文件夹，里面有qemu可执行文件</p>
 <p>编译成功之后返回V-shuttle-S目录，执行<code>mkdir in out seed</code>，创建三个文件夹</p>
-<h2 id="获取种子"><a href="#获取种子" class="headerlink" title="获取种子"></a>获取种子</h2><p>V-shuttle给出了一个生成测试样例输入种子的文件<code>collect_seeds.sh</code>，但是其参数需要做一些修改，我们先cat一下这个文件<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  V-Shuttle-S cat collect_seeds.sh</span><br><span class="line">cd ./<span class="keyword">in</span></span><br><span class="line">sudo <span class="attribute">Collect_Corpus</span>=1 <span class="built_in">..</span>/qemu-5.1.0/x86_64-softmmu/qemu-system-x86_64 \</span><br><span class="line">-enable-kvm -boot c -m 4G -drive <span class="attribute">format</span>=qcow2,file=../ubuntu.image \</span><br><span class="line">-display none \</span><br><span class="line">-nic user,<span class="attribute">hostfwd</span>=tcp:0.0.0.0:5555-:22 \</span><br><span class="line">-device pci-ohci,<span class="attribute">id</span>=ohci -device usb-tablet,<span class="attribute">bus</span>=ohci.0,port=1,id=usbdev1</span><br></pre></td></tr></table></figure><br>这里获取种子的方式似乎是用qemu起了一个虚拟机然后收集一些数据，这里最关键的一点就是它需要一个ubuntu镜像，在file=那一个参数的位置。<br>那么我们以<code>ubuntu-18.04.5-desktop-amd64.iso</code>为例，首先我们在自己指定一个目录下比如我是~/ubuntu_images目录，执行<br><code>wget http://old-releases.ubuntu.com/releases/18.04.5/ubuntu-18.04.5-desktop-amd64.iso</code><br>然后下载到了ubuntu-18.04.5-desktop-amd64.iso镜像文件，但是我们需要将其转换成qemu所需要的镜像<br>首先需要用到的工具是qemu-utils，安装指令如下：<br><code>sudo apt-get install qemu-utils</code><br>然后执行<code>qemu-img convert -f raw -O qcow2 ./ubuntu-18.04.5-desktop-amd64.iso ./ubuntu-18.04.5-desktop-amd64.iso.qcow2</code>，生成了一个新的ubuntu-18.04.5-desktop-amd64.iso.qcow2文件，这才是能够写在file参数里的文件，于是把<code>collect_seeds.sh</code>修改成：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  V-Shuttle-S cat collect_seeds.sh</span><br><span class="line">cd ./<span class="keyword">in</span></span><br><span class="line">sudo <span class="attribute">Collect_Corpus</span>=1 <span class="built_in">..</span>/qemu-5.1.0/x86_64-softmmu/qemu-system-x86_64 \</span><br><span class="line">-enable-kvm -boot c -m 4G -drive <span class="attribute">format</span>=qcow2,file=/home/escp/ubuntu_images/ubuntu-18.04.5-desktop-amd64.iso.qcow2 \</span><br><span class="line">-display none \</span><br><span class="line">-nic user,<span class="attribute">hostfwd</span>=tcp:0.0.0.0:5555-:22 \</span><br><span class="line">-device pci-ohci,<span class="attribute">id</span>=ohci -device usb-tablet,<span class="attribute">bus</span>=ohci.0,port=1,id=usbdev1</span><br></pre></td></tr></table></figure><br>然后就可以在V-shuttle-S目录下执行<code>./collect_seed.sh</code><br>不出意外就会正常执行了，但意外也有因为我们启用了kvm，可能会有报错cpu不支持kvm<br>首先考虑没有安装kvm，先执行以下命令安装kvm:<br><code>sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils</code><br>如果还是不能启动，则先检查自己设备的cpu是否支持硬件虚拟化：<br><code>grep -Eoc &#39;(vmx|svm)&#39; /proc/cpuinfo</code>，执行这条命令之后如果为大于0的数则说明不是CPU的问题，如果此时不能执行笔者暂时也无法解答。<br>如果为0表示CPU不支持硬件虚拟化技术，这个时候如果你和笔者一样是用VMWARE workstation虚拟机起的Ubuntu，可以右键虚拟机设置-&gt;cpu-&gt;虚拟化引擎<br><img src="v_sj2.png" alt="pic"><br>关机后勾选这个再开机就可以了。<br>然后就能正常执行collect_seed.sh，执行效果如下：<br><img src="v_sj3.png" alt="pic"></p>
-<h2 id="fuzz"><a href="#fuzz" class="headerlink" title="fuzz"></a>fuzz</h2><p>克服以上问题之后，直接执行<code>./fuzz.sh</code>应该就不会有太大问题，直接跑起来。<br>可能运行会报如下错误：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[-] Hmm, your <span class="built_in">system</span> <span class="keyword">is</span> configured <span class="keyword">to</span> send core dump notifications <span class="keyword">to</span> <span class="keyword">an</span></span><br><span class="line">    external utility. This will cause issue<span class="variable">s:</span> there will <span class="keyword">be</span> <span class="keyword">an</span> extended delay</span><br><span class="line">    between stumbling upon <span class="keyword">a</span> crash <span class="built_in">and</span> having this information relayed <span class="keyword">to</span> the</span><br><span class="line">    fuzzer via the standard waitpid() API.</span><br><span class="line"></span><br><span class="line">    To avoid having crashes misinterpreted <span class="keyword">as</span> timeouts, please <span class="built_in">log</span> in <span class="keyword">as</span> root</span><br><span class="line">    <span class="built_in">and</span> temporarily modify /proc/sys/kernel/core_pattern, like <span class="keyword">so</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> core &gt;/proc/sys/kernel/core_pattern</span><br><span class="line"></span><br><span class="line">[-] PROGRAM ABORT : Pipe at the beginning of <span class="string">&#x27;core_pattern&#x27;</span></span><br><span class="line">         Location : check_crash_handling(), afl-fuzz.<span class="keyword">c</span>:<span class="number">7060</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><br>这个只要切换到root用户然后执行它给的这条指令就可以了</p>
-<h2 id="gdb-attach"><a href="#gdb-attach" class="headerlink" title="gdb attach"></a>gdb attach</h2><p>这个很简单，在fuzz跑起来的时候看一看进程，<code>sudo gdb attach &lt;pid&gt;</code>就可以.<br>最终效果如下：<br><img src="v_sj4.png" alt="pic"></p>
+<h2 id="获取种子">获取种子</h2>
+<p>V-shuttle给出了一个生成测试样例输入种子的文件<code>collect_seeds.sh</code>，但是其参数需要做一些修改，我们先cat一下这个文件</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  V-Shuttle-S cat collect_seeds.sh</span><br><span class="line">cd ./<span class="keyword">in</span></span><br><span class="line">sudo <span class="attribute">Collect_Corpus</span>=1 <span class="built_in">..</span>/qemu-5.1.0/x86_64-softmmu/qemu-system-x86_64 \</span><br><span class="line">-enable-kvm -boot c -m 4G -drive <span class="attribute">format</span>=qcow2,file=../ubuntu.image \</span><br><span class="line">-display none \</span><br><span class="line">-nic user,<span class="attribute">hostfwd</span>=tcp:0.0.0.0:5555-:22 \</span><br><span class="line">-device pci-ohci,<span class="attribute">id</span>=ohci -device usb-tablet,<span class="attribute">bus</span>=ohci.0,port=1,id=usbdev1</span><br></pre></td></tr></table></figure>
+<p>这里获取种子的方式似乎是用qemu起了一个虚拟机然后收集一些数据，这里最关键的一点就是它需要一个ubuntu镜像，在file=那一个参数的位置。<br>
+那么我们以<code>ubuntu-18.04.5-desktop-amd64.iso</code>为例，首先我们在自己指定一个目录下比如我是~/ubuntu_images目录，执行<br>
+<code>wget http://old-releases.ubuntu.com/releases/18.04.5/ubuntu-18.04.5-desktop-amd64.iso</code><br>
+然后下载到了ubuntu-18.04.5-desktop-amd64.iso镜像文件，但是我们需要将其转换成qemu所需要的镜像<br>
+首先需要用到的工具是qemu-utils，安装指令如下：<br>
+<code>sudo apt-get install qemu-utils</code><br>
+然后执行<code>qemu-img convert -f raw -O qcow2 ./ubuntu-18.04.5-desktop-amd64.iso ./ubuntu-18.04.5-desktop-amd64.iso.qcow2</code>，生成了一个新的ubuntu-18.04.5-desktop-amd64.iso.qcow2文件，这才是能够写在file参数里的文件，于是把<code>collect_seeds.sh</code>修改成：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  V-Shuttle-S cat collect_seeds.sh</span><br><span class="line">cd ./<span class="keyword">in</span></span><br><span class="line">sudo <span class="attribute">Collect_Corpus</span>=1 <span class="built_in">..</span>/qemu-5.1.0/x86_64-softmmu/qemu-system-x86_64 \</span><br><span class="line">-enable-kvm -boot c -m 4G -drive <span class="attribute">format</span>=qcow2,file=/home/escp/ubuntu_images/ubuntu-18.04.5-desktop-amd64.iso.qcow2 \</span><br><span class="line">-display none \</span><br><span class="line">-nic user,<span class="attribute">hostfwd</span>=tcp:0.0.0.0:5555-:22 \</span><br><span class="line">-device pci-ohci,<span class="attribute">id</span>=ohci -device usb-tablet,<span class="attribute">bus</span>=ohci.0,port=1,id=usbdev1</span><br></pre></td></tr></table></figure>
+<p>然后就可以在V-shuttle-S目录下执行<code>./collect_seed.sh</code><br>
+不出意外就会正常执行了，但意外也有因为我们启用了kvm，可能会有报错cpu不支持kvm<br>
+首先考虑没有安装kvm，先执行以下命令安装kvm:<br>
+<code>sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils</code><br>
+如果还是不能启动，则先检查自己设备的cpu是否支持硬件虚拟化：<br>
+<code>grep -Eoc '(vmx|svm)' /proc/cpuinfo</code>，执行这条命令之后如果为大于0的数则说明不是CPU的问题，如果此时不能执行笔者暂时也无法解答。<br>
+如果为0表示CPU不支持硬件虚拟化技术，这个时候如果你和笔者一样是用VMWARE workstation虚拟机起的Ubuntu，可以右键虚拟机设置-&gt;cpu-&gt;虚拟化引擎<br>
+<img src="v_sj2.png" alt="pic"><br>
+关机后勾选这个再开机就可以了。<br>
+然后就能正常执行collect_seed.sh，执行效果如下：<br>
+<img src="v_sj3.png" alt="pic"></p>
+<h2 id="fuzz">fuzz</h2>
+<p>克服以上问题之后，直接执行<code>./fuzz.sh</code>应该就不会有太大问题，直接跑起来。<br>
+可能运行会报如下错误：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[-] Hmm, your <span class="built_in">system</span> <span class="keyword">is</span> configured <span class="keyword">to</span> send core dump notifications <span class="keyword">to</span> <span class="keyword">an</span></span><br><span class="line">    external utility. This will cause issue<span class="variable">s:</span> there will <span class="keyword">be</span> <span class="keyword">an</span> extended delay</span><br><span class="line">    between stumbling upon <span class="keyword">a</span> crash <span class="built_in">and</span> having this information relayed <span class="keyword">to</span> the</span><br><span class="line">    fuzzer via the standard waitpid() API.</span><br><span class="line"></span><br><span class="line">    To avoid having crashes misinterpreted <span class="keyword">as</span> timeouts, please <span class="built_in">log</span> in <span class="keyword">as</span> root</span><br><span class="line">    <span class="built_in">and</span> temporarily modify /proc/sys/kernel/core_pattern, like <span class="keyword">so</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> core &gt;/proc/sys/kernel/core_pattern</span><br><span class="line"></span><br><span class="line">[-] PROGRAM ABORT : Pipe at the beginning of <span class="string">&#x27;core_pattern&#x27;</span></span><br><span class="line">         Location : check_crash_handling(), afl-fuzz.<span class="keyword">c</span>:<span class="number">7060</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这个只要切换到root用户然后执行它给的这条指令就可以了</p>
+<h2 id="gdb-attach">gdb attach</h2>
+<p>这个很简单，在fuzz跑起来的时候看一看进程，<code>sudo gdb attach &lt;pid&gt; </code>就可以.<br>
+最终效果如下：<br>
+<img src="v_sj4.png" alt="pic"></p>
 
 
         <hr>
@@ -646,7 +739,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#ABSTRACT"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">ABSTRACT</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#KEYWORDS"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">KEYWORDS</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#INTRODUCTION"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">INTRODUCTION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#BACKGROUND-AND-MOTIVATION"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">BACKGROUND AND MOTIVATION</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Virtual-Devices-of-Hypervisors"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">Virtual Devices of Hypervisors</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Driver-Device-Interaction"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">Driver-Device Interaction</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Core-Challenge-Nested-Structures"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">Core Challenge-Nested Structures</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-Nested-Form-Construction"><span class="toc-nav-number">4.3.1.</span> <span class="toc-nav-text">1)Nested Form Construction.</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-Node-Yype-Awareness"><span class="toc-nav-number">4.3.2.</span> <span class="toc-nav-text">2)Node Yype Awareness</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#V-SHUTTLE-DESIGN"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">V-SHUTTLE DESIGN</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Threat-Model"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">Threat Model</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#System-Overview"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">System Overview</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#DMA-Redirection"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text">DMA Redirection</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Semantics-Aware-Fuzzing-via-SeedPools"><span class="toc-nav-number">5.4.</span> <span class="toc-nav-text">Semantics-Aware Fuzzing via SeedPools</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Lightweight-Fuzzing-Loop"><span class="toc-nav-number">5.5.</span> <span class="toc-nav-text">Lightweight Fuzzing Loop</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#IMPLEMENTATION"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">IMPLEMENTATION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E7%AC%94%E8%80%85%E5%90%8E%E8%AE%B0"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">笔者后记</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%AE%9E%E8%B7%B5-V-shuttle%E4%BD%BF%E7%94%A8%E5%88%9D%E6%8E%A2"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">实践-V-shuttle使用初探</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-nav-number">8.1.</span> <span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91afl"><span class="toc-nav-number">8.2.</span> <span class="toc-nav-text">编译afl</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91qemu"><span class="toc-nav-number">8.3.</span> <span class="toc-nav-text">编译qemu</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E7%A7%8D%E5%AD%90"><span class="toc-nav-number">8.4.</span> <span class="toc-nav-text">获取种子</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#fuzz"><span class="toc-nav-number">8.5.</span> <span class="toc-nav-text">fuzz</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#gdb-attach"><span class="toc-nav-number">8.6.</span> <span class="toc-nav-text">gdb attach</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">ABSTRACT</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">KEYWORDS</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">INTRODUCTION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">BACKGROUND AND MOTIVATION</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Virtual-Devices-of-Hypervisors"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">Virtual Devices of Hypervisors</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Driver-Device-Interaction"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">Driver-Device Interaction</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Core-Challenge-Nested-Structures"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">Core Challenge-Nested Structures</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-Nested-Form-Construction"><span class="toc-nav-number">4.3.1.</span> <span class="toc-nav-text">1)Nested Form Construction.</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-Node-Yype-Awareness"><span class="toc-nav-number">4.3.2.</span> <span class="toc-nav-text">2)Node Yype Awareness</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">V-SHUTTLE DESIGN</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Threat-Model"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">Threat Model</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#System-Overview"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">System Overview</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#DMA-Redirection"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text">DMA Redirection</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Semantics-Aware-Fuzzing-via-SeedPools"><span class="toc-nav-number">5.4.</span> <span class="toc-nav-text">Semantics-Aware Fuzzing via SeedPools</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Lightweight-Fuzzing-Loop"><span class="toc-nav-number">5.5.</span> <span class="toc-nav-text">Lightweight Fuzzing Loop</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">IMPLEMENTATION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">笔者后记</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">实践-V-shuttle使用初探</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-nav-number">8.1.</span> <span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91afl"><span class="toc-nav-number">8.2.</span> <span class="toc-nav-text">编译afl</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BC%96%E8%AF%91qemu"><span class="toc-nav-number">8.3.</span> <span class="toc-nav-text">编译qemu</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E7%A7%8D%E5%AD%90"><span class="toc-nav-number">8.4.</span> <span class="toc-nav-text">获取种子</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#fuzz"><span class="toc-nav-number">8.5.</span> <span class="toc-nav-text">fuzz</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#gdb-attach"><span class="toc-nav-number">8.6.</span> <span class="toc-nav-text">gdb attach</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -778,6 +871,10 @@
           
           <li>
             <a href="http://jian.pl/" target="_blank">小简</a>
+          </li>
+          
+          <li>
+            <a href="https://cameudis.github.io/" target="_blank">cameudis</a>
           </li>
           
         </ul>

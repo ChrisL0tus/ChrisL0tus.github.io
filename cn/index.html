@@ -258,17 +258,6 @@
           
           
           <li>
-            <a href="/categories/">
-              
-              分类
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/about/">
               
               关于
@@ -283,6 +272,17 @@
             <a href="/tags/">
               
               标签
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/categories/">
+              
+              分类
               
               
             </a>
@@ -478,6 +478,49 @@
   <!-- top end -->
   
 
+  <a href="/cn/GOSSIP/">
+    <h2 class="post-title">
+      l0的暑假
+    </h2>
+    <h3 class="post-subtitle">
+      期智学习笔记
+    </h3>
+    <div class="post-content-preview">
+      引子
+菜鸡如我，暑假居然有幸被GOSSIP选上。开了个文档用于写笔记，记录一些学到的东西和我做的事。
+正文
+因为飞书转md不方便，于是直接放read only的链接了。
+https://vidar-team.feishu.cn/docx/LchldKun7oyUK8xMwKlcXviUnmf
+文章受密码保护。
+...
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-07-05
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#GOSSIP" title="GOSSIP">GOSSIP</a>
+    
+    <a href="/tags/#期智" title="期智">期智</a>
+    
+    <a href="/tags/#学习笔记" title="学习笔记">学习笔记</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/国赛华东南分区赛2023/">
     <h2 class="post-title">
       2023国赛华东南分区赛
@@ -486,8 +529,15 @@
       年轻人的第一次线下AWDP赛
     </h3>
     <div class="post-content-preview">
-      MaskNote一道假的堆题，漏洞是sprintf的格式化字符串漏洞，过滤了%x,%n和%p，但是没用过滤%c，利用格式化字符串的%c可以实现栈溢出。程序在初始化的时候mmap了一块很大的地址，可读可写可执行，塞shellcode就可以。
-attackexp:1234567891011121314151617181920212223242526272829303132333435363738......
+      MaskNote
+
+一道假的堆题，漏洞是sprintf的格式化字符串漏洞，过滤了%x,%n和%p，但是没用过滤%c，利用格式化字符串的%c可以实现栈溢出。
+
+程序在初始化的时候mmap了一块很大的地址，可读可写可执行，塞shellcode就可以。
+
+attack
+exp:
+123456789101112131415161718192021222324252627282930313233343......
     </div>
   </a>
   
@@ -522,7 +572,8 @@ attackexp:1234567891011121314151617181920212223242526272829303132333435363738...
       
     </h3>
     <div class="post-content-preview">
-      ABSTRACThypervisor也被称作Virtual Machine Monitor(VMM),它可以在一台主机中隔离多个虚拟机。可以理解为多个虚拟机的管理核心，但是hypervisor存在利用方式可以做到逃逸和提权。但虚拟机中以DMA(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来），......
+      ABSTRACT
+hypervisor也被称作Virtual Machine Monitor(VMM),它可以在一台主机中隔离多个虚拟机。可以理解为多个虚拟机的管理核心，但是hypervisor存在利用方式可以做到逃逸和提权。但虚拟机中以DMA(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来）......
     </div>
   </a>
   
@@ -561,9 +612,15 @@ attackexp:1234567891011121314151617181920212223242526272829303132333435363738...
       
     </h3>
     <div class="post-content-preview">
-      pwn 4/6，被白夜带飞了，协会的大家都太强了这几道题目里能独立完整解出的大概也只有两道，另外的都是白夜在主要输出，我只能提供一点思路和跟着写一点脚本，还是需要多练但是我把我们俩做出的题都放上来了，有的步骤我还不会，现在太晚了（00：40）明天白天有空复现一下之后大概是分区赛（？，继续加油
-烧烤摊儿第一道pwn，比较简单，光速下班但是之后光速上题hhh整数溢出，没检查负数也有栈溢出：
-ex......
+      pwn 4/6，被白夜带飞了，协会的大家都太强了
+这几道题目里能独立完整解出的大概也只有两道，另外的都是白夜在主要输出，我只能提供一点思路和跟着写一点脚本，还是需要多练
+但是我把我们俩做出的题都放上来了，有的步骤我还不会，现在太晚了（00：40）明天白天有空复现一下
+之后大概是分区赛（？，继续加油
+烧烤摊儿
+第一道pwn，比较简单，光速下班但是之后光速上题hhh
+整数溢出，没检查负数
+
+也有......
     </div>
   </a>
   
@@ -598,8 +655,10 @@ ex......
       
     </h3>
     <div class="post-content-preview">
-      开篇废话从上学期就定下了学VMpwn这个方向，一是我在刚接触虚拟机的时候就认为虚拟机这个东西是一门艺术，是杰作，其次是被去年蒋公子挖VM ware的CVE拿GeekPwn冠军给帅到了，幻想着成为他那样的神仙。于是就开始摸一些简单的CTF中虚拟机逃逸的题目和qemu的原理，这里特别感谢公大的@korey0sh1师傅，从他的文章里我学到了许多。
-QemuQEMU是一个托管的虚拟机，它通过动态的二......
+      开篇废话
+从上学期就定下了学VMpwn这个方向，一是我在刚接触虚拟机的时候就认为虚拟机这个东西是一门艺术，是杰作，其次是被去年蒋公子挖VM ware的CVE拿GeekPwn冠军给帅到了，幻想着成为他那样的神仙。于是就开始摸一些简单的CTF中虚拟机逃逸的题目和qemu的原理，这里特别感谢公大的@korey0sh1师傅，从他的文章里我学到了许多。
+Qemu
+QEMU是一个托管的虚拟机，它通过动态......
     </div>
   </a>
   
@@ -634,7 +693,8 @@ QemuQEMU是一个托管的虚拟机，它通过动态的二......
       
     </h3>
     <div class="post-content-preview">
-      引子大概是这学期初的时候开始就很想学操作系统，但是因为种种原因，一直拖着没学。前两天刚考完期中，运气比较好及格了，课业压力总算是减轻了一些；对于操作系统的学习，学长们给我推荐的都是《操作系统真相还原》和MIT的公开课和实验，但是我手边并没有《操作系统真相还原》，iPad上倒是有电子版，但碍于电子版读起来总是不舒服。还有就是MIT的公开课没有中文字幕，虽说我曾经是英语专业，但硬听英文课这种留学......
+      引子
+大概是这学期初的时候开始就很想学操作系统，但是因为种种原因，一直拖着没学。前两天刚考完期中，运气比较好及格了，课业压力总算是减轻了一些；对于操作系统的学习，学长们给我推荐的都是《操作系统真相还原》和MIT的公开课和实验，但是我手边并没有《操作系统真相还原》，iPad上倒是有电子版，但碍于电子版读起来总是不舒服。还有就是MIT的公开课没有中文字幕，虽说我曾经是英语专业，但硬听英文课这种留......
     </div>
   </a>
   
@@ -669,9 +729,11 @@ QemuQEMU是一个托管的虚拟机，它通过动态的二......
       好久没写博客了
     </h3>
     <div class="post-content-preview">
-      有段时间没写博客了，一部分原因是懒，学到了的一些东西懒得整理懒得写上来；另一方面是因为最近收获比较少，期中考试是一个借口，我可以怪他占用我的时间，对吧。但主要还是自己的问题；而且最近心态也容易受外物影响，生活中也已经很久没张嘴说很多话了。一些做的事情和想法大概就在这里写写。 
-ångstromCTF 2023美国的一个比较简单的比赛，你看，我把这都放上来了，可见我最近是真的闲吧
-Queue格......
+      有段时间没写博客了，一部分原因是懒，学到了的一些东西懒得整理懒得写上来；另一方面是因为最近收获比较少，期中考试是一个借口，我可以怪他占用我的时间，对吧。但主要还是自己的问题；而且最近心态也容易受外物影响，生活中也已经很久没张嘴说很多话了。一些做的事情和想法大概就在这里写写。
+ångstromCTF 2023
+美国的一个比较简单的比赛，你看，我把这都放上来了，可见我最近是真的闲吧
+Queue
+......
     </div>
   </a>
   
@@ -708,7 +770,22 @@ Queue格......
       一道rust写的堆题
     </h3>
     <div class="post-content-preview">
-      rust 写的目录堆题很丑。主函数：是我做过最丑的pwn题，主函数无视掉一部分很丑陋的代码。主要关注的就是一个switch case 语句，左边的函数栏中仔细看可以看到增删查改和目录还有后门backdoor函数：delete函数：源码我就不解读了太丑了没仔细看，大概试试也就能测出洞来思路：delete函数调用时输入index为1953723762可以调用后门函数实现uaf后续就是泄露libc......
+      rust 写的目录堆题
+很丑。
+主函数：
+
+
+
+是我做过最丑的pwn题，主函数无视掉一部分很丑陋的代码。主要关注的就是一个switch case 语句，左边的函数栏中仔细看可以看到增删查改和目录还有后门
+
+backdoor函数：
+
+delete函数：
+
+
+源码我就不解读了太丑了没仔细看，大概试试也就能测出洞来
+思路：
+delete函数调用时输入index为1953723762可以调用后门函数......
     </div>
   </a>
   
@@ -743,7 +820,8 @@ Queue格......
       FirmAE仿真模拟 && D-link CVE复现
     </h3>
     <div class="post-content-preview">
-      最近读的论文是关于firmware emulation和firm fuzz的，正好这几天看了关于FirmAE的文章，就试着使用FirmAE来进行一次仿真模拟。FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行分析，然后模拟起来它的web服务。比较舒服的地方在于它自动化程度较高，一行指令就能从固件起到web服务。至于成功率用论文的原话来说就是：“successfully ......
+      最近读的论文是关于firmware emulation和firm fuzz的，正好这几天看了关于FirmAE的文章，就试着使用FirmAE来进行一次仿真模拟。
+FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行分析，然后模拟起来它的web服务。比较舒服的地方在于它自动化程度较高，一行指令就能从固件起到web服务。至于成功率用论文的原话来说就是：“successfully......
     </div>
   </a>
   
@@ -778,8 +856,9 @@ Queue格......
       2023南京-XCTF决赛一道misc中的pwn题
     </h3>
     <div class="post-content-preview">
-      赛题没想到第一次校外的线下赛居然是这么大型的XCTF总决赛，虽然老学长们杀进冠军直通的时候我还没上大学，现在居然有幸和战队一起去南京。决赛12小时，我做了一下午的这道misc里的pwn。到头来也只是有了个思路，比赛结束后我在qq上找出题人空白爷要来了exp，现在就作为复现一下赛题。
-题目思路大概是通过给出的10个序列，爆破种子，恢复160个随机数。计算每一步需要加的随机数个数拼凑明文shel......
+      赛题
+没想到第一次校外的线下赛居然是这么大型的XCTF总决赛，虽然老学长们杀进冠军直通的时候我还没上大学，现在居然有幸和战队一起去南京。决赛12小时，我做了一下午的这道misc里的pwn。到头来也只是有了个思路，比赛结束后我在qq上找出题人空白爷要来了exp，现在就作为复现一下赛题。
+题目思路大概是通过给出的10个序列，爆破种子，恢复160个随机数。计算每一步需要加的随机数个数拼凑明文she......
     </div>
   </a>
   
@@ -792,42 +871,6 @@ Queue格......
     <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
     
     <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/堆源码阅读/">
-    <h2 class="post-title">
-      malloc相关源码解读
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      做比较难的堆题需要对堆这个数据结构以及glibc各种函数的实现源码有充分的掌握，因此我打算详细读一遍源码，对堆获得一个比较完备的认识。本文分析的glibc版本为glibc2.33注：本文由l0tus一人编写而成，编写过程参考了ctf wiki和A1ex、chuj等师傅的博客，如果有错误欢迎联系本人更正。
-从一个chunk的结构开始讲起在glibc源码中，可以找到malloc_chunk这个结......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-03-17
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#源码阅读" title="源码阅读">源码阅读</a>
     
   </div>
   
@@ -915,6 +958,18 @@ Queue格......
     
     
     
+    <a href="/tags/#GOSSIP" title="GOSSIP" rel="1">GOSSIP</a>
+    
+    
+    
+    <a href="/tags/#期智" title="期智" rel="1">期智</a>
+    
+    
+    
+    <a href="/tags/#学习笔记" title="学习笔记" rel="1">学习笔记</a>
+    
+    
+    
     <a href="/tags/#heap" title="heap" rel="2">heap</a>
     
     
@@ -943,6 +998,14 @@ Queue格......
     
     
     
+    <a href="/tags/#Fuzz" title="Fuzz" rel="1">Fuzz</a>
+    
+    
+    
+    <a href="/tags/#Paper Reading" title="Paper Reading" rel="1">Paper Reading</a>
+    
+    
+    
     <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
     
     
@@ -960,14 +1023,6 @@ Queue格......
     
     
     <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
-    
-    
-    
-    <a href="/tags/#Fuzz" title="Fuzz" rel="1">Fuzz</a>
-    
-    
-    
-    <a href="/tags/#Paper Reading" title="Paper Reading" rel="1">Paper Reading</a>
     
     
     
@@ -1055,6 +1110,10 @@ Queue格......
 <div class="widget">
   <ul>
     
+    <a href="GOSSIP/">
+      <li>l0的暑假</li>
+    </a>
+    
     <a href="%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8D%97%E5%88%86%E5%8C%BA%E8%B5%9B2023/">
       <li>2023国赛华东南分区赛</li>
     </a>
@@ -1069,10 +1128,6 @@ Queue格......
     
     <a href="qemu_escape/">
       <li>虚拟机逃逸初探(更新中)</li>
-    </a>
-    
-    <a href="%E7%8E%B0%E4%BB%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
-      <li>《现代操作系统》阅读笔记（持续更新中）</li>
     </a>
     
   </ul>
@@ -1132,6 +1187,8 @@ Queue格......
   
   <li><a href="http://jian.pl/" target="_blank">小简</a></li>
   
+  <li><a href="https://cameudis.github.io/" target="_blank">cameudis</a></li>
+  
 </ul>
 
 
@@ -1141,7 +1198,7 @@ Queue格......
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/07/">July 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1173,6 +1230,10 @@ Queue格......
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
+    <a href="/categories/#GOSSIP">
+      <li>GOSSIP</li>
+    </a>
+    
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
     </a>
@@ -1181,12 +1242,12 @@ Queue格......
       <li>fuzz</li>
     </a>
     
-    <a href="/categories/#XCTF">
-      <li>XCTF</li>
-    </a>
-    
     <a href="/categories/#write up">
       <li>write up</li>
+    </a>
+    
+    <a href="/categories/#XCTF">
+      <li>XCTF</li>
     </a>
     
     <a href="/categories/#2023XCTF-final">
@@ -1195,6 +1256,10 @@ Queue格......
     
     <a href="/categories/#CVE复现">
       <li>CVE复现</li>
+    </a>
+    
+    <a href="/categories/#期智">
+      <li>期智</li>
     </a>
     
     <a href="/categories/#write_up">
@@ -1209,12 +1274,28 @@ Queue格......
       <li>HEAP</li>
     </a>
     
+    <a href="/categories/#Paper Reading">
+      <li>Paper Reading</li>
+    </a>
+    
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
+    </a>
+    
     <a href="/categories/#论文阅读">
       <li>论文阅读</li>
     </a>
     
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
+    </a>
+    
     <a href="/categories/#ret2libc">
       <li>ret2libc</li>
+    </a>
+    
+    <a href="/categories/#日记">
+      <li>日记</li>
     </a>
     
     <a href="/categories/#ret2syscall">
@@ -1229,16 +1310,24 @@ Queue格......
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#日记">
-      <li>日记</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#漏洞复现">
       <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#学习笔记">
+      <li>学习笔记</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -1253,26 +1342,6 @@ Queue格......
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
-    </a>
-    
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
-    </a>
-    
     <a href="/categories/#操作系统">
       <li>操作系统</li>
     </a>
@@ -1281,12 +1350,12 @@ Queue格......
       <li>2022浙江省赛</li>
     </a>
     
-    <a href="/categories/#规划">
-      <li>规划</li>
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
+    <a href="/categories/#规划">
+      <li>规划</li>
     </a>
     
     <a href="/categories/#读书笔记">
