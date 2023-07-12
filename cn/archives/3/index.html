@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              关于
+              分类
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              归档
+              关于
               
               
             </a>
@@ -470,6 +470,45 @@
       <!-- Main Content -->
 
 
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/XCTF-dice_game-WP/">
+    <h2 class="post-title">
+      XCTF-dice_game-WP
+    </h2>
+    <h3 class="post-subtitle">
+      题目复现累了，找个简单题练练手
+    </h3>
+    <div class="post-content-preview">
+      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
+
+这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
+
+目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-02-14
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#write up" title="write up">write up</a>
+    
+  </div>
+  
+
+</div>
+<hr>
 
 <div class="post-preview">
   
@@ -824,46 +863,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/ret2syscall/">
-    <h2 class="post-title">
-      ret2syscall
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      先把白夜学长这篇文章放这，关于ret2syscall的深入浅出，一看就能学会！
-下载题目附件后拖入ida，看到vuln函数如下：
-
-思路：
-这次不用libc而是使用系统调用(syscall)，那么我们就要自己构造系统调用链
-其原理就是在Linux的glibc中，大部分系统调用已经被封装成普通的函数，如 read ， write ， open ， execve等，同时也将 syscall 指令......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2022-09-22
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -952,19 +951,19 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#heap" title="heap" rel="2">heap</a>
-    
-    
-    
-    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
-    
-    
-    
     <a href="/tags/#JS" title="JS" rel="1">JS</a>
     
     
     
     <a href="/tags/#转载" title="转载" rel="1">转载</a>
+    
+    
+    
+    <a href="/tags/#heap" title="heap" rel="2">heap</a>
+    
+    
+    
+    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
     
     
     
@@ -1012,11 +1011,23 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
+    <a href="/tags/#OS" title="OS" rel="1">OS</a>
+    
+    
+    
+    <a href="/tags/#labs" title="labs" rel="1">labs</a>
+    
+    
+    
+    <a href="/tags/#xv6" title="xv6" rel="1">xv6</a>
     
     
     
     <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    
+    
+    
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
     
@@ -1100,6 +1111,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 <div class="widget">
   <ul>
     
+    <a href="../../xv6/">
+      <li>MIT 6.S081：Operating System Engineering 2021 FALL</li>
+    </a>
+    
     <a href="../../GOSSIP/">
       <li>l0的暑假</li>
     </a>
@@ -1114,10 +1129,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     <a href="../../ciscn2023/">
       <li>CISCN2023 部分PWN题wp</li>
-    </a>
-    
-    <a href="../../qemu_escape/">
-      <li>虚拟机逃逸初探(更新中)</li>
     </a>
     
   </ul>
@@ -1182,7 +1193,7 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/07/">July 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
 </div>
 
 
@@ -1214,12 +1225,12 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>IoT</li>
     </a>
     
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
-    </a>
-    
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
+    </a>
+    
+    <a href="/categories/#PoC double_free">
+      <li>PoC double_free</li>
     </a>
     
     <a href="/categories/#fuzz">
@@ -1250,12 +1261,12 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>write_up</li>
     </a>
     
-    <a href="/categories/#HEAP">
-      <li>HEAP</li>
-    </a>
-    
     <a href="/categories/#tcache_poisoning">
       <li>tcache_poisoning</li>
+    </a>
+    
+    <a href="/categories/#HEAP">
+      <li>HEAP</li>
     </a>
     
     <a href="/categories/#Paper Reading">
@@ -1298,20 +1309,20 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
+    <a href="/categories/#OS">
+      <li>OS</li>
     </a>
     
     <a href="/categories/#源码阅读">
       <li>源码阅读</li>
     </a>
     
-    <a href="/categories/#操作系统">
-      <li>操作系统</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
+    </a>
+    
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
     </a>
     
     <a href="/categories/#学习笔记">
@@ -1334,16 +1345,28 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
+    <a href="/categories/#labs">
+      <li>labs</li>
+    </a>
+    
+    <a href="/categories/#xv6">
+      <li>xv6</li>
+    </a>
+    
+    <a href="/categories/#操作系统">
+      <li>操作系统</li>
+    </a>
+    
+    <a href="/categories/#2022浙江省赛">
+      <li>2022浙江省赛</li>
     </a>
     
     <a href="/categories/#规划">
       <li>规划</li>
     </a>
     
-    <a href="/categories/#2022浙江省赛">
-      <li>2022浙江省赛</li>
+    <a href="/categories/#读书笔记">
+      <li>读书笔记</li>
     </a>
     
   </ul>
