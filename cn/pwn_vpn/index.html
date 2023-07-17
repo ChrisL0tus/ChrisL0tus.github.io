@@ -139,10 +139,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://l0tus.vip/tags/论文阅读/">
+  <link rel="canonical" href="http://l0tus.vip/cn/pwn_vpn/">
   <title>
     
-      l0tus&#39; blog
+      论文阅读：&#34;Oh-Pwn-VPN! Security Analysis of OpenVPN-based Android Apps&#34; - l0tus&#39; blog
     
   </title>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -239,20 +239,9 @@
       <div class="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="/">HOME</a>
+            <a href="/">首页</a>
           </li>
 
-          
-          
-          <li>
-            <a href="/archive/">
-              
-              ARCHIVES
-              
-              
-            </a>
-          </li>
-          
           
           
           
@@ -260,7 +249,7 @@
           <li>
             <a href="/about/">
               
-              ABOUT
+              关于
               
               
             </a>
@@ -271,7 +260,18 @@
           <li>
             <a href="/categories/">
               
-              CATEGORIES
+              分类
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/archive/">
+              
+              归档
               
               
             </a>
@@ -282,7 +282,7 @@
           <li>
             <a href="/tags/">
               
-              TAGS
+              标签
               
               
             </a>
@@ -293,36 +293,14 @@
           
           <li>
             <a class="popup-trigger">
-              <span class="search-icon"></span>SEARCH</a>
+              <span class="search-icon"></span>搜索</a>
           </li>
           
 
           <!-- LangSelect -->
           
           
-          <!-- LangSelect start -->
-          <!-- LangSelect -->
-<li>
-  <a id="lang-select-label"><i class="fa fa-globe"></i>
-    <span>
-      English
-    </span>
-    <select id="lang-select" data-canonical="tags/论文阅读/index.html">
-      
-      
-      <option value="en"  selected >
-        English
-      </option>
-      
-      <option value="cn" >
-        简体中文
-      </option>
-      
-    </select>
-  </a>
-</li>
-
-          <!-- LangSelect end -->
+          
           
           
         </ul>
@@ -374,19 +352,19 @@
     .body--light {
       /* intro-header */
       --intro-header-background-image-url-home: url('/img/header_img/cat.png');
-      --intro-header-background-image-url-post: url('');
+      --intro-header-background-image-url-post: url('/img/header_img/snow_header.png');
       --intro-header-background-image-url-page: url('//img/header_img/snow_header.png');
     }
     .body--dark {
       --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/cat.png');
-      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/snow_header.png');
       --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('//img/header_img/snow_header.png');
     }
 
     header.intro-header {
-       /*page*/
-        background-image: var(--intro-header-background-image-url-page);
-        /* background-image: url('//img/header_img/snow_header.png'); */
+       /*post*/
+        background-image: var(--intro-header-background-image-url-post);
+        /* background-image: url('/img/header_img/snow_header.png'); */
       
     }
 
@@ -408,10 +386,44 @@
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           
-          <div class="site-heading">
-            <h1>l0tus&#39;s blog</h1>
-            <!--<hr class="small">-->
-            <span class="subheading">若到江南赶上春，千万和春住</span>
+          <div class="post-heading">
+            <div class="tags">
+              
+              <a class="tag" href="/tags/#论文阅读笔记" title="论文阅读笔记">论文阅读笔记</a>
+              
+              <a class="tag" href="/tags/#vpn安全" title="vpn安全">vpn安全</a>
+              
+            </div>
+            <h1>论文阅读：&#34;Oh-Pwn-VPN! Security Analysis of OpenVPN-based Android Apps&#34;</h1>
+            <h2 class="subheading"></h2>
+            <span class="meta">
+              Posted by l0tus on
+              2023-07-17
+            </span>
+
+
+            
+            <!-- WordCount start -->
+            <div class="blank_box"></div>
+            <span class="meta">
+              Estimated Reading Time <span class="post-count">7</span> Minutes
+            </span>
+            <div class="blank_box"></div>
+            <span class="meta">
+              Words <span class="post-count">1.9k</span> In Total
+            </span>
+            <div class="blank_box"></div>
+            <!-- WordCount end -->
+            
+            
+            <!-- 不蒜子统计 start -->
+            <span class="meta" id="busuanzi_container_page_pv">
+              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+            </span>
+            <!-- 不蒜子统计 end -->
+            
+
+
           </div>
           
         </div>
@@ -452,998 +464,371 @@
 	Friends Blog、
 	anchorjs、
 	) -->
-		<!-- Main Content -->
-<div class="container">
-  <div class="row">
+		<!-- Modify by Yu-Hsuan Yen -->
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <!-- Post Container -->
+      <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
+
+        <h3 id="正文">正文</h3>
+<p>本文是一篇分析VPN安全的文章，主要分析了基于openvpn的Android vpn app的安全。<br>
+本文提出了三种常见的漏洞点<br>
+第一个是<strong>misuse of modified OpenVPN protocol</strong>，第二个是<strong>weak authentication at the client side</strong>，第三个是<strong>incorrect usage of native library</strong><br>
+上述三种漏洞点引起三种攻击方式，第一种是<strong>traffic decryption</strong>,第二种是<strong>man-in-middle attack</strong>,第三种是<strong>denial of service</strong><br>
+首先需要了解一下openvpn的workflow，论文中将其分为四个步骤：<strong>profile assembly</strong>, <strong>VPN initiation</strong>, <strong>management interaction</strong> and <strong>VPN connection</strong><br>
+<img src="vpn1.png" alt="pic1"><br>
+第一个步骤profile assembly指的是客户端将profile configuration文件assemble成一个整体，用于连接远程服务器。<br>
+一个openvpn的profile文件示例如下：<br>
+<img src="vpn2.png" alt="pic2"><br>
+第二个步骤VPN initiation指的是客户端与服务器建立连接，在profile发送到服务端之后，vpn进程就已经初始化了，然后一些network的参数诸如IP address DNS server会被push from server，然后The management interface is created in the app’s private directory (e.g., /data/data/pkg.name/cache/ ) and is waiting for connection。<br>
+第三个步骤management interaction，第二步生成的management interface会被用于与vpn进程进行交互、获取network的参数等。<br>
+第四个步骤VPN connection，openvpn有两个descriptor，一个是tun，一个是tap，分别用于IP traffic和Ethernet traffic，这两个descriptor会被用于建立vpn连接。<br>
+对于攻击者来说，最主要的安全问题相关的信息是在profile里，The client profile provides all the prerequisites for attacking the management interaction and the VPN connection procedure, such as the address of VPN server, cipher algorithm, authentication types and file location of the management interface. 如果没有这些信息，那就几乎不可能进行攻击。<br>
+但是问题就在于基于openvpn的免费vpn软件往往做的比较简单，有些甚至不需要用户注册，有些甚至给不同用户提供了相同的私钥，这样的话，攻击者可以通过他自己设备上的vpn app获取到profile的关键信息。<br>
+profile泄露之后就可能产生以下三种攻击<br>
+<strong>Trafic Decryption</strong>: 这种攻击方式是解密vpn传输的加密数据。为什么可以被解密呢，首先需要了解一些前置知识。首先，openvpn本身没有采用anti-dpi技术，anti-dpi指的是一种策略，用于阻止互联网服务提供者(ISPs)、政府机构或者其他可能尝试阻止或篡改网络数据流的实体，通过深度包检查（DPI）来识别和可能阻止VPN流量。DPI是一种网络包过滤方法，可以识别、分类或阻止具有特定详细内容的数据包（例如，确定数据包是否包含特定关键词，确定其是否属于特定应用的流量，或识别其是否使用了VPN协议）。利用反DPI技术，VPN服务可以“伪装”他们的流量，使其更难以被识别为VPN流量，从而减少被屏蔽的可能性；其次，openvpn本身对数据是有encrypt的，注意这里的encrypt指的并不是前面的anti-dpi技术，我个人理解的是可以将这两者看作对于一个通过vpn传输的请求流量的两种保护方式，一种用于绕过运营商/政府的管制，一种用于用户数据的加密。而很多free vpn的开发者声称他们采用了某种协议或者anti-dpi技术来防止流量被identified或者blocked。然而有一个典型的愚蠢错误就是他们禁用了openvpn本身的encrypt，改用自己的一套混淆（我的理解是既用于encrypt又当作anti-dpi），往往是可逆的加密算法甚至是简单的XOR。<br>
+<img src="vpn3.png" alt="pic3"><br>
+<strong>Man-in-the-Middle Attack</strong>: 这个挺好理解，在获得用户profile文件之后，攻击者可以通过自己的vpn app与服务器建立连接，然后将自己的vpn app的profile文件push到用户设备上，这样用户的vpn app就会连接到攻击者的服务器上，这样攻击者就可以获取到用户的所有流量。OpenVPN提供了几种防御这种攻击的方式，但是发现开发者可能并未实施这些防范手段。<br>
+<strong>Denial of Service</strong>: openvpn based app进程的安卓管理接口的权限如果不恰当，那么会导致一旦某个app被攻击了（或者存在恶意程序），那么整个设备的vpn服务都会被攻击导致瘫痪，这种攻击方式的危害性很大。<br>
+文章作者描述了他们的分析方式<br>
+首先是<strong>Identification</strong>这块，主要是两种，一种是Native Code Filter,一种是Network Traffic Identification<br>
+<img src="vpn4.png" alt="pic4"><br>
+第一种讲的是本地APK的源码筛选，类似于查找&quot;openvpn_encrypt&quot;这种关键字。<br>
+第二种是Network Traffic Identification，这种方法主要是用来研究应用程序的网络活动，并把APK文件视为一个黑箱进行处理。在截获VPN应用的网络流量后，可以使用像Bro这样的协议解析器来识别隧道协议。<br>
+追求研究数量和效率，作者主要采用的是静态分析，因为可以做到自动化。<br>
+然后是<strong>profile collection</strong>，这部分有两种方法一种是从profile servers获取，一种是本地检测runtime参数。作者采取了第二种。openvpn允许在运行时命令行加-config参数。<br>
+最后一个是<strong>Security Assessment</strong>，这段话我说实话没啃太懂，以下是喂给GPT吐出来的理解：<br>
+这是一个对OpenVPN配置文件进行分析的过程描述，主要包含三个步骤：<br>
+1.<strong>客户端配置文件解析</strong>：这一步骤中，设计了一个OpenVPN配置文件的解析器，用于提取从不同应用收集的配置文件中的所有选项。然后，执行对与安全相关选项使用情况的统计调查。特别地，检查OpenVPN应用中使用的密码算法(cipher)，是否使用密码(auth-user-pass)或证书(cert)进行客户端认证，或者是否使用了额外的TLS身份验证(tls-auth)。在客户端和服务端都使用证书进行认证的情况下，有两种CA信任模型。证书可以由同一CA签署，或者由不同的CA签署。仔细检查证书签署的情况能够揭示潜在的安全问题，例如，如果客户端和服务端证书由同一CA签署，并且未应用防止中间人攻击的选项(remote-cert-tls, ns-cert-type)，则可能存在被攻击的风险。<br>
+2.<strong>代码实现分析</strong>：这一步骤中，主要通过对OpenVPN源代码的逆向工程，评估了为混淆OpenVPN流量而添加的自定义特性的实现。这些混淆操作一般位于OpenVPN中原始加密过程之后，以及实际的网络发送/接收逻辑之前。借助OpenVPN的源代码和IDA Pro生成的反编译代码，能够识别在这些OpenVPN应用中添加的自定义混淆。<br>
+3.<strong>权限管理</strong>：管理界面文件位置可以从客户端配置文件中获取。在OpenVPN服务运行时，使用脚本自动检查管理接口的权限。如果管理界面对全球开放，权限管理就容易受到攻击。<br>
+这段话基本上就是在介绍一种分析OpenVPN应用配置，代码实现以及权限管理的综合方法，以此来揭示可能存在的安全问题。<br>
+<img src="vpn5.png" alt="pic5"></p>
+<p>至此分析部分结束了，后面是一些results、recommendations等。<br>
+感兴趣的可以去看我的PI，李老师主页里的原文：<a target="_blank" rel="noopener" href="https://www.lijuanru.com/publications/cans17.pdf">https://www.lijuanru.com/publications/cans17.pdf</a></p>
+
+
+        <hr>
+        <!-- Pager -->
+        <ul class="pager">
+          
+          
+          <li class="next">
+            <a href="/cn/xv6/" data-toggle="tooltip" data-placement="top" title="MIT 6.S081：Operating System Engineering 2021 FALL">Next Post &rarr;</a>
+          </li>
+          
+        </ul>
+
+        
+        <!-- tip start -->
+        <!-- tip -->
+<!-- tip start -->
+<div class="tip">
+  <p>
+    
+      如果您喜欢此博客或发现它对您有用，则欢迎对此发表评论。 也欢迎您共享此博客，以便更多人可以参与。 如果博客中使用的图像侵犯了您的版权，请与作者联系以将其删除。 谢谢 ！
+    
+  </p>
+</div>
+<!-- tip end -->
+
+        <!-- tip end -->
+        
+
+        
+        <!-- Sharing Srtart -->
+        <!-- Social Social Share Post -->
+<!-- Docs:https://github.com/overtrue/share.js -->
+
+<div class="social-share" data-initialized="true" data-disabled="tencent ,douban ,qzone ,linkedin ,facebook ,google ,diandian" data-wechat-qrcode-helper="" align="center">
+  <ul class="list-inline text-center social-share-ul">
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-twitter">
+        <i class="fa fa-twitter fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a class="social-share-icon icon-wechat">
+        <i class="fa fa-weixin fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-weibo">
+        <i class="fa fa-weibo fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-qq">
+        <i class="fa fa-qq fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=论文阅读：&#34;Oh-Pwn-VPN! Security Analysis of OpenVPN-based Android Apps&#34;&body=Hi,I found this website and thought you might like it http://l0tus.vip/cn/pwn_vpn/">
+        <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- css & js -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css"> -->
+<script defer="defer" async="true" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+        <!-- Sharing End -->
+        
+        <hr>
+
+        <!-- comments start -->
+        <!-- 1. gitalk comment -->
+
+  <!-- gitalk start -->
+  <!-- Docs:https://github.com/gitalk/gitalk/blob/master/readme-cn.md -->
+
+  <div id="gitalk-container"></div>
+
+  
+    <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.js"></script> -->
+    <script src="/js/comment/gitalk.js"></script>
+  
+
+  <script>
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: '',
+      id: 'Mon Jul 17 2023 00:00:00 GMT+0800', // Ensure uniqueness and length less than 50
+      distractionFreeMode: false, // Facebook-like distraction free mode
+      perPage: 10,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      language: 'en',
+      proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
+    });
+    gitalk.render('gitalk-container');
+
+    var gtFolded = () => {
+      setTimeout(function () {
+        let markdownBody = document.getElementsByClassName("markdown-body");
+        let list = Array.from(markdownBody);
+        list.forEach(item => {
+          if (item.clientHeight > 250) {
+            item.classList.add('gt-comment-body-folded');
+            item.style.maxHeight = '250px';
+            item.title = 'Click to Expand';
+            item.onclick = function () {
+              item.classList.remove('gt-comment-body-folded');
+              item.style.maxHeight = '';
+              item.title = '';
+              item.onclick = null;
+            };
+          }
+        })
+      }, 800);
+    }
+  </script>
+
+  <!-- gitalk end -->
+
+
+<!-- 2. gitment comment -->
+
+
+<!-- 3. disqus comment -->
+
+
+        <!-- comments end -->
+        <hr>
+
+      </div>
+
+      <!-- Catalog: Tabe of Content -->
+      <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">正文</span></a></li></ol>
+        
+        </div>
+      </aside>
     
 
-    <!-- USE SIDEBAR -->
-    <!-- Post Container -->
-    <div class="
+
+
+      <!-- Sidebar Container -->
+      <div class="
                 col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-      <!-- Main Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1">
-      <!-- 归档列表 -->
-
-      
-
-      <!-- 归档列表 -->
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2023">
-          <span class="tag-text">2023</span>
-        </span>
-        <ul>
-          
-          <li>
-            07-11
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/xv6/" style="color: #0085a1">
-              <span>
-                MIT 6.S081：Operating System Engineering 2021 FALL
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            07-05
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/GOSSIP/" style="color: #0085a1">
-              <span>
-                l0的暑假
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            07-01
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/国赛华东南分区赛2023/" style="color: #0085a1">
-              <span>
-                2023国赛华东南分区赛
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            05-29
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/V-shuttle/" style="color: #0085a1">
-              <span>
-                论文阅读："V-Shuttle：Scalable and Semantics-Aware Hypervisor Virtual Device Fuzzing"
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            05-28
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/ciscn2023/" style="color: #0085a1">
-              <span>
-                CISCN2023 部分PWN题wp
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            05-22
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/qemu_escape/" style="color: #0085a1">
-              <span>
-                虚拟机逃逸初探(更新中)
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            05-16
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/现代操作系统阅读笔记/" style="color: #0085a1">
-              <span>
-                《现代操作系统》阅读笔记（持续更新中）
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            05-11
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/5月11日/" style="color: #0085a1">
-              <span>
-                近期一些想写的东西
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            04-26
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/aliyunctf_rustpwn/" style="color: #0085a1">
-              <span>
-                阿里云CTF2023-babypwn-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            04-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/CVE-2022-26258/" style="color: #0085a1">
-              <span>
-                CVE-2022-26258
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            04-01
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/XCTF-final-shellgame-WP/" style="color: #0085a1">
-              <span>
-                XCTF-final-shellgame && photos of travelling
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            03-17
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/堆源码阅读/" style="color: #0085a1">
-              <span>
-                malloc相关源码解读
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            03-15
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/totolink/" style="color: #0085a1">
-              <span>
-                TOTOLINK路由器漏洞复现笔记
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            03-08
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/XCTF-greeting-150-WP/" style="color: #0085a1">
-              <span>
-                XCTF-greeting-150-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            03-08
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/XCTF-forgot-WP/" style="color: #0085a1">
-              <span>
-                XCTF-forgot-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            03-05
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/paper_reading_fuzz/" style="color: #0085a1">
-              <span>
-                Paper Reading "Fuzzing :A Survey for Roadmap"
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-25
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/大一上的总结/" style="color: #0085a1">
-              <span>
-                写在大一上结束
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/tgbot/" style="color: #0085a1">
-              <span>
-                ChatGPT接入Telegram Bot教程
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-15
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/pwnable.tw-start-WP/" style="color: #0085a1">
-              <span>
-                pwnable.tw-start-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-14
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/XCTF-dice_game-WP/" style="color: #0085a1">
-              <span>
-                XCTF-dice_game-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-14
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/XCTF-babyheap-WP/" style="color: #0085a1">
-              <span>
-                XCTF-babyheap-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            02-02
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/2023西湖论剑/" style="color: #0085a1">
-              <span>
-                2023西湖论剑 部分pwn题WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            01-29
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/JS 的一些特性：原型链，作用域，闭包/" style="color: #0085a1">
-              <span>
-                JS的一些特性：原型链，作用域，闭包
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2022">
-          <span class="tag-text">2022</span>
-        </span>
-        <ul>
-          
-          <li>
-            12-31
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/2022年终总结/" style="color: #0085a1">
-              <span>
-                2022年终总结
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-16
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/省赛babyheap/" style="color: #0085a1">
-              <span>
-                迟到三个月的省赛wp
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-15
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/stackmove/" style="color: #0085a1">
-              <span>
-                Stackmove
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-14
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/ez_heap/" style="color: #0085a1">
-              <span>
-                tcache_poisoning
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-13
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/POC_double_free/" style="color: #0085a1">
-              <span>
-                PoC double_free
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            12-11
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/heap/" style="color: #0085a1">
-              <span>
-                HEAP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            09-28
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/XCTF-stack2-WP/" style="color: #0085a1">
-              <span>
-                XCTF-stack2-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            09-22
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/ret2syscall/" style="color: #0085a1">
-              <span>
-                ret2syscall
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            09-12
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/规划/" style="color: #0085a1">
-              <span>
-                计划表
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            09-12
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/实时数据监测wp/" style="color: #0085a1">
-              <span>
-                XCTF-实时数据检测-WP
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-          <li>
-            09-10
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/cn/ret2libc/" style="color: #0085a1">
-              <span>
-                ret2libc
-                
-                -- cn
-                
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-
-      <!-- 如果开启评论功能 -->
-      
-    </div>
-
-    <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Visitors -->
-<h5><a href="/">VISITORS</a></h5>
-
-<div class="widget">
-  <span>
-    Viewed <b><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times
-  </span>
-  <br />
-  <span>
-    <b><i><span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Visitors In Total
-  </span>
-</div>
-
-
-        <hr>
-    
         <!-- Featured Tags -->
+        
+        <section>
+          <!-- no hr -->
+          <h5>
+            <a href="/tags/">特色标签</a>
+          </h5>
+          <div class="tags">
+            
+            <a class="tag" href="/tags/#论文阅读笔记" title="论文阅读笔记">论文阅读笔记</a>
+            
+            <a class="tag" href="/tags/#vpn安全" title="vpn安全">vpn安全</a>
+            
+          </div>
+        </section>
+        
 
-<section>
-  <h5><a href="/tags/">FEATURED TAGS</a></h5>
-  <div class="tags">
-    
-    
-    <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
-    
-    
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="21">pwn笔记</a>
-    
-    
-    
-    <a href="/tags/#write up" title="write up" rel="15">write up</a>
-    
-    
-    
-    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
-    
-    
-    
-    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
-    
-    
-    
-    <a href="/tags/#日记" title="日记" rel="1">日记</a>
-    
-    
-    
-    <a href="/tags/#GOSSIP" title="GOSSIP" rel="1">GOSSIP</a>
-    
-    
-    
-    <a href="/tags/#期智" title="期智" rel="1">期智</a>
-    
-    
-    
-    <a href="/tags/#学习笔记" title="学习笔记" rel="1">学习笔记</a>
-    
-    
-    
-    <a href="/tags/#JS" title="JS" rel="1">JS</a>
-    
-    
-    
-    <a href="/tags/#转载" title="转载" rel="1">转载</a>
-    
-    
-    
-    <a href="/tags/#heap" title="heap" rel="2">heap</a>
-    
-    
-    
-    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
-    
-    
-    
-    <a href="/tags/#fuzz" title="fuzz" rel="1">fuzz</a>
-    
-    
-    
-    <a href="/tags/#论文阅读" title="论文阅读" rel="1">论文阅读</a>
-    
-    
-    
-    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸" rel="2">虚拟机逃逸</a>
-    
-    
-    
-    <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="2">qemu逃逸</a>
-    
-    
-    
-    <a href="/tags/#write_up" title="write_up" rel="1">write_up</a>
-    
-    
-    
-    <a href="/tags/#Fuzz" title="Fuzz" rel="1">Fuzz</a>
-    
-    
-    
-    <a href="/tags/#Paper Reading" title="Paper Reading" rel="1">Paper Reading</a>
-    
-    
-    
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
-    
-    
-    
-    <a href="/tags/#ChatGPT" title="ChatGPT" rel="1">ChatGPT</a>
-    
-    
-    
-    <a href="/tags/#Bot" title="Bot" rel="1">Bot</a>
-    
-    
-    
-    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
-    
-    
-    
-    <a href="/tags/#OS" title="OS" rel="1">OS</a>
-    
-    
-    
-    <a href="/tags/#labs" title="labs" rel="1">labs</a>
-    
-    
-    
-    <a href="/tags/#xv6" title="xv6" rel="1">xv6</a>
-    
-    
-    
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
-    
-    
-    
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
-    
-    
-    
-    <a href="/tags/#操作系统" title="操作系统" rel="1">操作系统</a>
-    
-    
-    
-    <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
-    
-    
-    
-    <a href="/tags/#规划" title="规划" rel="1">规划</a>
-    
-    
-  </div>
-</section>
-
-
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-
-    
-    <img id="avatar_pic" src="/img/avatar/chisato.jpg" alt="avatar_pic" style="box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
-    -webkit-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);" />
-    
-
-    
-    <p>Vidar-Team | PWN</p>
-    
-
-    <!-- SNS Link -->
-    <ul class="list-inline">
-      
-
-      
-      <li>
-        <a target="_blank" href="https://github.com/ChrisL0tus">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-          </span>
-        </a>
-      </li>
-      
-
-      
-      <li>
-        <a target="_blank" href="https://twitter.com/Lotus_Chris_">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-          </span>
-        </a>
-      </li>
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-    </ul>
-  </div>
-</section>
-
-        <hr>
-    
-        <!-- RECENT POSTS -->
-
-<h5><a href="/">RECENT POSTS</a></h5>
-<div class="widget">
-  <ul>
-    
-    <a href="../../cn/xv6/">
-      <li>MIT 6.S081：Operating System Engineering 2021 FALL</li>
-    </a>
-    
-    <a href="../../cn/GOSSIP/">
-      <li>l0的暑假</li>
-    </a>
-    
-    <a href="../../cn/%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8D%97%E5%88%86%E5%8C%BA%E8%B5%9B2023/">
-      <li>2023国赛华东南分区赛</li>
-    </a>
-    
-    <a href="../../cn/V-shuttle/">
-      <li>论文阅读：&#34;V-Shuttle：Scalable and Semantics-Aware Hypervisor Virtual Device Fuzzing&#34;</li>
-    </a>
-    
-    <a href="../../cn/ciscn2023/">
-      <li>CISCN2023 部分PWN题wp</li>
-    </a>
-    
-  </ul>
-</div>
-
-
-        <hr>
-    
         <!-- Friends Blog -->
-
-<h5><a href="/">FRIENDS</a></h5>
-<ul class="list-inline">
-  
-  <li><a href="https://www.hakuya.work/" target="_blank">h4kuy4</a></li>
-  
-  <li><a href="https://cjovi.icu/" target="_blank">chuj</a></li>
-  
-  <li><a href="http://nameless.top/" target="_blank">nameless</a></li>
-  
-  <li><a href="https://ba1van4.icu/" target="_blank">Balvan4</a></li>
-  
-  <li><a href="https://cameudis.github.io/" target="_blank">cameudis</a></li>
-  
-  <li><a href="https://eson.ninja/" target="_blank">esonhugh</a></li>
-  
-  <li><a href="https://blog.t0hka.top" target="_blank">t0hka</a></li>
-  
-  <li><a href="https://JBNRZ.com.cn" target="_blank">JBNRZ</a></li>
-  
-  <li><a href="http://www.luelueking.com/" target="_blank">luelueking</a></li>
-  
-  <li><a href="https://github.red/" target="_blank">e99p1ant</a></li>
-  
-  <li><a href="https://blog.hiirachan.moe/" target="_blank">Doddy</a></li>
-  
-  <li><a href="https://me.liki.link/" target="_blank">liki</a></li>
-  
-  <li><a href="http://gtg.ink/" target="_blank">gtg</a></li>
-  
-  <li><a href="https://ek1ng.com" target="_blank">ek1ng</a></li>
-  
-  <li><a href="https://baimeow.cn" target="_blank">Baimeow</a></li>
-  
-  <li><a href="https://a1rcher.github.io" target="_blank">A1rcher</a></li>
-  
-  <li><a href="http://z3r0-del.top/" target="_blank">Z3r0</a></li>
-  
-  <li><a href="https://www.korey0sh1.cn" target="_blank">korey0sh1</a></li>
-  
-  <li><a href="http://jian.pl/" target="_blank">jian</a></li>
-  
-  <li><a href="https://jalenz.cn" target="_blank">Jalen</a></li>
-  
-  <li><a href="https://mmmmchong.github.io" target="_blank">humb1e</a></li>
-  
-</ul>
-
-
+        
         <hr>
-    
-        <!-- Archives -->
+        <h5>链友</h5>
+        <ul class="list-inline">
 
-<h5><a href="/archives/">archives</a></h5>
-<div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/07/">July 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">September 2022</a><span class="archive-list-count">5</span></li></ul>
-</div>
-
-
-        <hr>
-    
-        <!-- Categories -->
-
-<h5><a href="/categories/">categories</a></h5>
-<div class="widget">
-  <ul>
-    
-    <a href="/categories/#2022年终总结">
-      <li>2022年终总结</li>
-    </a>
-    
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
-    </a>
-    
-    <a href="/categories/#IoT">
-      <li>IoT</li>
-    </a>
-    
-    <a href="/categories/#pwn笔记">
-      <li>pwn笔记</li>
-    </a>
-    
-    <a href="/categories/#GOSSIP">
-      <li>GOSSIP</li>
-    </a>
-    
-    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
-    </a>
-    
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
-    </a>
-    
-    <a href="/categories/#fuzz">
-      <li>fuzz</li>
-    </a>
-    
-    <a href="/categories/#CVE复现">
-      <li>CVE复现</li>
-    </a>
-    
-    <a href="/categories/#XCTF">
-      <li>XCTF</li>
-    </a>
-    
-    <a href="/categories/#2023XCTF-final">
-      <li>2023XCTF-final</li>
-    </a>
-    
-    <a href="/categories/#write up">
-      <li>write up</li>
-    </a>
-    
-    <a href="/categories/#期智">
-      <li>期智</li>
-    </a>
-    
-    <a href="/categories/#tcache_poisoning">
-      <li>tcache_poisoning</li>
-    </a>
-    
-    <a href="/categories/#HEAP">
-      <li>HEAP</li>
-    </a>
-    
-    <a href="/categories/#write_up">
-      <li>write_up</li>
-    </a>
-    
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
-    </a>
-    
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
-    </a>
-    
-    <a href="/categories/#论文阅读">
-      <li>论文阅读</li>
-    </a>
-    
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
-    </a>
-    
-    <a href="/categories/#ret2libc">
-      <li>ret2libc</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#ret2syscall">
-      <li>ret2syscall</li>
-    </a>
-    
-    <a href="/categories/#Stackmove">
-      <li>Stackmove</li>
-    </a>
-    
-    <a href="/categories/#ChatGPT接入Telegram Bot教程">
-      <li>ChatGPT接入Telegram Bot教程</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#OS">
-      <li>OS</li>
-    </a>
-    
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
-    </a>
-    
-    <a href="/categories/#日记">
-      <li>日记</li>
-    </a>
-    
-    <a href="/categories/#操作系统">
-      <li>操作系统</li>
-    </a>
-    
-    <a href="/categories/#学习笔记">
-      <li>学习笔记</li>
-    </a>
-    
-    <a href="/categories/#ciscn2023">
-      <li>ciscn2023</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
-    </a>
-    
-    <a href="/categories/#labs">
-      <li>labs</li>
-    </a>
-    
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
-    </a>
-    
-    <a href="/categories/#xv6">
-      <li>xv6</li>
-    </a>
-    
-    <a href="/categories/#2022浙江省赛">
-      <li>2022浙江省赛</li>
-    </a>
-    
-    <a href="/categories/#规划">
-      <li>规划</li>
-    </a>
-    
-  </ul>
-</div>
-
-
-        <hr>
-    
-</div>
-
-
-    
+          
+          <li>
+            <a href="https://www.hakuya.work/" target="_blank">h4kuy4</a>
+          </li>
+          
+          <li>
+            <a href="https://cjovi.icu/" target="_blank">chuj</a>
+          </li>
+          
+          <li>
+            <a href="http://nameless.top/" target="_blank">nameless</a>
+          </li>
+          
+          <li>
+            <a href="https://ba1van4.icu/" target="_blank">Balvan4</a>
+          </li>
+          
+          <li>
+            <a href="https://cameudis.github.io/" target="_blank">cameudis</a>
+          </li>
+          
+          <li>
+            <a href="https://eson.ninja/" target="_blank">esonhugh</a>
+          </li>
+          
+          <li>
+            <a href="https://blog.t0hka.top" target="_blank">t0hka</a>
+          </li>
+          
+          <li>
+            <a href="https://JBNRZ.com.cn" target="_blank">JBNRZ</a>
+          </li>
+          
+          <li>
+            <a href="http://www.luelueking.com/" target="_blank">luelueking</a>
+          </li>
+          
+          <li>
+            <a href="https://github.red/" target="_blank">e99p1ant</a>
+          </li>
+          
+          <li>
+            <a href="https://blog.hiirachan.moe/" target="_blank">Doddy</a>
+          </li>
+          
+          <li>
+            <a href="https://me.liki.link/" target="_blank">liki</a>
+          </li>
+          
+          <li>
+            <a href="http://gtg.ink/" target="_blank">gtg</a>
+          </li>
+          
+          <li>
+            <a href="https://ek1ng.com" target="_blank">ek1ng</a>
+          </li>
+          
+          <li>
+            <a href="https://baimeow.cn" target="_blank">Baimeow</a>
+          </li>
+          
+          <li>
+            <a href="https://a1rcher.github.io" target="_blank">A1rcher</a>
+          </li>
+          
+          <li>
+            <a href="http://z3r0-del.top/" target="_blank">Z3r0</a>
+          </li>
+          
+          <li>
+            <a href="https://www.korey0sh1.cn" target="_blank">korey0sh1</a>
+          </li>
+          
+          <li>
+            <a href="http://jian.pl/" target="_blank">jian</a>
+          </li>
+          
+          <li>
+            <a href="https://jalenz.cn" target="_blank">Jalen</a>
+          </li>
+          
+          <li>
+            <a href="https://mmmmchong.github.io" target="_blank">humb1e</a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
   </div>
-</div>
+</article>
+
+
+
+<!-- anchorjs start -->
+<!-- async load function -->
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script type="text/javascript">
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function(e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  };
+</script>
+<script type="text/javascript">
+  //anchor-js, Doc:http://bryanbraun.github.io/anchorjs/
+  async ("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function() {
+    anchors.options = {
+      visible: 'hover',
+      placement: 'left',
+      // icon: 'ℬ'
+      icon: '❡'
+    };
+    anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+  });
+</script>
+<style>
+  /* place left on bigger screen */
+  @media all and (min-width: 800px) {
+    .anchorjs-link {
+      position: absolute;
+      left: -0.75em;
+      font-size: 1.1em;
+      margin-top: -0.1em;
+    }
+  }
+</style>
+
+<!-- anchorjs end -->
+
 
 
 		<!-- Footer (contains ThemeColor、viewer) -->
@@ -1617,7 +1002,7 @@ start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </scrip
             <span class="search-icon">
               <i class="fa fa-search fa-lg" style="margin: 25px 10px 25px 20px;"></i>
             </span>
-            <input autocomplete="off" placeholder="SEARCH..." type="text" id="local-search-input">
+            <input autocomplete="off" placeholder="搜索..." type="text" id="local-search-input">
           </div>
         </div>
         <div id="local-search-result"></div>
