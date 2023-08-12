@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              ABOUT
+              ARCHIVES
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              ARCHIVES
+              ABOUT
               
               
             </a>
@@ -549,46 +549,6 @@
   <!-- top end -->
   
 
-  <a href="/cn/ret2syscall/">
-    <h2 class="post-title">
-      ret2syscall
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      先把白夜学长这篇文章放这，关于ret2syscall的深入浅出，一看就能学会！
-下载题目附件后拖入ida，看到vuln函数如下：
-
-思路：
-这次不用libc而是使用系统调用(syscall)，那么我们就要自己构造系统调用链
-其原理就是在Linux的glibc中，大部分系统调用已经被封装成普通的函数，如 read ， write ， open ， execve等，同时也将 syscall 指令......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2022-09-22
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
   <a href="/cn/实时数据监测wp/">
     <h2 class="post-title">
       XCTF-实时数据检测-WP
@@ -606,44 +566,6 @@
   <p class="post-meta" style="margin: 10px 0;">
     Posted by l0tus on
     2022-09-12
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/ret2libc/">
-    <h2 class="post-title">
-      ret2libc
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      ret2libc与ret2text本质是一样的都是利用栈溢出改写返回地址，构造栈空间使程序运行到我们想要的函数，传入自己想要的参数，从而获取shell。不过这题没有system函数，那么我们需要做的就是引用libc库中的system并传入/bin/sh参数。
-关于ret2libc详细的介绍可以参考白夜学长这篇文章，我就不过多赘述，直接做题。
-拖进ida
-可以看到只有一个vuln函数而且没有_......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2022-09-10
   </p>
   <div class="tags">
     
@@ -709,23 +631,15 @@
     
     
     
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="21">pwn笔记</a>
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="19">pwn笔记</a>
     
     
     
-    <a href="/tags/#write up" title="write up" rel="15">write up</a>
+    <a href="/tags/#write up" title="write up" rel="13">write up</a>
     
     
     
     <a href="/tags/#日记" title="日记" rel="1">日记</a>
-    
-    
-    
-    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
-    
-    
-    
-    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
     
     
     
@@ -741,11 +655,27 @@
     
     
     
+    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
+    
+    
+    
+    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
+    
+    
+    
     <a href="/tags/#JS" title="JS" rel="1">JS</a>
     
     
     
     <a href="/tags/#转载" title="转载" rel="1">转载</a>
+    
+    
+    
+    <a href="/tags/#heap" title="heap" rel="2">heap</a>
+    
+    
+    
+    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
     
     
     
@@ -758,14 +688,6 @@
     
     
     <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸" rel="2">虚拟机逃逸</a>
-    
-    
-    
-    <a href="/tags/#heap" title="heap" rel="2">heap</a>
-    
-    
-    
-    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
     
     
     
@@ -785,23 +707,11 @@
     
     
     
-    <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="1">qemu逃逸</a>
-    
-    
-    
     <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
     
     
     
-    <a href="/tags/#ChatGPT" title="ChatGPT" rel="1">ChatGPT</a>
-    
-    
-    
-    <a href="/tags/#Bot" title="Bot" rel="1">Bot</a>
-    
-    
-    
-    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
+    <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="1">qemu逃逸</a>
     
     
     
@@ -817,11 +727,23 @@
     
     
     
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    <a href="/tags/#ChatGPT" title="ChatGPT" rel="1">ChatGPT</a>
+    
+    
+    
+    <a href="/tags/#Bot" title="Bot" rel="1">Bot</a>
+    
+    
+    
+    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
     
     
     
     <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
+    
+    
+    
+    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
     
     
     
@@ -983,7 +905,7 @@
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">4</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
 </div>
 
 
@@ -999,40 +921,44 @@
       <li>2022年终总结</li>
     </a>
     
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
-    </a>
-    
     <a href="/categories/#pwn笔记">
       <li>pwn笔记</li>
     </a>
     
-    <a href="/categories/#IoT">
-      <li>IoT</li>
+    <a href="/categories/#2023西湖论剑">
+      <li>2023西湖论剑</li>
     </a>
     
     <a href="/categories/#GOSSIP">
       <li>GOSSIP</li>
     </a>
     
+    <a href="/categories/#IoT">
+      <li>IoT</li>
+    </a>
+    
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
-    </a>
-    
-    <a href="/categories/#fuzz">
-      <li>fuzz</li>
-    </a>
-    
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
     </a>
     
     <a href="/categories/#write up">
       <li>write up</li>
     </a>
     
+    <a href="/categories/#PoC double_free">
+      <li>PoC double_free</li>
+    </a>
+    
     <a href="/categories/#XCTF">
       <li>XCTF</li>
+    </a>
+    
+    <a href="/categories/#fuzz">
+      <li>fuzz</li>
+    </a>
+    
+    <a href="/categories/#期智">
+      <li>期智</li>
     </a>
     
     <a href="/categories/#2023XCTF-final">
@@ -1043,10 +969,6 @@
       <li>CVE复现</li>
     </a>
     
-    <a href="/categories/#期智">
-      <li>期智</li>
-    </a>
-    
     <a href="/categories/#write_up">
       <li>write_up</li>
     </a>
@@ -1055,8 +977,8 @@
       <li>tcache_poisoning</li>
     </a>
     
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
+    <a href="/categories/#日记">
+      <li>日记</li>
     </a>
     
     <a href="/categories/#HEAP">
@@ -1075,40 +997,24 @@
       <li>pwnable.tw</li>
     </a>
     
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
-    </a>
-    
-    <a href="/categories/#日记">
-      <li>日记</li>
-    </a>
-    
-    <a href="/categories/#ret2libc">
-      <li>ret2libc</li>
-    </a>
-    
-    <a href="/categories/#ret2syscall">
-      <li>ret2syscall</li>
-    </a>
-    
     <a href="/categories/#Stackmove">
       <li>Stackmove</li>
     </a>
     
-    <a href="/categories/#ChatGPT接入Telegram Bot教程">
-      <li>ChatGPT接入Telegram Bot教程</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
     </a>
     
     <a href="/categories/#OS">
       <li>OS</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
+    </a>
+    
+    <a href="/categories/#ChatGPT接入Telegram Bot教程">
+      <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
     <a href="/categories/#漏洞复现">
@@ -1127,12 +1033,12 @@
       <li>学习笔记</li>
     </a>
     
-    <a href="/categories/#ciscn2023">
-      <li>ciscn2023</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
+    <a href="/categories/#ciscn2023">
+      <li>ciscn2023</li>
     </a>
     
     <a href="/categories/#vpn安全">
@@ -1147,8 +1053,16 @@
       <li>labs</li>
     </a>
     
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
+    </a>
+    
     <a href="/categories/#xv6">
       <li>xv6</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#操作系统">
