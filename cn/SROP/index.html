@@ -247,6 +247,17 @@
           
           
           <li>
+            <a href="/archive/">
+              
+              归档
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
             <a href="/about/">
               
               关于
@@ -272,17 +283,6 @@
             <a href="/tags/">
               
               标签
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/archive/">
-              
-              归档
               
               
             </a>
@@ -406,11 +406,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">1</span> Minutes
+              Estimated Reading Time <span class="post-count">3</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">0</span> In Total
+              Words <span class="post-count">861</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -472,7 +472,28 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        
+        <h1>SROP</h1>
+<p>基本介绍：<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/">https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/</a><br>
+wiki写的很详细了。<br>
+在传统的ROP上基于Sigreturn系统调用，伪造回调栈的frame，就是SROP<br>
+32位sigframe context：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sigcontext</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> gs, __gsh;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> fs, __fsh;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> es, __esh;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> ds, __dsh;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> edi;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> esi;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> ebp;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> esp;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> ebx;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> edx;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> ecx;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> eax;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> trapno;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> err;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> eip;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> cs, __csh;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> eflags;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> esp_at_signal;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> ss, __ssh;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">fpstate</span> * <span class="title">fpstate</span>;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> oldmask;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> cr2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>64位：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">fpstate</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="comment">/* FPU environment matching the 64-bit FXSAVE layout.  */</span></span><br><span class="line">  <span class="keyword">__uint16_t</span>        cwd;</span><br><span class="line">  <span class="keyword">__uint16_t</span>        swd;</span><br><span class="line">  <span class="keyword">__uint16_t</span>        ftw;</span><br><span class="line">  <span class="keyword">__uint16_t</span>        fop;</span><br><span class="line">  <span class="keyword">__uint64_t</span>        rip;</span><br><span class="line">  <span class="keyword">__uint64_t</span>        rdp;</span><br><span class="line">  <span class="keyword">__uint32_t</span>        mxcsr;</span><br><span class="line">  <span class="keyword">__uint32_t</span>        mxcr_mask;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">fpxreg</span>    _<span class="title">st</span>[8];</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">xmmreg</span>    _<span class="title">xmm</span>[16];</span></span><br><span class="line">  <span class="keyword">__uint32_t</span>        padding[<span class="number">24</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sigcontext</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">__uint64_t</span> r8;</span><br><span class="line">  <span class="keyword">__uint64_t</span> r9;</span><br><span class="line">  <span class="keyword">__uint64_t</span> r10;</span><br><span class="line">  <span class="keyword">__uint64_t</span> r11;</span><br><span class="line">  <span class="keyword">__uint64_t</span> r12;</span><br><span class="line">  <span class="keyword">__uint64_t</span> r13;</span><br><span class="line">  <span class="keyword">__uint64_t</span> r14;</span><br><span class="line">  <span class="keyword">__uint64_t</span> r15;</span><br><span class="line">  <span class="keyword">__uint64_t</span> rdi;</span><br><span class="line">  <span class="keyword">__uint64_t</span> rsi;</span><br><span class="line">  <span class="keyword">__uint64_t</span> rbp;</span><br><span class="line">  <span class="keyword">__uint64_t</span> rbx;</span><br><span class="line">  <span class="keyword">__uint64_t</span> rdx;</span><br><span class="line">  <span class="keyword">__uint64_t</span> rax;</span><br><span class="line">  <span class="keyword">__uint64_t</span> rcx;</span><br><span class="line">  <span class="keyword">__uint64_t</span> rsp;</span><br><span class="line">  <span class="keyword">__uint64_t</span> rip;</span><br><span class="line">  <span class="keyword">__uint64_t</span> eflags;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> cs;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> gs;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> fs;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> __pad0;</span><br><span class="line">  <span class="keyword">__uint64_t</span> err;</span><br><span class="line">  <span class="keyword">__uint64_t</span> trapno;</span><br><span class="line">  <span class="keyword">__uint64_t</span> oldmask;</span><br><span class="line">  <span class="keyword">__uint64_t</span> cr2;</span><br><span class="line">  __extension__ <span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">      <span class="class"><span class="keyword">struct</span> _<span class="title">fpstate</span> * <span class="title">fpstate</span>;</span></span><br><span class="line">      <span class="keyword">__uint64_t</span> __fpstate_word;</span><br><span class="line">    &#125;;</span><br><span class="line">  <span class="keyword">__uint64_t</span> __reserved1 [<span class="number">8</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以上两个栈帧context排布看起来比较复杂。但是我们完全不需要记，pwntools已经集成了 SigreturnFrame()这个函数，用来生成一个frame，然后我们可以指定其中寄存器的值。相当于一键伪造栈并快速控制其中寄存器的值。<br>
+<img src="srop1.png" alt="pic1"><br>
+伪造之后栈上的布局示例如上图，当然这些都是SigreturnFrame()会排布好的。<br>
+srop的题目肯定会给一条syscall；或者syscall；ret；的gadget，这是用来触发syscall_rt_sigreturn和read等等系统调用的关键<br>
+其次是对于rax的控制<br>
+我们知道ret2syscall是必须控制rax为我们想要的函数的系统调用号，在SROP的题目中一般有以下三种控制rax的方式：<br>
+1、题目直接给了mov rax, 0xf;（0xf是64位的sigreturn系统调用号，32位是0x77）<br>
+2、题目有其他间接控制rax的gadget比如mov rax，***；<br>
+3、没有直接与rax控制相关的gadget<br>
+前两种都能比较容易控制rax为我们想要的值。对于第三种，我们控制rax的手法就是利用read的返回值。<br>
+通常我们的攻击方法是先将栈地址转移到我们能明确知道地址的位置比如bss+0x500，或者先通过write syscall，rdx控制得大一点泄露出栈上的脏数据，进而泄露栈地址。<br>
+首先就是往我们一开始能控制的栈写东西，也就是题目给的栈溢出read，这一次写用的是SROP，也就是sigreturn syscall，这样可以在栈上的frame里控制rsp为目标写入地址，rip控制为syscall，rax控制为read（也就是0），其他rdi，rsi，rdx分别控制一下，就可以实现在将目标地址作为栈顶写入gadget。同时我们可以在程序开始之初指定&quot;/bin/sh\x00&quot;的地址，比如说控制成new_stack+0x200这样，那么在新的栈上控制frame进行SROP，执行execve_syscall的时候就可以指定rdi为new_stack+0x200，这样就顺利将binsh的地址传入了，但比较妙的是这时候&quot;/bin/sh\x00&quot;这几个字符还没出现在new_stack+0x200这个地址上，我们在newstack写入SROP的时候，最终将payload长度控制成0x200，再加上&quot;/bin/sh\x00&quot;就可以做到将binsh写到预设的binsh应该出现的地址。然后就getshell了。<br>
+cnss summer的那道SROP是比较模板的好题，等他们summer camp结束了我再把wp放这。</p>
+
 
         <hr>
         <!-- Pager -->
@@ -617,7 +638,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">SROP</span></a></li></ol>
         
         </div>
       </aside>
