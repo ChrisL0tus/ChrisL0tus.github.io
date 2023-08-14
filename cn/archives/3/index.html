@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              归档
+              关于
               
               
             </a>
@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              关于
+              分类
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -478,6 +478,55 @@
   <!-- top end -->
   
 
+  <a href="/cn/tgbot/">
+    <h2 class="post-title">
+      ChatGPT接入Telegram Bot教程
+    </h2>
+    <h3 class="post-subtitle">
+      一次简单的开发经历
+    </h3>
+    <div class="post-content-preview">
+      
+目前主流的方法有两种，其中一种已经失效
+
+接入openai.com官方的API keys
+
+这种方式实现的是单句问答，无上下文，也是目前唯一可实现的方式。
+
+前提
+
+拥有一台海外vps（为什么是海外，因为telegram bot在收发指令时会先经过telegram服务器再发送到自己的vps，如果再国内则会被墙）
+
+创建tg bot
+1、tg搜素BotFather
+2、/start
+3、/n......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-02-20
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#ChatGPT" title="ChatGPT">ChatGPT</a>
+    
+    <a href="/tags/#Bot" title="Bot">Bot</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/pwnable.tw-start-WP/">
     <h2 class="post-title">
       pwnable.tw-start-WP
@@ -520,19 +569,21 @@ start
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-dice_game-WP/">
+  <a href="/cn/XCTF-babyheap-WP/">
     <h2 class="post-title">
-      XCTF-dice_game-WP
+      XCTF-babyheap-WP
     </h2>
     <h3 class="post-subtitle">
-      题目复现累了，找个简单题练练手
+      off-by-null
     </h3>
     <div class="post-content-preview">
-      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
+      开篇碎碎念
+XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
+还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
 
-这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
+题目
 
-目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
+这个函数存在off-by-......
     </div>
   </a>
   
@@ -559,21 +610,19 @@ start
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-babyheap-WP/">
+  <a href="/cn/XCTF-dice_game-WP/">
     <h2 class="post-title">
-      XCTF-babyheap-WP
+      XCTF-dice_game-WP
     </h2>
     <h3 class="post-subtitle">
-      off-by-null
+      题目复现累了，找个简单题练练手
     </h3>
     <div class="post-content-preview">
-      开篇碎碎念
-XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
-还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
+      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
 
-题目
+这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
 
-这个函数存在off-by-......
+目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
     </div>
   </a>
   
@@ -837,44 +886,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/POC_double_free/">
-    <h2 class="post-title">
-      PoC double_free
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      Source code
-1234567891011121314151617181920212223242526272829303132333435#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;int main()&#123;        size_t * ptr[12];        for(int i=0;i&lt;12;i++)    ......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2022-12-13
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#heap" title="heap">heap</a>
-    
-    <a href="/tags/#PoC" title="PoC">PoC</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -931,7 +942,7 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="19">pwn笔记</a>
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="20">pwn笔记</a>
     
     
     
@@ -940,6 +951,14 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     <a href="/tags/#日记" title="日记" rel="1">日记</a>
+    
+    
+    
+    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
+    
+    
+    
+    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
     
     
     
@@ -952,14 +971,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     <a href="/tags/#学习笔记" title="学习笔记" rel="1">学习笔记</a>
-    
-    
-    
-    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
-    
-    
-    
-    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
     
     
     
@@ -976,6 +987,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
+    
+    
+    
+    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
     
     
     
@@ -1007,23 +1022,11 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
-    
-    
-    
     <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="1">qemu逃逸</a>
     
     
     
-    <a href="/tags/#OS" title="OS" rel="2">OS</a>
-    
-    
-    
-    <a href="/tags/#labs" title="labs" rel="2">labs</a>
-    
-    
-    
-    <a href="/tags/#xv6" title="xv6" rel="2">xv6</a>
+    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
     
     
     
@@ -1039,11 +1042,23 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
+    <a href="/tags/#OS" title="OS" rel="2">OS</a>
+    
+    
+    
+    <a href="/tags/#labs" title="labs" rel="2">labs</a>
+    
+    
+    
+    <a href="/tags/#xv6" title="xv6" rel="2">xv6</a>
     
     
     
     <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    
+    
+    
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
     
@@ -1123,6 +1138,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 <div class="widget">
   <ul>
     
+    <a href="../../SROP/">
+      <li>SROP</li>
+    </a>
+    
     <a href="../../xv6_2/">
       <li>MIT 6.S081：Operating System Engineering 2021 FALL</li>
     </a>
@@ -1137,10 +1156,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     <a href="../../GOSSIP/">
       <li>l0的暑假</li>
-    </a>
-    
-    <a href="../../%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8D%97%E5%88%86%E5%8C%BA%E8%B5%9B2023/">
-      <li>2023国赛华东南分区赛</li>
     </a>
     
   </ul>
@@ -1205,7 +1220,7 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/07/">July 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/08/">August 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/07/">July 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
 </div>
 
 
@@ -1229,12 +1244,12 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>2023西湖论剑</li>
     </a>
     
-    <a href="/categories/#GOSSIP">
-      <li>GOSSIP</li>
-    </a>
-    
     <a href="/categories/#IoT">
       <li>IoT</li>
+    </a>
+    
+    <a href="/categories/#GOSSIP">
+      <li>GOSSIP</li>
     </a>
     
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
@@ -1249,36 +1264,40 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>PoC double_free</li>
     </a>
     
-    <a href="/categories/#XCTF">
-      <li>XCTF</li>
+    <a href="/categories/#SROP">
+      <li>SROP</li>
     </a>
     
     <a href="/categories/#fuzz">
       <li>fuzz</li>
     </a>
     
-    <a href="/categories/#期智">
-      <li>期智</li>
-    </a>
-    
-    <a href="/categories/#2023XCTF-final">
-      <li>2023XCTF-final</li>
+    <a href="/categories/#XCTF">
+      <li>XCTF</li>
     </a>
     
     <a href="/categories/#CVE复现">
       <li>CVE复现</li>
     </a>
     
+    <a href="/categories/#2023XCTF-final">
+      <li>2023XCTF-final</li>
+    </a>
+    
+    <a href="/categories/#期智">
+      <li>期智</li>
+    </a>
+    
     <a href="/categories/#write_up">
       <li>write_up</li>
     </a>
     
-    <a href="/categories/#tcache_poisoning">
-      <li>tcache_poisoning</li>
-    </a>
-    
     <a href="/categories/#日记">
       <li>日记</li>
+    </a>
+    
+    <a href="/categories/#tcache_poisoning">
+      <li>tcache_poisoning</li>
     </a>
     
     <a href="/categories/#HEAP">
@@ -1297,16 +1316,12 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>pwnable.tw</li>
     </a>
     
-    <a href="/categories/#Stackmove">
-      <li>Stackmove</li>
-    </a>
-    
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
     </a>
     
-    <a href="/categories/#OS">
-      <li>OS</li>
+    <a href="/categories/#Stackmove">
+      <li>Stackmove</li>
     </a>
     
     <a href="/categories/#论文阅读笔记">
@@ -1321,20 +1336,20 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
+    <a href="/categories/#OS">
+      <li>OS</li>
     </a>
     
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
-    </a>
-    
-    <a href="/categories/#学习笔记">
-      <li>学习笔记</li>
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#漏洞复现">
       <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#学习笔记">
+      <li>学习笔记</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -1349,20 +1364,24 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#labs">
-      <li>labs</li>
-    </a>
-    
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
+    </a>
+    
+    <a href="/categories/#labs">
+      <li>labs</li>
     </a>
     
     <a href="/categories/#xv6">
       <li>xv6</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
+    </a>
+    
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
     </a>
     
     <a href="/categories/#操作系统">
