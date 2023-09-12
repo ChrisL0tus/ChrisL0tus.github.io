@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              归档
+              标签
               
               
             </a>
@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/categories/">
               
-              标签
+              分类
               
               
             </a>
@@ -411,7 +411,7 @@
           <div class="site-heading">
             <h1>l0tus&#39;s blog</h1>
             <!--<hr class="small">-->
-            <span class="subheading">若到江南赶上春，千万和春住</span>
+            <span class="subheading">切开血管，落日殷红</span>
           </div>
           
         </div>
@@ -470,40 +470,6 @@
       <!-- Main Content -->
 
 
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/大一上的总结/">
-    <h2 class="post-title">
-      写在大一上结束
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      
-大一上的期末考试延期到现在，今天全校所有考试正式结束了，我的大一上也随之真正画上了句号。这一篇文章可以算是对那篇不成文的年终总结的续作，同时也是对自己一个学期学习成果的反思。上个学期做的最多的事大概就是在协会做题、线下请教白夜以及无数次翻chuj学长的博客。白夜和chuj学长的博客可谓是学pwn道路上的明灯，这篇学期总结文章有一半也是受到chuj的影响。大学入学前一个月我就接触了协会，绝对......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-02-25
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#学期总结" title="学期总结">学期总结</a>
-    
-  </div>
-  
-
-</div>
-<hr>
 
 <div class="post-preview">
   
@@ -882,6 +848,44 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 </div>
 <hr>
 
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/ez_heap/">
+    <h2 class="post-title">
+      tcache_poisoning
+    </h2>
+    <h3 class="post-subtitle">
+      一种简单的堆利用方式
+    </h3>
+    <div class="post-content-preview">
+      泄露libc
+首先申请index为0-7，size为0x100x的八个chunk，第7-1号chunk在逆序free后进入tcache，第0号进入unsorted bin.
+
+free完成后可以查看bin的情况，可以看到unsorted bin中的最后一位（这里只有一位），也就是第一个被free进入unsorted bin当中的chunk会指回libc中main_arena的某处地址，同时d......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2022-12-14
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#heap" title="heap">heap</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
 
   <!-- Pager -->
   <ul class="pager">
@@ -934,10 +938,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
   <div class="tags">
     
     
-    <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
-    
-    
-    
     <a href="/tags/#pwn笔记" title="pwn笔记" rel="21">pwn笔记</a>
     
     
@@ -950,11 +950,7 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
-    
-    
-    
-    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
+    <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
     
     
     
@@ -982,6 +978,18 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
+    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
+    
+    
+    
+    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
+    
+    
+    
+    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
+    
+    
+    
     <a href="/tags/#heap" title="heap" rel="2">heap</a>
     
     
@@ -1002,10 +1010,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
-    
-    
-    
     <a href="/tags/#write_up" title="write_up" rel="1">write_up</a>
     
     
@@ -1022,11 +1026,23 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
+    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
+    
+    
+    
     <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="1">qemu逃逸</a>
     
     
     
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
+    <a href="/tags/#OS" title="OS" rel="1">OS</a>
+    
+    
+    
+    <a href="/tags/#labs" title="labs" rel="1">labs</a>
+    
+    
+    
+    <a href="/tags/#xv6" title="xv6" rel="1">xv6</a>
     
     
     
@@ -1039,18 +1055,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
-    
-    
-    
-    <a href="/tags/#OS" title="OS" rel="2">OS</a>
-    
-    
-    
-    <a href="/tags/#labs" title="labs" rel="2">labs</a>
-    
-    
-    
-    <a href="/tags/#xv6" title="xv6" rel="2">xv6</a>
     
     
     
@@ -1146,7 +1150,7 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>SROP</li>
     </a>
     
-    <a href="../../xv6_2/">
+    <a href="../../xv6/">
       <li>MIT 6.S081：Operating System Engineering 2021 FALL</li>
     </a>
     
@@ -1154,8 +1158,8 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>论文阅读：&#34;Oh-Pwn-VPN! Security Analysis of OpenVPN-based Android Apps&#34;</li>
     </a>
     
-    <a href="../../xv6_1/">
-      <li>MIT 6.S081：Operating System Engineering 2021 FALL</li>
+    <a href="../../GOSSIP/">
+      <li>l0的暑假</li>
     </a>
     
   </ul>
@@ -1220,7 +1224,7 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/07/">July 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/07/">July 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
 </div>
 
 
@@ -1232,10 +1236,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 <div class="widget">
   <ul>
     
-    <a href="/categories/#2022年终总结">
-      <li>2022年终总结</li>
-    </a>
-    
     <a href="/categories/#2023西湖论剑">
       <li>2023西湖论剑</li>
     </a>
@@ -1244,8 +1244,8 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>pwn笔记</li>
     </a>
     
-    <a href="/categories/#IoT">
-      <li>IoT</li>
+    <a href="/categories/#2022年终总结">
+      <li>2022年终总结</li>
     </a>
     
     <a href="/categories/#GOSSIP">
@@ -1256,48 +1256,56 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
-    </a>
-    
     <a href="/categories/#write up">
       <li>write up</li>
     </a>
     
-    <a href="/categories/#fuzz">
-      <li>fuzz</li>
+    <a href="/categories/#IoT">
+      <li>IoT</li>
     </a>
     
     <a href="/categories/#SROP">
       <li>SROP</li>
     </a>
     
+    <a href="/categories/#PoC double_free">
+      <li>PoC double_free</li>
+    </a>
+    
     <a href="/categories/#XCTF">
       <li>XCTF</li>
-    </a>
-    
-    <a href="/categories/#CVE复现">
-      <li>CVE复现</li>
-    </a>
-    
-    <a href="/categories/#2023XCTF-final">
-      <li>2023XCTF-final</li>
     </a>
     
     <a href="/categories/#FSOP">
       <li>FSOP</li>
     </a>
     
+    <a href="/categories/#fuzz">
+      <li>fuzz</li>
+    </a>
+    
     <a href="/categories/#期智">
       <li>期智</li>
+    </a>
+    
+    <a href="/categories/#2023XCTF-final">
+      <li>2023XCTF-final</li>
     </a>
     
     <a href="/categories/#write_up">
       <li>write_up</li>
     </a>
     
+    <a href="/categories/#日记">
+      <li>日记</li>
+    </a>
+    
     <a href="/categories/#tcache_poisoning">
       <li>tcache_poisoning</li>
+    </a>
+    
+    <a href="/categories/#CVE复现">
+      <li>CVE复现</li>
     </a>
     
     <a href="/categories/#HEAP">
@@ -1312,24 +1320,20 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>论文阅读笔记</li>
     </a>
     
-    <a href="/categories/#日记">
-      <li>日记</li>
+    <a href="/categories/#Stackmove">
+      <li>Stackmove</li>
+    </a>
+    
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
     </a>
     
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
     </a>
     
-    <a href="/categories/#Stackmove">
-      <li>Stackmove</li>
-    </a>
-    
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
-    </a>
-    
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
+    <a href="/categories/#OS">
+      <li>OS</li>
     </a>
     
     <a href="/categories/#ChatGPT接入Telegram Bot教程">
@@ -1340,24 +1344,20 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#OS">
-      <li>OS</li>
-    </a>
-    
     <a href="/categories/#学期总结">
       <li>学期总结</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
+    </a>
+    
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
     </a>
     
     <a href="/categories/#源码阅读">
       <li>源码阅读</li>
-    </a>
-    
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
     </a>
     
     <a href="/categories/#学习笔记">
@@ -1368,6 +1368,10 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>ciscn2023</li>
     </a>
     
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
     <a href="/categories/#vpn安全">
       <li>vpn安全</li>
     </a>
@@ -1376,12 +1380,12 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
-    </a>
-    
     <a href="/categories/#labs">
       <li>labs</li>
+    </a>
+    
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
     </a>
     
     <a href="/categories/#xv6">

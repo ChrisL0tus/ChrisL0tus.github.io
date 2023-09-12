@@ -139,7 +139,7 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://l0tus.vip/cn/xv6_2/">
+  <link rel="canonical" href="http://l0tus.vip/cn/xv6/">
   <title>
     
       MIT 6.S081：Operating System Engineering 2021 FALL - l0tus&#39; blog
@@ -247,9 +247,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              归档
+              标签
               
               
             </a>
@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/categories/">
               
-              标签
+              分类
               
               
             </a>
@@ -300,30 +300,6 @@
           <!-- LangSelect -->
           
           
-          
-          <!-- LangSelect start -->
-          <!-- LangSelect -->
-<li>
-  <a id="lang-select-label"><i class="fa fa-globe"></i>
-    <span>
-      简体中文
-    </span>
-    <select id="lang-select" data-canonical="cn/xv6_2/">
-      
-      
-      <option value="en" >
-        English
-      </option>
-      
-      <option value="cn"  selected >
-        简体中文
-      </option>
-      
-    </select>
-  </a>
-</li>
-
-          <!-- LangSelect end -->
           
           
           
@@ -421,7 +397,7 @@
               
             </div>
             <h1>MIT 6.S081：Operating System Engineering 2021 FALL</h1>
-            <h2 class="subheading">Lab2：system calls</h2>
+            <h2 class="subheading"></h2>
             <span class="meta">
               Posted by l0tus on
               2023-07-23
@@ -432,11 +408,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">6</span> Minutes
+              Estimated Reading Time <span class="post-count">1</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">1.1k</span> In Total
+              Words <span class="post-count">450</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -498,42 +474,16 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="Lab2-system-calls">Lab2: system calls</h2>
-<h3 id="System-call-tracing（moderate）">System call tracing（moderate）</h3>
-<p>First we look up the hints</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. Add $U/_trace <span class="keyword">to</span> UPROGS in Makefile</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. <span class="keyword">Run</span> make qemu <span class="keyword">and</span> you will see that the compiler cannot compile user/trace.c, because the user-space stubs <span class="keyword">for</span> the <span class="keyword">system</span> <span class="keyword">call</span> don<span class="comment">&#x27;t exist yet: add a prototype for the system call to user/user.h, a stub to user/usys.pl, and a syscall number to kernel/syscall.h. The Makefile invokes the perl script user/usys.pl, which produces user/usys.S, the actual system call stubs, which use the RISC-V ecall instruction to transition to the kernel. Once you fix the compilation issues, run trace 32 grep hello README; it will fail because you haven&#x27;t implemented the system call in the kernel yet.</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. Add a sys_trace() function in kernel/sysproc.c that implements the <span class="keyword">new</span> <span class="keyword">system</span> <span class="keyword">call</span> by <span class="comment">remembering its argument in a new variable in the proc structure (see kernel/proc.h). The functions to retrieve system call arguments from user space are in kernel/syscall.c, and you can see examples of their use in kernel/sysproc.c.</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. Modify fork() (see kernel/proc.c) <span class="keyword">to</span> copy the trace mask from the parent <span class="keyword">to</span> the child process.</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>. Modify the syscall() function in kernel/syscall.c <span class="keyword">to</span> <span class="keyword">print</span> the trace output. You will need <span class="keyword">to</span> add an array of syscall names <span class="keyword">to</span> index into.</span><br></pre></td></tr></table></figure>
-<p>First we need to add a new syscall number in kernel/syscall.h</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_trace 22</span></span><br></pre></td></tr></table></figure>
-<p>Then we need to add a prototype for the system call to user/user.h</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trace</span><span class="params">(<span class="keyword">int</span> mask)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>Then we need to add a entry in user/usys.pl</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">entry(<span class="string">&quot;sysinfo&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p>Then in the sysproc.c</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">uint64 <span class="title">sys_trace</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> mask;</span><br><span class="line">  <span class="keyword">if</span> (argint(<span class="number">0</span>, &amp;mask) &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  myproc()-&gt;mask = mask; <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Then in the fork() function in proc.c</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">safestrcpy(np-&gt;name, p-&gt;name, <span class="keyword">sizeof</span>(p-&gt;name));</span><br><span class="line"></span><br><span class="line">np-&gt;mask = p-&gt;mask;<span class="comment">//add this line</span></span><br><span class="line">pid = np-&gt;pid;</span><br><span class="line"></span><br><span class="line">release(&amp;np-&gt;lock);</span><br></pre></td></tr></table></figure>
-<p>Then in the syscall() function in syscall.c<br>
-first we need to add a array of syscall names to index into</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> *syscalls_name[] = &#123;</span><br><span class="line">[SYS_fork]    <span class="string">&quot;fork&quot;</span>,</span><br><span class="line">[SYS_exit]    <span class="string">&quot;exit&quot;</span>,</span><br><span class="line">[SYS_wait]    <span class="string">&quot;wait&quot;</span>,</span><br><span class="line">[SYS_pipe]    <span class="string">&quot;pipe&quot;</span>,</span><br><span class="line">[SYS_read]    <span class="string">&quot;read&quot;</span>,</span><br><span class="line">[SYS_kill]    <span class="string">&quot;kill&quot;</span>,</span><br><span class="line">[SYS_exec]    <span class="string">&quot;exec&quot;</span>,</span><br><span class="line">[SYS_fstat]   <span class="string">&quot;fstat&quot;</span>,</span><br><span class="line">[SYS_chdir]   <span class="string">&quot;chdir&quot;</span>,</span><br><span class="line">[SYS_dup]     <span class="string">&quot;dup&quot;</span>,</span><br><span class="line">[SYS_getpid]  <span class="string">&quot;getpid&quot;</span>,</span><br><span class="line">[SYS_sbrk]    <span class="string">&quot;sbrk&quot;</span>,</span><br><span class="line">[SYS_sleep]   <span class="string">&quot;sleep&quot;</span>,</span><br><span class="line">[SYS_uptime]  <span class="string">&quot;uptime&quot;</span>,</span><br><span class="line">[SYS_open]    <span class="string">&quot;open&quot;</span>,</span><br><span class="line">[SYS_write]   <span class="string">&quot;write&quot;</span>,</span><br><span class="line">[SYS_mknod]   <span class="string">&quot;mknod&quot;</span>,</span><br><span class="line">[SYS_unlink]  <span class="string">&quot;unlink&quot;</span>,</span><br><span class="line">[SYS_link]    <span class="string">&quot;link&quot;</span>,</span><br><span class="line">[SYS_mkdir]   <span class="string">&quot;mkdir&quot;</span>,</span><br><span class="line">[SYS_close]   <span class="string">&quot;close&quot;</span>,</span><br><span class="line">[SYS_trace]   <span class="string">&quot;trace&quot;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>and then add “sys_trace” into the&quot;static uint64 (*syscalls[])(void) = {&quot;and “extern uint64 sys_sysinfo(void);”</p>
-<p>finally we need to add the print function in the syscall() function</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">syscall(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> num;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line"></span><br><span class="line">  num = p-&gt;trapframe-&gt;a7;</span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">0</span> &amp;&amp; num &lt; NELEM(syscalls) &amp;&amp; syscalls[num]) &#123;</span><br><span class="line">    p-&gt;trapframe-&gt;a0 = syscalls[num]();</span><br><span class="line">    <span class="keyword">if</span>((<span class="number">1</span>&lt;&lt;num) &amp; p-&gt;mask)<span class="comment">//add this</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d: syscall %s -&gt; %d\n&quot;</span>, p-&gt;pid, syscalls_name[num], p-&gt;trapframe-&gt;a0);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %s: unknown sys call %d\n&quot;</span>,</span><br><span class="line">            p-&gt;pid, p-&gt;name, num);</span><br><span class="line">    p-&gt;trapframe-&gt;a0 = <span class="number">-1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>now the trace.c can run successfully</p>
-<h3 id="System-call-tracing（moderate）-2">System call tracing（moderate）</h3>
-<p>First we look up the hints</p>
-<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. Add $U/_sysinfotest <span class="keyword">to</span> UPROGS in Makefile</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. Run make qemu<span class="comment">; user/sysinfotest.c will fail to compile. Add the system call sysinfo, following the same steps as in the previous assignment. To declare the prototype for sysinfo() in user/user.h you need predeclare the existence of struct sysinfo:</span></span><br><span class="line"></span><br><span class="line">    struct sysinfo<span class="comment">;</span></span><br><span class="line">    int sysinfo(struct sysinfo *)<span class="comment">;</span></span><br><span class="line">  </span><br><span class="line"><span class="number">3</span>. Once you fix the compilation issues<span class="punctuation">,</span> run sysinfotest<span class="comment">; it will fail because you haven&#x27;t implemented the system call in the kernel yet.</span></span><br><span class="line">sysinfo needs <span class="keyword">to</span> copy a struct sysinfo back <span class="keyword">to</span> user space<span class="comment">; see sys_fstat() (kernel/sysfile.c) and filestat() (kernel/file.c) for examples of how to do that using copyout().</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. To collect the amount of <span class="keyword">free</span> memory<span class="punctuation">,</span> <span class="keyword">add</span> a function <span class="keyword">to</span> kernel/kalloc.<span class="keyword">c</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>. To collect the number of processes<span class="punctuation">,</span> <span class="keyword">add</span> a function <span class="keyword">to</span> kernel/proc.<span class="keyword">c</span></span><br></pre></td></tr></table></figure>
-<p>the former steps are similar to the previous one, so I will not repeat them here</p>
-<p>the very steps we need to do are as follows<br>
-we need to add a function to kernel/kalloc.c to calculate the amount of free memory</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getfreemem</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  uint64 num=<span class="number">0</span>;</span><br><span class="line">  acquire(&amp;kmem.lock);</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">run</span> *<span class="title">p</span>=</span>kmem.freelist;</span><br><span class="line">  <span class="keyword">while</span>(p!=<span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    num++;</span><br><span class="line">    p=p-&gt;next;</span><br><span class="line">  &#125;</span><br><span class="line">  release(&amp;kmem.lock);</span><br><span class="line">  <span class="keyword">return</span> num*PGSIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>and then we need to add a function to kernel/proc.c to calculate the number of processes</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getprocnum</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span>;</span></span><br><span class="line">  uint64 num = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(p = proc; p &lt; &amp;proc[NPROC]; p++)&#123;</span><br><span class="line">    acquire(&amp;p-&gt;lock);</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;state != UNUSED)&#123;</span><br><span class="line">      num++;</span><br><span class="line">    &#125;</span><br><span class="line">    release(&amp;p-&gt;lock);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>then we need to add a function to kernel/sysproc.c to implement the system call</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">uint64 <span class="title">sys_sysinfo</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">sysinfo</span> <span class="title">info</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> * <span class="title">p</span> =</span> myproc();</span><br><span class="line"></span><br><span class="line">  info.freemem=getfreemem();</span><br><span class="line">  info.nproc=getprocnum();</span><br><span class="line"></span><br><span class="line">  uint64 addr;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (argaddr(<span class="number">0</span>, &amp;addr) &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (copyout(p-&gt;pagetable, addr, (<span class="keyword">char</span> *)&amp;info, <span class="keyword">sizeof</span>(info)) &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>and don’t forget to declare the functions in kernel/defs.h</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// kalloc.c</span></span><br><span class="line"><span class="function"><span class="keyword">void</span>*           <span class="title">kalloc</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">kfree</span><span class="params">(<span class="keyword">void</span> *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">kinit</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">getfreemem</span><span class="params">(<span class="keyword">void</span>)</span></span>;<span class="comment">//add this</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// proc.c</span></span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">cpuid</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">exit</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">fork</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">growproc</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">proc_mapstacks</span><span class="params">(<span class="keyword">pagetable_t</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">pagetable_t</span>     <span class="title">proc_pagetable</span><span class="params">(struct proc *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">proc_freepagetable</span><span class="params">(<span class="keyword">pagetable_t</span>, uint64)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">kill</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function">struct cpu*     <span class="title">mycpu</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function">struct cpu*     <span class="title">getmycpu</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function">struct proc*    <span class="title">myproc</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">procinit</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">scheduler</span><span class="params">(<span class="keyword">void</span>)</span> __<span class="title">attribute__</span><span class="params">((noreturn))</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">sched</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">sleep</span><span class="params">(<span class="keyword">void</span>*, struct spinlock*)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">userinit</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">wait</span><span class="params">(uint64)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">wakeup</span><span class="params">(<span class="keyword">void</span>*)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">yield</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">either_copyout</span><span class="params">(<span class="keyword">int</span> user_dst, uint64 dst, <span class="keyword">void</span> *src, uint64 len)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">either_copyin</span><span class="params">(<span class="keyword">void</span> *dst, <span class="keyword">int</span> user_src, uint64 src, uint64 len)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>            <span class="title">procdump</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span>             <span class="title">getprocnum</span><span class="params">(<span class="keyword">void</span>)</span></span>;<span class="comment">//add this</span></span><br></pre></td></tr></table></figure>
-<p>Thus we finished the lab2.</p>
+        <h2 id="为什么不能把代码-心得-攻略上传到公开的地方让大家学习">为什么不能把代码/心得/攻略上传到公开的地方让大家学习</h2>
+<p><strong>来自南京大学计算机系统基础课程实验页面的principle</strong>：<a target="_blank" rel="noopener" href="https://nju-projectn.github.io/ics-pa-gitbook/ics2021/FAQ.html">https://nju-projectn.github.io/ics-pa-gitbook/ics2021/FAQ.html</a><br>
+因为这违反了学术诚信. PA和其它项目不一样, 它本质上是一个课程作业, 你无法保证来看你代码的同学都是抱着纯洁的学习心态(我就看看我不抄). 如果有同学抱着抄袭的心态, 你的代码不仅会让他失去锻炼的机会, 而且还会破坏课程的公平性: 你一个bug调3天, 你同学1分钟就抄完了, 你甘心吗?<br>
+此外, 我们相信你的代码里面并没有太多值得大家学习的地方, 比如你的代码风格好看吗? 你设计的API合理吗? 和框架代码相比有什么新特色吗? 在你推荐自己的代码之前, 可以先看看一些优秀的开源项目. 如果你确实对自己的代码有信心, 不妨给yzh提建议, 如果你的建议很不错, 我们会把你加入到感谢名单中, 同时你的改进也可以一直在学弟学妹的作业中流传.<br>
+如果你上传代码只是为了托管, 那可以选择github的私人仓库.<br>
+同理, 将自己的心得和攻略上传到公开的地方, 也是属于违反学术诚信的行为.<br>
+所以, 你公开的代码/心得/攻略很大概率并不能从真正的意义上帮助大家学习, 相反而是在很多层面上伤害大家.</p>
+<p>因此本篇博客仅用于记录本人实验进度<br>
+lab1：done<br>
+lab2：done</p>
 
 
         <hr>
@@ -595,7 +545,7 @@ we need to add a function to kernel/kalloc.c to calculate the amount of free mem
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=MIT 6.S081：Operating System Engineering 2021 FALL&body=Hi,I found this website and thought you might like it http://l0tus.vip/cn/xv6_2/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=MIT 6.S081：Operating System Engineering 2021 FALL&body=Hi,I found this website and thought you might like it http://l0tus.vip/cn/xv6/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -683,7 +633,7 @@ we need to add a function to kernel/kalloc.c to calculate the amount of free mem
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Lab2-system-calls"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Lab2: system calls</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#System-call-tracing%EF%BC%88moderate%EF%BC%89"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">System call tracing（moderate）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#System-call-tracing%EF%BC%88moderate%EF%BC%89-2"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">System call tracing（moderate）</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E6%8A%8A%E4%BB%A3%E7%A0%81-%E5%BF%83%E5%BE%97-%E6%94%BB%E7%95%A5%E4%B8%8A%E4%BC%A0%E5%88%B0%E5%85%AC%E5%BC%80%E7%9A%84%E5%9C%B0%E6%96%B9%E8%AE%A9%E5%A4%A7%E5%AE%B6%E5%AD%A6%E4%B9%A0"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">为什么不能把代码&#x2F;心得&#x2F;攻略上传到公开的地方让大家学习</span></a></li></ol>
         
         </div>
       </aside>
