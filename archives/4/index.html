@@ -244,8 +244,6 @@
 
           
           
-          
-          
           <li>
             <a href="/about/">
               
@@ -257,10 +255,12 @@
           
           
           
+          
+          
           <li>
-            <a href="/categories/">
+            <a href="/tags/">
               
-              CATEGORIES
+              TAGS
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/categories/">
               
-              TAGS
+              CATEGORIES
               
               
             </a>
@@ -478,6 +478,44 @@
   <!-- top end -->
   
 
+  <a href="/cn/ez_heap/">
+    <h2 class="post-title">
+      tcache_poisoning
+    </h2>
+    <h3 class="post-subtitle">
+      一种简单的堆利用方式
+    </h3>
+    <div class="post-content-preview">
+      泄露libc
+首先申请index为0-7，size为0x100x的八个chunk，第7-1号chunk在逆序free后进入tcache，第0号进入unsorted bin.
+
+free完成后可以查看bin的情况，可以看到unsorted bin中的最后一位（这里只有一位），也就是第一个被free进入unsorted bin当中的chunk会指回libc中main_arena的某处地址，同时d......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2022-12-14
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#heap" title="heap">heap</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
   <a href="/cn/POC_double_free/">
     <h2 class="post-title">
       PoC double_free
@@ -665,6 +703,10 @@
   <div class="tags">
     
     
+    <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
+    
+    
+    
     <a href="/tags/#pwn笔记" title="pwn笔记" rel="21">pwn笔记</a>
     
     
@@ -673,7 +715,27 @@
     
     
     
-    <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
+    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
+    
+    
+    
+    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
+    
+    
+    
+    <a href="/tags/#日记" title="日记" rel="1">日记</a>
+    
+    
+    
+    <a href="/tags/#FSOP" title="FSOP" rel="1">FSOP</a>
+    
+    
+    
+    <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="3">论文阅读笔记</a>
+    
+    
+    
+    <a href="/tags/#静态分析" title="静态分析" rel="1">静态分析</a>
     
     
     
@@ -689,30 +751,6 @@
     
     
     
-    <a href="/tags/#日记" title="日记" rel="1">日记</a>
-    
-    
-    
-    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
-    
-    
-    
-    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
-    
-    
-    
-    <a href="/tags/#FSOP" title="FSOP" rel="1">FSOP</a>
-    
-    
-    
-    <a href="/tags/#heap" title="heap" rel="2">heap</a>
-    
-    
-    
-    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
-    
-    
-    
     <a href="/tags/#JS" title="JS" rel="1">JS</a>
     
     
@@ -721,11 +759,11 @@
     
     
     
+    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
+    
+    
+    
     <a href="/tags/#fuzz" title="fuzz" rel="1">fuzz</a>
-    
-    
-    
-    <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="2">论文阅读笔记</a>
     
     
     
@@ -733,7 +771,11 @@
     
     
     
-    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
+    <a href="/tags/#heap" title="heap" rel="2">heap</a>
+    
+    
+    
+    <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
     
     
     
@@ -753,11 +795,11 @@
     
     
     
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
-    
-    
-    
     <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="1">qemu逃逸</a>
+    
+    
+    
+    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
     
     
     
@@ -869,6 +911,10 @@
 <div class="widget">
   <ul>
     
+    <a href="../../cn/C%E4%BB%A3%E7%A0%81%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8%E6%95%88%E7%8E%87%E5%AE%9E%E8%AF%81%E6%80%A7%E7%A0%94%E7%A9%B6/">
+      <li>论文阅读：&#34;An Empirical Study on the Effectiveness of Static C Code Analyzers for Vulnerability Detection&#34;</li>
+    </a>
+    
     <a href="../../cn/FSOP/">
       <li>FSOP</li>
     </a>
@@ -883,10 +929,6 @@
     
     <a href="../../cn/pwn_vpn/">
       <li>论文阅读：&#34;Oh-Pwn-VPN! Security Analysis of OpenVPN-based Android Apps&#34;</li>
-    </a>
-    
-    <a href="../../cn/GOSSIP/">
-      <li>l0的暑假</li>
     </a>
     
   </ul>
@@ -951,7 +993,7 @@
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
 </div>
 
 
@@ -963,44 +1005,40 @@
 <div class="widget">
   <ul>
     
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
-    </a>
-    
     <a href="/categories/#2022年终总结">
       <li>2022年终总结</li>
     </a>
     
-    <a href="/categories/#GOSSIP">
-      <li>GOSSIP</li>
-    </a>
-    
-    <a href="/categories/#pwn笔记">
-      <li>pwn笔记</li>
+    <a href="/categories/#2023西湖论剑">
+      <li>2023西湖论剑</li>
     </a>
     
     <a href="/categories/#IoT">
       <li>IoT</li>
     </a>
     
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
+    <a href="/categories/#pwn笔记">
+      <li>pwn笔记</li>
+    </a>
+    
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
+    </a>
+    
+    <a href="/categories/#GOSSIP">
+      <li>GOSSIP</li>
     </a>
     
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
-    <a href="/categories/#期智">
-      <li>期智</li>
+    <a href="/categories/#CVE复现">
+      <li>CVE复现</li>
     </a>
     
     <a href="/categories/#fuzz">
       <li>fuzz</li>
-    </a>
-    
-    <a href="/categories/#SROP">
-      <li>SROP</li>
     </a>
     
     <a href="/categories/#XCTF">
@@ -1011,16 +1049,24 @@
       <li>write up</li>
     </a>
     
-    <a href="/categories/#CVE复现">
-      <li>CVE复现</li>
-    </a>
-    
     <a href="/categories/#2023XCTF-final">
       <li>2023XCTF-final</li>
     </a>
     
     <a href="/categories/#FSOP">
       <li>FSOP</li>
+    </a>
+    
+    <a href="/categories/#PoC double_free">
+      <li>PoC double_free</li>
+    </a>
+    
+    <a href="/categories/#静态分析">
+      <li>静态分析</li>
+    </a>
+    
+    <a href="/categories/#期智">
+      <li>期智</li>
     </a>
     
     <a href="/categories/#write_up">
@@ -1039,16 +1085,24 @@
       <li>Paper Reading</li>
     </a>
     
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#学习笔记">
-      <li>学习笔记</li>
+    <a href="/categories/#vpn安全">
+      <li>vpn安全</li>
     </a>
     
     <a href="/categories/#pwnable.tw">
       <li>pwnable.tw</li>
+    </a>
+    
+    <a href="/categories/#SROP">
+      <li>SROP</li>
+    </a>
+    
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
     </a>
     
     <a href="/categories/#Stackmove">
@@ -1057,10 +1111,6 @@
     
     <a href="/categories/#论文阅读笔记">
       <li>论文阅读笔记</li>
-    </a>
-    
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
     </a>
     
     <a href="/categories/#ChatGPT接入Telegram Bot教程">
@@ -1075,32 +1125,32 @@
       <li>OS</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
     <a href="/categories/#日记">
       <li>日记</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
+    </a>
+    
+    <a href="/categories/#学习笔记">
+      <li>学习笔记</li>
     </a>
     
     <a href="/categories/#ciscn2023">
       <li>ciscn2023</li>
     </a>
     
-    <a href="/categories/#vpn安全">
-      <li>vpn安全</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
     </a>
     
     <a href="/categories/#labs">
@@ -1115,16 +1165,12 @@
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#2022浙江省赛">
-      <li>2022浙江省赛</li>
-    </a>
-    
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
     <a href="/categories/#操作系统">
       <li>操作系统</li>
+    </a>
+    
+    <a href="/categories/#2022浙江省赛">
+      <li>2022浙江省赛</li>
     </a>
     
     <a href="/categories/#读书笔记">
