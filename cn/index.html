@@ -244,12 +244,10 @@
 
           
           
-          
-          
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              归档
+              关于
               
               
             </a>
@@ -258,9 +256,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              关于
+              分类
               
               
             </a>
@@ -280,13 +278,15 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
           </li>
+          
+          
           
           
 
@@ -470,6 +470,49 @@
       <!-- Main Content -->
 
 
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/shengsai2023/">
+    <h2 class="post-title">
+      浙江省赛2023预赛pwn部分题解
+    </h2>
+    <h3 class="post-subtitle">
+      
+    </h3>
+    <div class="post-content-preview">
+      今年的省赛没有W4t3r了。
+我和doddy、lierry以一教卖热狗这个古老而沉重的队名去打了。
+
+应该是进决赛了。
+pwn只会做一道，记录一下。
+Broken Print
+格式化字符串漏洞 过滤了p、x
+泄露还可以用lld
+栈上偏移为0x10位置的指针指向rbp，先在read的时候把这个值的末尾覆盖成记录返回地址的指针，也就是原本的+8，但不能直接做到+8，而是要通过hhn覆盖末一个字节......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-11-04
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#write up" title="write up">write up</a>
+    
+  </div>
+  
+
+</div>
+<hr>
 
 <div class="post-preview">
   
@@ -827,44 +870,6 @@ hypervisor也被称作Virtual Machine Monitor(VMM),它可以在一台主机中�
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/qemu_escape/">
-    <h2 class="post-title">
-      虚拟机逃逸初探(更新中)
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      开篇废话
-从上学期就定下了学VMpwn这个方向，一是我在刚接触虚拟机的时候就认为虚拟机这个东西是一门艺术，是杰作，其次是被去年蒋公子挖VM ware的CVE拿GeekPwn冠军给帅到了，幻想着成为他那样的神仙。于是就开始摸一些简单的CTF中虚拟机逃逸的题目和qemu的原理，这里特别感谢公大的@korey0sh1师傅，从他的文章里我学到了许多。
-Qemu
-QEMU是一个托管的虚拟机，它通过动态......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-05-22
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸">虚拟机逃逸</a>
-    
-    <a href="/tags/#qemu逃逸" title="qemu逃逸">qemu逃逸</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -917,6 +922,18 @@ QEMU是一个托管的虚拟机，它通过动态......
     
     
     
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="22">pwn笔记</a>
+    
+    
+    
+    <a href="/tags/#write up" title="write up" rel="14">write up</a>
+    
+    
+    
+    <a href="/tags/#日记" title="日记" rel="1">日记</a>
+    
+    
+    
     <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
     
     
@@ -925,31 +942,11 @@ QEMU是一个托管的虚拟机，它通过动态......
     
     
     
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="21">pwn笔记</a>
-    
-    
-    
-    <a href="/tags/#write up" title="write up" rel="13">write up</a>
-    
-    
-    
-    <a href="/tags/#日记" title="日记" rel="1">日记</a>
-    
-    
-    
     <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="4">论文阅读笔记</a>
     
     
     
     <a href="/tags/#静态分析" title="静态分析" rel="1">静态分析</a>
-    
-    
-    
-    <a href="/tags/#JS" title="JS" rel="1">JS</a>
-    
-    
-    
-    <a href="/tags/#转载" title="转载" rel="1">转载</a>
     
     
     
@@ -962,6 +959,14 @@ QEMU是一个托管的虚拟机，它通过动态......
     
     
     <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
+    
+    
+    
+    <a href="/tags/#JS" title="JS" rel="1">JS</a>
+    
+    
+    
+    <a href="/tags/#转载" title="转载" rel="1">转载</a>
     
     
     
@@ -1025,10 +1030,6 @@ QEMU是一个托管的虚拟机，它通过动态......
     
     
     
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
-    
-    
-    
     <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
@@ -1038,6 +1039,10 @@ QEMU是一个托管的虚拟机，它通过动态......
     
     
     <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
+    
+    
+    
+    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
     
     
     
@@ -1113,6 +1118,10 @@ QEMU是一个托管的虚拟机，它通过动态......
 <div class="widget">
   <ul>
     
+    <a href="shengsai2023/">
+      <li>浙江省赛2023预赛pwn部分题解</li>
+    </a>
+    
     <a href="%E7%90%86%E8%A7%A3%E6%8F%90%E9%AB%98linux%E5%86%85%E6%A0%B8%E5%88%A9%E7%94%A8%E7%A8%B3%E5%AE%9A%E6%80%A7/">
       <li>论文阅读：&#34;Playing for K(H)eaps：Understanding and Improving Linux Kernel Exploit Reliability&#34;</li>
     </a>
@@ -1127,10 +1136,6 @@ QEMU是一个托管的虚拟机，它通过动态......
     
     <a href="SROP/">
       <li>SROP</li>
-    </a>
-    
-    <a href="xv6/">
-      <li>MIT 6.S081：Operating System Engineering 2021 FALL</li>
     </a>
     
   </ul>
@@ -1195,7 +1200,7 @@ QEMU是一个托管的虚拟机，它通过动态......
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/07/">July 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/11/">November 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/07/">July 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/05/">May 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
 </div>
 
 
@@ -1211,32 +1216,28 @@ QEMU是一个托管的虚拟机，它通过动态......
       <li>2022年终总结</li>
     </a>
     
-    <a href="/categories/#IoT">
-      <li>IoT</li>
+    <a href="/categories/#2023西湖论剑">
+      <li>2023西湖论剑</li>
     </a>
     
     <a href="/categories/#pwn笔记">
       <li>pwn笔记</li>
     </a>
     
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
+    <a href="/categories/#IoT">
+      <li>IoT</li>
     </a>
     
     <a href="/categories/#论文阅读笔记">
       <li>论文阅读笔记</li>
     </a>
     
-    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
-    </a>
-    
-    <a href="/categories/#CVE复现">
-      <li>CVE复现</li>
-    </a>
-    
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
+    </a>
+    
+    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
+      <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
     <a href="/categories/#write up">
@@ -1247,12 +1248,16 @@ QEMU是一个托管的虚拟机，它通过动态......
       <li>SROP</li>
     </a>
     
-    <a href="/categories/#fuzz">
-      <li>fuzz</li>
-    </a>
-    
     <a href="/categories/#XCTF">
       <li>XCTF</li>
+    </a>
+    
+    <a href="/categories/#CVE复现">
+      <li>CVE复现</li>
+    </a>
+    
+    <a href="/categories/#fuzz">
+      <li>fuzz</li>
     </a>
     
     <a href="/categories/#2023XCTF-final">
@@ -1263,8 +1268,8 @@ QEMU是一个托管的虚拟机，它通过动态......
       <li>静态分析</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
+    <a href="/categories/#FSOP">
+      <li>FSOP</li>
     </a>
     
     <a href="/categories/#write_up">
@@ -1275,16 +1280,16 @@ QEMU是一个托管的虚拟机，它通过动态......
       <li>tcache_poisoning</li>
     </a>
     
-    <a href="/categories/#FSOP">
-      <li>FSOP</li>
+    <a href="/categories/#HEAP">
+      <li>HEAP</li>
     </a>
     
     <a href="/categories/#Paper Reading">
       <li>Paper Reading</li>
     </a>
     
-    <a href="/categories/#HEAP">
-      <li>HEAP</li>
+    <a href="/categories/#日记">
+      <li>日记</li>
     </a>
     
     <a href="/categories/#vpn安全">
@@ -1295,12 +1300,12 @@ QEMU是一个托管的虚拟机，它通过动态......
       <li>pwnable.tw</li>
     </a>
     
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
+    <a href="/categories/#2023浙江省赛">
+      <li>2023浙江省赛</li>
     </a>
     
-    <a href="/categories/#日记">
-      <li>日记</li>
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
     </a>
     
     <a href="/categories/#Stackmove">
@@ -1319,16 +1324,20 @@ QEMU是一个托管的虚拟机，它通过动态......
       <li>OS</li>
     </a>
     
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
     </a>
     
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -1351,20 +1360,20 @@ QEMU是一个托管的虚拟机，它通过动态......
       <li>xv6</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
     <a href="/categories/#操作系统">
       <li>操作系统</li>
     </a>
     
-    <a href="/categories/#kernel">
-      <li>kernel</li>
-    </a>
-    
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
+    </a>
+    
+    <a href="/categories/#kernel">
+      <li>kernel</li>
     </a>
     
     <a href="/categories/#读书笔记">
