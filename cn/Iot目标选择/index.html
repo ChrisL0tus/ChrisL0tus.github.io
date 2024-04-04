@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag (contains Google-Analytics、Baidu-Tongji)-->
+<head>
+  <!-- Google Analytics -->
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-xxxxxx-xx"></script>
+    <script type="text/javascript">
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-xxxxxx-xx');
+    </script>
+  
+
+  <!-- Baidu Tongji -->
+  
+    <script type="text/javascript">
+      // Originial
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  <!-- Baidu Push -->
+  
+    <script>
+      (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  
+
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+  <meta name="google-site-verification" content="lxDfCplOZbIzjhG34NuQBgu2gdyRlAtMB4utP5AgEBc"/>
+  <meta name="baidu-site-verification" content="PpzM9WxOJU"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="若到江南赶上春，千万和春住"/>
+  <meta name="keyword" content="l0tus,livemylife,IT  blog,Blog"/>
+  <link rel="shortcut icon" href="/img/avatar/chisato.jpg"/>
+
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+
+  
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/beantech.min.css"/>
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css"/>
+    <link rel="stylesheet" href="/css/widget.css"/>
+    <link rel="stylesheet" href="/css/rocket.css"/>
+    <link rel="stylesheet" href="/css/signature.css"/>
+    <link rel="stylesheet" href="/css/catalog.css"/>
+    <link rel="stylesheet" href="/css/livemylife.css"/>
+
+    
+      <!-- wave start -->
+      <link rel="stylesheet" href="/css/wave.css"/>
+      <!-- wave end -->
+    
+
+    
+      <!-- top start (article top hot config) -->
+      <link rel="stylesheet" href="/css/top.css"/>
+      <!-- top end -->
+    
+
+    
+      <!-- ThemeColor start -->
+      <link rel="stylesheet" href="/css/scroll.css"/>
+      <!-- ThemeColor end -->
+    
+
+    
+      <!-- viewer start (Picture preview) -->
+      <link rel="stylesheet" href="/css/viewer.min.css"/>
+      <!-- viewer end -->
+    
+
+    
+      <!-- Search start -->
+      <link rel="stylesheet" href="/css/search.css"/>
+      <!-- Search end -->
+    
+
+    
+      <!-- ThemeColor start -->
+      <link rel="stylesheet" href="/css/themecolor.css"/>
+      <!-- ThemeColor end -->
+    
+
+    
+
+    
+      <!-- gitalk start -->
+      <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+      <link rel="stylesheet" href="/css/gitalk.css"/>
+      <!-- gitalk end -->
+    
+  
+
+  <!-- Custom Fonts -->
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+  <!-- Hux change font-awesome CDN to qiniu -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Hux Delete, sad but pending in China <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'> <link
+  href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/ css'> -->
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
+
+  <!-- ga & ba script hoook -->
+  <link rel="canonical" href="http://l0tus.vip/cn/Iot目标选择/">
+  <title>
+    
+      论文阅读：&#34;Bin there, target that：Analyzing the target selection of IoT vulnerabilities in malware binaries&#34; - l0tus&#39; blog
+    
+  </title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+
+	<body ontouchstart="" class="body--light body--dark">
+
+
+		<!-- ThemeColor -->
+		
+		<!-- ThemeColor -->
+<style type="text/css">
+  .body--light {
+    --light-mode: none;
+    --dark-mode: block;
+  }
+  .body--dark {
+    --light-mode: block;
+    --dark-mode: none;
+  }
+  i.mdui-icon.material-icons.light-mode {
+    display: var(--light-mode);
+  }
+  i.mdui-icon.material-icons.dark-mode {
+    display: var(--dark-mode);
+  }
+</style>
+<div class="toggle" onclick="document.body.classList.toggle('body--dark')">
+  <i class="mdui-icon material-icons light-mode"></i>
+  <i class="mdui-icon material-icons dark-mode"></i>
+</div>
+<script>
+  //getCookieValue
+  function getCookieValue(a) {
+    var b = document.cookie.match('(^|[^;]+)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b
+      ? b.pop()
+      : '';
+  }
+  let themeMode = 'dark';
+  if (getCookieValue('sb-color-mode') && (getCookieValue('sb-color-mode') !== themeMode)) {
+    let dbody = document.body.classList;
+    themeMode === 'dark' ? dbody.remove('body--dark') : dbody.add('body--dark');
+  }
+
+  //setCookieValue
+  var toggleBtn = document.querySelector(".toggle");
+  toggleBtn.addEventListener("click", function () {
+    var e = document.body.classList.contains("body--dark");
+    var cookieString = e
+      ? "dark"
+      : "light";
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 3 * 24 * 60 * 60 * 1000); //3天过期
+    document.cookie = "sb-color-mode=" + cookieString + ";expires=" + exp.toGMTString() + ";path=/";
+  });
+</script>
+
+		
+
+		<!-- Gitter -->
+		
+		<!-- Gitter -->
+<!-- Docs:https://gitter.im/?utm_source=left-menu-logo -->
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'your-community/your-room'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+		
+
+		<!-- Navigation (contains search)-->
+		<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">l0tus&#39;s blog</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Known Issue, found by Hux: <nav>'s height woule be hold on by its content. so, when navbar scale out, the <nav> will cover tags. also mask any touch event of tags, unfortunately. -->
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/">首页</a>
+          </li>
+
+          
+          
+          
+          
+          <li>
+            <a href="/archive/">
+              
+              归档
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/about/">
+              
+              关于
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/categories/">
+              
+              分类
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              标签
+              
+              
+            </a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a class="popup-trigger">
+              <span class="search-icon"></span>搜索</a>
+          </li>
+          
+
+          <!-- LangSelect -->
+          
+          
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+<!-- progress -->
+<div id="progress">
+  <div class="line" style="width: 0%;"></div>
+</div>
+
+<script>
+  // Drop Bootstarp low-performance Navbar Use customize navbar with high-quality material design animation in high-perf jank-free CSS3 implementation
+  var $body = document.body;
+  var $toggle = document.querySelector('.navbar-toggle');
+  var $navbar = document.querySelector('#huxblog_navbar');
+  var $collapse = document.querySelector('.navbar-collapse');
+
+  $toggle.addEventListener('click', handleMagic)
+
+  function handleMagic(e) {
+    if ($navbar.className.indexOf('in') > 0) {
+      // CLOSE
+      $navbar.className = " ";
+      // wait until animation end.
+      setTimeout(function() {
+        // prevent frequently toggle
+        if ($navbar.className.indexOf('in') < 0) {
+          $collapse.style.height = "0px"
+        }
+      }, 400)
+    } else {
+      // OPEN
+      $collapse.style.height = "auto"
+      $navbar.className += " in";
+    }
+  }
+</script>
+
+
+		<!-- Post Header (contains intro-header、signature、wordcount、busuanzi、waveoverlay) -->
+		<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+
+  <style type="text/css">
+    .body--light {
+      /* intro-header */
+      --intro-header-background-image-url-home: url('/img/header_img/cat.png');
+      --intro-header-background-image-url-post: url('/img/header_img/universe.jpg');
+      --intro-header-background-image-url-page: url('//img/header_img/universe.jpg');
+    }
+    .body--dark {
+      --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/cat.png');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/universe.jpg');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('//img/header_img/universe.jpg');
+    }
+
+    header.intro-header {
+       /*post*/
+        background-image: var(--intro-header-background-image-url-post);
+        /* background-image: url('/img/header_img/universe.jpg'); */
+      
+    }
+
+    
+      #signature {/*signature*/
+        background-image: url('/img/signature/l0tus_white.png');
+      }
+    
+  </style>
+
+
+
+
+
+<header class="intro-header">
+  <!-- Signature -->
+  <div id="signature">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          
+          <div class="post-heading">
+            <div class="tags">
+              
+              <a class="tag" href="/tags/#论文阅读笔记" title="论文阅读笔记">论文阅读笔记</a>
+              
+              <a class="tag" href="/tags/#iot" title="iot">iot</a>
+              
+            </div>
+            <h1>论文阅读：&#34;Bin there, target that：Analyzing the target selection of IoT vulnerabilities in malware binaries&#34;</h1>
+            <h2 class="subheading">IoT漏洞的目标选择分析</h2>
+            <span class="meta">
+              Posted by l0tus on
+              2023-11-13
+            </span>
+
+
+            
+            <!-- WordCount start -->
+            <div class="blank_box"></div>
+            <span class="meta">
+              Estimated Reading Time <span class="post-count">24</span> Minutes
+            </span>
+            <div class="blank_box"></div>
+            <span class="meta">
+              Words <span class="post-count">6.9k</span> In Total
+            </span>
+            <div class="blank_box"></div>
+            <!-- WordCount end -->
+            
+            
+            <!-- 不蒜子统计 start -->
+            <span class="meta" id="busuanzi_container_page_pv">
+              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+            </span>
+            <!-- 不蒜子统计 end -->
+            
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- waveoverlay start -->
+  <div class="preview-overlay">
+    <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+      </defs>
+      <g class="preview-parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill=var(--gentle-wave1)></use>
+        <use xlink:href="#gentle-wave" x="48" y="3" fill=var(--gentle-wave2)></use>
+        <use xlink:href="#gentle-wave" x="48" y="5" fill=var(--gentle-wave3)></use>
+        <use xlink:href="#gentle-wave" x="48" y="7" fill=var(--gentle-wave)></use>
+      </g>
+    </svg>
+  </div>
+  <!-- waveoverlay end -->
+  
+
+</header>
+
+
+
+		<!-- Main Content (Post contains
+	Pager、
+	tip、
+	socialshare、
+	gitalk、gitment、disqus-comment、
+	Catalog、
+	Sidebar、
+	Featured-Tags、
+	Friends Blog、
+	anchorjs、
+	) -->
+		<!-- Modify by Yu-Hsuan Yen -->
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <!-- Post Container -->
+      <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
+
+        <p><img src="pic1.png" alt="pic"><br>
+今天给大家分享的文章是一个月前在香港举办的RAID '23最新鲜出炉的IoT安全相关论文:“Bin there, target that: Analyzing the target selection of IoT vulnerabilities in malware binaries”</p>
+<h1>INTRODUCTION</h1>
+<p>近年物联网设备激增，针对iot设备的攻击也大幅增加。本文主要研究的是在丰富的设备中，是什么驱使攻击者的决策以特定的设备类型为目标。</p>
+<h1>THEORETICAL MODEL</h1>
+<p>作者创建了一个模型，从影响攻击者成本和收益的四个因素来解释物联网漏洞被攻击的频率。首先，漏洞本身的特征（vulnerabilities），如其严重性，可能会使其对攻击者更具有吸引力。第二，可补丁性（patchability），可能降低收益。如果为有漏洞的物联网设备部署补丁，这可能会减少漏洞利用可以成功妥协的可用攻击面。第三，可利用性(exploitability)，考虑了概念证明攻击代码的可用性和复杂性，降低了攻击者的成本。第四，暴露性(exposure)，考虑具有漏洞的设备安装基数的大小，较大的安装基数增加了对攻击者的好处。如下图。<br>
+<img src="pic2.png" alt="pic"><br>
+接下来对这张图里的各个因素对应的指标（也就是每个因素连线的小框）进行分析</p>
+<h2 id="Vulnerability">Vulnerability</h2>
+<p>作者使用5个指标来衡量对二进制中IoT exp使用频率的影响。其中一个指标是公开的漏洞发布日期漏洞的年龄越大，潜在的频率就越高。<br>
+对于具有CVE - ID的漏洞，作者收集了以CVSSv3度量的严重性。利用CVSSv3评分系统，根据漏洞的特征和被利用的潜在影响，对漏洞进行数值评分。CVSSv3分值范围为0 ~ 10，分值越高表明漏洞越严重。此外，作者还使用每个漏洞对应的公共平台枚举( Common Platform Enumeration，CPE )来统计受影响的系统数量<br>
+接下来，收集了受漏洞影响的设备类型数据，因为某些类型的设备往往比其他类型的设备更有针对性。根据设备的用途对其进行了分类。最后检查了漏洞类型，以确定一些漏洞类型，如：远程代码执行，命令注入和密码溢出。</p>
+<h2 id="Patchability">Patchability</h2>
+<p>作者关于修补性提出的假设是，物联网设备的补丁会影响利用的频率。补丁的可用性将降低攻击成功的机会。<br>
+为了测试这一点，作者使用四个指标来衡量。其中一个指标是补丁的可获得性。作者通过确定补丁是否在供应商的网站或安全博客上可用来评估这一点，这导致了第二个指标，供应商的安全咨询的存在。假设安全咨询的存在会导致更多的补丁设备和更少的有漏洞的设备。因为如果制造商或供应商没有有效的公共资源专门发布安全咨询，那么用户更不可能将补丁应用到他们的设备中。然后，如果补丁是可用的，就评估它们的复杂性，因为这可能是用户不更新设备的一个因素。通过统计应用安全咨询中列出的补丁所需的步骤数来实现，因为所涉及的步骤越多，用户成功安装更新的可能性就越小，甚至不愿意安装更新。那么危险就越多。最后一个指标是补丁发布日期，这个也好理解。</p>
+<h2 id="Exploitability">Exploitability</h2>
+<p>Exploitability的三个指标是exp代码的可用性、发布日期和复杂性，这三点分别对攻击可实现性造成的影响也一目了然。</p>
+<h2 id="Exposure">Exposure</h2>
+<p>暴露性是指攻击者可能利用漏洞攻击目标的可发现攻击面的大小。假设暴露于互联网扫描或公共搜索引擎( e.g . , Shodan )的设备的安装基数越大，攻击者攻击它们的机会就越高。</p>
+<h1>METHODOLOGY</h1>
+<p>方法论这块涉及两个主要步骤。首先，收集了指标，包括恶意软件二进制文件中的漏洞利用代码的信息，它们利用的漏洞，受影响设备的补丁状态和设备的暴露级别。收集情况如下：<br>
+<img src="pic3.png" alt="pic"><br>
+其次，作者使用计数回归模型来分析和量化每个指标的显著性。该模型的输出提供了影响攻击者在选择物联网二进制中包含何种漏洞代码的决策的因素的见解，使我们更好地了解威胁景观，并为提高物联网系统的安全性提出建议。</p>
+<h2 id="Data-collection">Data collection</h2>
+<p>这一部分主要讨论数据收集的过程。</p>
+<h3 id="Collecting-IoT-malware-binaries">Collecting IoT malware binaries</h3>
+<p>作者通过IoTPOT获取了2018年9月至2021年9月的11893个二进制文件（IoTPOT是Yin Minn Pa Pa等人在2015年做的一篇发在usenix的文章，IoTPOT: Analysing the Rise of IoT Compromises.）<br>
+目前版本的IoTPOT是一个高交互蜜罐，使用运行Telnet和/或HTTP的裸金属易受攻击的物联网设备作为Web用户界面。在整个观测期间，蜜罐使用了8个设备( 3个路由器, 2个WiFi存储设备, 1个IP摄像头, 1个打印机, 1个卫星解码器)连接到日本的64个IP地址。<br>
+此外，从2018年9月到2020年2月，该蜜罐在日本又使用了7个连接到32个IP地址的( 5台IP摄像头, 1台路由器, 1台WiFi存储设备)设备。虽然连接到高交互蜜罐的设备可能并不能代表互联网上物联网设备的总体数量，但蜜罐仍然可以服务于研究目标，并对在野外使用的物联网设备的数量产生洞察力。因此，作者认为，在四年的时间里收集的一组二进制文件，不仅在日本，而且在全球范围内，都抓住了针对漏洞的物联网设备的攻击的本质。</p>
+<h4 id="Extracting-exploits">Extracting exploits</h4>
+<p>作者对收集到的11893个二进制文件进行了动态分析。在沙箱中执行了每个二进制程序，这个沙箱构建在mips和arm架构的debian虚拟机上。除DNS解析外，作者在封闭的网络环境中运行每个二进制5分钟。由于恶意软件在这样的环境中反复尝试连接C &amp; C服务器，而同一主机上的端口扫描通常是不重复的，这种孤立的环境有助于我们区分端口扫描和C &amp; C通信，特别是当它们位于同一端口时。<br>
+此外，如果一个目的端口上的恶意软件访问了超过100个目的IP地址，我们就断定该端口正在被扫描。然后，当沙箱被清理干净后，我们在扫描的端口上用假服务器假装成目标，再次执行所有的二进制程序五分钟。通过Py NetSim的实现，我们将被检测端口上的所有连接尝试重定向到虚拟服务器上，只建立TCP会话，不再进行响应。我们发现，相当数量的二进制程序在执行后立即开始扫描并利用漏洞，而没有与C &amp; C服务器或其预期目标联系。<br>
+在对11893个二进制文件的动态分析中，有2256个文件没有表现出任何扫描(传播)行为。他们之所以没有表现出传播力，可能有不同的原因：他们根本不具备任何传播能力；他们可能需要一个触发器，例如来自C &amp; C服务器的命令；或者他们可能没有被成功执行。<br>
+考虑到无法检测到漏洞，作者在进一步的分析中删除了这2256个二进制。最后，作者对9637个具有传播行为的样本进行了动态分析。在这个集合中，7008个二进制程序只对Telnet端口进行了扫描，例如23，2323和2223 / TCP，以尝试用已知的凭证进行暴力破解。由于这种通用的攻击向量并不与特定的CVE或已知的漏洞绑定在一起，因此作者没有将这些二进制文件包含在模型中。<br>
+对于剩下的2629个二进制文件，作者通过48个不同的端口和各种协议发现了针对特定CVE或已知漏洞的证据。所有被检测的协议，如CPE广域网管理协议( CWMP )和简单对象访问协议( SOAP )，在传输层上都是基于HTTP的。</p>
+<h4 id="Exploit-signature-generation">Exploit signature generation</h4>
+<p>对于从动态分析中捕获的每个有效负载，作者手动提取基于HTTP的请求行和HTTP头，以创建一个独特的子字符串的签名，例如HTTP请求的目标资源，可用于识别攻击。作者使用URI (统一资源标识符)语法或请求行中GET或POST的绝对路径来生成唯一的签名。在figure 2中，作者给出了一个利用负载的例子。这个例子中，最终的利用签名是/ sparemgt / localJob.php ? session = fail。<br>
+<img src="pic4.png" alt="pic4"><br>
+使用这种签名生成方法，作者从捕获的HTTP请求中创建了59个独特的签名。为了识别每个漏洞的攻击目标，作者在公开的漏洞数据库中搜索它们，例如Exploit - db 或Github 。从这两个来源中，作者能够识别出59个签名中的45个。<br>
+其余14个签名在上述来源中没有任何信息，作者使用其他公开来源，如来自AV供应商的报告和描述这些信息的研究人员。生成的所有签名都是在公共来源中发现的，这意味着它们都被标记为已知的利用。<br>
+除了使用签名来识别漏洞外，作者还使用它们来统计每个漏洞在整个数据集中出现的频率。作者称这种&quot;利用频率&quot;为因变量。它的目的是获得攻击者更普遍的漏洞利用。</p>
+<h3 id="Characterizing-IoT-exploits">Characterizing IoT exploits</h3>
+<h4 id="Mapping-exploit-to-vulnerabilities">Mapping exploit to vulnerabilities</h4>
+<p>作者使用签名手动地将漏洞利用映射到其对应的漏洞（Exploit-db, Github or Google Search）。<br>
+例如，对于Develop - db中的每个漏洞利用条目，都有一个CVE字段，如果有的话，可以检索漏洞信息。此外，作者使用了Exploit - db中的漏洞描述标题，例如’ OptiLink ONT1GEW GPON version 2.1.11 _ X101 RCE ’ 。对于另外两个源，作者采用了相同的方法。发现，这59个独特的漏洞被映射到64个漏洞上。接下来作者检查了他们是否可以使用PoC 代码。如果是，作者检索了PoC漏洞代码发布的日期，并通过统计代码行数来衡量其复杂度。</p>
+<h4 id="Exploit-coverage">Exploit coverage</h4>
+<p>作者分析的核心是频率数据：漏洞在野外被攻击的频率是多少?为此需要在蜜罐基础设施上捕获实时攻击中的二进制。在这些被捕获的二进制文件中存在漏洞的次数得知漏洞被攻击的频率。<br>
+为了评估作者的数据集的覆盖率，他们比较了与过去两个研究工作中使用的数据集的重叠。<br>
+观察结果是作者的利用集与它们的数据集一致，即UrlHaus ( 2020年7月- 2020年10月)，IoTPoT ( 2018年9月- 2020年8月)和Genealogy ( 2015年1月- 2018年8月)。结果表明，作者覆盖了UrlHaus中55.17 %，IoTPoT中的所有漏洞，以及Genealogy数据集中80 %。</p>
+<h4 id="Characterizing-IoT-vulnerabilities">Characterizing IoT vulnerabilities</h4>
+<p>为了收集被捕获的漏洞所针对的64个漏洞的信息，作者使用了国家漏洞数据库( NVD )。它公布了常见漏洞( CVEs )及其相关标识编号、描述、公开引用和严重程度评分。如果NVD中预留了漏洞，例如由于CVE状态待定，作者使用MITRE网站收集信息。然而，64个漏洞中有15个未在NVD中注册，因此没有CVE - ID 。对于这些漏洞，我们使用了漏洞利用数据库中的漏洞描述标题。</p>
+<h4 id="Identifying-patches">Identifying patches</h4>
+<p>对于识别出的物联网漏洞，作者收集了设备制造商通过安全公告提供的补丁信息。安全公告是提供产品(包括物联网设备)中的漏洞信息的文档。</p>
+<h3 id="Measuring-device-exposure">Measuring device exposure</h3>
+<h4 id="Estimating-device-installed-base">Estimating device installed base</h4>
+<p>作者使用Shodan来确定特定漏洞模型的互联网连接设备的数量。<br>
+为了测量有漏洞的物联网设备的安装基础，作者开发了一种系统的查询方法：<br>
+<img src="pic5.png" alt="pic5"></p>
+<h2 id="Data-processing">Data processing</h2>
+<p>数据处理环节，作者遇到了三个并非一一对应的情景。<br>
+第一种情况，有时会遇到针对同一漏洞的多个漏洞利用。对于这种场景，作者合并每个漏洞的频率计数，然后将这些计数与一个漏洞相连接。作者对此进行了进一步的研究，发现在所有这些情况下，不同的利用代码都来自于同一个PoC。如果不是一开始就基本相同的利用，它们之间就已经有了联系。因此，合并它们的计数是有意义的。<br>
+第二种情况，有一个exploit可以针对多个漏洞。在这里，我们将这些漏洞合并到一个观察中。由于它们有不同的发布日期，我们选择了其中最古老的日期，以覆盖此类case的整个生命周期。<br>
+第三种情况，针对多个漏洞进行了多次利用。这种情况基本上是前两种情况的混合：一些攻击源自同一个PoC，而PoC实际上针对多个漏洞。在这些情况下，作者合并了漏洞利用频率和漏洞数量。选取了最古老的漏洞发布日期和最高的CVSS3评分作为观测值。</p>
+<h2 id="Modeling-approach">Modeling approach</h2>
+<p>作者使用一般线性模型( GLM )，因为它是研究因变量与一个或多个独立解释变量之间关系的常用统计工具。<br>
+作者使用最大似然估计负二项分布参数，这是最常用的技术，通常提供比其他常用估计量稍好的估计和更小的标准差。负二项模型的密度函数为：<br>
+<img src="pic6.png" alt="pic"><br>
+其中，y是利用频率的计数，x是解释变量的向量，β是模型系数的向量，r是负二项族的分散参数。函数Γ为伽马函数，对于正整数n定义为Γ ( n ) = ( n-1 ) !，对于n的其他取值有更一般的定义。<br>
+第j个解释变量可以通过检查各自的系数β j来测试其在解释利用频率方面的重要性。然而，有必要检查变量是否已经被其他因素所表示，因为冗余变量可能是由于与另一个变量的高度共线性造成的。方差膨胀因子( VIF )可以用来量化这种冗余，并定义为：<br>
+<img src="pic7.png" alt="pic"><br>
+其中R2j是只包含xj作为解释变量的模型中的R2。O ’ Brien提出，表示多重共线性V I F ( βj ) &gt; 5或V I F ( βj ) &gt; 10。在本文中，作者选择了5作为阈值，因为VIF值超过这个水平表明存在多重共线性问题。[ 17、23、29]。有一些方法可以用来设计GLMs的适应度度量。由于R2只能在线性回归模型中计算，所以大部分的决定系数都是用似然函数来计算的。选择麦克法登’ s R2进行分析，并定义为：<br>
+<img src="pic8.png" alt="pic"><br>
+其中，LLfull为全模型的对数似然值，LLnull为零模型(一个没有解释变量的模型)的对数似然值。<br>
+（笔者数学不太好，因此这一部分理解得并不透彻，采用了直接翻译，读者还请见谅qwq）</p>
+<h1>DESCRIPTIVE FINDINGS</h1>
+<p>接下来到了findings。</p>
+<h2 id="Distribution-of-exploit-frequency-in-binaries">Distribution of exploit frequency in binaries</h2>
+<p>利用频率分布如figure 4所示，在2629个二进制码中，从最小的1到最大的2177次。这导致了高度偏态分布。平均频率约为169，中位数为23。遇到了12次( 24.5 % )在二进制中只出现过一次的利用。在这12次攻击中，除了一次攻击外，所有攻击都针对一个独特的漏洞，而这一漏洞在另一个二进制文件中从未被攻击过。<br>
+<img src="pic9.png" alt="pic"><br>
+Figure 5给出了最常被利用的前五个漏洞的利用频率的时间序列。发生频率最高的漏洞( 2177次)为CVE-2017-17215。尽管在漏洞发现的时间前后发布了一个补丁，但它仍然以二进制为目标。第二高的是CVE-2014-8361，其针对的是3个不同的漏洞利用，均来自于相同的PoC漏洞利用代码。该漏洞在2014年10月漏洞公布后8个月发布。受CVE-2014-8361影响的设备已经到了报废期，这意味着厂商将不再提供软件升级或解决其中发现的任何新漏洞（摆烂）<br>
+<img src="pic10.png" alt="pic"></p>
+<h2 id="Distribution-of-vulnerability-features">Distribution of vulnerability features</h2>
+<p>作者发现，除了2009年发布的( CVE-2009-0545)之外，所有目标漏洞都是在2013年以后发布的。然而，2009年的漏洞被发现与10年后发布的漏洞CVE-2019-12725具有相同的PoC利用。在另一个极端，最近的漏洞CVE-2021-38647发表于2021年8月，并在一个月后的二进制文件中看到。大多数目标漏洞发布于2018年和2021年。<br>
+Table 3给出了发现的漏洞类型，如下：<br>
+<img src="pic11.png" alt="pic"></p>
+<h2 id="Distribution-of-patching-features">Distribution of patching features</h2>
+<p>虽然补丁对于缓解漏洞设备中的任何安全缺陷至关重要，但Table 3显示，只有49 %的供应商实际发布了补丁。这意味着观察到的几乎一半的物联网漏洞设备仍然是有漏洞的，除非用户在没有补丁的情况下找到另一种方法来保护它们。<br>
+另一个指标是补丁复杂度。当补丁只需要用户升级固件时，除非在安全备注中另有说明，否则将其计为一个步骤。例如，D-Link DSL2750B设备的补丁步骤最多，用户需要13个步骤，而对于CVE - 2016 - 6277，用户需要根据其安全咨询指令执行6个步骤。平均而言，一个用户需要2步左右的时间来修补一个易受攻击的设备，中位数需要1步。<br>
+就补丁寿命而言，目标漏洞的补丁平均可用和释放时间约1010天。最大补丁寿命为3045的漏洞为网件DGN1000 RCE，CVE - 2021 - 38647的最小补丁寿命为17天。</p>
+<h2 id="Distribution-of-exploit-features">Distribution of exploit features</h2>
+<p>假设公共PoC漏洞的可用性会影响二进制文件的漏洞利用频率。由Table3可知，除1个漏洞利用外，其余漏洞利用均公开可用。它是针对我们前面提到的NVD ( CVE-2019-7405)预留的一个漏洞，在二进制文件中只出现过两次。因此，虽然PoC几乎总是可用的，这可能会影响一个漏洞是否针对所有的漏洞，但它不能帮助我们解释一个漏洞被攻击的频率。<br>
+通过PoC利用的代码行数来近似复杂度。PoC利用平均在76行左右，最小为1行，最大为317行。Vacron NVR RCE漏洞的利用程度最低。只有当PoC代码的行数高于平均值时，才会出现较少的情况。此外，被攻击频率最高的漏洞的利用复杂度低于平均值。<br>
+最后是利用寿命。以CVE-2009-0545为目标的PoC开发的最大可用时间为4412；CVE-201912725，但只在二进制文件中出现过一次。另一方面，最近的PoC漏洞利用是针对最近的漏洞( CVE-2021-38647)进行的20次漏洞利用，它是在二进制收集的最后一天的27天之后获得的。平均而言，PoC利用时间为1308天。</p>
+<h2 id="Distribution-of-exposure-features">Distribution of exposure features</h2>
+<p>49次观测的目标设备的安装基准见Table 3。目标设备安装基数的均值和中位数分别为37098和485。然而，标准差为217960。这就解释了数据是如何从均值中扩散出来的。这可以解释在查看最大安装基数1527377时(异常值)，而公开的最小暴露设备数量是两个。这些关于最高安装基础装置的有趣发现值得探讨。针对华为HG532路由器，受CVE-2017-17215漏洞影响，该漏洞利用频率最高，且在二进制文件中被持续攻击。然而，暴露的设备数量最少的是中兴ZXV10 H108L网关，被视为目标5次。在理解设备类型的安装基础时，一个有趣的发现是，最大的前4个暴露设备是路由器。另一方面，最小的前四个安装基除一个是路由器外，其余都是web应用。</p>
+<h1>QUANTIFYING THE FACTORS THAT DRIVE IOT VULNERABILITY EXPLOITATION</h1>
+<h2 id="Indicators-selection">Indicators selection</h2>
+<p>第一步是选择纳入模型的指标。这一选择过程基于非冗余原则，将高度相关的指标从模型中剔除。<br>
+然后将这一组缩减后的指标作为GLM中的解释因素，并评估每个指标的显著性，以进一步细化模型。使用方差膨胀因子( VIF )进行冗余性检验的过程，并迭代地省略VIF值大于5的指标。这给我们留下了十个指标。根据O ’ Brien等的指导方针，剔除广义方差膨胀因子( GVIF )超过5个(见Table 4)的指标。<br>
+<img src="pic12.png" alt="pic"></p>
+<h2 id="Model-fit">Model fit</h2>
+<p>这一部分主要讲的是模型拟合，这里和后面内容都比较复杂，我就不详细写了，感兴趣的读者可以去原文查看<br>
+<img src="pic13.png" alt="pic"></p>
+<h2 id="Interpretation-of-the-variable-effects">Interpretation of the variable effects</h2>
+<p><img src="pic14.png" alt="pic"></p>
+<h1>DISCUSSION</h1>
+<p>然后我们快进到discussion部分<br>
+结果表明，有几个因素驱动着物联网漏洞的利用，包括物联网设备及其漏洞的暴露，补丁和漏洞的存在和复杂性，以及受影响的设备类型。这些因素与传统的犯罪学理论相一致，理性的攻击者感兴趣的是最大化成功，同时最小化他们的付出努力和被捕的可能性。这表明攻击者在决定利用哪些漏洞时受到自身资源的限制，他们倾向于重点利用那些影响大、复杂度低的漏洞，因为这对他们来说更具有成本效益。这与通常认为的攻击者会采取攻击一切可能的漏洞的观念相反。<br>
+攻击者针对常用设备中的漏洞，如路由器和安全摄像头，使其能够进行分布式拒绝服务攻击。这些漏洞为攻击者提供了大量的潜在目标，并且可以用相对较少的努力进行利用。此外，破坏的可能性使得这些漏洞对攻击者来说是非常有利可图的。另一方面，物联网恶意软件针对潜在财务收益较低的漏洞的可能性较低。例如，小众设备或只允许有限访问的设备中的漏洞可能不值得攻击者付出努力，因为它们可能不会提供显著的好处。同样，难以利用的漏洞也可能对攻击者吸引力较低，因为它们可能无法在未被检测的情况下成功利用它们。<br>
+研究结果表明，漏洞的CVSS评分对漏洞利用频率没有显著影响。这意味着攻击者可能不一定优先利用CVSS评分较高的漏洞，而不是优先利用评分较低的漏洞。</p>
+<p>根据分析结果，作者建议采取以下措施来减少漏洞的使用，从而提高物联网设备的安全性：</p>
+<ol>
+<li>厂商应该在经常被当作目标的设备上多花心思，拥有大的产品安装基数的大型制造商应该利用他们的规模来提高防御，因为他们更有可能成为目标。</li>
+<li>投资考虑补丁和补丁复杂性的更好的更新机制，以消磨物联网恶意软件开发者的兴致。</li>
+<li>单纯依靠CVSS评分对漏洞进行优先排序会导致被网络攻击瞄准的风险。相反，考虑漏洞的其他特征，如漏洞类型和设备类型，可以帮助减轻攻击</li>
+<li>为消费者提供获取漏洞、补丁和设备支持状态信息的机制，以及考虑采用安全软件开发和安全标记的框架，可以提高整体安全性，并帮助消费者对他们使用的设备做出明智的决定，因为大多数目标设备是消费级物联网设备</li>
+<li>在需要安全密码的情况下，设备访问的加密协议可以帮助防止非授权访问，降低漏洞风险。移除这些可行性将迫使攻击者开发更复杂、成本更高的漏洞。</li>
+<li>禁用或卸载未使用的服务和调试钩子、模式和接口有助于减少设备的攻击面。我们在野外观察到的最常见的漏洞类型与设备正常运行所必需的服务相关联。因此，去除这些将直接减少攻击面。</li>
+</ol>
+<h1>Conclusion</h1>
+<p>如今IoT漏洞越来越常见了，以往有一项研究工作是target selection in cybercrime，但对IoT攻击中影响目标选择的因素研究较少。本研究旨在通过分析2018 - 2021年间分布的11893个IoT恶意软件的二进制文件中特定漏洞的频率，更好地了解攻击者如何选择目标。研究结果表明，在这些二进制文件中，有78 %的文件并没有专门针对物联网漏洞，而是扫描互联网上的弱认证设备。对于剩余的2629个文件，作者构建了一个理论模型，以考察暴露性、漏洞、可利用性和可修补性4个潜变量的影响。作者收集了衡量这些变量的指标，并发现它们可以在很大程度上解释为什么某些漏洞比其他漏洞更频繁地被利用。漏洞的严重程度并不会显著增加其被攻击的频率，而POC的存在则会增加该漏洞被攻击的频率。还观察到，补丁的可获得性降低了被当作目标的频率，但补丁越复杂也就更容易被当作目标（修补难度变大了）。在曝光方面，更广泛的设备模型更有可能成为漏洞利用的目标。最后，作者提出了一些建议，让文件免于被攻击者锁定。</p>
+<p>论文地址：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3607199.3607241">https://dl.acm.org/doi/pdf/10.1145/3607199.3607241</a></p>
+
+
+        <hr>
+        <!-- Pager -->
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/cn/alibus/" data-toggle="tooltip" data-placement="top" title="阿里云ctf2024-alibus复现">&larr; Previous Post</a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/cn/dn11/" data-toggle="tooltip" data-placement="top" title="DN11折腾笔记">Next Post &rarr;</a>
+          </li>
+          
+        </ul>
+
+        
+        <!-- tip start -->
+        <!-- tip -->
+<!-- tip start -->
+<div class="tip">
+  <p>
+    
+      如果您喜欢此博客或发现它对您有用，则欢迎对此发表评论。 也欢迎您共享此博客，以便更多人可以参与。 如果博客中使用的图像侵犯了您的版权，请与作者联系以将其删除。 谢谢 ！
+    
+  </p>
+</div>
+<!-- tip end -->
+
+        <!-- tip end -->
+        
+
+        
+        <!-- Sharing Srtart -->
+        <!-- Social Social Share Post -->
+<!-- Docs:https://github.com/overtrue/share.js -->
+
+<div class="social-share" data-initialized="true" data-disabled="tencent ,douban ,qzone ,linkedin ,facebook ,google ,diandian" data-wechat-qrcode-helper="" align="center">
+  <ul class="list-inline text-center social-share-ul">
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-twitter">
+        <i class="fa fa-twitter fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a class="social-share-icon icon-wechat">
+        <i class="fa fa-weixin fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-weibo">
+        <i class="fa fa-weibo fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-qq">
+        <i class="fa fa-qq fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=论文阅读：&#34;Bin there, target that：Analyzing the target selection of IoT vulnerabilities in malware binaries&#34;&body=Hi,I found this website and thought you might like it http://l0tus.vip/cn/Iot目标选择/">
+        <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- css & js -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css"> -->
+<script defer="defer" async="true" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+        <!-- Sharing End -->
+        
+        <hr>
+
+        <!-- comments start -->
+        <!-- 1. gitalk comment -->
+
+  <!-- gitalk start -->
+  <!-- Docs:https://github.com/gitalk/gitalk/blob/master/readme-cn.md -->
+
+  <div id="gitalk-container"></div>
+
+  
+    <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.js"></script> -->
+    <script src="/js/comment/gitalk.js"></script>
+  
+
+  <script>
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: '',
+      id: 'Mon Nov 13 2023 00:00:00 GMT+0800', // Ensure uniqueness and length less than 50
+      distractionFreeMode: false, // Facebook-like distraction free mode
+      perPage: 10,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      language: 'en',
+      proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
+    });
+    gitalk.render('gitalk-container');
+
+    var gtFolded = () => {
+      setTimeout(function () {
+        let markdownBody = document.getElementsByClassName("markdown-body");
+        let list = Array.from(markdownBody);
+        list.forEach(item => {
+          if (item.clientHeight > 250) {
+            item.classList.add('gt-comment-body-folded');
+            item.style.maxHeight = '250px';
+            item.title = 'Click to Expand';
+            item.onclick = function () {
+              item.classList.remove('gt-comment-body-folded');
+              item.style.maxHeight = '';
+              item.title = '';
+              item.onclick = null;
+            };
+          }
+        })
+      }, 800);
+    }
+  </script>
+
+  <!-- gitalk end -->
+
+
+<!-- 2. gitment comment -->
+
+
+<!-- 3. disqus comment -->
+
+
+        <!-- comments end -->
+        <hr>
+
+      </div>
+
+      <!-- Catalog: Tabe of Content -->
+      <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">目录</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">INTRODUCTION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">THEORETICAL MODEL</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Vulnerability"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Vulnerability</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Patchability"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">Patchability</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Exploitability"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">Exploitability</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Exposure"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">Exposure</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">METHODOLOGY</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Data-collection"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">Data collection</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Collecting-IoT-malware-binaries"><span class="toc-nav-number">3.1.1.</span> <span class="toc-nav-text">Collecting IoT malware binaries</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Extracting-exploits"><span class="toc-nav-number">3.1.1.1.</span> <span class="toc-nav-text">Extracting exploits</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Exploit-signature-generation"><span class="toc-nav-number">3.1.1.2.</span> <span class="toc-nav-text">Exploit signature generation</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Characterizing-IoT-exploits"><span class="toc-nav-number">3.1.2.</span> <span class="toc-nav-text">Characterizing IoT exploits</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Mapping-exploit-to-vulnerabilities"><span class="toc-nav-number">3.1.2.1.</span> <span class="toc-nav-text">Mapping exploit to vulnerabilities</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Exploit-coverage"><span class="toc-nav-number">3.1.2.2.</span> <span class="toc-nav-text">Exploit coverage</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Characterizing-IoT-vulnerabilities"><span class="toc-nav-number">3.1.2.3.</span> <span class="toc-nav-text">Characterizing IoT vulnerabilities</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Identifying-patches"><span class="toc-nav-number">3.1.2.4.</span> <span class="toc-nav-text">Identifying patches</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Measuring-device-exposure"><span class="toc-nav-number">3.1.3.</span> <span class="toc-nav-text">Measuring device exposure</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Estimating-device-installed-base"><span class="toc-nav-number">3.1.3.1.</span> <span class="toc-nav-text">Estimating device installed base</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Data-processing"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">Data processing</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Modeling-approach"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">Modeling approach</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">DESCRIPTIVE FINDINGS</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Distribution-of-exploit-frequency-in-binaries"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">Distribution of exploit frequency in binaries</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Distribution-of-vulnerability-features"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">Distribution of vulnerability features</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Distribution-of-patching-features"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">Distribution of patching features</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Distribution-of-exploit-features"><span class="toc-nav-number">4.4.</span> <span class="toc-nav-text">Distribution of exploit features</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Distribution-of-exposure-features"><span class="toc-nav-number">4.5.</span> <span class="toc-nav-text">Distribution of exposure features</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">QUANTIFYING THE FACTORS THAT DRIVE IOT VULNERABILITY EXPLOITATION</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Indicators-selection"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">Indicators selection</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Model-fit"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">Model fit</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Interpretation-of-the-variable-effects"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text">Interpretation of the variable effects</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">DISCUSSION</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">Conclusion</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+
+
+      <!-- Sidebar Container -->
+      <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+        <!-- Featured Tags -->
+        
+        <section>
+          <!-- no hr -->
+          <h5>
+            <a href="/tags/">特色标签</a>
+          </h5>
+          <div class="tags">
+            
+            <a class="tag" href="/tags/#论文阅读笔记" title="论文阅读笔记">论文阅读笔记</a>
+            
+            <a class="tag" href="/tags/#iot" title="iot">iot</a>
+            
+          </div>
+        </section>
+        
+
+        <!-- Friends Blog -->
+        
+        <hr>
+        <h5>链友</h5>
+        <ul class="list-inline">
+
+          
+          <li>
+            <a href="https://blog.woshiluo.com" target="_blank">woshiluo</a>
+          </li>
+          
+          <li>
+            <a href="https://www.hakuya.work/" target="_blank">h4kuy4</a>
+          </li>
+          
+          <li>
+            <a href="https://cjovi.icu/" target="_blank">chuj</a>
+          </li>
+          
+          <li>
+            <a href="http://nameless.top/" target="_blank">nameless</a>
+          </li>
+          
+          <li>
+            <a href="https://ba1van4.icu/" target="_blank">Balvan4</a>
+          </li>
+          
+          <li>
+            <a href="https://cameudis.github.io/" target="_blank">cameudis</a>
+          </li>
+          
+          <li>
+            <a href="https://eson.ninja/" target="_blank">esonhugh</a>
+          </li>
+          
+          <li>
+            <a href="https://blog.t0hka.top" target="_blank">t0hka</a>
+          </li>
+          
+          <li>
+            <a href="https://JBNRZ.com.cn" target="_blank">JBNRZ</a>
+          </li>
+          
+          <li>
+            <a href="http://www.luelueking.com/" target="_blank">luelueking</a>
+          </li>
+          
+          <li>
+            <a href="https://github.red/" target="_blank">e99p1ant</a>
+          </li>
+          
+          <li>
+            <a href="https://blog.hiirachan.moe/" target="_blank">Doddy</a>
+          </li>
+          
+          <li>
+            <a href="https://me.liki.link/" target="_blank">liki</a>
+          </li>
+          
+          <li>
+            <a href="http://gtg.ink/" target="_blank">gtg</a>
+          </li>
+          
+          <li>
+            <a href="https://ek1ng.com" target="_blank">ek1ng</a>
+          </li>
+          
+          <li>
+            <a href="https://baimeow.cn" target="_blank">Baimeow</a>
+          </li>
+          
+          <li>
+            <a href="https://a1rcher.github.io" target="_blank">A1rcher</a>
+          </li>
+          
+          <li>
+            <a href="http://z3r0-del.top/" target="_blank">Z3r0</a>
+          </li>
+          
+          <li>
+            <a href="https://www.korey0sh1.cn" target="_blank">korey0sh1</a>
+          </li>
+          
+          <li>
+            <a href="http://jian.pl/" target="_blank">jian</a>
+          </li>
+          
+          <li>
+            <a href="https://mmmmchong.github.io" target="_blank">humb1e</a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+<!-- anchorjs start -->
+<!-- async load function -->
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script type="text/javascript">
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function(e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  };
+</script>
+<script type="text/javascript">
+  //anchor-js, Doc:http://bryanbraun.github.io/anchorjs/
+  async ("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function() {
+    anchors.options = {
+      visible: 'hover',
+      placement: 'left',
+      // icon: 'ℬ'
+      icon: '❡'
+    };
+    anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+  });
+</script>
+<style>
+  /* place left on bigger screen */
+  @media all and (min-width: 800px) {
+    .anchorjs-link {
+      position: absolute;
+      left: -0.75em;
+      font-size: 1.1em;
+      margin-top: -0.1em;
+    }
+  }
+</style>
+
+<!-- anchorjs end -->
+
+
+
+		<!-- Footer (contains ThemeColor、viewer) -->
+		<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center">
+          
+
+          
+            <li>
+              <a target="_blank" href="https://github.com/ChrisL0tus">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+            <li>
+              <a target="_blank" href="https://twitter.com/Lotus_Chris_">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+        </ul>
+        <p class="copyright text-muted">
+          Copyright &copy;
+          l0tus
+          2024
+          <br>
+          Theme by
+          <a target="_blank" rel="noopener" href="http://beantech.org">BeanTech</a>
+          <span style="display: inline-block; margin: 0 5px;">
+            <i class="fa fa-heart"></i>
+          </span>
+          re-Ported by
+          <a target="_blank" rel="noopener" href="https://v-vincen.life/">Live My Life</a>
+          |
+          <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=V-Vincen&repo=V-Vincen.github.io&type=star&count=true"></iframe>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a id="rocket" href="#top" class=""></a>
+
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="/js/hux-blog.min.js"></script>
+  <!-- catalog -->
+  <script async="true" type="text/javascript" src="/js/catalog.js"></script>
+  <!-- totop(rocket) -->
+  <script async="true" type="text/javascript" src="/js/totop.js"></script>
+
+  
+    <!-- Busuanzi JavaScript -->
+    <script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <!-- Scroll start -->
+    <script async="async" type="text/javascript" src="/js/scroll.js"></script>
+    <!-- Scroll end -->
+  
+
+  
+    <!-- LangSelect start -->
+    <script type="text/javascript" src="/js/langselect.js"></script>
+    <!-- LangSelect end -->
+  
+
+  
+    <!-- Mouseclick -->
+    <script type="text/javascript" src="/js/mouseclick.js" content='L,0,T,U,S,V,I,D,A,R' color='#9933CC,#339933,#66CCCC,#FF99CC,#CCCCFF,#6666CC,#663399,#66CC99,#FF0033,#66CCCC'></script>
+  
+
+  
+    <!-- ribbon -->
+    <script type="text/javascript" src="/js/ribbonDynamic.js"></script>
+  
+
+  
+
+
+
+
+
+
+  <!-- viewer start -->
+  <!-- viewer start (Picture preview) -->
+  
+    <script async="async" type="text/javascript" src="/js/viewer/viewer.min.js"></script>
+    <script async="async" type="text/javascript" src="/js/viewer/pic-viewer.js"></script>
+  
+
+  <!-- viewer end -->
+
+
+<script>
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function (e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  // fastClick.js
+  async ("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function () {
+    var $nav = document.querySelector("nav");
+    if ($nav)
+      FastClick.attach($nav);
+    }
+  )
+</script>
+
+<!-- Because of the native support for backtick-style fenced code blocks right within the Markdown is landed in Github Pages, From V1.6, There is no need for Highlight.js, so Huxblog drops it officially. -
+https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0 - https://help.github.com/articles/creating-and-highlighting-code-blocks/ -->
+<!-- <script> async ("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function () { hljs.initHighlightingOnLoad(); }) </script> <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet"> -->
+
+<!-- jquery.tagcloud.js -->
+<!-- <script> // only load tagcloud.js in tag.html if ($('#tag_cloud').length !== 0) { async ("http://l0tus.vip/js/jquery.tagcloud.js", function () { $.fn.tagcloud.defaults = { // size: { start: 1, end: 1, unit: 'em' }, color: {
+start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </script> -->
+
+
+		<!-- Search -->
+		
+		<div class="popup search-popup local-search-popup">
+  <span class="popup-btn-close">
+    ESC
+  </span>
+  <div class="container">
+    <div class="row">
+      <!-- <div class="col-md-9 col-md-offset-1"> -->
+      <div class="col-lg-9 col-lg-offset-1 col-md-10 col-md-offset-1 local-search-content">
+
+        <div class="local-search-header clearfix">
+
+          <div class="local-search-input-wrapper">
+            <span class="search-icon">
+              <i class="fa fa-search fa-lg" style="margin: 25px 10px 25px 20px;"></i>
+            </span>
+            <input autocomplete="off" placeholder="搜索..." type="text" id="local-search-input">
+          </div>
+        </div>
+        <div id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+    <script src="/js/ziploader.js"></script>
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    // monitor main search box;
+    var onPopupClose = function (e) {
+      $('.popup').fadeOut(300);
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $('.popup').fadeIn(300);
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+    // get search zip version
+    $.get('/searchVersion.json?t=' + (+new Date()), function (res) {
+      if (localStorage.getItem('searchVersion') !== res) {
+        localStorage.setItem('searchVersion', res);
+        initSearchJson();
+      }
+    });
+
+    function initSearchJson() {
+      initLoad(['/search.flv'], {
+        loadOptions: {
+          success: function (obj) {
+            localStorage.setItem('searchJson', obj['search.json'])
+          },
+          error: function (e) {
+            return console.log(e)
+          }
+        },
+        returnOptions: {
+          'json': TYPE_TEXT
+        },
+        mimeOptions: {
+          'json': 'application/json'
+        }
+      })
+    }
+    // search function;
+    var searchFunc = function (search_id, content_id) {
+      'use strict';
+      isfetched = true;
+      var datas = JSON.parse(localStorage.getItem('searchJson'));
+      // console.log(search_id)
+      var input = document.getElementById(search_id);
+      var resultContent = document.getElementById(content_id);
+      var inputEventFunction = function () {
+        var searchText = input.value.trim().toLowerCase();
+        var keywords = searchText.split(/[\s\-]+/);
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        var resultItems = [];
+        if (searchText.length > 0) {
+          // perform local searching
+          datas.forEach(function (data) {
+            var isMatch = false;
+            var hitCount = 0;
+            var searchTextCount = 0;
+            var title = data.title
+              ? data.title.trim()
+              : '';
+            var titleInLowerCase = title.toLowerCase();
+            var content = data.content
+              ? data.content.trim().replace(/<[^>]+>/g, "")
+              : '';
+            var contentInLowerCase = content.toLowerCase();
+            var articleUrl = decodeURIComponent(data.url);
+
+            var date = data.date;
+            var dateTime = date.replace(/T/, " ").replace(/.000Z/, "");
+            var imgUrl = data.header_img;
+            
+
+
+            var indexOfTitle = [];
+            var indexOfContent = [];
+            // only match articles with not empty titles
+            keywords.forEach(function (keyword) {
+              function getIndexByWord(word, text, caseSensitive) {
+                var wordLen = word.length;
+                if (wordLen === 0) {
+                  return [];
+                }
+                var startPosition = 0,
+                  position = [],
+                  index = [];
+                if (!caseSensitive) {
+                  text = text.toLowerCase();
+                  word = word.toLowerCase();
+                }
+                while ((position = text.indexOf(word, startPosition)) > -1) {
+                  index.push({position: position, word: word});
+                  startPosition = position + wordLen;
+                }
+                return index;
+              }
+              indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+              indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+            });
+            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+              isMatch = true;
+              hitCount = indexOfTitle.length + indexOfContent.length;
+            }
+            // show search results
+            if (isMatch) {
+              // sort index by position of keyword
+              [indexOfTitle, indexOfContent].forEach(function (index) {
+                index.sort(function (itemLeft, itemRight) {
+                  if (itemRight.position !== itemLeft.position) {
+                    return itemRight.position - itemLeft.position;
+                  } else {
+                    return itemLeft.word.length - itemRight.word.length;
+                  }
+                });
+              });
+              // merge hits into slices
+              function mergeIntoSlice(text, start, end, index) {
+                var item = index[index.length - 1];
+                var position = item.position;
+                var word = item.word;
+                var hits = [];
+                var searchTextCountInSlice = 0;
+                while (position + word.length <= end && index.length != 0) {
+                  if (word === searchText) {
+                    searchTextCountInSlice++;
+                  }
+                  hits.push({position: position, length: word.length});
+                  var wordEnd = position + word.length;
+                  // move to next position of hit
+                  index.pop();
+                  while (index.length != 0) {
+                    item = index[index.length - 1];
+                    position = item.position;
+                    word = item.word;
+                    if (wordEnd > position) {
+                      index.pop();
+                    } else {
+                      break;
+                    }
+                  }
+                }
+                searchTextCount += searchTextCountInSlice;
+                return {hits: hits, start: start, end: end, searchTextCount: searchTextCountInSlice};
+              }
+              var slicesOfTitle = [];
+              if (indexOfTitle.length != 0) {
+                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+              }
+              var slicesOfContent = [];
+              while (indexOfContent.length != 0) {
+                var item = indexOfContent[indexOfContent.length - 1];
+                var position = item.position;
+                var word = item.word;
+                // cut out 100 characters
+                var start = position - 20;
+                var end = position + 80;
+                if (start < 0) {
+                  start = 0;
+                }
+                if (end < position + word.length) {
+                  end = position + word.length;
+                }
+                if (end > content.length) {
+                  end = content.length;
+                }
+                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+              }
+              // sort slices in content by search text's count and hits' count
+              slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                  return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                  return sliceRight.hits.length - sliceLeft.hits.length;
+                } else {
+                  return sliceLeft.start - sliceRight.start;
+                }
+              });
+              // select top N slices in content
+              var upperBound = parseInt('1');
+              if (upperBound >= 0) {
+                slicesOfContent = slicesOfContent.slice(0, upperBound);
+              }
+              // highlight title and content
+              function highlightKeyword(text, slice) {
+                var result = '';
+                var prevEnd = slice.start;
+                slice.hits.forEach(function (hit) {
+                  result += text.substring(prevEnd, hit.position);
+                  var end = hit.position + hit.length;
+                  result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                  prevEnd = end;
+                });
+                result += text.substring(prevEnd, slice.end);
+                return result;
+              }
+              var resultItem = '';
+
+              // if (slicesOfTitle.length != 0) {   resultItem += "<li><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>"; } else {   resultItem += "<li><a target='_blank' href='" +
+              // articleUrl + "' class='search-result-title'>" + title + "</a>"; } slicesOfContent.forEach(function (slice) {   resultItem += "<a target='_blank' href='" + articleUrl + "'><p class=\"search-result\">" + highlightKeyword(content, slice) +
+              // "...</p></a>"; }); resultItem += "</li>";
+
+              if (slicesOfTitle.length != 0) {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              } else {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + title + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              }
+              slicesOfContent.forEach(function (slice) {
+                resultItem += "<p class=\"search-result-content\">" + highlightKeyword(content, slice) + "...</p>";
+              });
+              resultItem += "</div><div class='search-result-right'><img class='media-image' src='" + imgUrl + "' width='64px' height='48px'></img></div></a>";
+
+              resultItems.push({item: resultItem, searchTextCount: searchTextCount, hitCount: hitCount, id: resultItems.length});
+            }
+          })
+        };
+
+        if (keywords.length === 1 && keywords[0] === "") {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else if (resultItems.length === 0) {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else {
+          resultItems.sort(function (resultLeft, resultRight) {
+            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+              return resultRight.searchTextCount - resultLeft.searchTextCount;
+            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+              return resultRight.hitCount - resultLeft.hitCount;
+            } else {
+              return resultRight.id - resultLeft.id;
+            }
+          });
+          var searchResultList = '<div class=\"search-result-list\">';
+          resultItems.forEach(function (result) {
+            searchResultList += result.item;
+          })
+          searchResultList += "</div>";
+          resultContent.innerHTML = searchResultList;
+        }
+      }
+      if ('auto' === 'auto') {
+        input.addEventListener('input', inputEventFunction);
+      } else {
+        $('.search-icon').click(inputEventFunction);
+        input.addEventListener('keypress', function (event) {
+          if (event.keyCode === 13) {
+            inputEventFunction();
+          }
+        });
+      }
+      // remove loading animation
+      $('body').css('overflow', '');
+      proceedsearch();
+    }
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function (e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc('local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function (e) {
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 && $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+
+    document.addEventListener('mouseup', (e) => {
+      var _con = document.querySelector(".local-search-content");
+      if (_con) {
+        if (!_con.contains(e.target)) {
+          onPopupClose();
+        }
+      }
+    });
+  </script>
+
+
+		
+	<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
