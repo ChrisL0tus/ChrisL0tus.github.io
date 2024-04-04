@@ -478,35 +478,35 @@
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-greeting-150-WP/">
+  <a href="/cn/totolink/">
     <h2 class="post-title">
-      XCTF-greeting-150-WP
+      TOTOLINK路由器漏洞复现笔记
     </h2>
     <h3 class="post-subtitle">
-      .fini_array劫持 && hijack got
+      IoT漏洞的入门靶场
     </h3>
     <div class="post-content-preview">
-      checksec
+      前言
+从nameless师兄那里借来了TOTOLINK T6设备，当作入门IoT漏洞挖掘研究的起点
+开始
+固件 -&gt; telnet -&gt; busybox -&gt; 固件
+串口调试这一步我暂时还没做。直接从固件开始做起
+在TOTOLINK的官网可以直接下载到T6/T10的固件
+binwalk解包一下得到一个.web.extract文件夹
 
-开了canary和NX，没开reload和pie，考虑使用hijack got
-反编译
-
-可以看到一个明显的格式化字符串漏洞
-
-测试得到偏移为12，这里需要注意的是我们的输入是跟在&quot;Please tell me your name… “这句话的后头的，这句话本身长度为18，那么我们需要先输入两个字符使地址对齐，然后再用%p输出
-但是这道题的格式化字符串漏洞是在r......
+发现webscte文件夹，进去看到tel......
     </div>
   </a>
   
   <p class="post-meta" style="margin: 10px 0;">
     Posted by l0tus on
-    2023-03-08
+    2023-03-15
   </p>
   <div class="tags">
     
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    <a href="/tags/#IoT" title="IoT">IoT</a>
     
-    <a href="/tags/#write up" title="write up">write up</a>
+    <a href="/tags/#漏洞复现" title="漏洞复现">漏洞复现</a>
     
   </div>
   
@@ -539,6 +539,49 @@ shift+f12看到有cat flag的字符串，找到对应函数:
 
 
 程序最后对&quot;v3[–v5]&quot;的地址会直接调用，而前面的程序就是通过判断v2[i]的值是否在小写......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-03-08
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#write up" title="write up">write up</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/XCTF-greeting-150-WP/">
+    <h2 class="post-title">
+      XCTF-greeting-150-WP
+    </h2>
+    <h3 class="post-subtitle">
+      .fini_array劫持 && hijack got
+    </h3>
+    <div class="post-content-preview">
+      checksec
+
+开了canary和NX，没开reload和pie，考虑使用hijack got
+反编译
+
+可以看到一个明显的格式化字符串漏洞
+
+测试得到偏移为12，这里需要注意的是我们的输入是跟在&quot;Please tell me your name… “这句话的后头的，这句话本身长度为18，那么我们需要先输入两个字符使地址对齐，然后再用%p输出
+但是这道题的格式化字符串漏洞是在r......
     </div>
   </a>
   
@@ -849,48 +892,6 @@ XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/JS 的一些特性：原型链，作用域，闭包/">
-    <h2 class="post-title">
-      JS的一些特性：原型链，作用域，闭包
-    </h2>
-    <h3 class="post-subtitle">
-      （转自@gtg）
-    </h3>
-    <div class="post-content-preview">
-      前言
-这篇文章是@gtg师傅写的，征得同意分享给了我们。（l0你在装什么你根本看不懂啊喂(#`O′)！）
-是好东西，我一个二进制菜狗虽然看不明白但是想在博客挂一份，或许以后会有学
-这篇文章所有权以及一切解释归@gtg所有，如需转载请联系@gtg。
-原型链prototype chain
-没有类的实例对象
-
-Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-01-29
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#JS" title="JS">JS</a>
-    
-    <a href="/tags/#转载" title="转载">转载</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -943,10 +944,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
   <div class="tags">
     
     
-    <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
-    
-    
-    
     <a href="/tags/#pwn笔记" title="pwn笔记" rel="22">pwn笔记</a>
     
     
@@ -955,11 +952,7 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
-    
-    
-    
-    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
+    <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
     
     
     
@@ -971,11 +964,11 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#JS" title="JS" rel="1">JS</a>
+    <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
     
     
     
-    <a href="/tags/#转载" title="转载" rel="1">转载</a>
+    <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
     
     
     
@@ -987,7 +980,11 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
+    <a href="/tags/#JS" title="JS" rel="1">JS</a>
+    
+    
+    
+    <a href="/tags/#转载" title="转载" rel="1">转载</a>
     
     
     
@@ -996,6 +993,10 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
+    
+    
+    
+    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
     
     
     
@@ -1039,15 +1040,15 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
-    
-    
-    
     <a href="/tags/#ChatGPT" title="ChatGPT" rel="1">ChatGPT</a>
     
     
     
     <a href="/tags/#Bot" title="Bot" rel="1">Bot</a>
+    
+    
+    
+    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
     
     
     
@@ -1059,6 +1060,10 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
+    
+    
+    
     <a href="/tags/#操作系统" title="操作系统" rel="1">操作系统</a>
     
     
@@ -1067,7 +1072,7 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
+    <a href="/tags/#杂谈" title="杂谈" rel="1">杂谈</a>
     
     
   </div>
@@ -1139,6 +1144,10 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 <div class="widget">
   <ul>
     
+    <a href="../../cn/%E9%9B%A8%E7%9A%84%E6%95%85%E4%BA%8B/">
+      <li>关于雨的故事</li>
+    </a>
+    
     <a href="../../cn/SyzBridge/">
       <li>论文阅读：&#34;SyzBridge：Bridging the Gap in Exploitability Assessment of Linux Kernel Bugs in the Linux Ecosystem&#34;</li>
     </a>
@@ -1153,10 +1162,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     <a href="../../cn/dn11/">
       <li>DN11折腾笔记</li>
-    </a>
-    
-    <a href="../../cn/shengsai2023/">
-      <li>浙江省赛2023预赛pwn部分题解</li>
     </a>
     
   </ul>
@@ -1221,7 +1226,7 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/03/">March 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/11/">November 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2024/04/">April 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/03/">March 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/11/">November 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
 </div>
 
 
@@ -1233,36 +1238,36 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
 <div class="widget">
   <ul>
     
-    <a href="/categories/#2022年终总结">
-      <li>2022年终总结</li>
-    </a>
-    
     <a href="/categories/#2023西湖论剑">
       <li>2023西湖论剑</li>
     </a>
     
-    <a href="/categories/#IoT">
-      <li>IoT</li>
+    <a href="/categories/#2022年终总结">
+      <li>2022年终总结</li>
     </a>
     
     <a href="/categories/#论文阅读笔记">
       <li>论文阅读笔记</li>
     </a>
     
-    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
-      <li>JS的一些特性：原型链，作用域，闭包</li>
+    <a href="/categories/#IoT">
+      <li>IoT</li>
     </a>
     
     <a href="/categories/#pwn笔记">
       <li>pwn笔记</li>
     </a>
     
-    <a href="/categories/#CVE复现">
-      <li>CVE复现</li>
+    <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
+      <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
+    </a>
+    
+    <a href="/categories/#静态分析">
+      <li>静态分析</li>
     </a>
     
     <a href="/categories/#kernel">
@@ -1273,20 +1278,20 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>fuzz</li>
     </a>
     
-    <a href="/categories/#静态分析">
-      <li>静态分析</li>
+    <a href="/categories/#CVE复现">
+      <li>CVE复现</li>
     </a>
     
     <a href="/categories/#XCTF">
       <li>XCTF</li>
     </a>
     
-    <a href="/categories/#2023XCTF-final">
-      <li>2023XCTF-final</li>
-    </a>
-    
     <a href="/categories/#FSOP">
       <li>FSOP</li>
+    </a>
+    
+    <a href="/categories/#2023XCTF-final">
+      <li>2023XCTF-final</li>
     </a>
     
     <a href="/categories/#iot">
@@ -1301,20 +1306,12 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>write up</li>
     </a>
     
-    <a href="/categories/#SROP">
-      <li>SROP</li>
-    </a>
-    
     <a href="/categories/#write_up">
       <li>write_up</li>
     </a>
     
     <a href="/categories/#networking">
       <li>networking</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
     </a>
     
     <a href="/categories/#tcache_poisoning">
@@ -1327,6 +1324,10 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     <a href="/categories/#HEAP">
       <li>HEAP</li>
+    </a>
+    
+    <a href="/categories/#SROP">
+      <li>SROP</li>
     </a>
     
     <a href="/categories/#vpn安全">
@@ -1349,12 +1350,16 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>论文阅读笔记</li>
     </a>
     
+    <a href="/categories/#ChatGPT接入Telegram Bot教程">
+      <li>ChatGPT接入Telegram Bot教程</li>
+    </a>
+    
     <a href="/categories/#Stackmove">
       <li>Stackmove</li>
     </a>
     
-    <a href="/categories/#ChatGPT接入Telegram Bot教程">
-      <li>ChatGPT接入Telegram Bot教程</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
     <a href="/categories/#漏洞复现">
@@ -1365,12 +1370,16 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>源码阅读</li>
     </a>
     
-    <a href="/categories/#操作系统">
-      <li>操作系统</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
     </a>
     
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
+    </a>
+    
+    <a href="/categories/#操作系统">
+      <li>操作系统</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -1393,12 +1402,12 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>读书笔记</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
+    </a>
+    
+    <a href="/categories/#杂谈">
+      <li>杂谈</li>
     </a>
     
   </ul>
