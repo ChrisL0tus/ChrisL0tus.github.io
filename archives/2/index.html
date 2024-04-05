@@ -244,19 +244,6 @@
 
           
           
-          
-          
-          <li>
-            <a href="/about/">
-              
-              ABOUT
-              
-              
-            </a>
-          </li>
-          
-          
-          
           <li>
             <a href="/archive/">
               
@@ -265,6 +252,8 @@
               
             </a>
           </li>
+          
+          
           
           
           
@@ -283,6 +272,17 @@
             <a href="/tags/">
               
               TAGS
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/about/">
+              
+              ABOUT
               
               
             </a>
@@ -470,45 +470,6 @@
       <!-- Main Content -->
 
 
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/pwn_vpn/">
-    <h2 class="post-title">
-      论文阅读："Oh-Pwn-VPN! Security Analysis of OpenVPN-based Android Apps"
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      正文
-本文是一篇分析VPN安全的文章，主要分析了基于openvpn的Android vpn app的安全。
-本文提出了三种常见的漏洞点
-第一个是misuse of modified OpenVPN protocol，第二个是weak authentication at the client side，第三个是incorrect usage of native library
-上述三种漏洞点引......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-07-17
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#论文阅读笔记" title="论文阅读笔记">论文阅读笔记</a>
-    
-    <a href="/tags/#vpn安全" title="vpn安全">vpn安全</a>
-    
-  </div>
-  
-
-</div>
-<hr>
 
 <div class="post-preview">
   
@@ -870,6 +831,49 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
 </div>
 <hr>
 
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/totolink/">
+    <h2 class="post-title">
+      TOTOLINK路由器漏洞复现笔记
+    </h2>
+    <h3 class="post-subtitle">
+      IoT漏洞的入门靶场
+    </h3>
+    <div class="post-content-preview">
+      前言
+从nameless师兄那里借来了TOTOLINK T6设备，当作入门IoT漏洞挖掘研究的起点
+开始
+固件 -&gt; telnet -&gt; busybox -&gt; 固件
+串口调试这一步我暂时还没做。直接从固件开始做起
+在TOTOLINK的官网可以直接下载到T6/T10的固件
+binwalk解包一下得到一个.web.extract文件夹
+
+发现webscte文件夹，进去看到tel......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-03-15
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#IoT" title="IoT">IoT</a>
+    
+    <a href="/tags/#漏洞复现" title="漏洞复现">漏洞复现</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
 
   <!-- Pager -->
   <ul class="pager">
@@ -922,23 +926,7 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
   <div class="tags">
     
     
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="22">pwn笔记</a>
-    
-    
-    
-    <a href="/tags/#write up" title="write up" rel="14">write up</a>
-    
-    
-    
     <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
-    
-    
-    
-    <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="6">论文阅读笔记</a>
-    
-    
-    
-    <a href="/tags/#静态分析" title="静态分析" rel="1">静态分析</a>
     
     
     
@@ -950,7 +938,7 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
     
     
     
-    <a href="/tags/#FSOP" title="FSOP" rel="1">FSOP</a>
+    <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="6">论文阅读笔记</a>
     
     
     
@@ -958,11 +946,11 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
     
     
     
-    <a href="/tags/#JS" title="JS" rel="1">JS</a>
+    <a href="/tags/#静态分析" title="静态分析" rel="1">静态分析</a>
     
     
     
-    <a href="/tags/#转载" title="转载" rel="1">转载</a>
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="22">pwn笔记</a>
     
     
     
@@ -974,11 +962,27 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
     
     
     
-    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
+    <a href="/tags/#write up" title="write up" rel="14">write up</a>
+    
+    
+    
+    <a href="/tags/#FSOP" title="FSOP" rel="1">FSOP</a>
+    
+    
+    
+    <a href="/tags/#JS" title="JS" rel="1">JS</a>
+    
+    
+    
+    <a href="/tags/#转载" title="转载" rel="1">转载</a>
     
     
     
     <a href="/tags/#kernel" title="kernel" rel="2">kernel</a>
+    
+    
+    
+    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
     
     
     
@@ -990,15 +994,15 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
     
     
     
-    <a href="/tags/#write_up" title="write_up" rel="1">write_up</a>
-    
-    
-    
     <a href="/tags/#networking" title="networking" rel="1">networking</a>
     
     
     
     <a href="/tags/#dn11" title="dn11" rel="1">dn11</a>
+    
+    
+    
+    <a href="/tags/#write_up" title="write_up" rel="1">write_up</a>
     
     
     
@@ -1026,11 +1030,11 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
     
     
     
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
-    
-    
-    
     <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
+    
+    
+    
+    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
     
     
     
@@ -1047,10 +1051,6 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
     
     
     <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
-    
-    
-    
-    <a href="/tags/#杂谈" title="杂谈" rel="1">杂谈</a>
     
     
   </div>
@@ -1122,10 +1122,6 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
 <div class="widget">
   <ul>
     
-    <a href="../../cn/%E9%9B%A8%E7%9A%84%E6%95%85%E4%BA%8B/">
-      <li>关于雨的故事</li>
-    </a>
-    
     <a href="../../cn/SyzBridge/">
       <li>论文阅读：&#34;SyzBridge：Bridging the Gap in Exploitability Assessment of Linux Kernel Bugs in the Linux Ecosystem&#34;</li>
     </a>
@@ -1140,6 +1136,10 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
     
     <a href="../../cn/dn11/">
       <li>DN11折腾笔记</li>
+    </a>
+    
+    <a href="../../cn/shengsai2023/">
+      <li>浙江省赛2023预赛pwn部分题解</li>
     </a>
     
   </ul>
@@ -1204,7 +1204,7 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2024/04/">April 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/03/">March 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/11/">November 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2024/04/">April 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/03/">March 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/11/">November 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
 </div>
 
 
@@ -1216,20 +1216,28 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
 <div class="widget">
   <ul>
     
-    <a href="/categories/#2023西湖论剑">
-      <li>2023西湖论剑</li>
-    </a>
-    
     <a href="/categories/#2022年终总结">
       <li>2022年终总结</li>
+    </a>
+    
+    <a href="/categories/#IoT">
+      <li>IoT</li>
     </a>
     
     <a href="/categories/#论文阅读笔记">
       <li>论文阅读笔记</li>
     </a>
     
-    <a href="/categories/#IoT">
-      <li>IoT</li>
+    <a href="/categories/#PoC double_free">
+      <li>PoC double_free</li>
+    </a>
+    
+    <a href="/categories/#2023西湖论剑">
+      <li>2023西湖论剑</li>
+    </a>
+    
+    <a href="/categories/#CVE复现">
+      <li>CVE复现</li>
     </a>
     
     <a href="/categories/#pwn笔记">
@@ -1240,52 +1248,40 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
-    <a href="/categories/#PoC double_free">
-      <li>PoC double_free</li>
-    </a>
-    
-    <a href="/categories/#静态分析">
-      <li>静态分析</li>
+    <a href="/categories/#iot">
+      <li>iot</li>
     </a>
     
     <a href="/categories/#kernel">
       <li>kernel</li>
     </a>
     
-    <a href="/categories/#fuzz">
-      <li>fuzz</li>
+    <a href="/categories/#静态分析">
+      <li>静态分析</li>
     </a>
     
-    <a href="/categories/#CVE复现">
-      <li>CVE复现</li>
+    <a href="/categories/#fuzz">
+      <li>fuzz</li>
     </a>
     
     <a href="/categories/#XCTF">
       <li>XCTF</li>
     </a>
     
-    <a href="/categories/#FSOP">
-      <li>FSOP</li>
-    </a>
-    
     <a href="/categories/#2023XCTF-final">
       <li>2023XCTF-final</li>
-    </a>
-    
-    <a href="/categories/#iot">
-      <li>iot</li>
     </a>
     
     <a href="/categories/#阿里云ctf2024">
       <li>阿里云ctf2024</li>
     </a>
     
-    <a href="/categories/#write up">
-      <li>write up</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#write_up">
-      <li>write_up</li>
+    <a href="/categories/#FSOP">
+      <li>FSOP</li>
     </a>
     
     <a href="/categories/#networking">
@@ -1296,16 +1292,16 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
       <li>tcache_poisoning</li>
     </a>
     
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
-    </a>
-    
     <a href="/categories/#HEAP">
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#SROP">
-      <li>SROP</li>
+    <a href="/categories/#write_up">
+      <li>write_up</li>
+    </a>
+    
+    <a href="/categories/#Paper Reading">
+      <li>Paper Reading</li>
     </a>
     
     <a href="/categories/#vpn安全">
@@ -1320,52 +1316,44 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
       <li>虚拟机逃逸</li>
     </a>
     
+    <a href="/categories/#ChatGPT接入Telegram Bot教程">
+      <li>ChatGPT接入Telegram Bot教程</li>
+    </a>
+    
+    <a href="/categories/#SROP">
+      <li>SROP</li>
+    </a>
+    
     <a href="/categories/#2023浙江省赛">
       <li>2023浙江省赛</li>
     </a>
     
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
-    </a>
-    
-    <a href="/categories/#ChatGPT接入Telegram Bot教程">
-      <li>ChatGPT接入Telegram Bot教程</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
     <a href="/categories/#Stackmove">
       <li>Stackmove</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
     <a href="/categories/#源码阅读">
       <li>源码阅读</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
     </a>
     
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
-    </a>
-    
-    <a href="/categories/#操作系统">
-      <li>操作系统</li>
-    </a>
-    
-    <a href="/categories/#ciscn2023">
-      <li>ciscn2023</li>
+    <a href="/categories/#write up">
+      <li>write up</li>
     </a>
     
     <a href="/categories/#dn11">
       <li>dn11</li>
+    </a>
+    
+    <a href="/categories/#ciscn2023">
+      <li>ciscn2023</li>
     </a>
     
     <a href="/categories/#漏洞复现">
@@ -1376,16 +1364,24 @@ FirmAE的原理大概是以Firmadyne工具为基础，用程序对固件进行�
       <li>虚拟机逃逸</li>
     </a>
     
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
+    </a>
+    
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
     </a>
     
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
     </a>
     
-    <a href="/categories/#杂谈">
-      <li>杂谈</li>
+    <a href="/categories/#操作系统">
+      <li>操作系统</li>
+    </a>
+    
+    <a href="/categories/#读书笔记">
+      <li>读书笔记</li>
     </a>
     
   </ul>
