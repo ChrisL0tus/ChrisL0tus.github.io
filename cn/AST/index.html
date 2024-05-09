@@ -247,9 +247,20 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              归档
+              关于
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              标签
               
               
             </a>
@@ -269,20 +280,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              关于
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/tags/">
-              
-              标签
+              归档
               
               
             </a>
@@ -527,18 +527,18 @@
 <p>在属性图中，可根据标签和属性按照一定规则访问图的顶点和边进行遍历。以下方的属性图为例，以下的遍历分别表示：<br>
 <img src="9.png" alt="pic9"><br>
 返回集合X中k=w的所有节点：</p>
-<p>$\mathbf{X = {A,B,C,D}}$</p>
-<p>$\mathbf{FILTER(X) = { \nu \in X: \mu(\nu,\kappa) = \omega } = {B}}$</p>
+<p>$$\mathbf{X = {A,B,C,D}}$$</p>
+<p>$$\mathbf{FILTER(X) = { \nu \in X: \mu(\nu,\kappa) = \omega } = {B}}$$</p>
 <p>返回集合X中节点所有正向可达、边标签为b、k键的值为w的节点结集合:</p>
-<p>$\mathbf{X = {A}}$</p>
-<p>$\mathbf{OUT^{k,x}_{b}(X) = \bigcup _{\upsilon \in x} { \nu : (\upsilon,\nu) \in E \wedge \lambda(\upsilon,\nu) = b \wedge \mu{ \nu, \kappa} = \omega } = { B }}$</p>
+<p>$$\mathbf{X = {A}}$$</p>
+<p>$$\mathbf{OUT^{k,x}_{b}(X) = \bigcup _{\upsilon \in x} { \nu : (\upsilon,\nu) \in E \wedge \lambda(\upsilon,\nu) = b \wedge \mu{ \nu, \kappa} = \omega } = { B }}$$</p>
 <p>返回集合X中节点所有反向可达、边标签为b、k键的值为x的节点结集合。</p>
-<p>$\mathbf{X = {B}}$</p>
-<p>$\mathbf{OUT^{k,x}_{a}(X) = \bigcup _{\upsilon \in x} { \nu : (\upsilon,\nu) \in E \wedge \lambda(\upsilon,\nu) = a \wedge \mu{ \nu, \kappa} = \omega } = { A }}$</p>
+<p>$$\mathbf{X = {B}}$$</p>
+<p>$$\mathbf{OUT^{k,x}_{a}(X) = \bigcup _{\upsilon \in x} { \nu : (\upsilon,\nu) \in E \wedge \lambda(\upsilon,\nu) = a \wedge \mu{ \nu, \kappa} = \omega } = { A }}$$</p>
 <p>先返回集合X中节点所有正向可达、边标签为b、k键的值为w的节点集合，再在第一次遍历的基础之上获取可达的节点集合</p>
-<p>$\mathbf{X = {A}}$</p>
-<p>$\mathbf{OUT(X) \bigcup \limits_{\chi \in X} {y:(x,y)\in E}}$</p>
-<p>$\mathbf{OUT(X)\circ OUT^{k,x}_b(X) = OUT({B}) = {C}}$</p>
+<p>$$\mathbf{X = {A}}$$</p>
+<p>$$\mathbf{OUT(X) \bigcup \limits_{\chi \in X} {y:(x,y)\in E}}$$</p>
+<p>$$\mathbf{OUT(X)\circ OUT^{k,x}_b(X) = OUT({B}) = {C}}$$</p>
 <blockquote>
 <p>woc终于把这几个公式用latex写出来了，latex小白累晕。。</p>
 </blockquote>
@@ -546,9 +546,9 @@
 <p><img src="10.png" alt="pic10"></p>
 <p>上图为libssh中的漏洞代码示例，红色代码中namelen参数为用户输入变量，若namelen为32位无符号数的最大值，则会因为整数溢出为0从而分配仅仅几个字节，导致写入时缓冲区溢出。针对该漏洞可以构建代码属性图遍历如下：</p>
 <p>· 某一函数中是否包含求和以及函数调用。TNODES代表从AST的根节点遍历所有的节点，针对该遍历结果再次进行FILTER遍历查找符合条件结果</p>
-<p>$\mathbf{MATCH_{p}(V) = FILTER_{\rho} \circ TNODES(V)}$</p>
+<p>$$\mathbf{MATCH_{p}(V) = FILTER_{\rho} \circ TNODES(V)}$$</p>
 <p>· 这两者是否存在嵌套关系 。先使用ARG(i,f)返回函数名为f的第i个参数的遍历结果，再针对该结果使用MATCH遍历</p>
-<p>$\mathbf{MATCH_{p}(V) \circ ARG^{i}_{f}}$</p>
+<p>$$\mathbf{MATCH_{p}(V) \circ ARG^{i}_{f}}$$</p>
 <h3 id="others">others</h3>
 <p>其余可检测类型示例</p>
 <p><img src="11.png" alt="pic11"></p>
@@ -1387,6 +1387,6 @@ start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </scrip
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

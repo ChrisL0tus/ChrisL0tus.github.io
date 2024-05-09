@@ -247,9 +247,20 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/about/">
               
-              ARCHIVES
+              ABOUT
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              TAGS
               
               
             </a>
@@ -269,20 +280,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              ABOUT
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/tags/">
-              
-              TAGS
+              ARCHIVES
               
               
             </a>
@@ -633,24 +633,23 @@ binwalk解包一下得到一个.web.extract文件夹
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-forgot-WP/">
+  <a href="/cn/XCTF-greeting-150-WP/">
     <h2 class="post-title">
-      XCTF-forgot-WP
+      XCTF-greeting-150-WP
     </h2>
     <h3 class="post-subtitle">
-      
+      .fini_array劫持 && hijack got
     </h3>
     <div class="post-content-preview">
       checksec
 
-一道正常的栈题，只开了NX
+开了canary和NX，没开reload和pie，考虑使用hijack got
 反编译
 
-第一次fgets输入长度为32，后面有一次scanf输入v2，结合栈的排布可以发现输入v2的时候可以溢出覆盖s，那么我们只需要控制好第二次输入就可以了
-shift+f12看到有cat flag的字符串，找到对应函数:
+可以看到一个明显的格式化字符串漏洞
 
-
-程序最后对&quot;v3[–v5]&quot;的地址会直接调用，而前面的程序就是通过判断v2[i]的值是否在小写......
+测试得到偏移为12，这里需要注意的是我们的输入是跟在&quot;Please tell me your name… “这句话的后头的，这句话本身长度为18，那么我们需要先输入两个字符使地址对齐，然后再用%p输出
+但是这道题的格式化字符串漏洞是在r......
     </div>
   </a>
   
@@ -677,23 +676,24 @@ shift+f12看到有cat flag的字符串，找到对应函数:
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-greeting-150-WP/">
+  <a href="/cn/XCTF-forgot-WP/">
     <h2 class="post-title">
-      XCTF-greeting-150-WP
+      XCTF-forgot-WP
     </h2>
     <h3 class="post-subtitle">
-      .fini_array劫持 && hijack got
+      
     </h3>
     <div class="post-content-preview">
       checksec
 
-开了canary和NX，没开reload和pie，考虑使用hijack got
+一道正常的栈题，只开了NX
 反编译
 
-可以看到一个明显的格式化字符串漏洞
+第一次fgets输入长度为32，后面有一次scanf输入v2，结合栈的排布可以发现输入v2的时候可以溢出覆盖s，那么我们只需要控制好第二次输入就可以了
+shift+f12看到有cat flag的字符串，找到对应函数:
 
-测试得到偏移为12，这里需要注意的是我们的输入是跟在&quot;Please tell me your name… “这句话的后头的，这句话本身长度为18，那么我们需要先输入两个字符使地址对齐，然后再用%p输出
-但是这道题的格式化字符串漏洞是在r......
+
+程序最后对&quot;v3[–v5]&quot;的地址会直接调用，而前面的程序就是通过判断v2[i]的值是否在小写......
     </div>
   </a>
   
@@ -959,11 +959,11 @@ start
     
     
     
-    <a href="/tags/#FSOP" title="FSOP" rel="1">FSOP</a>
-    
-    
-    
     <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="7">论文阅读笔记</a>
+    
+    
+    
+    <a href="/tags/#FSOP" title="FSOP" rel="1">FSOP</a>
     
     
     
@@ -1007,15 +1007,15 @@ start
     
     
     
+    <a href="/tags/#kernel" title="kernel" rel="2">kernel</a>
+    
+    
+    
     <a href="/tags/#fuzz" title="fuzz" rel="1">fuzz</a>
     
     
     
     <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸" rel="2">虚拟机逃逸</a>
-    
-    
-    
-    <a href="/tags/#kernel" title="kernel" rel="2">kernel</a>
     
     
     
@@ -1051,19 +1051,15 @@ start
     
     
     
+    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
+    
+    
+    
     <a href="/tags/#ChatGPT" title="ChatGPT" rel="1">ChatGPT</a>
     
     
     
     <a href="/tags/#Bot" title="Bot" rel="1">Bot</a>
-    
-    
-    
-    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
-    
-    
-    
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
     
     
     
@@ -1076,6 +1072,10 @@ start
     
     
     <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
+    
+    
+    
+    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
     
     
   </div>
@@ -1257,12 +1257,12 @@ start
       <li>IoT</li>
     </a>
     
-    <a href="/categories/#pwn笔记">
-      <li>pwn笔记</li>
-    </a>
-    
     <a href="/categories/#论文阅读笔记">
       <li>论文阅读笔记</li>
+    </a>
+    
+    <a href="/categories/#pwn笔记">
+      <li>pwn笔记</li>
     </a>
     
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
@@ -1281,40 +1281,44 @@ start
       <li>CVE复现</li>
     </a>
     
-    <a href="/categories/#fuzz">
-      <li>fuzz</li>
-    </a>
-    
-    <a href="/categories/#FSOP">
-      <li>FSOP</li>
-    </a>
-    
-    <a href="/categories/#XCTF">
-      <li>XCTF</li>
+    <a href="/categories/#kernel">
+      <li>kernel</li>
     </a>
     
     <a href="/categories/#静态分析">
       <li>静态分析</li>
     </a>
     
-    <a href="/categories/#2023XCTF-final">
-      <li>2023XCTF-final</li>
+    <a href="/categories/#fuzz">
+      <li>fuzz</li>
+    </a>
+    
+    <a href="/categories/#XCTF">
+      <li>XCTF</li>
+    </a>
+    
+    <a href="/categories/#FSOP">
+      <li>FSOP</li>
     </a>
     
     <a href="/categories/#iot">
       <li>iot</li>
     </a>
     
-    <a href="/categories/#阿里云ctf2024">
-      <li>阿里云ctf2024</li>
+    <a href="/categories/#2023XCTF-final">
+      <li>2023XCTF-final</li>
+    </a>
+    
+    <a href="/categories/#write up">
+      <li>write up</li>
     </a>
     
     <a href="/categories/#LLM">
       <li>LLM</li>
     </a>
     
-    <a href="/categories/#write up">
-      <li>write up</li>
+    <a href="/categories/#阿里云ctf2024">
+      <li>阿里云ctf2024</li>
     </a>
     
     <a href="/categories/#write_up">
@@ -1369,36 +1373,24 @@ start
       <li>Stackmove</li>
     </a>
     
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
     <a href="/categories/#ChatGPT接入Telegram Bot教程">
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
     </a>
     
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#kernel">
-      <li>kernel</li>
-    </a>
-    
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
-    <a href="/categories/#操作系统">
-      <li>操作系统</li>
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -1417,16 +1409,24 @@ start
       <li>虚拟机逃逸</li>
     </a>
     
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
-    </a>
-    
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
     </a>
     
     <a href="/categories/#杂谈">
       <li>杂谈</li>
+    </a>
+    
+    <a href="/categories/#操作系统">
+      <li>操作系统</li>
+    </a>
+    
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
+    </a>
+    
+    <a href="/categories/#读书笔记">
+      <li>读书笔记</li>
     </a>
     
   </ul>
@@ -1941,6 +1941,6 @@ start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </scrip
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
