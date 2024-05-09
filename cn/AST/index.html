@@ -247,17 +247,6 @@
           
           
           <li>
-            <a href="/about/">
-              
-              关于
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/archive/">
               
               归档
@@ -269,9 +258,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/categories/">
               
-              标签
+              分类
               
               
             </a>
@@ -280,9 +269,20 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/about/">
               
-              分类
+              关于
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              标签
               
               
             </a>
@@ -406,11 +406,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">4</span> Minutes
+              Estimated Reading Time <span class="post-count">9</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">1k</span> In Total
+              Words <span class="post-count">2.3k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -503,13 +503,69 @@
 <p>可以使用clang –emit-ast input.c生成AST的二进制文件input.ast，也可以直接打印输出如下：<br>
 <img src="3.png" alt="pic3"><br>
 <img src="4.png" alt="pic4"></p>
+<h2 id="抽象语法树与静态分析">抽象语法树与静态分析</h2>
+<p>我们直接以一篇2014年S&amp;P的经典静态分析的论文为例，学习基于抽象语法树进行程序分析的工作。<br>
+<img src="5.png" alt="pic5"></p>
+<h3 id="摘要">摘要</h3>
+<p>本文提出了一种基于<strong>代码属性图CPG</strong>的源代码漏洞检测方法，该方法是一个融合了<strong>抽象语法树AST、控制流图CFG和程序依赖图PDG</strong>的联合数据结构。本文通过<strong>图的遍历</strong>来进行常见漏洞检测。本文使用一个图数据库来实现该方案，并在Linux内核源代码中识别了18个以前未知的漏洞，证明了该方案的有效性。<br>
+这个工作在当时程序分析和LLM等未发展强大的时候是非常有意义的。而且十分有趣，能将肉眼观测源代码的分析工作转化成数学上图的遍历操作。</p>
+<h3 id="抽象语法树">抽象语法树</h3>
+<p>上文已经分析过了。<br>
+<img src="1.png" alt="pic1"></p>
+<p><img src="2.png" alt="pic2"></p>
+<h3 id="控制流图">控制流图</h3>
+<p>所谓控制流图指的就是描述代码语句的<strong>执行顺序</strong>，以及执行特定执行路径需要满足的条件。语句和谓词用节点表示，节点之间用有向边连接，表示控制的转移。控制流图暴露了应用程序的控制流，但它们无法提供数据流信息。<br>
+<img src="6.png" alt="pic6"><br>
+简单的理解就是我们程序的执行流程图。</p>
+<h3 id="依赖图">依赖图</h3>
+<p><img src="7.png" alt="pic7"><br>
+依赖图用于确定在指定语句中影响变量值的所有语句和谓词(predicate，表示一个逻辑表达式或函数)。该图有两类边，数据依赖边（D）反映了一个变量对另一个变量的影响，控制依赖边（C）反映了谓词对变量值的影响。</p>
+<h3 id="代码属性图">代码属性图</h3>
+<p><img src="8.png" alt="pic8"><br>
+对于三种图稍作修改（比如加上order表示保留原有的结构等，详细请参见论文，这里不过多描述），并结合在一起就生成了代码属性图。我们观察可以发现，代码属性图中的节点都来自抽象语法树，节点之间的边都来自控制流图和依赖图，边代表了谓词之间的关系和数据之间的关系。</p>
+<h3 id="属性图的遍历">属性图的遍历</h3>
+<p>在属性图中，可根据标签和属性按照一定规则访问图的顶点和边进行遍历。以下方的属性图为例，以下的遍历分别表示：<br>
+<img src="9.png" alt="pic9"><br>
+返回集合X中k=w的所有节点：</p>
+<p>$\mathbf{X = {A,B,C,D}}$</p>
+<p>$\mathbf{FILTER(X) = { \nu \in X: \mu(\nu,\kappa) = \omega } = {B}}$</p>
+<p>返回集合X中节点所有正向可达、边标签为b、k键的值为w的节点结集合:</p>
+<p>$\mathbf{X = {A}}$</p>
+<p>$\mathbf{OUT^{k,x}_{b}(X) = \bigcup _{\upsilon \in x} { \nu : (\upsilon,\nu) \in E \wedge \lambda(\upsilon,\nu) = b \wedge \mu{ \nu, \kappa} = \omega } = { B }}$</p>
+<p>返回集合X中节点所有反向可达、边标签为b、k键的值为x的节点结集合。</p>
+<p>$\mathbf{X = {B}}$</p>
+<p>$\mathbf{OUT^{k,x}_{a}(X) = \bigcup _{\upsilon \in x} { \nu : (\upsilon,\nu) \in E \wedge \lambda(\upsilon,\nu) = a \wedge \mu{ \nu, \kappa} = \omega } = { A }}$</p>
+<p>先返回集合X中节点所有正向可达、边标签为b、k键的值为w的节点集合，再在第一次遍历的基础之上获取可达的节点集合</p>
+<p>$\mathbf{X = {A}}$</p>
+<p>$\mathbf{OUT(X) \bigcup \limits_{\chi \in X} {y:(x,y)\in E}}$</p>
+<p>$\mathbf{OUT(X)\circ OUT^{k,x}_b(X) = OUT({B}) = {C}}$</p>
+<blockquote>
+<p>woc终于把这几个公式用latex写出来了，latex小白累晕。。</p>
+</blockquote>
+<h3 id="case-study">case study</h3>
+<p><img src="10.png" alt="pic10"></p>
+<p>上图为libssh中的漏洞代码示例，红色代码中namelen参数为用户输入变量，若namelen为32位无符号数的最大值，则会因为整数溢出为0从而分配仅仅几个字节，导致写入时缓冲区溢出。针对该漏洞可以构建代码属性图遍历如下：</p>
+<p>· 某一函数中是否包含求和以及函数调用。TNODES代表从AST的根节点遍历所有的节点，针对该遍历结果再次进行FILTER遍历查找符合条件结果</p>
+<p>$\mathbf{MATCH_{p}(V) = FILTER_{\rho} \circ TNODES(V)}$</p>
+<p>· 这两者是否存在嵌套关系 。先使用ARG(i,f)返回函数名为f的第i个参数的遍历结果，再针对该结果使用MATCH遍历</p>
+<p>$\mathbf{MATCH_{p}(V) \circ ARG^{i}_{f}}$</p>
+<h3 id="others">others</h3>
+<p>其余可检测类型示例</p>
+<p><img src="11.png" alt="pic11"></p>
+<blockquote>
+<p>手搓latex太累了hhh，这里就直接看图吧</p>
+</blockquote>
+<h3 id="总结">总结</h3>
+<pre><code>   本文提出了一种挖掘大量代码中漏洞的方法。该方法建立在一种新的源代码表示形式——代码属性图的基础上，能够根据图的遍历对常见漏洞进行建模。利用这种表示方式，作者对许多漏洞类型进行了的遍历，包括缓冲区溢出、格式字符串漏洞和内存地址泄漏。此外，作者还通过代码属性图审计了Linux内核，并发现了18个未知的漏洞。代码属性图和图遍历适用于发现常见类型的漏洞，但更重要的是，它们可以很好地定制，以识别特定于代码库的漏洞。通过细化遍历，分析人员可以控制假阳性和假阴性率。
+</code></pre>
 <h2 id="References">References</h2>
 <p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E7%A4%BA%E6%B3%95">https://zh.wikipedia.org/wiki/逆波兰表示法</a><br>
 <a target="_blank" rel="noopener" href="https://www.freecodecamp.org/news/clang-ast-based-static-analysis-tools/">https://www.freecodecamp.org/news/clang-ast-based-static-analysis-tools/</a><br>
 <a target="_blank" rel="noopener" href="https://juejin.cn/post/7100082653256220686">https://juejin.cn/post/7100082653256220686</a><br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangke007/p/4714245.html">https://www.cnblogs.com/zhangke007/p/4714245.html</a><br>
 <a target="_blank" rel="noopener" href="https://static-analysis.cuijiacai.com/">https://static-analysis.cuijiacai.com/</a><br>
-北京化工大学学报：基于抽象语法树的代码静态自动测试方法研究</p>
+北京化工大学学报：基于抽象语法树的代码静态自动测试方法研究<br>
+论文地址：<a target="_blank" rel="noopener" href="http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6956589">http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6956589</a></p>
 
 
         <hr>
@@ -655,7 +711,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">逆波兰表示法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E7%A4%BA%E6%B3%95%E4%B8%8E%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">逆波兰表示法与抽象语法树</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Clang%E7%94%9F%E6%88%90%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91%E7%A4%BA%E4%BE%8B"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Clang生成抽象语法树示例</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#References"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">References</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">逆波兰表示法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E7%A4%BA%E6%B3%95%E4%B8%8E%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">逆波兰表示法与抽象语法树</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Clang%E7%94%9F%E6%88%90%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91%E7%A4%BA%E4%BE%8B"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Clang生成抽象语法树示例</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91%E4%B8%8E%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">抽象语法树与静态分析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%91%98%E8%A6%81"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">摘要</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">抽象语法树</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E5%9B%BE"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">控制流图</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BE%9D%E8%B5%96%E5%9B%BE"><span class="toc-nav-number">3.4.</span> <span class="toc-nav-text">依赖图</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BB%A3%E7%A0%81%E5%B1%9E%E6%80%A7%E5%9B%BE"><span class="toc-nav-number">3.5.</span> <span class="toc-nav-text">代码属性图</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%B1%9E%E6%80%A7%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-nav-number">3.6.</span> <span class="toc-nav-text">属性图的遍历</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#case-study"><span class="toc-nav-number">3.7.</span> <span class="toc-nav-text">case study</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#others"><span class="toc-nav-number">3.8.</span> <span class="toc-nav-text">others</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-nav-number">3.9.</span> <span class="toc-nav-text">总结</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#References"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">References</span></a></li></ol>
         
         </div>
       </aside>
