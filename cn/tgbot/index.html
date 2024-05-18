@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              归档
+              标签
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/archive/">
               
-              标签
+              归档
               
               
             </a>
@@ -410,7 +410,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">803</span> In Total
+              Words <span class="post-count">834</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -474,25 +474,83 @@
 
         <blockquote>
 <p>目前主流的方法有两种，其中一种已经失效</p>
-<h1 id="接入openai-com官方的API-keys"><a href="#接入openai-com官方的API-keys" class="headerlink" title="接入openai.com官方的API keys"></a>接入openai.com官方的API keys</h1><p>这种方式实现的是单句问答，无上下文，也是目前唯一可实现的方式。</p>
-<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>拥有一台海外vps（为什么是海外，因为telegram bot在收发指令时会先经过telegram服务器再发送到自己的vps，如果再国内则会被墙）</p>
-<h2 id="创建tg-bot"><a href="#创建tg-bot" class="headerlink" title="创建tg bot"></a>创建tg bot</h2><p>1、tg搜素BotFather<br>2、<code>/start</code><br>3、<code>/newbot</code><br>4、输入bot的name，按照自己喜欢的起，这里以<code>空格</code>为例<br>4、输入bot的用户名，必须以<code>_bot</code>结尾，这里以<code>W4t3r_Blank_bot</code>为例<br>5、done，复制API，添加bot</p>
-<h2 id="配置vps环境"><a href="#配置vps环境" class="headerlink" title="配置vps环境"></a>配置vps环境</h2><p>假设目前您的vps是一片空白没有任何配置，那么最首先需要做的就是一些配置文件<br>XShell连接vps<br>分别安装<br>git<br><code>sudo apt-get install git</code><br>golang<br><code>sudo apt-get install golang</code><br>nodejs<br><code>curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -</code><br><code>sudo apt-get install nodejs</code><br>amd64架构的linux系统似乎会自带vim，如果没有的话也需要装一下vim<br><code>sudo apt install vim</code><br>安装pm2守护进程<br><code>npm install pm2 -g</code></p>
-<h2 id="导入github项目"><a href="#导入github项目" class="headerlink" title="导入github项目"></a>导入github项目</h2><p>分别执行以下三条命令<br><code>git clone https://github.com/harshitethic/chatgpt-bot-telegram.git</code><br><code>cd chatgpt-bot-telegram</code><br><code>npm install</code></p>
-<h2 id="获取自己openai-com的API-KEY"><a href="#获取自己openai-com的API-KEY" class="headerlink" title="获取自己openai.com的API KEY"></a>获取自己openai.com的API KEY</h2><p>去这个链接获取API key：<a target="_blank" rel="noopener" href="https://platform.openai.com/account/api-keys">https://platform.openai.com/account/api-keys</a><br>前提是有自己的openai账号，具体注册请参照网上其他教程<br>在API keys的界面下点击 <code>Create new secret key</code>,复制，记录这个API</p>
-<h2 id="修改-env文件"><a href="#修改-env文件" class="headerlink" title="修改.env文件"></a>修改.env文件</h2><p>安装完后进入chatgpt-bot-telegram文件夹，执行<code>vim .env</code><br>将chatgpt的API和bot的API分别写入对应的位置<br>保存，退出（<code>:,wq,enter</code>）</p>
-<h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><p><code>pm2 start index.js</code><br>这条命令执行完之后bot已经开始运作了，可以进行对话，交互的语句开头加上<code>/ask</code>即可对话，但是无上下文，只能单句对话。回答也很官方莫得感情。</p>
-<h2 id="后台守护"><a href="#后台守护" class="headerlink" title="后台守护"></a>后台守护</h2><p>利用screen工具<br>首先关闭进程，<code>pm2 stop all</code><br>再分别执行以下两条指令<br><code>apt-get install screen</code><br><code>screen -S chatgpt</code><br>这样一来相当于是起了一个新的screen，在这里面再执行上面启动bot的命令即可后台守护执行，这样在关闭vps链接以后bot也可以照常运作。</p>
-<h1 id="接入GPT对话网页cookie（已失效）"><a href="#接入GPT对话网页cookie（已失效）" class="headerlink" title="接入GPT对话网页cookie（已失效）"></a>接入GPT对话网页cookie（已失效）</h1><p>原理和上述完全一致</p>
-<h2 id="获取对话cookie"><a href="#获取对话cookie" class="headerlink" title="获取对话cookie"></a>获取对话cookie</h2><p><a target="_blank" rel="noopener" href="https://chat.openai.com/chat">https://chat.openai.com/chat</a><br>f12，请求里找到cookie，复制粘贴备用</p>
-<h2 id="导入github文件"><a href="#导入github文件" class="headerlink" title="导入github文件"></a>导入github文件</h2><p>这个库是<a target="_blank" rel="noopener" href="https://github.com/m1guelpf/chatgpt-telegram，其中源文件需要到readme里面给的releases">https://github.com/m1guelpf/chatgpt-telegram，其中源文件需要到readme里面给的releases</a> page去下载对应系统版本的文件，我这里是linux-amd64版本，arm架构和macos用户自己下载对应的版本。<br>传入vps的方法是用Xftp，其他如果不是Xshell用户可以用自带的文件传输功能进行传输</p>
-<h2 id="修改-env"><a href="#修改-env" class="headerlink" title="修改.env"></a>修改.env</h2><p>这里的.env起始文件叫做env.example。<code>TELEGRAM_ID</code>建议不写可以做到多人使用，<code>TELEGRAM_TOKEN</code>写bot API。保存退出。<br><code>cp env.example .env</code><br>重命名为.env</p>
-<h2 id="config"><a href="#config" class="headerlink" title=".config"></a>.config</h2><p>根目录下新建.config文件<code>mkdir .config</code>,cd进入该文件，<code>vim chatgpt.json</code>，这里面写网页cookie<br><code>&#123; &quot;openaisession&quot;: &quot;cookie&quot; &#125;</code></p>
-<h2 id="执行-1"><a href="#执行-1" class="headerlink" title="执行"></a>执行</h2><p>进入文件目录，<code>./chatgpt-telegram</code></p>
-<h2 id="后台守护-1"><a href="#后台守护-1" class="headerlink" title="后台守护"></a>后台守护</h2><p>同上</p>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>并不能执行捏，大家就不需要尝试这种方法了（</p>
-<h1 id="extra"><a href="#extra" class="headerlink" title="extra"></a>extra</h1><p>vps推荐：<a target="_blank" rel="noopener" href="https://my.vultr.com/">https://my.vultr.com/</a></p>
 </blockquote>
+<h1>接入openai.com官方的API keys</h1>
+<blockquote>
+<p>这种方式实现的是单句问答，无上下文，也是目前唯一可实现的方式。</p>
+</blockquote>
+<h2 id="前提">前提</h2>
+<blockquote>
+<p>拥有一台海外vps（为什么是海外，因为telegram bot在收发指令时会先经过telegram服务器再发送到自己的vps，如果再国内则会被墙）</p>
+</blockquote>
+<h2 id="创建tg-bot">创建tg bot</h2>
+<p>1、tg搜素BotFather<br>
+2、<code>/start</code><br>
+3、<code>/newbot</code><br>
+4、输入bot的name，按照自己喜欢的起，这里以<code>空格</code>为例<br>
+4、输入bot的用户名，必须以<code>_bot</code>结尾，这里以<code>W4t3r_Blank_bot</code>为例<br>
+5、done，复制API，添加bot</p>
+<h2 id="配置vps环境">配置vps环境</h2>
+<p>假设目前您的vps是一片空白没有任何配置，那么最首先需要做的就是一些配置文件<br>
+XShell连接vps<br>
+分别安装<br>
+git<br>
+<code>sudo apt-get install git</code><br>
+golang<br>
+<code>sudo apt-get install golang</code><br>
+nodejs<br>
+<code>curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -</code><br>
+<code>sudo apt-get install nodejs</code><br>
+amd64架构的linux系统似乎会自带vim，如果没有的话也需要装一下vim<br>
+<code>sudo apt install vim</code><br>
+安装pm2守护进程<br>
+<code>npm install pm2 -g</code></p>
+<h2 id="导入github项目">导入github项目</h2>
+<p>分别执行以下三条命令<br>
+<code>git clone https://github.com/harshitethic/chatgpt-bot-telegram.git</code><br>
+<code>cd chatgpt-bot-telegram</code><br>
+<code>npm install</code></p>
+<h2 id="获取自己openai-com的API-KEY">获取自己openai.com的API KEY</h2>
+<p>去这个链接获取API key：<a target="_blank" rel="noopener" href="https://platform.openai.com/account/api-keys">https://platform.openai.com/account/api-keys</a><br>
+前提是有自己的openai账号，具体注册请参照网上其他教程<br>
+在API keys的界面下点击 <code>Create new secret key</code>,复制，记录这个API</p>
+<h2 id="修改-env文件">修改.env文件</h2>
+<p>安装完后进入chatgpt-bot-telegram文件夹，执行<code>vim .env</code><br>
+将chatgpt的API和bot的API分别写入对应的位置<br>
+保存，退出（<code>:,wq,enter</code>）</p>
+<h2 id="执行">执行</h2>
+<p><code>pm2 start index.js</code><br>
+这条命令执行完之后bot已经开始运作了，可以进行对话，交互的语句开头加上<code>/ask </code>即可对话，但是无上下文，只能单句对话。回答也很官方莫得感情。</p>
+<h2 id="后台守护">后台守护</h2>
+<p>利用screen工具<br>
+首先关闭进程，<code>pm2 stop all</code><br>
+再分别执行以下两条指令<br>
+<code>apt-get install screen</code><br>
+<code>screen -S chatgpt</code><br>
+这样一来相当于是起了一个新的screen，在这里面再执行上面启动bot的命令即可后台守护执行，这样在关闭vps链接以后bot也可以照常运作。</p>
+<h1>接入GPT对话网页cookie（已失效）</h1>
+<p>原理和上述完全一致</p>
+<h2 id="获取对话cookie">获取对话cookie</h2>
+<p><a target="_blank" rel="noopener" href="https://chat.openai.com/chat">https://chat.openai.com/chat</a><br>
+f12，请求里找到cookie，复制粘贴备用</p>
+<h2 id="导入github文件">导入github文件</h2>
+<p>这个库是https://github.com/m1guelpf/chatgpt-telegram，其中源文件需要到readme里面给的releases page去下载对应系统版本的文件，我这里是linux-amd64版本，arm架构和macos用户自己下载对应的版本。<br>
+传入vps的方法是用Xftp，其他如果不是Xshell用户可以用自带的文件传输功能进行传输</p>
+<h2 id="修改-env">修改.env</h2>
+<p>这里的.env起始文件叫做env.example。<code>TELEGRAM_ID</code>建议不写可以做到多人使用，<code>TELEGRAM_TOKEN</code>写bot API。保存退出。<br>
+<code>cp env.example .env</code><br>
+重命名为.env</p>
+<h2 id="config">.config</h2>
+<p>根目录下新建.config文件<code>mkdir .config</code>,cd进入该文件，<code>vim chatgpt.json</code>，这里面写网页cookie<br>
+<code>&#123; &quot;openaisession&quot;: &quot;cookie&quot; &#125;</code></p>
+<h2 id="执行-2">执行</h2>
+<p>进入文件目录，<code>./chatgpt-telegram</code></p>
+<h2 id="后台守护-2">后台守护</h2>
+<p>同上</p>
+<h2 id="结果">结果</h2>
+<p>并不能执行捏，大家就不需要尝试这种方法了（</p>
+<h1>extra</h1>
+<p>vps推荐：<a target="_blank" rel="noopener" href="https://my.vultr.com/">https://my.vultr.com/</a></p>
 
 
         <hr>
@@ -642,7 +700,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%8E%A5%E5%85%A5openai-com%E5%AE%98%E6%96%B9%E7%9A%84API-keys"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">接入openai.com官方的API keys</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">前提</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%88%9B%E5%BB%BAtg-bot"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">创建tg bot</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%85%8D%E7%BD%AEvps%E7%8E%AF%E5%A2%83"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">配置vps环境</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AF%BC%E5%85%A5github%E9%A1%B9%E7%9B%AE"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">导入github项目</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E8%87%AA%E5%B7%B1openai-com%E7%9A%84API-KEY"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">获取自己openai.com的API KEY</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BF%AE%E6%94%B9-env%E6%96%87%E4%BB%B6"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">修改.env文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%89%A7%E8%A1%8C"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">执行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%90%8E%E5%8F%B0%E5%AE%88%E6%8A%A4"><span class="toc-nav-number">1.8.</span> <span class="toc-nav-text">后台守护</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%8E%A5%E5%85%A5GPT%E5%AF%B9%E8%AF%9D%E7%BD%91%E9%A1%B5cookie%EF%BC%88%E5%B7%B2%E5%A4%B1%E6%95%88%EF%BC%89"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">接入GPT对话网页cookie（已失效）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%AF%9Dcookie"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">获取对话cookie</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AF%BC%E5%85%A5github%E6%96%87%E4%BB%B6"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">导入github文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BF%AE%E6%94%B9-env"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">修改.env</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#config"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">.config</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%89%A7%E8%A1%8C-1"><span class="toc-nav-number">2.5.</span> <span class="toc-nav-text">执行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%90%8E%E5%8F%B0%E5%AE%88%E6%8A%A4-1"><span class="toc-nav-number">2.6.</span> <span class="toc-nav-text">后台守护</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-nav-number">2.7.</span> <span class="toc-nav-text">结果</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#extra"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">extra</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">接入openai.com官方的API keys</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">前提</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%88%9B%E5%BB%BAtg-bot"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">创建tg bot</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%85%8D%E7%BD%AEvps%E7%8E%AF%E5%A2%83"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">配置vps环境</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AF%BC%E5%85%A5github%E9%A1%B9%E7%9B%AE"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">导入github项目</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E8%87%AA%E5%B7%B1openai-com%E7%9A%84API-KEY"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">获取自己openai.com的API KEY</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BF%AE%E6%94%B9-env%E6%96%87%E4%BB%B6"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">修改.env文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%89%A7%E8%A1%8C"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">执行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%90%8E%E5%8F%B0%E5%AE%88%E6%8A%A4"><span class="toc-nav-number">1.8.</span> <span class="toc-nav-text">后台守护</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">接入GPT对话网页cookie（已失效）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%AF%9Dcookie"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">获取对话cookie</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%AF%BC%E5%85%A5github%E6%96%87%E4%BB%B6"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">导入github文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BF%AE%E6%94%B9-env"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">修改.env</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#config"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">.config</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%89%A7%E8%A1%8C-2"><span class="toc-nav-number">2.5.</span> <span class="toc-nav-text">执行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%90%8E%E5%8F%B0%E5%AE%88%E6%8A%A4-2"><span class="toc-nav-number">2.6.</span> <span class="toc-nav-text">后台守护</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-nav-number">2.7.</span> <span class="toc-nav-text">结果</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">extra</span></a></li></ol>
         
         </div>
       </aside>

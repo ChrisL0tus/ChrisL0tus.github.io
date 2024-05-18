@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              归档
+              标签
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/archive/">
               
-              标签
+              归档
               
               
             </a>
@@ -486,8 +486,10 @@
       理解和提高linux堆利用可靠性
     </h3>
     <div class="post-content-preview">
-      今天分享一篇来自Usenix Security ‘22的文章：Playing for K(H)eaps: Understanding and Improving Linux Kernel Exploit Reliability
-IntroductionLinux内核由很多复杂的组件交错而成，类似用户态堆，这些组件动态分配管理内存的区域叫内核堆。内核堆和用户态堆一样也存在不少漏洞。也有不少攻击......
+      
+今天分享一篇来自Usenix Security '22的文章：Playing for K(H)eaps: Understanding and Improving Linux Kernel Exploit Reliability
+Introduction
+Linux内核由很多复杂的组件交错而成，类似用户态堆，这些组件动态分配管理内存的区域叫内核堆。内核堆和用户态堆一样也存在不少漏洞。也有不少......
     </div>
   </a>
   
@@ -523,7 +525,8 @@ IntroductionLinux内核由很多复杂的组件交错而成，类似用户态堆
     </h3>
     <div class="post-content-preview">
       今天分享一篇来自ISSTA 2022 的论文 “An Empirical Study on the Effectiveness of Static C Code Analyzers for Vulnerability Detection”
-Introduction静态代码分析技术在现有的projects中已经有较广泛的使用率，77%的项目都会应用至少一种analyzer。相比于动态的模糊测试......
+Introduction
+静态代码分析技术在现有的projects中已经有较广泛的使用率，77%的项目都会应用至少一种analyzer。相比于动态的模糊测......
     </div>
   </a>
   
@@ -558,8 +561,11 @@ Introduction静态代码分析技术在现有的projects中已经有较广泛的
       
     </h3>
     <div class="post-content-preview">
-      FSOP基本介绍：https://ctf-wiki.org/pwn/linux/user-mode/io-file/fake-vtable-exploit/
-vtable hijacking poc下面是一段劫持vtable的poc，这里是覆盖printf会调用的xsputn，偏移为8。1234567891011121314151617181920#include&lt;stdio.h&gt......
+      FSOP
+基本介绍：https://ctf-wiki.org/pwn/linux/user-mode/io-file/fake-vtable-exploit/
+vtable hijacking poc
+下面是一段劫持vtable的poc，这里是覆盖printf会调用的xsputn，偏移为8。
+1234567891011121314151617181920#include&lt;stdio.h......
     </div>
   </a>
   
@@ -594,7 +600,12 @@ vtable hijacking poc下面是一段劫持vtable的poc，这里是覆盖printf会
       
     </h3>
     <div class="post-content-preview">
-      SROP基本介绍：https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/wiki写的很详细了。在传统的ROP上基于Sigreturn系统调用，伪造回调栈的frame，就是SROP32位sigframe context：12345678910111213141516171819202122232......
+      SROP
+基本介绍：https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/
+wiki写的很详细了。
+在传统的ROP上基于Sigreturn系统调用，伪造回调栈的frame，就是SROP
+32位sigframe context：
+123456789101112131415161718192021......
     </div>
   </a>
   
@@ -629,7 +640,11 @@ vtable hijacking poc下面是一段劫持vtable的poc，这里是覆盖printf会
       
     </h3>
     <div class="post-content-preview">
-      正文本文是一篇分析VPN安全的文章，主要分析了基于openvpn的Android vpn app的安全。本文提出了三种常见的漏洞点第一个是misuse of modified OpenVPN protocol，第二个是weak authentication at the client side，第三个是incorrect usage of native library上述三种漏洞点引起三种攻......
+      正文
+本文是一篇分析VPN安全的文章，主要分析了基于openvpn的Android vpn app的安全。
+本文提出了三种常见的漏洞点
+第一个是misuse of modified OpenVPN protocol，第二个是weak authentication at the client side，第三个是incorrect usage of native library
+上述三种漏洞点引......
     </div>
   </a>
   
@@ -664,8 +679,15 @@ vtable hijacking poc下面是一段劫持vtable的poc，这里是覆盖printf会
       年轻人的第一次线下AWDP赛
     </h3>
     <div class="post-content-preview">
-      MaskNote一道假的堆题，漏洞是sprintf的格式化字符串漏洞，过滤了%x,%n和%p，但是没用过滤%c，利用格式化字符串的%c可以实现栈溢出。程序在初始化的时候mmap了一块很大的地址，可读可写可执行，塞shellcode就可以。
-attackexp:1234567891011121314151617181920212223242526272829303132333435363738......
+      MaskNote
+
+一道假的堆题，漏洞是sprintf的格式化字符串漏洞，过滤了%x,%n和%p，但是没用过滤%c，利用格式化字符串的%c可以实现栈溢出。
+
+程序在初始化的时候mmap了一块很大的地址，可读可写可执行，塞shellcode就可以。
+
+attack
+exp:
+123456789101112131415161718192021222324252627282930313233343......
     </div>
   </a>
   
@@ -700,7 +722,8 @@ attackexp:1234567891011121314151617181920212223242526272829303132333435363738...
       
     </h3>
     <div class="post-content-preview">
-      ABSTRACThypervisor也被称作Virtual Machine Monitor(VMM),它可以在一台主机中隔离多个虚拟机。可以理解为多个虚拟机的管理核心，但是hypervisor存在利用方式可以做到逃逸和提权。但虚拟机中以DMA(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来），......
+      ABSTRACT
+hypervisor也被称作Virtual Machine Monitor(VMM),它可以在一台主机中隔离多个虚拟机。可以理解为多个虚拟机的管理核心，但是hypervisor存在利用方式可以做到逃逸和提权。但虚拟机中以DMA(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来）......
     </div>
   </a>
   
@@ -737,9 +760,15 @@ attackexp:1234567891011121314151617181920212223242526272829303132333435363738...
       
     </h3>
     <div class="post-content-preview">
-      pwn 4/6，被白夜带飞了，协会的大家都太强了这几道题目里能独立完整解出的大概也只有两道，另外的都是白夜在主要输出，我只能提供一点思路和跟着写一点脚本，还是需要多练但是我把我们俩做出的题都放上来了，有的步骤我还不会，现在太晚了（00：40）明天白天有空复现一下之后大概是分区赛（？，继续加油
-烧烤摊儿第一道pwn，比较简单，光速下班但是之后光速上题hhh整数溢出，没检查负数也有栈溢出：
-ex......
+      pwn 4/6，被白夜带飞了，协会的大家都太强了
+这几道题目里能独立完整解出的大概也只有两道，另外的都是白夜在主要输出，我只能提供一点思路和跟着写一点脚本，还是需要多练
+但是我把我们俩做出的题都放上来了，有的步骤我还不会，现在太晚了（00：40）明天白天有空复现一下
+之后大概是分区赛（？，继续加油
+烧烤摊儿
+第一道pwn，比较简单，光速下班但是之后光速上题hhh
+整数溢出，没检查负数
+
+也有......
     </div>
   </a>
   
@@ -774,8 +803,10 @@ ex......
       
     </h3>
     <div class="post-content-preview">
-      开篇废话从上学期就定下了学VMpwn这个方向，一是我在刚接触虚拟机的时候就认为虚拟机这个东西是一门艺术，是杰作，其次是被去年蒋公子挖VM ware的CVE拿GeekPwn冠军给帅到了，幻想着成为他那样的神仙。于是就开始摸一些简单的CTF中虚拟机逃逸的题目和qemu的原理，这里特别感谢公大的@korey0sh1师傅，从他的文章里我学到了许多。
-QemuQEMU是一个托管的虚拟机，它通过动态的二......
+      开篇废话
+从上学期就定下了学VMpwn这个方向，一是我在刚接触虚拟机的时候就认为虚拟机这个东西是一门艺术，是杰作，其次是被去年蒋公子挖VM ware的CVE拿GeekPwn冠军给帅到了，幻想着成为他那样的神仙。于是就开始摸一些简单的CTF中虚拟机逃逸的题目和qemu的原理，这里特别感谢公大的@korey0sh1师傅，从他的文章里我学到了许多。
+Qemu
+QEMU是一个托管的虚拟机，它通过动态......
     </div>
   </a>
   
@@ -810,7 +841,8 @@ QemuQEMU是一个托管的虚拟机，它通过动态的二......
       
     </h3>
     <div class="post-content-preview">
-      引子大概是这学期初的时候开始就很想学操作系统，但是因为种种原因，一直拖着没学。前两天刚考完期中，运气比较好及格了，课业压力总算是减轻了一些；对于操作系统的学习，学长们给我推荐的都是《操作系统真相还原》和MIT的公开课和实验，但是我手边并没有《操作系统真相还原》，iPad上倒是有电子版，但碍于电子版读起来总是不舒服。还有就是MIT的公开课没有中文字幕，虽说我曾经是英语专业，但硬听英文课这种留学......
+      引子
+大概是这学期初的时候开始就很想学操作系统，但是因为种种原因，一直拖着没学。前两天刚考完期中，运气比较好及格了，课业压力总算是减轻了一些；对于操作系统的学习，学长们给我推荐的都是《操作系统真相还原》和MIT的公开课和实验，但是我手边并没有《操作系统真相还原》，iPad上倒是有电子版，但碍于电子版读起来总是不舒服。还有就是MIT的公开课没有中文字幕，虽说我曾经是英语专业，但硬听英文课这种留......
     </div>
   </a>
   
@@ -1014,19 +1046,19 @@ QemuQEMU是一个托管的虚拟机，它通过动态的二......
     
     
     
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
-    
-    
-    
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
-    
-    
-    
     <a href="/tags/#操作系统" title="操作系统" rel="1">操作系统</a>
     
     
     
     <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
+    
+    
+    
+    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    
+    
+    
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
   </div>
@@ -1318,20 +1350,24 @@ QemuQEMU是一个托管的虚拟机，它通过动态的二......
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
+    <a href="/categories/#操作系统">
+      <li>操作系统</li>
     </a>
     
     <a href="/categories/#论文阅读笔记">
       <li>论文阅读笔记</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
+    </a>
+    
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -1346,20 +1382,16 @@ QemuQEMU是一个托管的虚拟机，它通过动态的二......
       <li>漏洞复现</li>
     </a>
     
+    <a href="/categories/#读书笔记">
+      <li>读书笔记</li>
+    </a>
+    
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
     </a>
     
-    <a href="/categories/#操作系统">
-      <li>操作系统</li>
-    </a>
-    
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
-    </a>
-    
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
     </a>
     
   </ul>

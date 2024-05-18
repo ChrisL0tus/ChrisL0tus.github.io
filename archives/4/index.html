@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              ARCHIVES
+              TAGS
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/archive/">
               
-              TAGS
+              ARCHIVES
               
               
             </a>
@@ -487,7 +487,13 @@
     </h3>
     <div class="post-content-preview">
       现阶段就是复现难题的同时四处找题目刷，今天开始做pwnable.tw。结果这第一道名为start的题目就做了挺久的。
-start和国内常见的起始题目完全不同的风格，程序通过很短的汇编实现了write、read看着不像是用ROP的做法，保护全关了，这里考虑利用NX关闭，堆栈可执行实现shellcode光看汇编比较抽象，自己画一下示意图这个是起始的栈示意图，注意到程序开头push了esp，并且后......
+start
+
+和国内常见的起始题目完全不同的风格，程序通过很短的汇编实现了write、read
+看着不像是用ROP的做法，保护全关了，这里考虑利用NX关闭，堆栈可执行实现shellcode
+光看汇编比较抽象，自己画一下示意图
+
+这个是起始的栈示意图，注意到程序开头push了e......
     </div>
   </a>
   
@@ -522,8 +528,13 @@ start和国内常见的起始题目完全不同的风格，程序通过很短的
       off-by-null
     </h3>
     <div class="post-content-preview">
-      开篇碎碎念XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
-题目这个函数存在off-by-null这......
+      开篇碎碎念
+XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
+还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
+
+题目
+
+这个函数存在off-by-......
     </div>
   </a>
   
@@ -558,7 +569,11 @@ start和国内常见的起始题目完全不同的风格，程序通过很短的
       题目复现累了，找个简单题练练手
     </h3>
     <div class="post-content-preview">
-      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCTF上的题......
+      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
+
+这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
+
+目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
     </div>
   </a>
   
@@ -593,7 +608,17 @@ start和国内常见的起始题目完全不同的风格，程序通过很短的
       水平比较低只能理解两道题
     </h3>
     <div class="post-content-preview">
-      message board漏洞在这里：保护：没有canary和pie，libc版本是2.31禁了execve，需要使用orw思路与hgame2023_week1_pwn_orw基本一致（白夜牛逼）栈迁移orw，泄露libc的手法略有不同，这题存在一次格式化字符串漏洞用来泄露libc对于fmtstr的题目一直不太熟悉，泄露libc尤为手生通过这题再练一下，调试的时候看到__libc_start......
+      message board
+漏洞在这里：
+
+保护：
+
+没有canary和pie，libc版本是2.31
+
+禁了execve，需要使用orw
+思路与hgame2023_week1_pwn_orw基本一致（白夜牛逼）栈迁移orw，泄露libc的手法略有不同，这题存在一次格式化字符串漏洞用来泄露libc
+对于fmtstr的题目一直不太熟悉，泄露libc尤为手生
+通过这题再练一下，调试的时候看到**......
     </div>
   </a>
   
@@ -628,9 +653,14 @@ start和国内常见的起始题目完全不同的风格，程序通过很短的
       （转自@gtg）
     </h3>
     <div class="post-content-preview">
-      前言这篇文章是@gtg师傅写的，征得同意分享给了我们。（l0你在装什么你根本看不懂啊喂(#`O′)！）是好东西，我一个二进制菜狗虽然看不明白但是想在博客挂一份，或许以后会有学这篇文章所有权以及一切解释归@gtg所有，如需转载请联系@gtg。
-原型链prototype chain没有类的实例对象
-Javascript继承机制的设计思想):  Brendan Eich设计 Javasciprt ......
+      前言
+这篇文章是@gtg师傅写的，征得同意分享给了我们。（l0你在装什么你根本看不懂啊喂(#`O′)！）
+是好东西，我一个二进制菜狗虽然看不明白但是想在博客挂一份，或许以后会有学
+这篇文章所有权以及一切解释归@gtg所有，如需转载请联系@gtg。
+原型链prototype chain
+没有类的实例对象
+
+Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     </div>
   </a>
   
@@ -665,9 +695,13 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasciprt ......
       朱颜长似、头上花枝，岁岁年年
     </h3>
     <div class="post-content-preview">
-      始  时间是不会倒退的。在不断前进的岁月里，迎接了无数相遇与别离。对新朋谈旧事何尝不是一种乐趣。
-离别  2022最大的别离与遗憾莫过于没能亲自到机场送别泽楠。毕业是一群人的离开，也是我和一群人关系的终点。硬要讲毕业的不舍的话，只有告别亲爱的英语老师吧。还有乌鸡哥。  年初的时候做了件比较愚蠢的事，但无论如何也算是一种探险吧，或者说是某种渡劫（？
-遇见  最值得纪念的遇见就是结识协会了，就是......
+      始
+时间是不会倒退的。在不断前进的岁月里，迎接了无数相遇与别离。对新朋谈旧事何尝不是一种乐趣。
+离别
+2022最大的别离与遗憾莫过于没能亲自到机场送别泽楠。毕业是一群人的离开，也是我和一群人关系的终点。硬要讲毕业的不舍的话，只有告别亲爱的英语老师吧。还有乌鸡哥。
+年初的时候做了件比较愚蠢的事，但无论如何也算是一种探险吧，或者说是某种渡劫（？
+遇见
+最值得纪念的遇见就是结识协会了，就是有这么一......
     </div>
   </a>
   
@@ -700,7 +734,13 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasciprt ......
       
     </h3>
     <div class="post-content-preview">
-      babyheap三个月前，9月17号参加了省赛，菜的和狗一样玩了一下午吃豆人。三个月后初学了堆，还是菜的和狗一样，不过大抵是会做这第一道了。首先题目是一道规规矩矩的堆体模板。add函数限制了次数为7次，大小限制为0x7f及以内根据各个函数的实现，先在脚本里写好对应的函数:1234567891011121314151617def add(size):    p.sendlineafter(b&......
+      babyheap
+三个月前，9月17号参加了省赛，菜的和狗一样玩了一下午吃豆人。三个月后初学了堆，还是菜的和狗一样，不过大抵是会做这第一道了。
+
+
+首先题目是一道规规矩矩的堆体模板。add函数限制了次数为7次，大小限制为0x7f及以内
+根据各个函数的实现，先在脚本里写好对应的函数:
+1234567891011121314151617def add(size):    p.sendlineaf......
     </div>
   </a>
   
@@ -735,8 +775,11 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasciprt ......
       
     </h3>
     <div class="post-content-preview">
-      开篇碎碎念近期的进度应该已经进入堆题的学习阶段了，但是我还没有完整做过一道栈迁移的题。倍感惭愧，正好前几天赛博的比赛nameless✌出了一道栈迁移，可惜当时时间很紧。我的想法是现学堆题的知识，然后把ez_heap整出来，但是我太菜了就把大把的时间花费在了理解堆管理器上，到结束也没做出来。也就没心思看这道栈迁移了，不过回头看来，这道题应该是当时可以拿下的。
-题目题目给了execve的地址，可......
+      开篇碎碎念
+近期的进度应该已经进入堆题的学习阶段了，但是我还没有完整做过一道栈迁移的题。倍感惭愧，正好前几天赛博的比赛nameless✌出了一道栈迁移，可惜当时时间很紧。我的想法是现学堆题的知识，然后把ez_heap整出来，但是我太菜了就把大把的时间花费在了理解堆管理器上，到结束也没做出来。也就没心思看这道栈迁移了，不过回头看来，这道题应该是当时可以拿下的。
+题目
+
+题目给了execve的地......
     </div>
   </a>
   
@@ -771,7 +814,10 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasciprt ......
       一种简单的堆利用方式
     </h3>
     <div class="post-content-preview">
-      泄露libc首先申请index为0-7，size为0x100x的八个chunk，第7-1号chunk在逆序free后进入tcache，第0号进入unsorted bin.free完成后可以查看bin的情况，可以看到unsorted bin中的最后一位（这里只有一位），也就是第一个被free进入unsorted bin当中的chunk会指回libc中main_arena的某处地址，同时dbg可......
+      泄露libc
+首先申请index为0-7，size为0x100x的八个chunk，第7-1号chunk在逆序free后进入tcache，第0号进入unsorted bin.
+
+free完成后可以查看bin的情况，可以看到unsorted bin中的最后一位（这里只有一位），也就是第一个被free进入unsorted bin当中的chunk会指回libc中main_arena的某处地址，同时d......
     </div>
   </a>
   
@@ -806,7 +852,8 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasciprt ......
       
     </h3>
     <div class="post-content-preview">
-      Source code1234567891011121314151617181920212223242526272829303132333435#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;int main()&#123;        size_t * ptr[12];        for(int i=0;i&lt;12;i++)     ......
+      Source code
+1234567891011121314151617181920212223242526272829303132333435#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;int main()&#123;        size_t * ptr[12];        for(int i=0;i&lt;12;i++)    ......
     </div>
   </a>
   
@@ -1012,19 +1059,19 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasciprt ......
     
     
     
-    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
-    
-    
-    
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
-    
-    
-    
     <a href="/tags/#操作系统" title="操作系统" rel="1">操作系统</a>
     
     
     
     <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
+    
+    
+    
+    <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    
+    
+    
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
   </div>
@@ -1316,20 +1363,24 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasciprt ......
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
+    <a href="/categories/#操作系统">
+      <li>操作系统</li>
     </a>
     
     <a href="/categories/#论文阅读笔记">
       <li>论文阅读笔记</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
+    </a>
+    
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -1344,20 +1395,16 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasciprt ......
       <li>漏洞复现</li>
     </a>
     
+    <a href="/categories/#读书笔记">
+      <li>读书笔记</li>
+    </a>
+    
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
     </a>
     
-    <a href="/categories/#操作系统">
-      <li>操作系统</li>
-    </a>
-    
     <a href="/categories/#2022浙江省赛">
       <li>2022浙江省赛</li>
-    </a>
-    
-    <a href="/categories/#读书笔记">
-      <li>读书笔记</li>
     </a>
     
   </ul>
