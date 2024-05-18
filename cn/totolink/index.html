@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/categories/">
               
-              归档
+              分类
               
               
             </a>
@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -410,7 +410,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">2k</span> In Total
+              Words <span class="post-count">1.9k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -472,147 +472,14 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h1>前言</h1>
-<p>从nameless师兄那里借来了TOTOLINK T6设备，当作入门IoT漏洞挖掘研究的起点</p>
-<h1>开始</h1>
-<h2 id="固件-telnet-busybox-固件">固件 -&gt; telnet -&gt; busybox -&gt; 固件</h2>
-<p>串口调试这一步我暂时还没做。直接从固件开始做起<br>
-在TOTOLINK的官网可以直接下载到T6/T10的固件<br>
-binwalk解包一下得到一个.web.extract文件夹<br>
-<img src="toto1.png" alt="pic1"><br>
-发现webscte文件夹，进去看到telnet.html<br>
-<img src="toto16.png" alt="pic16"><br>
-直接访问ip/telnet.html<br>
-可以看到telnet的开关，把它打开<br>
-<img src="toto2.png" alt="pic2"><br>
-终端telnet连接一下<br>
-需要用户名，直接使用root，登录需要密码<br>
-这里需要从固件里reverse得到密码<br>
-先分析启动文件rcS，寻找password相关指令，看到这个<br>
-<img src="toto3.png" alt="pic3"><br>
-看到使用的是cs指令，需要在squashfs文件里寻找这个指令的实现<br>
-使用<code>find ./ -name &quot;cs&quot;</code><br>
-<img src="toto4.png" alt="pic4"><br>
-然后可以ida逆这个文件,可以很容易找到password<br>
-<img src="toto5.png" alt="pic5"><br>
-<img src="toto6.png" alt="pic6"><br>
-然后就可以通过telnet连接，获取到路由器本身的shell，但是很丑陋，而且没有路径显示<br>
-到这已经可以执行一些指令比如ps这些<br>
-下一步可以考虑塞一个busybox进去，busybox是开源的，但是可以直接在网上找到mipsel架构的已编译busybox-mipsel<br>
-具体方法是在本机文件夹起一个http server，在路由器的shell里使用wget指令获取<br>
-<img src="toto7.png" alt="pic7"><br>
-然后可以先执行busybox看看它的内部applet<br>
-先加个权限<code>chmod +x busybox-mipsel</code><br>
-<img src="toto8.png" alt="pic8"><br>
-执行<code>./busybox-mipsel sh</code>就可以使用busybox的shell</p>
-<p>在这之后再亲自提取一次固件<br>
-首先查看/proc/cmdline	“/proc/cmdline是载入 kernel 时所下达的相关指令与参数,查阅此文件，可了解指令是如何启动的”<br>
-<img src="toto9.png" alt="pic9"><br>
-这里可以看到串口调试的波特率是38400（在串口调试的时候会要求输入），固件是在/dev/mtdblock1这个目录<br>
-这里使用dd指令把这个固件文件也提取到/tmp目录<br>
-然后翻了一遍busybox的指令，看到有ftpget ftpput这些的指令<br>
-似乎并不能通过起web服务传到本机，这里使用ftpput，在本机开一个ftpserver，给上传和下载文件的权限，然后指定接受目录<br>
-在路由器的shell里执行<code>./busybox-mipsel ftpput -P 21 192.168.55.2 ./mtdblock1</code>就可以通过ftp传到本机<br>
-然后就提取到了固件。<br>
-<img src="toto15.png" alt="pic15"><br>
-虽然说从固件入手再提取固件有点多此一举，但是这也是流程里比较重要的一步。</p>
-<h1>一些额外的探索，仅用于个人学习研究</h1>
-<h2 id="写入mipsel-linux-gnu-gcc编译的程序">写入mipsel-linux-gnu-gcc编译的程序</h2>
-<p>首先<code>sudo apt install mipsel-linux-gnu-gcc</code>下载mipsel编译器<br>
-然后自己写一个有点意思的程序</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">999</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,&amp;str);</span><br><span class="line">    <span class="built_in">printf</span>(str);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>编译<code>mipsel-linux-gnu-gcc &lt;file name&gt; -static</code>,就得到了一个mipsel架构的静态链接的可执行程序<br>
-注意因为要写进路由器，所以应该采取静态链接<br>
-写入路由器的方法也和传入busybox-mipsel的做法一样使用wget就可以<br>
-这以后是不是可以做到一些比较有意思的事呢~~（狗头）<br>
-<img src="toto12.png" alt="pic12"><br>
-同理也可以写入自己编译的busybox</p>
-<h2 id="试着打打！">试着打打！</h2>
-<p>有了上述固件telnet漏洞的研究，我们尝试对其加以利用。（仅作学习，不干坏事）<br>
-先尝试往我们自己的路由器ip发一个请求<br>
-<img src="toto10.png" alt="pic10"><br>
-回显是这样，我们可以选择一些响应的值作为特征，去shodan查找有此特征的ip<br>
-<img src="toto11.png" alt="pic11"><br>
-然后找到了两个都是T6型号的网友,其中一个可以访问到<br>
-我们直接访问/telnet.html<br>
-<img src="toto13.png" alt="pic13"><br>
-虽然telnet.html页面需要登录，但这个后台cgi接口不<br>
-需要cookie仍然能成功开启telnet<br>
-web佬可能会选择使用抓包工具抓包或者python request发请求，pwn手可能会用命令行curl发送bash格式的请求<br>
-这里我拿自己的内网ip做演示，利用curl发bash格式的post请求开启telnet，避免一些暴露人家的信息<br>
-<img src="toto14.png" alt="pic14"><br>
-这样会回显success，也就是成功通过后台cgi接口发请求开启telnet<br>
-很可惜的是这位用户开启了防火墙，不能玩更深入的东西（x<br>
-最后再发一个请求关闭这位用户的telnet。（做一个守法黑客）</p>
-<h1>物理提取</h1>
-<p><img src="toto16.jpg" alt="pic16"><br>
-<img src="toto17.jpg" alt="pic17"><br>
-<img src="toto18.jpg" alt="pic18"><br>
-<img src="toto19.jpg" alt="pic19"><br>
-<img src="toto20.png" alt="pic20"><br>
-<img src="toto21.png" alt="pic21"><br>
-<img src="toto22.png" alt="pic22"></p>
-<h1>深入 追寻telnet的实现</h1>
-<p>在传入busybox以后，我们还可以利用<code>netstat -pantu</code>指令查看端口和tcp udp的连接<br>
-<img src="toto23.png" alt="pic23"><br>
-看到我们80端口的进程是<strong>lighttpd</strong>,同时还注意到1883端口有cs_broker，说明可能还有<strong>mqtt</strong>。<br>
-同时我们知道后台用于处理请求的cgi文件是cstecgi.cgi，那么我们是不是可以寻找这个进程和cgi之间的关系<br>
-ida打开cstecgi.cgi文件，看到在main函数开始时调用了<strong>getenv()<strong>函数调用环境变量<br>
-<img src="toto24.png" alt="pic24"><br>
-然后查找一下环境字符串还在什么地方出现<br>
-<img src="toto25.png" alt="pic25"><br>
-看到在lighttp/lib/mod_cgi.so这个文件里也出现了,之后再看一下这个mod_cgi.so文件<br>
-没有main函数，直接字符串搜索query_strings<br>
-<img src="toto26.png" alt="pic26"><br>
-找到对应函数<br>
-在这个函数的底下看到使用execve传参和执行进程<br>
-<img src="toto27.png" alt="pic27"><br>
-我们接着grep一下lighttpd看进程，看到进程id是1709，然后去/proc/1709查看maps内存分布，看到他的一些链接文件，其中有mod_cgi.so<br>
-<img src="toto28.png" alt="pic28"><br>
-到这里我们可以理清楚了cstecgi.cgi作为lighttpd的子进程而存在，由lighttpd进程中的动态链接库mod_cgi.so启动，<br>
-接下来直接在cstecgi.cgi文件里找&quot;telnet&quot;<br>
-找到这个位置<br>
-<img src="toto29.png" alt="pic29"><br>
-这个位置需要在addiu esp（抬栈的位置）create function，快捷键是p，然后就可以f5反编译<br>
-<img src="toto30.png" alt="pic30"><br>
-<img src="toto31.png" alt="pic31"><br>
-看到调用的是__imp_safe_cs_pub，以及传参，第一个参数是ip，第二个参数是SetTelnetCFg字符串<br>
-直接再grep safe_cs_pub<br>
-<img src="toto32.png" alt="pic32"><br>
-去对应的链接文件libmystdlib.so找这个函数<br>
-<img src="toto33.png" alt="pic33"><br>
-可以看到对应的端口是</strong>1883</strong><br>
-去对应目录直接执行cste_pub<br>
-<img src="toto34.png" alt="pic34"><br>
-看到有意思的东西：mosquitto<br>
-<img src="toto35.png" alt="pic35"><br>
-发现是一个mqtt的客户端，那么这个路由器还存在mqtt协议的使用<br>
-接着去找使用了这个协议的1883端口<br>
-先在linux终端里面nmap扫一下发现确实是mqtt<br>
-<img src="toto36.png" alt="pic36"><br>
-同时在shell里看到1883端口是由PID为1698的cs_broker进程和1699的cste_sub监听<br>
-可是到这两个关联的程序里寻找telnet字符串都没有结果<br>
-回头去看我们发的请求，body部分的变量名是<strong>telnet_enabled</strong>。<br>
-那么如果在squashfs-root目录下全局搜索这个字符串，总应该能找到东西<br>
-<img src="toto37.png" alt="pic37"><br>
-冲wireless.so试试<br>
-在ida里直接搜telnet_enabled字符串，找到这个函数<br>
-<img src="toto38.png" alt="pic38"><br>
-找到了我们前面看到过的SetTelnetCfg函数，也看到了开启telnet的函数system(“telnetd &amp;”);<br>
-但我们前面在找进程的时候没看见wireless.so这个链接库的存在呀，它又是被谁加载了呢？<br>
-<a target="_blank" rel="noopener" href="http://xn--wirless-n09np7ai29k.so">直接搜wirless.so</a>，找不到任何文件<br>
-再找他的目录cste_modules，找到了调用这个<strong>目录</strong>的程序cste_sub(眼熟吗？)<br>
-<img src="toto39.png" alt="pic39"><br>
-ida打开这个程序搜索cste_momdules，找到这个程序<br>
-<img src="toto40.png" alt="pic40"><br>
-看到load_modules函数调用了load_plugin函数来加载cste_modules目录下的所有链接文件，<a target="_blank" rel="noopener" href="http://xn--wireless-z19m990kcb0hd5e.so">这里单指wireless.so</a><br>
-<img src="toto41.png" alt="pic41"><br>
-至此，我们追寻完毕了telnet的开启过程，这一路上发现了一连串相关的进程，也找到了新的利用点<br>
-理一遍我们这一路的顺序:<br>
-发送请求:{‘telnet_enabled’:‘1’} --&gt; 80端口 --&gt; lighttpd进程 --&gt; mod_cgi.so程序 --&gt; lighttpd子进程cstecgi.cgi --&gt; <a target="_blank" rel="noopener" href="http://xn--libmystdlib-w00r846s2rfs73r.so">链接文件libmystdlib.so</a> --&gt; cste_pub函数 --&gt; cs_broker监听 --&gt; cste_sub处理 --&gt; load_plugin加载cste_modules目录 --&gt; wireless.so程序真正调用system函数开启telnet<br>
-我学到了dlopen的加载方式，也就是通过目录加载.so链接文件，这里函数是load_plugin</p>
-<h1>再深入 遇见更多利用</h1>
-<p>（待更新）</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>从nameless师兄那里借来了TOTOLINK T6设备，当作入门IoT漏洞挖掘研究的起点</p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="固件-gt-telnet-gt-busybox-gt-固件"><a href="#固件-gt-telnet-gt-busybox-gt-固件" class="headerlink" title="固件 -&gt; telnet -&gt; busybox -&gt; 固件"></a>固件 -&gt; telnet -&gt; busybox -&gt; 固件</h2><p>串口调试这一步我暂时还没做。直接从固件开始做起<br>在TOTOLINK的官网可以直接下载到T6/T10的固件<br>binwalk解包一下得到一个.web.extract文件夹<br><img src="toto1.png" alt="pic1"><br>发现webscte文件夹，进去看到telnet.html<br><img src="toto16.png" alt="pic16"><br>直接访问ip/telnet.html<br>可以看到telnet的开关，把它打开<br><img src="toto2.png" alt="pic2"><br>终端telnet连接一下<br>需要用户名，直接使用root，登录需要密码<br>这里需要从固件里reverse得到密码<br>先分析启动文件rcS，寻找password相关指令，看到这个<br><img src="toto3.png" alt="pic3"><br>看到使用的是cs指令，需要在squashfs文件里寻找这个指令的实现<br>使用<code>find ./ -name &quot;cs&quot;</code><br><img src="toto4.png" alt="pic4"><br>然后可以ida逆这个文件,可以很容易找到password<br><img src="toto5.png" alt="pic5"><br><img src="toto6.png" alt="pic6"><br>然后就可以通过telnet连接，获取到路由器本身的shell，但是很丑陋，而且没有路径显示<br>到这已经可以执行一些指令比如ps这些<br>下一步可以考虑塞一个busybox进去，busybox是开源的，但是可以直接在网上找到mipsel架构的已编译busybox-mipsel<br>具体方法是在本机文件夹起一个http server，在路由器的shell里使用wget指令获取<br><img src="toto7.png" alt="pic7"><br>然后可以先执行busybox看看它的内部applet<br>先加个权限<code>chmod +x busybox-mipsel</code><br><img src="toto8.png" alt="pic8"><br>执行<code>./busybox-mipsel sh</code>就可以使用busybox的shell</p>
+<p>在这之后再亲自提取一次固件<br>首先查看/proc/cmdline    “/proc/cmdline是载入 kernel 时所下达的相关指令与参数,查阅此文件，可了解指令是如何启动的”<br><img src="toto9.png" alt="pic9"><br>这里可以看到串口调试的波特率是38400（在串口调试的时候会要求输入），固件是在/dev/mtdblock1这个目录<br>这里使用dd指令把这个固件文件也提取到/tmp目录<br>然后翻了一遍busybox的指令，看到有ftpget ftpput这些的指令<br>似乎并不能通过起web服务传到本机，这里使用ftpput，在本机开一个ftpserver，给上传和下载文件的权限，然后指定接受目录<br>在路由器的shell里执行<code>./busybox-mipsel ftpput -P 21 192.168.55.2 ./mtdblock1</code>就可以通过ftp传到本机<br>然后就提取到了固件。<br><img src="toto15.png" alt="pic15"><br>虽然说从固件入手再提取固件有点多此一举，但是这也是流程里比较重要的一步。</p>
+<h1 id="一些额外的探索，仅用于个人学习研究"><a href="#一些额外的探索，仅用于个人学习研究" class="headerlink" title="一些额外的探索，仅用于个人学习研究"></a>一些额外的探索，仅用于个人学习研究</h1><h2 id="写入mipsel-linux-gnu-gcc编译的程序"><a href="#写入mipsel-linux-gnu-gcc编译的程序" class="headerlink" title="写入mipsel-linux-gnu-gcc编译的程序"></a>写入mipsel-linux-gnu-gcc编译的程序</h2><p>首先<code>sudo apt install mipsel-linux-gnu-gcc</code>下载mipsel编译器<br>然后自己写一个有点意思的程序<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">999</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,&amp;str);</span><br><span class="line">    <span class="built_in">printf</span>(str);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>编译<code>mipsel-linux-gnu-gcc &lt;file name&gt; -static</code>,就得到了一个mipsel架构的静态链接的可执行程序<br>注意因为要写进路由器，所以应该采取静态链接<br>写入路由器的方法也和传入busybox-mipsel的做法一样使用wget就可以<br>这以后是不是可以做到一些比较有意思的事呢~~（狗头）<br><img src="toto12.png" alt="pic12"><br>同理也可以写入自己编译的busybox</p>
+<h2 id="试着打打！"><a href="#试着打打！" class="headerlink" title="试着打打！"></a>试着打打！</h2><p>有了上述固件telnet漏洞的研究，我们尝试对其加以利用。（仅作学习，不干坏事）<br>先尝试往我们自己的路由器ip发一个请求<br><img src="toto10.png" alt="pic10"><br>回显是这样，我们可以选择一些响应的值作为特征，去shodan查找有此特征的ip<br><img src="toto11.png" alt="pic11"><br>然后找到了两个都是T6型号的网友,其中一个可以访问到<br>我们直接访问/telnet.html<br><img src="toto13.png" alt="pic13"><br>虽然telnet.html页面需要登录，但这个后台cgi接口不<br>需要cookie仍然能成功开启telnet<br>web佬可能会选择使用抓包工具抓包或者python request发请求，pwn手可能会用命令行curl发送bash格式的请求<br>这里我拿自己的内网ip做演示，利用curl发bash格式的post请求开启telnet，避免一些暴露人家的信息<br><img src="toto14.png" alt="pic14"><br>这样会回显success，也就是成功通过后台cgi接口发请求开启telnet<br>很可惜的是这位用户开启了防火墙，不能玩更深入的东西（x<br>最后再发一个请求关闭这位用户的telnet。（做一个守法黑客）</p>
+<h1 id="物理提取"><a href="#物理提取" class="headerlink" title="物理提取"></a>物理提取</h1><p><img src="toto16.jpg" alt="pic16"><br><img src="toto17.jpg" alt="pic17"><br><img src="toto18.jpg" alt="pic18"><br><img src="toto19.jpg" alt="pic19"><br><img src="toto20.png" alt="pic20"><br><img src="toto21.png" alt="pic21"><br><img src="toto22.png" alt="pic22"></p>
+<h1 id="深入-追寻telnet的实现"><a href="#深入-追寻telnet的实现" class="headerlink" title="深入 追寻telnet的实现"></a>深入 追寻telnet的实现</h1><p>在传入busybox以后，我们还可以利用<code>netstat -pantu</code>指令查看端口和tcp udp的连接<br><img src="toto23.png" alt="pic23"><br>看到我们80端口的进程是<strong>lighttpd</strong>,同时还注意到1883端口有cs_broker，说明可能还有<strong>mqtt</strong>。<br>同时我们知道后台用于处理请求的cgi文件是cstecgi.cgi，那么我们是不是可以寻找这个进程和cgi之间的关系<br>ida打开cstecgi.cgi文件，看到在main函数开始时调用了<strong>getenv()</strong>函数调用环境变量<br><img src="toto24.png" alt="pic24"><br>然后查找一下环境字符串还在什么地方出现<br><img src="toto25.png" alt="pic25"><br>看到在lighttp/lib/mod_cgi.so这个文件里也出现了,之后再看一下这个mod_cgi.so文件<br>没有main函数，直接字符串搜索query_strings<br><img src="toto26.png" alt="pic26"><br>找到对应函数<br>在这个函数的底下看到使用execve传参和执行进程<br><img src="toto27.png" alt="pic27"><br>我们接着grep一下lighttpd看进程，看到进程id是1709，然后去/proc/1709查看maps内存分布，看到他的一些链接文件，其中有mod_cgi.so<br><img src="toto28.png" alt="pic28"><br>到这里我们可以理清楚了cstecgi.cgi作为lighttpd的子进程而存在，由lighttpd进程中的动态链接库mod_cgi.so启动，<br>接下来直接在cstecgi.cgi文件里找”telnet”<br>找到这个位置<br><img src="toto29.png" alt="pic29"><br>这个位置需要在addiu esp（抬栈的位置）create function，快捷键是p，然后就可以f5反编译<br><img src="toto30.png" alt="pic30"><br><img src="toto31.png" alt="pic31"><br>看到调用的是__imp_safe_cs_pub，以及传参，第一个参数是ip，第二个参数是SetTelnetCFg字符串<br>直接再grep safe_cs_pub<br><img src="toto32.png" alt="pic32"><br>去对应的链接文件libmystdlib.so找这个函数<br><img src="toto33.png" alt="pic33"><br>可以看到对应的端口是<strong>1883</strong><br>去对应目录直接执行cste_pub<br><img src="toto34.png" alt="pic34"><br>看到有意思的东西：mosquitto<br><img src="toto35.png" alt="pic35"><br>发现是一个mqtt的客户端，那么这个路由器还存在mqtt协议的使用<br>接着去找使用了这个协议的1883端口<br>先在linux终端里面nmap扫一下发现确实是mqtt<br><img src="toto36.png" alt="pic36"><br>同时在shell里看到1883端口是由PID为1698的cs_broker进程和1699的cste_sub监听<br>可是到这两个关联的程序里寻找telnet字符串都没有结果<br>回头去看我们发的请求，body部分的变量名是<strong>telnet_enabled</strong>。<br>那么如果在squashfs-root目录下全局搜索这个字符串，总应该能找到东西<br><img src="toto37.png" alt="pic37"><br>冲wireless.so试试<br>在ida里直接搜telnet_enabled字符串，找到这个函数<br><img src="toto38.png" alt="pic38"><br>找到了我们前面看到过的SetTelnetCfg函数，也看到了开启telnet的函数system(“telnetd &amp;”);<br>但我们前面在找进程的时候没看见wireless.so这个链接库的存在呀，它又是被谁加载了呢？<br>直接搜wirless.so，找不到任何文件<br>再找他的目录cste_modules，找到了调用这个<strong>目录</strong>的程序cste_sub(眼熟吗？)<br><img src="toto39.png" alt="pic39"><br>ida打开这个程序搜索cste_momdules，找到这个程序<br><img src="toto40.png" alt="pic40"><br>看到load_modules函数调用了load_plugin函数来加载cste_modules目录下的所有链接文件，这里单指wireless.so<br><img src="toto41.png" alt="pic41"><br>至此，我们追寻完毕了telnet的开启过程，这一路上发现了一连串相关的进程，也找到了新的利用点<br>理一遍我们这一路的顺序:<br>发送请求:{‘telnet_enabled’:’1’} —&gt; 80端口 —&gt; lighttpd进程 —&gt; mod_cgi.so程序 —&gt; lighttpd子进程cstecgi.cgi —&gt; 链接文件libmystdlib.so —&gt; cste_pub函数 —&gt; cs_broker监听 —&gt; cste_sub处理 —&gt; load_plugin加载cste_modules目录 —&gt; wireless.so程序真正调用system函数开启telnet<br>我学到了dlopen的加载方式，也就是通过目录加载.so链接文件，这里函数是load_plugin</p>
+<h1 id="再深入-遇见更多利用"><a href="#再深入-遇见更多利用" class="headerlink" title="再深入 遇见更多利用"></a>再深入 遇见更多利用</h1><p>（待更新）</p>
 
 
         <hr>
@@ -762,7 +629,7 @@ ida打开这个程序搜索cste_momdules，找到这个程序<br>
         <div id="toc" class="toc-article">
         <strong class="toc-title">目录</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">开始</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%9B%BA%E4%BB%B6-telnet-busybox-%E5%9B%BA%E4%BB%B6"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">固件 -&gt; telnet -&gt; busybox -&gt; 固件</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">一些额外的探索，仅用于个人学习研究</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%86%99%E5%85%A5mipsel-linux-gnu-gcc%E7%BC%96%E8%AF%91%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">写入mipsel-linux-gnu-gcc编译的程序</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%AF%95%E7%9D%80%E6%89%93%E6%89%93%EF%BC%81"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">试着打打！</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">物理提取</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">深入 追寻telnet的实现</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">再深入 遇见更多利用</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%BC%80%E5%A7%8B"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">开始</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%9B%BA%E4%BB%B6-gt-telnet-gt-busybox-gt-%E5%9B%BA%E4%BB%B6"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">固件 -&gt; telnet -&gt; busybox -&gt; 固件</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E4%B8%80%E4%BA%9B%E9%A2%9D%E5%A4%96%E7%9A%84%E6%8E%A2%E7%B4%A2%EF%BC%8C%E4%BB%85%E7%94%A8%E4%BA%8E%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">一些额外的探索，仅用于个人学习研究</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%86%99%E5%85%A5mipsel-linux-gnu-gcc%E7%BC%96%E8%AF%91%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">写入mipsel-linux-gnu-gcc编译的程序</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%AF%95%E7%9D%80%E6%89%93%E6%89%93%EF%BC%81"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">试着打打！</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E7%89%A9%E7%90%86%E6%8F%90%E5%8F%96"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">物理提取</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E6%B7%B1%E5%85%A5-%E8%BF%BD%E5%AF%BBtelnet%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">深入 追寻telnet的实现</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#%E5%86%8D%E6%B7%B1%E5%85%A5-%E9%81%87%E8%A7%81%E6%9B%B4%E5%A4%9A%E5%88%A9%E7%94%A8"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">再深入 遇见更多利用</span></a></li></ol>
         
         </div>
       </aside>

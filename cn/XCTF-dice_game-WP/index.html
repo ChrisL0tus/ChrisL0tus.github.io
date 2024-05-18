@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/categories/">
               
-              归档
+              分类
               
               
             </a>
@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -472,18 +472,10 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <p>今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。<br>
-<img src="dice_game_2.png" alt="pic1"><br>
-这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。<br>
-<img src="dice_game_1.png" alt="pic2"><br>
-目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCTF上的题目，于是去<a target="_blank" rel="noopener" href="https://cjovi.icu">他的博客</a>翻了一下，结果真有这道题的WP，而且也写到了ctypes库的简单的知识，我斗胆引用一下</p>
+        <p>今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。<br><img src="dice_game_2.png" alt="pic1"><br>这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。<br><img src="dice_game_1.png" alt="pic2"><br>目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCTF上的题目，于是去<a target="_blank" rel="noopener" href="https://cjovi.icu">他的博客</a>翻了一下，结果真有这道题的WP，而且也写到了ctypes库的简单的知识，我斗胆引用一下</p>
 <blockquote>
 <p>ctypes是python的外部函数库，一方面，顾名思义，提供了C中的一些数据类型；另一方面，允许我们调用 DLL 或共享库中的函数（嗯，DLL共享库什么的，我还得再学一下）。</p>
-</blockquote>
-<blockquote>
 <p>在Linux下，我们可以通过cdll类来导入动态链接库，并很容易的调用其中的函数。在Windows下还有windll和oldell对象可以来导入动态链接库。</p>
-</blockquote>
-<blockquote>
 <p>我们可以创建一个对象，就像上文exp中libc = cdll.LoadLibrary(“libc.so.6”)一样，这样libc就封装了libc.so.6中的成员（应该可以这么说吧），然后我们就可以通过libc.rand()这样的语句来调用库中的函数。</p>
 </blockquote>
 

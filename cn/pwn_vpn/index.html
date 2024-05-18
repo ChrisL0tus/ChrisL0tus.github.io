@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/categories/">
               
-              归档
+              分类
               
               
             </a>
@@ -269,9 +269,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/archive/">
               
-              分类
+              归档
               
               
             </a>
@@ -472,42 +472,8 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h3 id="正文">正文</h3>
-<p>本文是一篇分析VPN安全的文章，主要分析了基于openvpn的Android vpn app的安全。<br>
-本文提出了三种常见的漏洞点<br>
-第一个是<strong>misuse of modified OpenVPN protocol</strong>，第二个是<strong>weak authentication at the client side</strong>，第三个是<strong>incorrect usage of native library</strong><br>
-上述三种漏洞点引起三种攻击方式，第一种是<strong>traffic decryption</strong>,第二种是<strong>man-in-middle attack</strong>,第三种是<strong>denial of service</strong><br>
-首先需要了解一下openvpn的workflow，论文中将其分为四个步骤：<strong>profile assembly</strong>, <strong>VPN initiation</strong>, <strong>management interaction</strong> and <strong>VPN connection</strong><br>
-<img src="vpn1.png" alt="pic1"><br>
-第一个步骤profile assembly指的是客户端将profile configuration文件assemble成一个整体，用于连接远程服务器。<br>
-一个openvpn的profile文件示例如下：<br>
-<img src="vpn2.png" alt="pic2"><br>
-第二个步骤VPN initiation指的是客户端与服务器建立连接，在profile发送到服务端之后，vpn进程就已经初始化了，然后一些network的参数诸如IP address DNS server会被push from server，然后The management interface is created in the app’s private directory (e.g., /data/data/pkg.name/cache/ ) and is waiting for connection。<br>
-第三个步骤management interaction，第二步生成的management interface会被用于与vpn进程进行交互、获取network的参数等。<br>
-第四个步骤VPN connection，openvpn有两个descriptor，一个是tun，一个是tap，分别用于IP traffic和Ethernet traffic，这两个descriptor会被用于建立vpn连接。<br>
-对于攻击者来说，最主要的安全问题相关的信息是在profile里，The client profile provides all the prerequisites for attacking the management interaction and the VPN connection procedure, such as the address of VPN server, cipher algorithm, authentication types and file location of the management interface. 如果没有这些信息，那就几乎不可能进行攻击。<br>
-但是问题就在于基于openvpn的免费vpn软件往往做的比较简单，有些甚至不需要用户注册，有些甚至给不同用户提供了相同的私钥，这样的话，攻击者可以通过他自己设备上的vpn app获取到profile的关键信息。<br>
-profile泄露之后就可能产生以下三种攻击<br>
-<strong>Trafic Decryption</strong>: 这种攻击方式是解密vpn传输的加密数据。为什么可以被解密呢，首先需要了解一些前置知识。首先，openvpn本身没有采用anti-dpi技术，anti-dpi指的是一种策略，用于阻止互联网服务提供者(ISPs)、政府机构或者其他可能尝试阻止或篡改网络数据流的实体，通过深度包检查（DPI）来识别和可能阻止VPN流量。DPI是一种网络包过滤方法，可以识别、分类或阻止具有特定详细内容的数据包（例如，确定数据包是否包含特定关键词，确定其是否属于特定应用的流量，或识别其是否使用了VPN协议）。利用反DPI技术，VPN服务可以“伪装”他们的流量，使其更难以被识别为VPN流量，从而减少被屏蔽的可能性；其次，openvpn本身对数据是有encrypt的，注意这里的encrypt指的并不是前面的anti-dpi技术，我个人理解的是可以将这两者看作对于一个通过vpn传输的请求流量的两种保护方式，一种用于绕过运营商/政府的管制，一种用于用户数据的加密。而很多free vpn的开发者声称他们采用了某种协议或者anti-dpi技术来防止流量被identified或者blocked。然而有一个典型的愚蠢错误就是他们禁用了openvpn本身的encrypt，改用自己的一套混淆（我的理解是既用于encrypt又当作anti-dpi），往往是可逆的加密算法甚至是简单的XOR。<br>
-<img src="vpn3.png" alt="pic3"><br>
-<strong>Man-in-the-Middle Attack</strong>: 这个挺好理解，在获得用户profile文件之后，攻击者可以通过自己的vpn app与服务器建立连接，然后将自己的vpn app的profile文件push到用户设备上，这样用户的vpn app就会连接到攻击者的服务器上，这样攻击者就可以获取到用户的所有流量。OpenVPN提供了几种防御这种攻击的方式，但是发现开发者可能并未实施这些防范手段。<br>
-<strong>Denial of Service</strong>: openvpn based app进程的安卓管理接口的权限如果不恰当，那么会导致一旦某个app被攻击了（或者存在恶意程序），那么整个设备的vpn服务都会被攻击导致瘫痪，这种攻击方式的危害性很大。<br>
-文章作者描述了他们的分析方式<br>
-首先是<strong>Identification</strong>这块，主要是两种，一种是Native Code Filter,一种是Network Traffic Identification<br>
-<img src="vpn4.png" alt="pic4"><br>
-第一种讲的是本地APK的源码筛选，类似于查找&quot;openvpn_encrypt&quot;这种关键字。<br>
-第二种是Network Traffic Identification，这种方法主要是用来研究应用程序的网络活动，并把APK文件视为一个黑箱进行处理。在截获VPN应用的网络流量后，可以使用像Bro这样的协议解析器来识别隧道协议。<br>
-追求研究数量和效率，作者主要采用的是静态分析，因为可以做到自动化。<br>
-然后是<strong>profile collection</strong>，这部分有两种方法一种是从profile servers获取，一种是本地检测runtime参数。作者采取了第二种。openvpn允许在运行时命令行加-config参数。<br>
-最后一个是<strong>Security Assessment</strong>，这段话我说实话没啃太懂，以下是喂给GPT吐出来的理解：<br>
-这是一个对OpenVPN配置文件进行分析的过程描述，主要包含三个步骤：<br>
-1.<strong>客户端配置文件解析</strong>：这一步骤中，设计了一个OpenVPN配置文件的解析器，用于提取从不同应用收集的配置文件中的所有选项。然后，执行对与安全相关选项使用情况的统计调查。特别地，检查OpenVPN应用中使用的密码算法(cipher)，是否使用密码(auth-user-pass)或证书(cert)进行客户端认证，或者是否使用了额外的TLS身份验证(tls-auth)。在客户端和服务端都使用证书进行认证的情况下，有两种CA信任模型。证书可以由同一CA签署，或者由不同的CA签署。仔细检查证书签署的情况能够揭示潜在的安全问题，例如，如果客户端和服务端证书由同一CA签署，并且未应用防止中间人攻击的选项(remote-cert-tls, ns-cert-type)，则可能存在被攻击的风险。<br>
-2.<strong>代码实现分析</strong>：这一步骤中，主要通过对OpenVPN源代码的逆向工程，评估了为混淆OpenVPN流量而添加的自定义特性的实现。这些混淆操作一般位于OpenVPN中原始加密过程之后，以及实际的网络发送/接收逻辑之前。借助OpenVPN的源代码和IDA Pro生成的反编译代码，能够识别在这些OpenVPN应用中添加的自定义混淆。<br>
-3.<strong>权限管理</strong>：管理界面文件位置可以从客户端配置文件中获取。在OpenVPN服务运行时，使用脚本自动检查管理接口的权限。如果管理界面对全球开放，权限管理就容易受到攻击。<br>
-这段话基本上就是在介绍一种分析OpenVPN应用配置，代码实现以及权限管理的综合方法，以此来揭示可能存在的安全问题。<br>
-<img src="vpn5.png" alt="pic5"></p>
-<p>至此分析部分结束了，后面是一些results、recommendations等。<br>
-感兴趣的可以去看李老师主页里的原文：<a target="_blank" rel="noopener" href="https://www.lijuanru.com/publications/cans17.pdf">https://www.lijuanru.com/publications/cans17.pdf</a></p>
+        <h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>本文是一篇分析VPN安全的文章，主要分析了基于openvpn的Android vpn app的安全。<br>本文提出了三种常见的漏洞点<br>第一个是<strong>misuse of modified OpenVPN protocol</strong>，第二个是<strong>weak authentication at the client side</strong>，第三个是<strong>incorrect usage of native library</strong><br>上述三种漏洞点引起三种攻击方式，第一种是<strong>traffic decryption</strong>,第二种是<strong>man-in-middle attack</strong>,第三种是<strong>denial of service</strong><br>首先需要了解一下openvpn的workflow，论文中将其分为四个步骤：<strong>profile assembly</strong>, <strong>VPN initiation</strong>, <strong>management interaction</strong> and <strong>VPN connection</strong><br><img src="vpn1.png" alt="pic1"><br>第一个步骤profile assembly指的是客户端将profile configuration文件assemble成一个整体，用于连接远程服务器。<br>一个openvpn的profile文件示例如下：<br><img src="vpn2.png" alt="pic2"><br>第二个步骤VPN initiation指的是客户端与服务器建立连接，在profile发送到服务端之后，vpn进程就已经初始化了，然后一些network的参数诸如IP address DNS server会被push from server，然后The management interface is created in the app’s private directory (e.g., /data/data/pkg.name/cache/ ) and is waiting for connection。<br>第三个步骤management interaction，第二步生成的management interface会被用于与vpn进程进行交互、获取network的参数等。<br>第四个步骤VPN connection，openvpn有两个descriptor，一个是tun，一个是tap，分别用于IP traffic和Ethernet traffic，这两个descriptor会被用于建立vpn连接。<br>对于攻击者来说，最主要的安全问题相关的信息是在profile里，The client profile provides all the prerequisites for attacking the management interaction and the VPN connection procedure, such as the address of VPN server, cipher algorithm, authentication types and file location of the management interface. 如果没有这些信息，那就几乎不可能进行攻击。<br>但是问题就在于基于openvpn的免费vpn软件往往做的比较简单，有些甚至不需要用户注册，有些甚至给不同用户提供了相同的私钥，这样的话，攻击者可以通过他自己设备上的vpn app获取到profile的关键信息。<br>profile泄露之后就可能产生以下三种攻击<br><strong>Trafic Decryption</strong>: 这种攻击方式是解密vpn传输的加密数据。为什么可以被解密呢，首先需要了解一些前置知识。首先，openvpn本身没有采用anti-dpi技术，anti-dpi指的是一种策略，用于阻止互联网服务提供者(ISPs)、政府机构或者其他可能尝试阻止或篡改网络数据流的实体，通过深度包检查（DPI）来识别和可能阻止VPN流量。DPI是一种网络包过滤方法，可以识别、分类或阻止具有特定详细内容的数据包（例如，确定数据包是否包含特定关键词，确定其是否属于特定应用的流量，或识别其是否使用了VPN协议）。利用反DPI技术，VPN服务可以“伪装”他们的流量，使其更难以被识别为VPN流量，从而减少被屏蔽的可能性；其次，openvpn本身对数据是有encrypt的，注意这里的encrypt指的并不是前面的anti-dpi技术，我个人理解的是可以将这两者看作对于一个通过vpn传输的请求流量的两种保护方式，一种用于绕过运营商/政府的管制，一种用于用户数据的加密。而很多free vpn的开发者声称他们采用了某种协议或者anti-dpi技术来防止流量被identified或者blocked。然而有一个典型的愚蠢错误就是他们禁用了openvpn本身的encrypt，改用自己的一套混淆（我的理解是既用于encrypt又当作anti-dpi），往往是可逆的加密算法甚至是简单的XOR。<br><img src="vpn3.png" alt="pic3"><br><strong>Man-in-the-Middle Attack</strong>: 这个挺好理解，在获得用户profile文件之后，攻击者可以通过自己的vpn app与服务器建立连接，然后将自己的vpn app的profile文件push到用户设备上，这样用户的vpn app就会连接到攻击者的服务器上，这样攻击者就可以获取到用户的所有流量。OpenVPN提供了几种防御这种攻击的方式，但是发现开发者可能并未实施这些防范手段。<br><strong>Denial of Service</strong>: openvpn based app进程的安卓管理接口的权限如果不恰当，那么会导致一旦某个app被攻击了（或者存在恶意程序），那么整个设备的vpn服务都会被攻击导致瘫痪，这种攻击方式的危害性很大。<br>文章作者描述了他们的分析方式<br>首先是<strong>Identification</strong>这块，主要是两种，一种是Native Code Filter,一种是Network Traffic Identification<br><img src="vpn4.png" alt="pic4"><br>第一种讲的是本地APK的源码筛选，类似于查找”openvpn_encrypt”这种关键字。<br>第二种是Network Traffic Identification，这种方法主要是用来研究应用程序的网络活动，并把APK文件视为一个黑箱进行处理。在截获VPN应用的网络流量后，可以使用像Bro这样的协议解析器来识别隧道协议。<br>追求研究数量和效率，作者主要采用的是静态分析，因为可以做到自动化。<br>然后是<strong>profile collection</strong>，这部分有两种方法一种是从profile servers获取，一种是本地检测runtime参数。作者采取了第二种。openvpn允许在运行时命令行加-config参数。<br>最后一个是<strong>Security Assessment</strong>，这段话我说实话没啃太懂，以下是喂给GPT吐出来的理解：<br>这是一个对OpenVPN配置文件进行分析的过程描述，主要包含三个步骤：<br>1.<strong>客户端配置文件解析</strong>：这一步骤中，设计了一个OpenVPN配置文件的解析器，用于提取从不同应用收集的配置文件中的所有选项。然后，执行对与安全相关选项使用情况的统计调查。特别地，检查OpenVPN应用中使用的密码算法(cipher)，是否使用密码(auth-user-pass)或证书(cert)进行客户端认证，或者是否使用了额外的TLS身份验证(tls-auth)。在客户端和服务端都使用证书进行认证的情况下，有两种CA信任模型。证书可以由同一CA签署，或者由不同的CA签署。仔细检查证书签署的情况能够揭示潜在的安全问题，例如，如果客户端和服务端证书由同一CA签署，并且未应用防止中间人攻击的选项(remote-cert-tls, ns-cert-type)，则可能存在被攻击的风险。<br>2.<strong>代码实现分析</strong>：这一步骤中，主要通过对OpenVPN源代码的逆向工程，评估了为混淆OpenVPN流量而添加的自定义特性的实现。这些混淆操作一般位于OpenVPN中原始加密过程之后，以及实际的网络发送/接收逻辑之前。借助OpenVPN的源代码和IDA Pro生成的反编译代码，能够识别在这些OpenVPN应用中添加的自定义混淆。<br>3.<strong>权限管理</strong>：管理界面文件位置可以从客户端配置文件中获取。在OpenVPN服务运行时，使用脚本自动检查管理接口的权限。如果管理界面对全球开放，权限管理就容易受到攻击。<br>这段话基本上就是在介绍一种分析OpenVPN应用配置，代码实现以及权限管理的综合方法，以此来揭示可能存在的安全问题。<br><img src="vpn5.png" alt="pic5"></p>
+<p>至此分析部分结束了，后面是一些results、recommendations等。<br>感兴趣的可以去看李老师主页里的原文：<a target="_blank" rel="noopener" href="https://www.lijuanru.com/publications/cans17.pdf">https://www.lijuanru.com/publications/cans17.pdf</a></p>
 
 
         <hr>
