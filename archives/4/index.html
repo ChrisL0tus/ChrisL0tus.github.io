@@ -57,8 +57,8 @@
   <meta name="baidu-site-verification" content="PpzM9WxOJU"/>
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="description" content="若到江南赶上春，千万和春住"/>
-  <meta name="keyword" content="l0tus,livemylife,IT blog,Blog"/>
+  <meta name="description" content="切开血管，落日殷红"/>
+  <meta name="keyword" content="l0tus,Blog"/>
   <link rel="shortcut icon" href="/img/avatar/bio.jpg"/>
 
   <!-- Place this tag in your head or just before your close body tag. -->
@@ -247,6 +247,17 @@
           
           
           <li>
+            <a href="/tags/">
+              
+              TAGS
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
             <a href="/about/">
               
               ABOUT
@@ -272,17 +283,6 @@
             <a href="/categories/">
               
               CATEGORIES
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/tags/">
-              
-              TAGS
               
               
             </a>
@@ -569,19 +569,21 @@ start
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-dice_game-WP/">
+  <a href="/cn/XCTF-babyheap-WP/">
     <h2 class="post-title">
-      XCTF-dice_game-WP
+      XCTF-babyheap-WP
     </h2>
     <h3 class="post-subtitle">
-      题目复现累了，找个简单题练练手
+      off-by-null
     </h3>
     <div class="post-content-preview">
-      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
+      开篇碎碎念
+XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
+还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
 
-这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
+题目
 
-目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
+这个函数存在off-by-......
     </div>
   </a>
   
@@ -608,21 +610,19 @@ start
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-babyheap-WP/">
+  <a href="/cn/XCTF-dice_game-WP/">
     <h2 class="post-title">
-      XCTF-babyheap-WP
+      XCTF-dice_game-WP
     </h2>
     <h3 class="post-subtitle">
-      off-by-null
+      题目复现累了，找个简单题练练手
     </h3>
     <div class="post-content-preview">
-      开篇碎碎念
-XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
-还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
+      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
 
-题目
+这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
 
-这个函数存在off-by-......
+目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
     </div>
   </a>
   
@@ -978,6 +978,10 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
+    <a href="/tags/#iot" title="iot" rel="1">iot</a>
+    
+    
+    
     <a href="/tags/#JS" title="JS" rel="1">JS</a>
     
     
@@ -990,19 +994,19 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#singapore" title="singapore" rel="1">singapore</a>
-    
-    
-    
-    <a href="/tags/#travel" title="travel" rel="1">travel</a>
-    
-    
-    
     <a href="/tags/#heap" title="heap" rel="2">heap</a>
     
     
     
     <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
+    
+    
+    
+    <a href="/tags/#singapore" title="singapore" rel="1">singapore</a>
+    
+    
+    
+    <a href="/tags/#travel" title="travel" rel="1">travel</a>
     
     
     
@@ -1038,7 +1042,7 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     
-    <a href="/tags/#iot" title="iot" rel="1">iot</a>
+    <a href="/tags/#vpn安全" title="vpn安全" rel="1">vpn安全</a>
     
     
     
@@ -1047,10 +1051,6 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
     
     
     <a href="/tags/#Paper Reading" title="Paper Reading" rel="1">Paper Reading</a>
-    
-    
-    
-    <a href="/tags/#vpn安全" title="vpn安全" rel="1">vpn安全</a>
     
     
     
@@ -1266,12 +1266,12 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>JS的一些特性：原型链，作用域，闭包</li>
     </a>
     
-    <a href="/categories/#travel">
-      <li>travel</li>
-    </a>
-    
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
+    </a>
+    
+    <a href="/categories/#travel">
+      <li>travel</li>
     </a>
     
     <a href="/categories/#CVE复现">
@@ -1282,40 +1282,40 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>fuzz</li>
     </a>
     
-    <a href="/categories/#XCTF">
-      <li>XCTF</li>
-    </a>
-    
     <a href="/categories/#静态分析">
       <li>静态分析</li>
     </a>
     
-    <a href="/categories/#2023XCTF-final">
-      <li>2023XCTF-final</li>
+    <a href="/categories/#XCTF">
+      <li>XCTF</li>
     </a>
     
     <a href="/categories/#FSOP">
       <li>FSOP</li>
     </a>
     
-    <a href="/categories/#阿里云ctf2024">
-      <li>阿里云ctf2024</li>
+    <a href="/categories/#2023XCTF-final">
+      <li>2023XCTF-final</li>
     </a>
     
-    <a href="/categories/#LLM">
-      <li>LLM</li>
+    <a href="/categories/#iot">
+      <li>iot</li>
+    </a>
+    
+    <a href="/categories/#阿里云ctf2024">
+      <li>阿里云ctf2024</li>
     </a>
     
     <a href="/categories/#write up">
       <li>write up</li>
     </a>
     
-    <a href="/categories/#write_up">
-      <li>write_up</li>
+    <a href="/categories/#LLM">
+      <li>LLM</li>
     </a>
     
-    <a href="/categories/#杂谈">
-      <li>杂谈</li>
+    <a href="/categories/#write_up">
+      <li>write_up</li>
     </a>
     
     <a href="/categories/#networking">
@@ -1330,24 +1330,20 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#iot">
-      <li>iot</li>
-    </a>
-    
-    <a href="/categories/#SROP">
-      <li>SROP</li>
-    </a>
-    
-    <a href="/categories/#Paper Reading">
-      <li>Paper Reading</li>
+    <a href="/categories/#杂谈">
+      <li>杂谈</li>
     </a>
     
     <a href="/categories/#vpn安全">
       <li>vpn安全</li>
     </a>
     
-    <a href="/categories/#kernel">
-      <li>kernel</li>
+    <a href="/categories/#Paper Reading">
+      <li>Paper Reading</li>
+    </a>
+    
+    <a href="/categories/#SROP">
+      <li>SROP</li>
     </a>
     
     <a href="/categories/#pwnable.tw">
@@ -1370,28 +1366,32 @@ free完成后可以查看bin的情况，可以看到unsorted bin中的最后一�
       <li>Stackmove</li>
     </a>
     
-    <a href="/categories/#ChatGPT接入Telegram Bot教程">
-      <li>ChatGPT接入Telegram Bot教程</li>
+    <a href="/categories/#kernel">
+      <li>kernel</li>
     </a>
     
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
+    <a href="/categories/#ChatGPT接入Telegram Bot教程">
+      <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
     <a href="/categories/#漏洞复现">
       <li>漏洞复现</li>
     </a>
     
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
+    </a>
+    
     <a href="/categories/#源码阅读">
       <li>源码阅读</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
+    </a>
+    
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
     </a>
     
     <a href="/categories/#操作系统">
