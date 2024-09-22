@@ -247,17 +247,6 @@
           
           
           <li>
-            <a href="/categories/">
-              
-              CATEGORIES
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/archive/">
               
               ARCHIVES
@@ -269,9 +258,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/about/">
               
-              TAGS
+              ABOUT
               
               
             </a>
@@ -280,9 +269,20 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              ABOUT
+              CATEGORIES
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              TAGS
               
               
             </a>
@@ -470,6 +470,44 @@
       <!-- Main Content -->
 
 
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/V-shuttle/">
+    <h2 class="post-title">
+      论文阅读："V-Shuttle：Scalable and Semantics-Aware Hypervisor Virtual Device Fuzzing"
+    </h2>
+    <h3 class="post-subtitle">
+      
+    </h3>
+    <div class="post-content-preview">
+      ABSTRACT
+hypervisor也被称作Virtual Machine Monitor(VMM),它可以在一台主机中隔离多个虚拟机。可以理解为多个虚拟机的管理核心，但是hypervisor存在利用方式可以做到逃逸和提权。但虚拟机中以DMA(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来）......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-05-29
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#论文阅读笔记" title="论文阅读笔记">论文阅读笔记</a>
+    
+    <a href="/tags/#fuzz" title="fuzz">fuzz</a>
+    
+    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸">虚拟机逃逸</a>
+    
+  </div>
+  
+
+</div>
+<hr>
 
 <div class="post-preview">
   
@@ -800,49 +838,6 @@ binwalk解包一下得到一个.web.extract文件夹
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-greeting-150-WP/">
-    <h2 class="post-title">
-      XCTF-greeting-150-WP
-    </h2>
-    <h3 class="post-subtitle">
-      .fini_array劫持 && hijack got
-    </h3>
-    <div class="post-content-preview">
-      checksec
-
-开了canary和NX，没开reload和pie，考虑使用hijack got
-反编译
-
-可以看到一个明显的格式化字符串漏洞
-
-测试得到偏移为12，这里需要注意的是我们的输入是跟在&quot;Please tell me your name… “这句话的后头的，这句话本身长度为18，那么我们需要先输入两个字符使地址对齐，然后再用%p输出
-但是这道题的格式化字符串漏洞是在r......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-03-08
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
   <a href="/cn/XCTF-forgot-WP/">
     <h2 class="post-title">
       XCTF-forgot-WP
@@ -936,15 +931,11 @@ shift+f12看到有cat flag的字符串，找到对应函数:
     
     
     
-    <a href="/tags/#pwn笔记" title="pwn笔记" rel="24">pwn笔记</a>
+    <a href="/tags/#pwn笔记" title="pwn笔记" rel="25">pwn笔记</a>
     
     
     
-    <a href="/tags/#write up" title="write up" rel="16">write up</a>
-    
-    
-    
-    <a href="/tags/#杂谈" title="杂谈" rel="3">杂谈</a>
+    <a href="/tags/#write up" title="write up" rel="17">write up</a>
     
     
     
@@ -956,15 +947,19 @@ shift+f12看到有cat flag的字符串，找到对应函数:
     
     
     
-    <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="7">论文阅读笔记</a>
-    
-    
-    
     <a href="/tags/#IoT" title="IoT" rel="2">IoT</a>
     
     
     
     <a href="/tags/#CVE复现" title="CVE复现" rel="1">CVE复现</a>
+    
+    
+    
+    <a href="/tags/#杂谈" title="杂谈" rel="3">杂谈</a>
+    
+    
+    
+    <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="7">论文阅读笔记</a>
     
     
     
@@ -1020,11 +1015,11 @@ shift+f12看到有cat flag的字符串，找到对应函数:
     
     
     
-    <a href="/tags/#write_up" title="write_up" rel="1">write_up</a>
-    
-    
-    
     <a href="/tags/#ciscn2024" title="ciscn2024" rel="2">ciscn2024</a>
+    
+    
+    
+    <a href="/tags/#write_up" title="write_up" rel="1">write_up</a>
     
     
     
@@ -1052,15 +1047,15 @@ shift+f12看到有cat flag的字符串，找到对应函数:
     
     
     
+    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
+    
+    
+    
     <a href="/tags/#ChatGPT" title="ChatGPT" rel="1">ChatGPT</a>
     
     
     
     <a href="/tags/#Bot" title="Bot" rel="1">Bot</a>
-    
-    
-    
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
     
     
     
@@ -1076,15 +1071,15 @@ shift+f12看到有cat flag的字符串，找到对应函数:
     
     
     
-    <a href="/tags/#诗集" title="诗集" rel="1">诗集</a>
-    
-    
-    
     <a href="/tags/#操作系统" title="操作系统" rel="1">操作系统</a>
     
     
     
     <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
+    
+    
+    
+    <a href="/tags/#诗集" title="诗集" rel="1">诗集</a>
     
     
   </div>
@@ -1156,6 +1151,10 @@ shift+f12看到有cat flag的字符串，找到对应函数:
 <div class="widget">
   <ul>
     
+    <a href="../../cn/bytectf2024/">
+      <li>ByteCTF 2024</li>
+    </a>
+    
     <a href="../../cn/ciscn2024final/">
       <li>2024国赛决赛ezheap题解</li>
     </a>
@@ -1170,10 +1169,6 @@ shift+f12看到有cat flag的字符串，找到对应函数:
     
     <a href="../../cn/5.19/">
       <li>5.19瞎写</li>
-    </a>
-    
-    <a href="../../cn/AST/">
-      <li>逆波兰表示法与抽象语法树</li>
     </a>
     
   </ul>
@@ -1228,7 +1223,7 @@ shift+f12看到有cat flag的字符串，找到对应函数:
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/06/">June 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/05/">May 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/04/">April 2024</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/03/">March 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/11/">November 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../2024/09/">September 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/06/">June 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/05/">May 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/04/">April 2024</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2024/03/">March 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/11/">November 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/05/">May 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
 </div>
 
 
@@ -1248,20 +1243,20 @@ shift+f12看到有cat flag的字符串，找到对应函数:
       <li>2023西湖论剑</li>
     </a>
     
-    <a href="/categories/#杂谈">
-      <li>杂谈</li>
-    </a>
-    
     <a href="/categories/#静态分析">
       <li>静态分析</li>
     </a>
     
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
-    </a>
-    
     <a href="/categories/#IoT">
       <li>IoT</li>
+    </a>
+    
+    <a href="/categories/#杂谈">
+      <li>杂谈</li>
+    </a>
+    
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
     </a>
     
     <a href="/categories/#pwn笔记">
@@ -1276,48 +1271,44 @@ shift+f12看到有cat flag的字符串，找到对应函数:
       <li>PoC double_free</li>
     </a>
     
-    <a href="/categories/#travel">
-      <li>travel</li>
-    </a>
-    
-    <a href="/categories/#静态分析">
-      <li>静态分析</li>
-    </a>
-    
-    <a href="/categories/#kernel">
-      <li>kernel</li>
-    </a>
-    
-    <a href="/categories/#XCTF">
-      <li>XCTF</li>
-    </a>
-    
     <a href="/categories/#CVE复现">
       <li>CVE复现</li>
+    </a>
+    
+    <a href="/categories/#travel">
+      <li>travel</li>
     </a>
     
     <a href="/categories/#fuzz">
       <li>fuzz</li>
     </a>
     
-    <a href="/categories/#FSOP">
-      <li>FSOP</li>
+    <a href="/categories/#静态分析">
+      <li>静态分析</li>
     </a>
     
-    <a href="/categories/#iot">
-      <li>iot</li>
+    <a href="/categories/#XCTF">
+      <li>XCTF</li>
+    </a>
+    
+    <a href="/categories/#FSOP">
+      <li>FSOP</li>
     </a>
     
     <a href="/categories/#2023XCTF-final">
       <li>2023XCTF-final</li>
     </a>
     
-    <a href="/categories/#write up">
-      <li>write up</li>
+    <a href="/categories/#iot">
+      <li>iot</li>
     </a>
     
     <a href="/categories/#阿里云ctf2024">
       <li>阿里云ctf2024</li>
+    </a>
+    
+    <a href="/categories/#write up">
+      <li>write up</li>
     </a>
     
     <a href="/categories/#LLM">
@@ -1332,20 +1323,28 @@ shift+f12看到有cat flag的字符串，找到对应函数:
       <li>networking</li>
     </a>
     
-    <a href="/categories/#tcache_poisoning">
-      <li>tcache_poisoning</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#杂谈">
-      <li>杂谈</li>
+    <a href="/categories/#tcache_poisoning">
+      <li>tcache_poisoning</li>
     </a>
     
     <a href="/categories/#HEAP">
       <li>HEAP</li>
     </a>
     
+    <a href="/categories/#杂谈">
+      <li>杂谈</li>
+    </a>
+    
     <a href="/categories/#Paper Reading">
       <li>Paper Reading</li>
+    </a>
+    
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
     </a>
     
     <a href="/categories/#SROP">
@@ -1356,24 +1355,28 @@ shift+f12看到有cat flag的字符串，找到对应函数:
       <li>vpn安全</li>
     </a>
     
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
-    </a>
-    
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
     </a>
     
-    <a href="/categories/#2023浙江省赛">
-      <li>2023浙江省赛</li>
+    <a href="/categories/#kernel">
+      <li>kernel</li>
+    </a>
+    
+    <a href="/categories/#Stackmove">
+      <li>Stackmove</li>
     </a>
     
     <a href="/categories/#ChatGPT接入Telegram Bot教程">
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#Stackmove">
-      <li>Stackmove</li>
+    <a href="/categories/#2023浙江省赛">
+      <li>2023浙江省赛</li>
+    </a>
+    
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
     </a>
     
     <a href="/categories/#漏洞复现">
@@ -1384,28 +1387,20 @@ shift+f12看到有cat flag的字符串，找到对应函数:
       <li>学期总结</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
+    </a>
+    
+    <a href="/categories/#操作系统">
+      <li>操作系统</li>
     </a>
     
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
-    </a>
-    
-    <a href="/categories/#诗集">
-      <li>诗集</li>
-    </a>
-    
-    <a href="/categories/#操作系统">
-      <li>操作系统</li>
+    <a href="/categories/#2022浙江省赛">
+      <li>2022浙江省赛</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -1428,8 +1423,8 @@ shift+f12看到有cat flag的字符串，找到对应函数:
       <li>读书笔记</li>
     </a>
     
-    <a href="/categories/#2022浙江省赛">
-      <li>2022浙江省赛</li>
+    <a href="/categories/#诗集">
+      <li>诗集</li>
     </a>
     
   </ul>
