@@ -258,6 +258,17 @@
           
           
           <li>
+            <a href="/categories/">
+              
+              分类
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
             <a href="/tags/">
               
               标签
@@ -272,17 +283,6 @@
             <a href="/archive/">
               
               归档
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/categories/">
-              
-              分类
               
               
             </a>
@@ -470,85 +470,6 @@
       <!-- Main Content -->
 
 
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/alibus/">
-    <h2 class="post-title">
-      阿里云ctf2024-alibus复现
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      阿里云CTF，D3一起打，拿了第4
-一共参与了两道题，pwn sign in比队友慢一步打通。之后就是alibus坐牢了，到结束很可惜没做出来。
-做题时的思路
-这道题挂在pwn和misc两个分区下，我们就当一道pwn题来做了
-看题目应该是dbus的利用
-首先去看配置文件：
-123456789101112$ cat alibus.conf&lt;!DOCTYPE busconfig PUBLI......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2024-03-27
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
-    
-    <a href="/tags/#write up" title="write up">write up</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/cn/Iot目标选择/">
-    <h2 class="post-title">
-      论文阅读："Bin there, target that：Analyzing the target selection of IoT vulnerabilities in malware binaries"
-    </h2>
-    <h3 class="post-subtitle">
-      IoT漏洞的目标选择分析
-    </h3>
-    <div class="post-content-preview">
-      
-今天给大家分享的文章是一个月前在香港举办的RAID '23最新鲜出炉的IoT安全相关论文:“Bin there, target that: Analyzing the target selection of IoT vulnerabilities in malware binaries”
-INTRODUCTION
-近年物联网设备激增，针对iot设备的攻击也大幅增加。本文主要研究的是在丰富的......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by l0tus on
-    2023-11-13
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#论文阅读笔记" title="论文阅读笔记">论文阅读笔记</a>
-    
-    <a href="/tags/#iot" title="iot">iot</a>
-    
-  </div>
-  
-
-</div>
-<hr>
 
 <div class="post-preview">
   
@@ -867,6 +788,87 @@ exp:
 </div>
 <hr>
 
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/V-shuttle/">
+    <h2 class="post-title">
+      论文阅读："V-Shuttle：Scalable and Semantics-Aware Hypervisor Virtual Device Fuzzing"
+    </h2>
+    <h3 class="post-subtitle">
+      
+    </h3>
+    <div class="post-content-preview">
+      ABSTRACT
+hypervisor也被称作Virtual Machine Monitor(VMM),它可以在一台主机中隔离多个虚拟机。可以理解为多个虚拟机的管理核心，但是hypervisor存在利用方式可以做到逃逸和提权。但虚拟机中以DMA(direct memory access)交互的数据结构往往是非常复杂，（可以类比于堆管理等，会有很多结构体，互相之间有很多指针相互指向和连接起来）......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-05-29
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#论文阅读笔记" title="论文阅读笔记">论文阅读笔记</a>
+    
+    <a href="/tags/#fuzz" title="fuzz">fuzz</a>
+    
+    <a href="/tags/#虚拟机逃逸" title="虚拟机逃逸">虚拟机逃逸</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/cn/ciscn2023/">
+    <h2 class="post-title">
+      CISCN2023 部分PWN题wp
+    </h2>
+    <h3 class="post-subtitle">
+      
+    </h3>
+    <div class="post-content-preview">
+      pwn 4/6，被白夜带飞了，协会的大家都太强了
+这几道题目里能独立完整解出的大概也只有两道，另外的都是白夜在主要输出，我只能提供一点思路和跟着写一点脚本，还是需要多练
+但是我把我们俩做出的题都放上来了，有的步骤我还不会，现在太晚了（00：40）明天白天有空复现一下
+之后大概是分区赛（？，继续加油
+烧烤摊儿
+第一道pwn，比较简单，光速下班但是之后光速上题hhh
+整数溢出，没检查负数
+
+也有......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by l0tus on
+    2023-05-28
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#pwn笔记" title="pwn笔记">pwn笔记</a>
+    
+    <a href="/tags/#write_up" title="write_up">write_up</a>
+    
+  </div>
+  
+
+</div>
+<hr>
+
 
   <!-- Pager -->
   <ul class="pager">
@@ -919,10 +921,6 @@ exp:
   <div class="tags">
     
     
-    <a href="/tags/#杂谈" title="杂谈" rel="3">杂谈</a>
-    
-    
-    
     <a href="/tags/#年终总结" title="年终总结" rel="1">年终总结</a>
     
     
@@ -935,11 +933,19 @@ exp:
     
     
     
+    <a href="/tags/#杂谈" title="杂谈" rel="2">杂谈</a>
+    
+    
+    
     <a href="/tags/#静态分析" title="静态分析" rel="2">静态分析</a>
     
     
     
     <a href="/tags/#抽象语法树" title="抽象语法树" rel="1">抽象语法树</a>
+    
+    
+    
+    <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="7">论文阅读笔记</a>
     
     
     
@@ -955,14 +961,6 @@ exp:
     
     
     
-    <a href="/tags/#论文阅读笔记" title="论文阅读笔记" rel="7">论文阅读笔记</a>
-    
-    
-    
-    <a href="/tags/#LLM" title="LLM" rel="1">LLM</a>
-    
-    
-    
     <a href="/tags/#iot" title="iot" rel="1">iot</a>
     
     
@@ -975,11 +973,7 @@ exp:
     
     
     
-    <a href="/tags/#singapore" title="singapore" rel="1">singapore</a>
-    
-    
-    
-    <a href="/tags/#travel" title="travel" rel="1">travel</a>
+    <a href="/tags/#LLM" title="LLM" rel="1">LLM</a>
     
     
     
@@ -991,11 +985,19 @@ exp:
     
     
     
-    <a href="/tags/#kernel" title="kernel" rel="2">kernel</a>
+    <a href="/tags/#singapore" title="singapore" rel="1">singapore</a>
+    
+    
+    
+    <a href="/tags/#travel" title="travel" rel="1">travel</a>
     
     
     
     <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
+    
+    
+    
+    <a href="/tags/#kernel" title="kernel" rel="2">kernel</a>
     
     
     
@@ -1039,10 +1041,6 @@ exp:
     
     
     
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
-    
-    
-    
     <a href="/tags/#ChatGPT" title="ChatGPT" rel="1">ChatGPT</a>
     
     
@@ -1051,11 +1049,11 @@ exp:
     
     
     
+    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
+    
+    
+    
     <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
-    
-    
-    
-    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
     
@@ -1071,7 +1069,7 @@ exp:
     
     
     
-    <a href="/tags/#诗集" title="诗集" rel="1">诗集</a>
+    <a href="/tags/#学期总结" title="学期总结" rel="1">学期总结</a>
     
     
   </div>
@@ -1151,16 +1149,16 @@ exp:
       <li>2024国赛决赛ezheap题解</li>
     </a>
     
-    <a href="../../%E8%AF%97%E4%BA%BA%E7%96%AF%E5%AD%90%E6%83%85%E4%BA%BA/">
-      <li>诗人、疯子、情人</li>
-    </a>
-    
     <a href="../../ciscn2024%E5%88%9D%E8%B5%9B/">
       <li>2024国赛初赛pwn部分题解</li>
     </a>
     
     <a href="../../5.19/">
       <li>5.19瞎写</li>
+    </a>
+    
+    <a href="../../AST/">
+      <li>逆波兰表示法与抽象语法树</li>
     </a>
     
   </ul>
@@ -1217,7 +1215,7 @@ exp:
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/09/">September 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/06/">June 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/05/">May 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/04/">April 2024</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/03/">March 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/11/">November 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/09/">September 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/07/">July 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/05/">May 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/04/">April 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/03/">March 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/11/">November 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/07/">July 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/05/">May 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">March 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/12/">December 2022</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li></ul>
 </div>
 
 
@@ -1229,10 +1227,6 @@ exp:
 <div class="widget">
   <ul>
     
-    <a href="/categories/#杂谈">
-      <li>杂谈</li>
-    </a>
-    
     <a href="/categories/#2022年终总结">
       <li>2022年终总结</li>
     </a>
@@ -1241,8 +1235,16 @@ exp:
       <li>2023西湖论剑</li>
     </a>
     
+    <a href="/categories/#杂谈">
+      <li>杂谈</li>
+    </a>
+    
     <a href="/categories/#静态分析">
       <li>静态分析</li>
+    </a>
+    
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
     </a>
     
     <a href="/categories/#IoT">
@@ -1253,52 +1255,48 @@ exp:
       <li>pwn笔记</li>
     </a>
     
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
-    </a>
-    
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
-    </a>
-    
-    <a href="/categories/#travel">
-      <li>travel</li>
     </a>
     
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
     </a>
     
-    <a href="/categories/#CVE复现">
-      <li>CVE复现</li>
+    <a href="/categories/#travel">
+      <li>travel</li>
+    </a>
+    
+    <a href="/categories/#静态分析">
+      <li>静态分析</li>
+    </a>
+    
+    <a href="/categories/#kernel">
+      <li>kernel</li>
     </a>
     
     <a href="/categories/#fuzz">
       <li>fuzz</li>
     </a>
     
-    <a href="/categories/#FSOP">
-      <li>FSOP</li>
+    <a href="/categories/#CVE复现">
+      <li>CVE复现</li>
     </a>
     
     <a href="/categories/#XCTF">
       <li>XCTF</li>
     </a>
     
-    <a href="/categories/#LLM">
-      <li>LLM</li>
-    </a>
-    
     <a href="/categories/#2023XCTF-final">
       <li>2023XCTF-final</li>
     </a>
     
-    <a href="/categories/#iot">
-      <li>iot</li>
+    <a href="/categories/#FSOP">
+      <li>FSOP</li>
     </a>
     
-    <a href="/categories/#静态分析">
-      <li>静态分析</li>
+    <a href="/categories/#iot">
+      <li>iot</li>
     </a>
     
     <a href="/categories/#write up">
@@ -1309,16 +1307,20 @@ exp:
       <li>阿里云ctf2024</li>
     </a>
     
+    <a href="/categories/#LLM">
+      <li>LLM</li>
+    </a>
+    
     <a href="/categories/#write_up">
       <li>write_up</li>
     </a>
     
-    <a href="/categories/#杂谈">
-      <li>杂谈</li>
-    </a>
-    
     <a href="/categories/#networking">
       <li>networking</li>
+    </a>
+    
+    <a href="/categories/#杂谈">
+      <li>杂谈</li>
     </a>
     
     <a href="/categories/#tcache_poisoning">
@@ -1329,8 +1331,8 @@ exp:
       <li>HEAP</li>
     </a>
     
-    <a href="/categories/#kernel">
-      <li>kernel</li>
+    <a href="/categories/#SROP">
+      <li>SROP</li>
     </a>
     
     <a href="/categories/#Paper Reading">
@@ -1341,24 +1343,12 @@ exp:
       <li>vpn安全</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
-    </a>
-    
     <a href="/categories/#pwnable.tw">
       <li>pwnable.tw</li>
     </a>
     
     <a href="/categories/#虚拟机逃逸">
       <li>虚拟机逃逸</li>
-    </a>
-    
-    <a href="/categories/#SROP">
-      <li>SROP</li>
-    </a>
-    
-    <a href="/categories/#Stackmove">
-      <li>Stackmove</li>
     </a>
     
     <a href="/categories/#2023浙江省赛">
@@ -1369,6 +1359,10 @@ exp:
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
+    <a href="/categories/#Stackmove">
+      <li>Stackmove</li>
+    </a>
+    
     <a href="/categories/#论文阅读笔记">
       <li>论文阅读笔记</li>
     </a>
@@ -1377,24 +1371,24 @@ exp:
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#学期总结">
-      <li>学期总结</li>
-    </a>
-    
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
     </a>
     
     <a href="/categories/#XCTF-实时数据检测-WP">
       <li>XCTF-实时数据检测-WP</li>
     </a>
     
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
+    </a>
+    
     <a href="/categories/#操作系统">
       <li>操作系统</li>
     </a>
     
-    <a href="/categories/#诗集">
-      <li>诗集</li>
+    <a href="/categories/#2022浙江省赛">
+      <li>2022浙江省赛</li>
     </a>
     
     <a href="/categories/#ciscn2023">
@@ -1417,8 +1411,8 @@ exp:
       <li>读书笔记</li>
     </a>
     
-    <a href="/categories/#2022浙江省赛">
-      <li>2022浙江省赛</li>
+    <a href="/categories/#学期总结">
+      <li>学期总结</li>
     </a>
     
   </ul>
@@ -1480,7 +1474,7 @@ exp:
         <p class="copyright text-muted">
           Copyright &copy;
           l0tus
-          2024
+          2025
           <br>
           Theme by
           <a target="_blank" rel="noopener" href="http://beantech.org">BeanTech</a>
