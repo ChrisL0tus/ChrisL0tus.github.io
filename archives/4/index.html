@@ -258,9 +258,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/tags/">
               
-              CATEGORIES
+              TAGS
               
               
             </a>
@@ -280,9 +280,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/categories/">
               
-              TAGS
+              CATEGORIES
               
               
             </a>
@@ -644,19 +644,21 @@ start
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-dice_game-WP/">
+  <a href="/cn/XCTF-babyheap-WP/">
     <h2 class="post-title">
-      XCTF-dice_game-WP
+      XCTF-babyheap-WP
     </h2>
     <h3 class="post-subtitle">
-      题目复现累了，找个简单题练练手
+      off-by-null
     </h3>
     <div class="post-content-preview">
-      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
+      开篇碎碎念
+XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
+还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
 
-这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
+题目
 
-目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
+这个函数存在off-by-......
     </div>
   </a>
   
@@ -683,21 +685,19 @@ start
   <!-- top end -->
   
 
-  <a href="/cn/XCTF-babyheap-WP/">
+  <a href="/cn/XCTF-dice_game-WP/">
     <h2 class="post-title">
-      XCTF-babyheap-WP
+      XCTF-dice_game-WP
     </h2>
     <h3 class="post-subtitle">
-      off-by-null
+      题目复现累了，找个简单题练练手
     </h3>
     <div class="post-content-preview">
-      开篇碎碎念
-XCTF上的一道傻逼题目，难度为8，为什么说傻逼呢，是因为它附件给错了。正确的libc版本应该是2.27，XCTF上面给的却是32位的2.23。。
-还有一点就是做到最后也只能本地打通，远程连上以后连libc基址都不对。BUU上面也有一样的题目，没给libc但是可以本地2.27，但最终远程还是连不上，我也就懒得折腾了本地写了个flag自娱自乐。
+      今天中午开始在复现寒假里hgame遗漏的题目以及当时没来得及学的setcontext,mprotect,IO FILE等。跟着白夜的脚本在不断调试，看的有点累了就找了道简单题做做。
 
-题目
+这里就是漏洞了，写入name的时候覆盖随机数种子，再用给我们的libc指定随机数种子循环50次发送。
 
-这个函数存在off-by-......
+目前阶段其实做这题意义不是很大，但其实ctypes库的知识我第一次接触，想到chuj学长当年刷了很多XCT......
     </div>
   </a>
   
@@ -948,19 +948,19 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#杂谈" title="杂谈" rel="3">杂谈</a>
-    
-    
-    
-    <a href="/tags/#诗集" title="诗集" rel="1">诗集</a>
-    
-    
-    
     <a href="/tags/#静态分析" title="静态分析" rel="2">静态分析</a>
     
     
     
     <a href="/tags/#抽象语法树" title="抽象语法树" rel="1">抽象语法树</a>
+    
+    
+    
+    <a href="/tags/#杂谈" title="杂谈" rel="3">杂谈</a>
+    
+    
+    
+    <a href="/tags/#诗集" title="诗集" rel="1">诗集</a>
     
     
     
@@ -980,6 +980,10 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
+    <a href="/tags/#LLM" title="LLM" rel="1">LLM</a>
+    
+    
+    
     <a href="/tags/#iot" title="iot" rel="1">iot</a>
     
     
@@ -992,15 +996,15 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#LLM" title="LLM" rel="1">LLM</a>
-    
-    
-    
     <a href="/tags/#heap" title="heap" rel="2">heap</a>
     
     
     
     <a href="/tags/#PoC" title="PoC" rel="1">PoC</a>
+    
+    
+    
+    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
     
     
     
@@ -1012,7 +1016,7 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#SROP" title="SROP" rel="1">SROP</a>
+    <a href="/tags/#kernel" title="kernel" rel="2">kernel</a>
     
     
     
@@ -1024,11 +1028,11 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#kernel" title="kernel" rel="2">kernel</a>
-    
-    
-    
     <a href="/tags/#ciscn2024" title="ciscn2024" rel="2">ciscn2024</a>
+    
+    
+    
+    <a href="/tags/#write_up" title="write_up" rel="1">write_up</a>
     
     
     
@@ -1040,14 +1044,6 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#write_up" title="write_up" rel="1">write_up</a>
-    
-    
-    
-    <a href="/tags/#vpn安全" title="vpn安全" rel="1">vpn安全</a>
-    
-    
-    
     <a href="/tags/#Fuzz" title="Fuzz" rel="1">Fuzz</a>
     
     
@@ -1056,11 +1052,15 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
+    <a href="/tags/#vpn安全" title="vpn安全" rel="1">vpn安全</a>
     
     
     
     <a href="/tags/#qemu逃逸" title="qemu逃逸" rel="1">qemu逃逸</a>
+    
+    
+    
+    <a href="/tags/#stackmove" title="stackmove" rel="1">stackmove</a>
     
     
     
@@ -1072,11 +1072,11 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
     
     
     
-    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
-    
-    
-    
     <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
+    
+    
+    
+    <a href="/tags/#漏洞复现" title="漏洞复现" rel="1">漏洞复现</a>
     
     
     
@@ -1254,12 +1254,12 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>2023西湖论剑</li>
     </a>
     
-    <a href="/categories/#杂谈">
-      <li>杂谈</li>
-    </a>
-    
     <a href="/categories/#静态分析">
       <li>静态分析</li>
+    </a>
+    
+    <a href="/categories/#杂谈">
+      <li>杂谈</li>
     </a>
     
     <a href="/categories/#IoT">
@@ -1274,44 +1274,52 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>pwn笔记</li>
     </a>
     
-    <a href="/categories/#诗集">
-      <li>诗集</li>
-    </a>
-    
     <a href="/categories/#JS的一些特性：原型链，作用域，闭包">
       <li>JS的一些特性：原型链，作用域，闭包</li>
+    </a>
+    
+    <a href="/categories/#诗集">
+      <li>诗集</li>
     </a>
     
     <a href="/categories/#PoC double_free">
       <li>PoC double_free</li>
     </a>
     
-    <a href="/categories/#travel">
-      <li>travel</li>
-    </a>
-    
-    <a href="/categories/#fuzz">
-      <li>fuzz</li>
-    </a>
-    
     <a href="/categories/#CVE复现">
       <li>CVE复现</li>
     </a>
     
-    <a href="/categories/#XCTF">
-      <li>XCTF</li>
+    <a href="/categories/#travel">
+      <li>travel</li>
+    </a>
+    
+    <a href="/categories/#kernel">
+      <li>kernel</li>
     </a>
     
     <a href="/categories/#静态分析">
       <li>静态分析</li>
     </a>
     
-    <a href="/categories/#2023XCTF-final">
-      <li>2023XCTF-final</li>
+    <a href="/categories/#fuzz">
+      <li>fuzz</li>
+    </a>
+    
+    <a href="/categories/#XCTF">
+      <li>XCTF</li>
     </a>
     
     <a href="/categories/#FSOP">
       <li>FSOP</li>
+    </a>
+    
+    <a href="/categories/#2023XCTF-final">
+      <li>2023XCTF-final</li>
+    </a>
+    
+    <a href="/categories/#LLM">
+      <li>LLM</li>
     </a>
     
     <a href="/categories/#阿里云ctf2024">
@@ -1322,48 +1330,48 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>iot</li>
     </a>
     
-    <a href="/categories/#write up">
-      <li>write up</li>
-    </a>
-    
     <a href="/categories/#write_up">
       <li>write_up</li>
+    </a>
+    
+    <a href="/categories/#write up">
+      <li>write up</li>
     </a>
     
     <a href="/categories/#networking">
       <li>networking</li>
     </a>
     
-    <a href="/categories/#LLM">
-      <li>LLM</li>
-    </a>
-    
     <a href="/categories/#tcache_poisoning">
       <li>tcache_poisoning</li>
-    </a>
-    
-    <a href="/categories/#HEAP">
-      <li>HEAP</li>
-    </a>
-    
-    <a href="/categories/#vpn安全">
-      <li>vpn安全</li>
-    </a>
-    
-    <a href="/categories/#杂谈">
-      <li>杂谈</li>
     </a>
     
     <a href="/categories/#Paper Reading">
       <li>Paper Reading</li>
     </a>
     
-    <a href="/categories/#pwnable.tw">
-      <li>pwnable.tw</li>
+    <a href="/categories/#HEAP">
+      <li>HEAP</li>
     </a>
     
     <a href="/categories/#SROP">
       <li>SROP</li>
+    </a>
+    
+    <a href="/categories/#vpn安全">
+      <li>vpn安全</li>
+    </a>
+    
+    <a href="/categories/#pwnable.tw">
+      <li>pwnable.tw</li>
+    </a>
+    
+    <a href="/categories/#漏洞复现">
+      <li>漏洞复现</li>
+    </a>
+    
+    <a href="/categories/#虚拟机逃逸">
+      <li>虚拟机逃逸</li>
     </a>
     
     <a href="/categories/#2023浙江省赛">
@@ -1374,36 +1382,32 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>Stackmove</li>
     </a>
     
-    <a href="/categories/#虚拟机逃逸">
-      <li>虚拟机逃逸</li>
-    </a>
-    
-    <a href="/categories/#论文阅读笔记">
-      <li>论文阅读笔记</li>
+    <a href="/categories/#杂谈">
+      <li>杂谈</li>
     </a>
     
     <a href="/categories/#ChatGPT接入Telegram Bot教程">
       <li>ChatGPT接入Telegram Bot教程</li>
     </a>
     
-    <a href="/categories/#漏洞复现">
-      <li>漏洞复现</li>
+    <a href="/categories/#源码阅读">
+      <li>源码阅读</li>
     </a>
     
     <a href="/categories/#漏洞复现">
       <li>漏洞复现</li>
     </a>
     
-    <a href="/categories/#kernel">
-      <li>kernel</li>
-    </a>
-    
-    <a href="/categories/#dn11">
-      <li>dn11</li>
+    <a href="/categories/#论文阅读笔记">
+      <li>论文阅读笔记</li>
     </a>
     
     <a href="/categories/#ciscn2023">
       <li>ciscn2023</li>
+    </a>
+    
+    <a href="/categories/#dn11">
+      <li>dn11</li>
     </a>
     
     <a href="/categories/#漏洞复现">
@@ -1414,20 +1418,16 @@ Javascript继承机制的设计思想):  Brendan Eich设计 Javasc......
       <li>虚拟机逃逸</li>
     </a>
     
-    <a href="/categories/#源码阅读">
-      <li>源码阅读</li>
-    </a>
-    
     <a href="/categories/#学期总结">
       <li>学期总结</li>
     </a>
     
-    <a href="/categories/#XCTF-实时数据检测-WP">
-      <li>XCTF-实时数据检测-WP</li>
-    </a>
-    
     <a href="/categories/#操作系统">
       <li>操作系统</li>
+    </a>
+    
+    <a href="/categories/#XCTF-实时数据检测-WP">
+      <li>XCTF-实时数据检测-WP</li>
     </a>
     
     <a href="/categories/#2022浙江省赛">
