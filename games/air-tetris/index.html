@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Tetris — 隔空俄罗斯方块</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #050810; overflow: hidden; }
+
+    #video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1);
+      opacity: 0.22;
+      filter: blur(4px) saturate(1.3);
+    }
+
+    #game-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Score / Level ─────────────────────────────────────────────── */
+    #ui {
+      position: fixed;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 10;
+      pointer-events: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    }
+
+    #level {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 2px;
+    }
+
+    #score {
+      font-size: 58px;
+      font-weight: 800;
+      letter-spacing: -3px;
+      color: #fff;
+      text-shadow:
+        0 0 20px rgba(0,210,255,0.9),
+        0 0 55px rgba(0,120,255,0.5),
+        0 0 100px rgba(0,60,200,0.25);
+      line-height: 1;
+    }
+
+    #status {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 7px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Gesture HUD (top-right) ───────────────────────────────────── */
+    #gesture-hud {
+      position: fixed;
+      top: 24px;
+      right: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      z-index: 10;
+      pointer-events: none;
+      font-family: -apple-system, sans-serif;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    #gesture-hud.active { opacity: 1; }
+
+    #gesture-icon {
+      font-size: 34px;
+      line-height: 1;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+    }
+
+    #gesture-hold-ring { width: 44px; height: 44px; }
+
+    #gesture-hold-ring svg {
+      width: 44px;
+      height: 44px;
+      transform: rotate(-90deg);
+    }
+
+    .ring-bg {
+      fill: none;
+      stroke: rgba(255,255,255,0.12);
+      stroke-width: 3.5;
+    }
+
+    .ring-fg {
+      fill: none;
+      stroke: #00e5ff;
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-dasharray: 113;  /* 2π × 18 */
+      stroke-dashoffset: 113;
+      transition: stroke-dashoffset 0.08s linear;
+    }
+
+    #gesture-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.5px;
+      text-align: center;
+      min-height: 14px;
+    }
+
+    /* ── Pause overlay ─────────────────────────────────────────────── */
+    #pause-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 16, 0.75);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      gap: 14px;
+    }
+
+    #pause-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .pause-icon { font-size: 72px; }
+
+    .pause-title {
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: #fff;
+    }
+
+    .pause-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Flash on restart ──────────────────────────────────────────── */
+    #flash {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    #flash.pop {
+      animation: flash-anim 0.55s ease-out forwards;
+    }
+
+    @keyframes flash-anim {
+      0%   { opacity: 0.85; }
+      100% { opacity: 0; }
+    }
+
+    /* ── Hints (bottom) ────────────────────────────────────────────── */
+    #hints {
+      position: fixed;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.25);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      font-family: -apple-system, sans-serif;
+      z-index: 10;
+      pointer-events: none;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    /* ── Loading ───────────────────────────────────────────────────── */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: #050810;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      gap: 20px;
+      font-family: -apple-system, sans-serif;
+    }
+
+    #loading.hidden { display: none; }
+
+    .load-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .load-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #00e5ff;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    .load-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50%       { opacity: 1;   transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+
+  <video id="video" playsinline muted></video>
+  <canvas id="game-canvas"></canvas>
+
+  <!-- Score / level UI -->
+  <div id="ui">
+    <div id="level">LV 1</div>
+    <div id="score">0</div>
+    <div id="status">正在启动...</div>
+  </div>
+
+  <!-- Gesture HUD -->
+  <div id="gesture-hud">
+    <div id="gesture-icon"></div>
+    <div id="gesture-hold-ring">
+      <svg viewBox="0 0 44 44">
+        <circle class="ring-bg" cx="22" cy="22" r="18"/>
+        <circle class="ring-fg" cx="22" cy="22" r="18" id="ring-arc"/>
+      </svg>
+    </div>
+    <div id="gesture-label"></div>
+  </div>
+
+  <!-- Pause overlay -->
+  <div id="pause-overlay">
+    <div class="pause-icon">⏸</div>
+    <div class="pause-title">已暂停</div>
+    <div class="pause-sub">伸开掌心恢复游戏</div>
+  </div>
+
+  <!-- Restart flash -->
+  <div id="flash"></div>
+
+  <!-- Bottom hints -->
+  <div id="hints">
+    🤏 双手捏合抓取 &nbsp;·&nbsp; 🖐 掌心 1.2s 暂停 &nbsp;·&nbsp; ✊ 握拳 2s 重置
+  </div>
+
+  <!-- Loading screen -->
+  <div id="loading">
+    <div class="load-title">Air Tetris</div>
+    <div class="load-dot"></div>
+    <div class="load-sub" id="loading-status">正在加载...</div>
+  </div>
+
+  <!-- Matter.js physics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+
+  <!-- PixiJS renderer -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.2/pixi.min.js"></script>
+
+  <!-- MediaPipe Hands -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
