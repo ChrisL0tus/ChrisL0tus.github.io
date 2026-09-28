@@ -1,488 +1,199 @@
-import { CameraManager } from './camera.js';
-import { GestureDetector } from './gesture.js';
-import { PhysicsWorld }    from './physics.js';
-import { Grabber }         from './grabber.js';
-import { Renderer }        from './renderer.js';
-import { createPiece, randomType, CELL } from './pieces.js';
-import { buildHeart, removeHeart, detectHeartGesture } from './easter.js';
+import { Tetris } from './engine.js';
+import { Renderer } from './renderer.js';
+import { AirControls } from './camera.js';
 
-const { Body, Runner } = Matter;
+const $ = id => document.getElementById(id);
+const format = (value, length = 2) => String(value).padStart(length, '0');
+const read = (key, fallback) => { try { return localStorage.getItem(key) ?? fallback; } catch { return fallback; } };
+const save = (key, value) => { try { localStorage.setItem(key, String(value)); } catch { /* Storage can be disabled. */ } };
+let best = Math.max(0, Number(read('air-tetris-best-v2', 0)) || 0);
+let soundEnabled = read('air-tetris-sound-v2', 'false') === 'true';
+let audioContext, cameraState = 'off', tracked = false, lastSeen = 0, handHasControlled = false;
+let overlayMode = 'idle', pauseReason = '', previousTime = 0, secretTimer, uiKey = '';
+const heldInputs = new Map();
+const renderer = new Renderer($('board'), $('hold-canvas'), $('next-canvas'));
+const game = new Tetris({ onEvent: event => {
+  renderer.event(event);
+  if (event.type === 'clear') {
+    const labels = ['', 'NICE LINE', 'DOUBLE', 'TRIPLE', 'TETRIS!'];
+    toast(`${labels[event.count]} +${event.points}`);
+    announce(`消除 ${event.count} 行，获得 ${event.points} 分。`);
+    tone(event.count === 4 ? 'tetris' : 'clear');
+  } else if (event.type === 'drop' && event.hard) tone('drop');
+  else if (event.type === 'rotate' || event.type === 'hold') tone('rotate');
+  else if (event.type === 'over') { heldInputs.clear(); tone('over'); announce(`游戏结束，得分 ${game.score}。`); }
+  if (['start', 'pause', 'resume', 'over'].includes(event.type)) updateUI();
+} });
 
-// ── Config ────────────────────────────────────────────────────────────────
-const MAX_PIECES    = 22;
-const SPAWN_BASE    = 5000;
-const SPAWN_MIN     = 1800;
-const SETTLE_SPEED  = 0.36;
-const SETTLE_FRAMES = 60;
-const PALM_HOLD_MS  = 1200;
-const FIST_HOLD_MS  = 2000;
-const RING_C        = 2 * Math.PI * 18;
-const ANG_DAMP      = 0.88;
-
-// ── DOM ───────────────────────────────────────────────────────────────────
-const W = window.innerWidth;
-const H = window.innerHeight;
-
-const $canvas      = document.getElementById('game-canvas');
-const $video       = document.getElementById('video');
-const $score       = document.getElementById('score');
-const $level       = document.getElementById('level');
-const $status      = document.getElementById('status');
-const $loading     = document.getElementById('loading');
-const $loadingMsg  = document.getElementById('loading-status');
-const $pauseEl     = document.getElementById('pause-overlay');
-const $flash       = document.getElementById('flash');
-const $gestureHUD  = document.getElementById('gesture-hud');
-const $gestureIcon = document.getElementById('gesture-icon');
-const $gestureLbl  = document.getElementById('gesture-label');
-const $ringArc     = document.getElementById('ring-arc');
-
-// ── Systems ───────────────────────────────────────────────────────────────
-const physics  = new PhysicsWorld(W, H);
-const renderer = new Renderer($canvas, W, H);
-const gesture  = new GestureDetector();
-// Two independent grabbers — one per hand slot
-const grabbers = [new Grabber(), new Grabber()];
-
-// ── State ─────────────────────────────────────────────────────────────────
-let score         = 0;
-let level         = 1;
-let settledCount  = 0;
-let paused        = false;
-let gestures      = [];
-let lastSpawn     = -SPAWN_BASE;
-let spawnInterval = SPAWN_BASE;
-
-// Hold-gesture timers — activated only after strict classification
-let palmHoldStart = 0;
-let fistHoldStart = 0;
-
-// ── Easter egg state ─────────────────────────────────────────────────────
-let easterState    = 'idle';   // 'idle' | 'active'
-let heartHoldStart = 0;
-let easterBodies   = [];
-let easterCx = 0, easterCy = 0;
-let lastEmojiTime  = [0, 0];  // per-hand throttle for emoji spawning
-
-const HEART_HOLD_MS  = 1500;
-const EMOJI_INTERVAL = 110;   // ms between emojis per hand (~9/s)
-
-// ── Helpers ───────────────────────────────────────────────────────────────
-const addScore  = n => { score += n; $score.textContent = score; };
-const setStatus = m => { $status.textContent = m; };
-const setLevel  = n => {
-  level = n; $level.textContent = `LV ${level}`;
-  spawnInterval = Math.max(SPAWN_MIN, SPAWN_BASE - (level - 1) * 400);
-};
-
-// ── Snap to grid ──────────────────────────────────────────────────────────
-// Snaps body so every cell centre lands on a CELL-grid intersection.
-// Call BEFORE Body.setStatic to avoid physics collisions during the move.
-function snapToGrid(body) {
-  // 1. Snap rotation to nearest 90°
-  const snapAngle = Math.round(body.angle / (Math.PI / 2)) * (Math.PI / 2);
-  Body.setAngle(body, snapAngle);
-  Body.setVelocity(body, { x: 0, y: 0 });
-  Body.setAngularVelocity(body, 0);
-
-  // 2. Compute uniform snap offset: average mismatch across all cells
-  const parts = body.parts.length > 1 ? body.parts.slice(1) : [body];
-  let dx = 0, dy = 0;
-  for (const p of parts) {
-    dx += Math.round(p.position.x / CELL) * CELL - p.position.x;
-    dy += Math.round(p.position.y / CELL) * CELL - p.position.y;
-  }
-  Body.setPosition(body, {
-    x: body.position.x + dx / parts.length,
-    y: body.position.y + dy / parts.length,
+function unlockAudio() {
+  if (!soundEnabled) return;
+  try { audioContext ||= new (window.AudioContext || window.webkitAudioContext)(); audioContext.resume().catch(() => {}); } catch { /* Audio is optional. */ }
+}
+function tone(name) {
+  if (!soundEnabled || !audioContext || audioContext.state !== 'running') return;
+  const notes = { rotate: [370], drop: [130, 90], clear: [523, 659, 784], tetris: [523, 659, 784, 1047], over: [330, 262, 196] }[name] || [];
+  notes.forEach((frequency, i) => {
+    const at = audioContext.currentTime + i * .065;
+    const oscillator = audioContext.createOscillator(), gain = audioContext.createGain();
+    oscillator.type = 'sine'; oscillator.frequency.setValueAtTime(frequency, at);
+    gain.gain.setValueAtTime(0, at); gain.gain.linearRampToValueAtTime(.055, at + .008); gain.gain.exponentialRampToValueAtTime(.001, at + .13);
+    oscillator.connect(gain); gain.connect(audioContext.destination); oscillator.start(at); oscillator.stop(at + .15);
+    oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
   });
-
-  // 3. Resolve overlap: if any cell lands on an occupied cell, push up
-  resolveSnapOverlap(body);
 }
-
-// Push snapping body upward until no cell overlaps an existing settled piece.
-function resolveSnapOverlap(body) {
-  const settled = physics.getPieces().filter(p => p.isStatic && p !== body);
-  if (!settled.length) return;
-
-  // Build occupied-cell set from all settled pieces
-  const occ = new Set();
-  for (const s of settled) {
-    const parts = s.parts.length > 1 ? s.parts.slice(1) : [s];
-    for (const p of parts) {
-      occ.add(`${Math.round(p.position.x / CELL)},${Math.round(p.position.y / CELL)}`);
-    }
-  }
-
-  const myParts = body.parts.length > 1 ? body.parts.slice(1) : [body];
-
-  for (let attempt = 0; attempt < 8; attempt++) {
-    const overlapping = myParts.some(p =>
-      occ.has(`${Math.round(p.position.x / CELL)},${Math.round(p.position.y / CELL)}`)
-    );
-    if (!overlapping) return;
-    // Shift body up one row
-    Body.setPosition(body, { x: body.position.x, y: body.position.y - CELL });
-  }
+function announce(text) { $('announcement').textContent = text; }
+function toast(text) { const el = $('board-toast'); el.textContent = text; el.classList.remove('show'); void el.offsetWidth; el.classList.add('show'); }
+function buttonLabel(button, text, icon = 'arrow') { button.replaceChildren(document.createTextNode(`${text} `)); const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); const use = document.createElementNS('http://www.w3.org/2000/svg', 'use'); use.setAttribute('href', `#i-${icon}`); svg.append(use); button.append(svg); }
+function setOverlay(mode) {
+  const changed = mode !== overlayMode;
+  overlayMode = mode;
+  $('board-overlay').hidden = mode === 'playing';
+  if (mode === 'playing') return;
+  const data = {
+    idle: ['FIND YOUR FLOW', '好好玩一会儿。', '旋转、落下、消除。\n熟悉的快乐，全新的手感。', '开始游戏', '键盘 / 触屏直接玩 · 手势可随时开启'],
+    paused: ['TAKE A BREATH', '停一停，也很好。', pauseReason || '方块在这里等你。\n准备好了，就继续吧。', '继续游戏', '按 P / ESC 也可以继续'],
+    over: ['ONE MORE ROUND?', '每一局，都是新开始。', `本局 ${game.score.toLocaleString()} 分 · 消除 ${game.lines} 行\n${game.score > 0 && game.score >= best ? '新的个人最佳，做得漂亮。' : '下一次，会更有默契。'}`, '再玩一局', '最好的下一步，就是再来一次'],
+    restart: ['A FRESH START', '重新来一局？', '当前进度将重新开始。\n你的最高分会一直保留。', '重新开始', '也可以继续刚才的节奏'],
+  }[mode];
+  if (!data) return;
+  $('overlay-eyebrow').textContent = data[0]; $('overlay-title').textContent = data[1];
+  $('overlay-description').textContent = data[2]; $('overlay-description').style.whiteSpace = 'pre-line';
+  buttonLabel($('start-button'), data[3]); $('overlay-footnote').textContent = data[4];
+  $('overlay-secondary').hidden = mode !== 'restart';
+  if (changed && mode === 'over') $('start-button').focus({ preventScroll: true });
 }
-
-// ── Spawn aligned to grid columns ─────────────────────────────────────────
-function spawnPiece() {
-  if (physics.getPieces().length >= MAX_PIECES) return;
-
-  const totalCols = Math.floor(W / CELL);
-  const margin    = 2;
-  const col = margin + Math.floor(Math.random() * (totalCols - margin * 2));
-  const piece = createPiece(randomType(), col * CELL, -90);
-
-  // X-snap at spawn so cells are on grid columns from the start
-  const parts = piece.parts.length > 1 ? piece.parts.slice(1) : [piece];
-  let dx = 0;
-  for (const p of parts) dx += Math.round(p.position.x / CELL) * CELL - p.position.x;
-  Body.setPosition(piece, { x: piece.position.x + dx / parts.length, y: piece.position.y });
-
-  physics.add(piece);
+function updateUI() {
+  if (game.score > best) { best = game.score; save('air-tetris-best-v2', best); }
+  const mode = overlayMode === 'restart' && game.state === 'paused' ? 'restart' : game.state;
+  const key = `${game.score}/${game.lines}/${game.level}/${mode}/${game.held}/${game.canHold}/${cameraState}/${pauseReason}`;
+  if (key !== uiKey) {
+    uiKey = key;
+    $('score').textContent = format(game.score, 6); $('best').textContent = format(best, 6);
+    $('level').textContent = format(game.level); $('lines').textContent = format(game.lines);
+    $('level-progress').style.width = `${(game.lines % 10) * 10}%`;
+    $('level-note').textContent = `再消除 ${10 - game.lines % 10} 行，升至下一级`;
+    $('hold-empty').hidden = Boolean(game.held); $('hold-button').disabled = game.state !== 'playing' || !game.canHold;
+    $('pause-button').disabled = !['playing', 'paused'].includes(game.state);
+    $('restart-button').disabled = game.state === 'idle';
+    const paused = game.state === 'paused';
+    $('pause-button').setAttribute('aria-label', paused ? '继续游戏' : '暂停游戏');
+    $('pause-button').title = paused ? '继续（P）' : '暂停（P）';
+    $('pause-button').querySelector('use').setAttribute('href', paused ? '#i-play' : '#i-pause');
+    const states = { idle: '准备就绪', playing: cameraState === 'ready' ? '隔空进行中' : '找到你的节奏', paused: '暂停片刻', over: '本局已结束' };
+    $('game-state').replaceChildren(); const dot = document.createElement('i'); dot.className = 'live-dot'; $('game-state').append(dot, ` ${states[game.state]}`);
+    document.querySelectorAll('[data-action]').forEach(button => { button.disabled = game.state !== 'playing'; });
+    setOverlay(mode);
+  }
+  const seconds = Math.floor(game.elapsed / 1000);
+  $('timer').textContent = `${format(Math.floor(seconds / 60))}:${format(seconds % 60)}`;
 }
-
-// ── Support check — prevents mid-air locking ──────────────────────────────
-function isSupported(body, allPieces) {
-  const bot = body.bounds.max.y;
-  if (bot < H * 0.28) return false;               // too high on screen
-  if (bot >= H - CELL * 0.65) return true;         // near the floor
-  for (const p of allPieces) {
-    if (!p.isStatic || p === body) continue;
-    if (Math.abs(p.position.x - body.position.x) > CELL * 2.8) continue;
-    const gap = p.bounds.min.y - bot;
-    if (gap > -CELL * 0.25 && gap < CELL * 0.65) return true;
-  }
-  return false;
-}
-
-// ── Settle processing ─────────────────────────────────────────────────────
-function processSettling(pieces) {
-  const allGrabbed = new Set(grabbers.map(g => g.body).filter(Boolean));
-  let anyLocked = false;
-
-  for (const b of pieces) {
-    if (b._settled || b.isStatic || allGrabbed.has(b)) continue;
-
-    // Angular damping keeps pieces more upright → cleaner snap
-    if (Math.abs(b.angularVelocity) > 0.001) {
-      Body.setAngularVelocity(b, b.angularVelocity * ANG_DAMP);
-    }
-
-    const speed = Math.hypot(b.velocity.x, b.velocity.y) + Math.abs(b.angularVelocity) * 12;
-    b._slowFrames = speed < SETTLE_SPEED ? b._slowFrames + 1 : 0;
-
-    if (b._slowFrames >= SETTLE_FRAMES && isSupported(b, pieces)) {
-      snapToGrid(b);           // align + resolve overlap BEFORE static
-      Body.setStatic(b, true);
-      b._settled    = true;
-      b._slowFrames = 0;
-
-      renderer.spawnBurst(b.position.x, b.position.y, b.pieceGlow ?? 0xffffff, 8);
-      addScore(10);
-      settledCount++;
-      anyLocked = true;
-      if (settledCount % 7 === 0) setLevel(level + 1);
-    }
-  }
-  return anyLocked;
-}
-
-// ── Line clear ────────────────────────────────────────────────────────────
-function checkLines() {
-  const pieces  = physics.getPieces();
-  const settled = pieces.filter(p => p.isStatic);
-  if (settled.length < 3) return 0;
-
-  const grid   = new Map();
-  const rowOf  = y => Math.round(y / CELL);
-  const colOf  = x => Math.round(x / CELL);
-  const THRESH = Math.floor((W / CELL) * 0.80);
-
-  for (const body of settled) {
-    const parts = body.parts.length > 1 ? body.parts.slice(1) : [body];
-    for (const p of parts) {
-      const r = rowOf(p.position.y), c = colOf(p.position.x);
-      if (!grid.has(r)) grid.set(r, new Set());
-      grid.get(r).add(c);
-    }
-  }
-
-  const clearedRows = [];
-  for (const [row, cols] of grid) if (cols.size >= THRESH) clearedRows.push(row);
-  if (!clearedRows.length) return 0;
-
-  const minClearedY = Math.min(...clearedRows) * CELL;
-
-  const toRemove = new Set();
-  for (const body of settled) {
-    const parts = body.parts.length > 1 ? body.parts.slice(1) : [body];
-    for (const p of parts) {
-      if (clearedRows.includes(rowOf(p.position.y))) { toRemove.add(body); break; }
-    }
-  }
-  for (const body of toRemove) {
-    renderer.spawnBurst(body.position.x, body.position.y, body.pieceGlow ?? 0xffffff, 22);
-    physics.remove(body);
-  }
-  for (const row of clearedRows) renderer.flashRow(row * CELL);
-
-  for (const body of physics.getPieces()) {
-    if (body.isStatic && body.position.y < minClearedY) {
-      Body.setStatic(body, false);
-      body._settled = false; body._slowFrames = 0;
-    }
-  }
-
-  const n = clearedRows.length;
-  addScore(n * n * 120);
-  setStatus(`消除 ${n} 行！ +${n * n * 120}`);
-  return n;
-}
-
-// ── Pause / Resume ────────────────────────────────────────────────────────
-function setPaused(val) {
-  paused = val;
-  $pauseEl.classList.toggle('visible', val);
-  if (val) {
-    grabbers.forEach(g => { if (g.isGrabbing()) g.release({ x:0, y:0 }); });
-    Runner.stop(physics.runner);
-  } else {
-    Runner.run(physics.runner, physics.engine);
-    lastSpawn = performance.now();
-    setStatus('继续！');
+function start() {
+  heldInputs.clear(); pauseReason = ''; overlayMode = 'playing';
+  $('secret').hidden = true; clearTimeout(secretTimer);
+  handHasControlled = false; lastSeen = performance.now();
+  game.reset(); unlockAudio(); updateUI(); $('start-button').blur();
+  if (matchMedia('(max-width: 800px)').matches) {
+    document.querySelector('.play-column').scrollIntoView({ behavior: renderer.reducedMotion ? 'instant' : 'smooth', block: 'start' });
   }
 }
-
-// ── Restart ───────────────────────────────────────────────────────────────
-function restart() {
-  grabbers.forEach(g => { if (g.isGrabbing()) g.release({ x:0, y:0 }); });
-  if (paused) setPaused(false);
-
-  // Clean up Easter egg if it was active
-  if (easterState !== 'idle') {
-    removeHeart(physics, easterBodies);
-    easterBodies = [];
-    renderer.hideSkylarText();
-    renderer.setSkylarAlpha(1);
-    easterState = 'idle';
-  }
-
-  for (const b of physics.getPieces()) physics.remove(b);
-  score = 0; $score.textContent = '0';
-  settledCount = 0; setLevel(1);
-  lastSpawn = -SPAWN_BASE;
-  $flash.classList.remove('pop'); void $flash.offsetWidth; $flash.classList.add('pop');
-  spawnPiece();
-  setStatus('重新开始！');
+function pause(reason = '') {
+  if (game.state !== 'playing') return;
+  heldInputs.clear(); pauseReason = reason; game.pause(); updateUI();
 }
-
-// ── Gesture HUD ───────────────────────────────────────────────────────────
-const ICONS  = { open_palm:'🖐', fist:'✊', pinch:'🤏', other:'', none:'' };
-const LABELS = { open_palm:'掌心 → 暂停', fist:'握拳 → 重置', pinch:'捏合中', other:'', none:'' };
-
-function updateGestureHUD(gestures, now) {
-  const primary = gestures.find(g => ['open_palm','fist'].includes(g.gesture))
-               ?? gestures.find(g => g.gesture === 'pinch')
-               ?? gestures[0];
-  const gest = primary?.gesture ?? 'none';
-
-  if (!gest || gest === 'none' || gest === 'other') {
-    $gestureHUD.classList.remove('active');
-    $ringArc.style.strokeDashoffset = RING_C;
-    $ringArc.style.opacity = 0;
-    return;
-  }
-  $gestureHUD.classList.add('active');
-  $gestureIcon.textContent = ICONS[gest]  ?? '';
-  $gestureLbl.textContent  = LABELS[gest] ?? '';
-
-  let prog = 0;
-  if (gest === 'open_palm' && palmHoldStart) prog = Math.min(1, (now - palmHoldStart) / PALM_HOLD_MS);
-  if (gest === 'fist'      && fistHoldStart) prog = Math.min(1, (now - fistHoldStart) / FIST_HOLD_MS);
-
-  $ringArc.style.strokeDashoffset = RING_C * (1 - prog);
-  $ringArc.style.opacity = prog > 0.01 ? 1 : 0;
+function resume() {
+  if (game.state !== 'paused') return;
+  $('secret').hidden = true; clearTimeout(secretTimer);
+  heldInputs.clear(); pauseReason = ''; overlayMode = 'playing'; handHasControlled = false; lastSeen = performance.now();
+  game.resume(); unlockAudio(); updateUI(); $('start-button').blur();
 }
-
-// ── Easter egg activation ─────────────────────────────────────────────────
-function activateEasterEgg(now) {
-  if (easterState !== 'idle') return;
-
-  // Clear all regular pieces
-  for (const b of physics.getPieces()) physics.remove(b);
-  grabbers.forEach(g => { if (g.isGrabbing()) g.release({ x: 0, y: 0 }); });
-
-  // Build heart
-  const result = buildHeart(physics, W, H);
-  easterBodies   = result.bodies;
-  easterCx       = result.cx;
-  easterCy       = result.cy;
-  easterState       = 'active';
-  lastEmojiTime     = [0, 0];
-
-  // Burst at every heart block for a dazzling entrance
-  for (const b of easterBodies) {
-    renderer.spawnBurst(b.position.x, b.position.y, 0xFF1177, 4);
-  }
-
-  renderer.showSkylarText(easterCx, easterCy);
-  renderer.setSkylarAlpha(1);
-
-  // Suspend piece spawning while Easter egg is shown (reset on restart)
-  lastSpawn = now + 9999999;
+function togglePause() { if (game.state === 'playing') pause(); else if (game.state === 'paused') resume(); }
+function act(action, source = 'keyboard') {
+  if (game.state !== 'playing' || !$('secret').hidden) return;
+  if (source === 'gesture') handHasControlled = true;
+  else handHasControlled = false;
+  if (action === 'left') game.move(-1);
+  if (action === 'right') game.move(1);
+  if (action === 'rotate') game.rotate();
+  if (action === 'counter') game.rotate(-1);
+  if (action === 'soft') game.softDrop();
+  if (action === 'drop') game.hardDrop();
+  if (action === 'hold') game.hold();
+  updateUI();
 }
-
-// ── Camera callback ───────────────────────────────────────────────────────
-const cam = new CameraManager($video, results => {
-  const lms   = results.multiHandLandmarks ?? [];
-  const hands = results.multiHandedness    ?? [];
-
-  // Sort by handedness so Right hand = slot 0, Left = slot 1 — stays consistent
-  // even if MediaPipe swaps array order between frames.
-  const sorted = lms
-    .map((lm, i) => ({ lm, label: hands[i]?.label ?? 'Right' }))
-    .sort((a, b) => (a.label === 'Left' ? 1 : 0) - (b.label === 'Left' ? 1 : 0));
-
-  gestures = gesture.update(sorted.map(s => s.lm), W, H);
-
-  const now = performance.now();
-
-  // ── Hold gestures ────────────────────────────────────────────────────────
-  const anyPalm = gestures.some(g => g.gesture === 'open_palm' && !g.pinching);
-  const anyFist = gestures.some(g => g.gesture === 'fist'      && !g.pinching);
-
-  // Palm pause is suppressed while Easter egg is showing (they share open-hand shape)
-  if (anyPalm && easterState === 'idle') {
-    if (!palmHoldStart) palmHoldStart = now;
-    if (now - palmHoldStart >= PALM_HOLD_MS) { palmHoldStart = 0; setPaused(!paused); }
-  } else { palmHoldStart = 0; }
-
-  // Fist always works — dismisses Easter egg via restart()
-  if (anyFist) {
-    if (!fistHoldStart) fistHoldStart = now;
-    if (now - fistHoldStart >= FIST_HOLD_MS) { fistHoldStart = 0; restart(); }
-  } else { fistHoldStart = 0; }
-
-  // ── Secret heart gesture ─────────────────────────────────────────────
-  if (easterState === 'idle') {
-    if (detectHeartGesture(gestures, W, H)) {
-      if (!heartHoldStart) heartHoldStart = now;
-      if (now - heartHoldStart >= HEART_HOLD_MS) {
-        heartHoldStart = 0;
-        activateEasterEgg(now);
-        return;
-      }
-    } else {
-      heartHoldStart = 0;
-    }
-  }
-
-  // ── Heart emojis: pinch during Easter egg → float up and fade ───────────
-  if (easterState === 'active') {
-    for (const gd of gestures) {
-      const hi = gd.handIndex;
-      if (gd.pinching && now - lastEmojiTime[hi] > EMOJI_INTERVAL) {
-        lastEmojiTime[hi] = now;
-        renderer.spawnHeartEmoji(gd.pos.x, gd.pos.y);
-      }
-    }
-  }
-
-  if (paused) return;
-
-  // ── Per-hand pinch / grab (fully independent) ─────────────────────────
-  for (const gd of gestures) {
-    const i  = gd.handIndex;
-    const gr = grabbers[i];
-
-    // Exclude pieces held by any OTHER grabber
-    const takenByOthers = grabbers
-      .filter((_, j) => j !== i)
-      .map(g => g.body)
-      .filter(Boolean);
-    const available = physics.getPieces().filter(p => !takenByOthers.includes(p));
-
-    if (gd.justPinched) {
-      const ok = gr.tryGrab(gd.pos, available);
-      if (ok) {
-        const b = gr.body;
-        // Clear settled flags — DO NOT call setStatic(false) here.
-        // The body must stay static while being held by the grabber.
-        // setStatic(false) happens only in Grabber.release().
-        if (b?._settled) {
-          b._settled    = false;
-          b._slowFrames = 0;
-          b.isSleeping   = false;
-          b.sleepCounter = 0;
-        }
-        setStatus(`手 ${i + 1} 抓住了！`);
-        renderer.spawnBurst(gd.pos.x, gd.pos.y, i === 0 ? 0x00e5ff : 0xff4090, 10);
-      } else {
-        setStatus('靠近方块再捏合');
-      }
-
-    } else if (gd.pinching && gr.isGrabbing()) {
-      gr.move(gd.pos);
-
-    } else if (gd.justReleased && gr.isGrabbing()) {
-      // Release with inertia — grabber.release guarantees min downward velocity
-      const b = gr.release(gd.velocity);
-      if (b) renderer.spawnBurst(b.position.x, b.position.y, b.pieceGlow ?? 0x00e5ff, 14);
-      setStatus('释放！');
-    }
-  }
-
-  // Auto-release grabs for hands that are no longer tracked
-  for (let i = 0; i < 2; i++) {
-    if (!gestures.find(g => g.handIndex === i) && grabbers[i].isGrabbing()) {
-      grabbers[i].release({ x:0, y:0 });
-    }
-  }
+$('start-button').addEventListener('click', () => game.state === 'paused' && overlayMode !== 'restart' ? resume() : start());
+$('overlay-secondary').addEventListener('click', resume);
+$('pause-button').addEventListener('click', togglePause);
+$('restart-button').addEventListener('click', () => {
+  if (game.state === 'over') { start(); return; }
+  pause(); overlayMode = 'restart'; uiKey = ''; updateUI(); $('start-button').focus({ preventScroll: true });
 });
+$('hold-button').addEventListener('click', () => act('hold'));
+function updateSound() { $('sound-button').setAttribute('aria-pressed', String(soundEnabled)); const label = soundEnabled ? '关闭音效' : '开启音效'; $('sound-button').setAttribute('aria-label', label); $('sound-button').title = label; $('sound-button').querySelector('use').setAttribute('href', soundEnabled ? '#i-sound' : '#i-mute'); }
+$('sound-button').addEventListener('click', () => { soundEnabled = !soundEnabled; save('air-tetris-sound-v2', soundEnabled); updateSound(); unlockAudio(); tone('rotate'); });
 
-// ── Game loop ─────────────────────────────────────────────────────────────
-function loop(now) {
-  requestAnimationFrame(loop);
-
-  if (!paused) {
-    if (now - lastSpawn > spawnInterval) { lastSpawn = now; spawnPiece(); }
-
-    const pieces = physics.getPieces();
-    for (const b of pieces) {
-      // Remove bodies that escaped the world or have NaN positions (physics corruption)
-      if (b.position.y > H + 400 || isNaN(b.position.x) || isNaN(b.position.y)) {
-        physics.remove(b);
-      }
-    }
-
-    if (processSettling(physics.getPieces())) checkLines();
-  }
-
-  updateGestureHUD(gestures, now);
-
-  const grabbedSet = new Set(grabbers.map(g => g.body).filter(Boolean));
-  renderer.updatePieces(physics.getPieces(), grabbedSet);
-  // Easter egg heart: render while active, invisible otherwise
-  renderer.updateHeartBlocks(easterBodies, now, easterState === 'active' ? 1 : 0);
-  renderer.updateHand(gestures);
-  renderer.tickParticles(now);
+const keyMap = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', ArrowDown: 'soft', KeyS: 'soft', ArrowUp: 'rotate', KeyW: 'rotate', KeyX: 'rotate', KeyZ: 'counter', Space: 'drop', KeyC: 'hold', ShiftLeft: 'hold', ShiftRight: 'hold' };
+window.addEventListener('keydown', event => {
+  if (event.ctrlKey || event.metaKey || event.altKey || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName) || event.target.isContentEditable) return;
+  if (event.code === 'Escape' || event.code === 'KeyP') { event.preventDefault(); if (!event.repeat) togglePause(); return; }
+  if (event.code === 'Enter' && (game.state === 'idle' || game.state === 'over') && event.target.tagName !== 'BUTTON') { event.preventDefault(); if (!event.repeat) start(); return; }
+  const action = keyMap[event.code];
+  if (!action || game.state !== 'playing') return;
+  // Space keeps its standard activation behavior on focused buttons.
+  if (event.code === 'Space' && event.target.closest('button, a')) return;
+  event.preventDefault(); if (event.repeat || heldInputs.has(event.code)) return;
+  unlockAudio(); act(action);
+  if (['left', 'right', 'soft'].includes(action)) heldInputs.set(event.code, { action, next: performance.now() + (action === 'soft' ? 50 : 160) });
+});
+window.addEventListener('keyup', event => { heldInputs.delete(event.code); });
+for (const button of document.querySelectorAll('[data-action]')) {
+  const action = button.dataset.action;
+  button.addEventListener('pointerdown', event => {
+    event.preventDefault(); if (button.disabled) return;
+    button.setPointerCapture(event.pointerId); unlockAudio(); act(action, 'touch');
+    if (['left', 'right', 'soft'].includes(action)) heldInputs.set(`pointer-${event.pointerId}`, { action, next: performance.now() + (action === 'soft' ? 50 : 160) });
+  });
+  for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) button.addEventListener(type, event => heldInputs.delete(`pointer-${event.pointerId}`));
+  button.addEventListener('click', event => { if (event.detail === 0) act(action, 'touch'); });
 }
 
-// ── Bootstrap ─────────────────────────────────────────────────────────────
-$loadingMsg.textContent = '正在请求摄像头权限...';
-
-cam.init()
-  .then(() => {
-    $loading.classList.add('hidden');
-    setStatus('捏合来抓取方块');
-    spawnPiece();
-    requestAnimationFrame(loop);
-  })
-  .catch(err => {
-    $loadingMsg.textContent = '摄像头错误：' + err.message;
-    console.error('[AirTetris]', err);
-  });
+const air = new AirControls({ video: $('video'), canvas: $('hand-canvas'),
+  onAction: action => act(action, 'gesture'),
+  onStatus: ({ state, message }) => {
+    const wasReady = cameraState === 'ready'; cameraState = state;
+    $('camera-status').textContent = message; $('camera-status').classList.toggle('error', state === 'error');
+    $('camera-preview').classList.toggle('active', state === 'ready'); $('camera-placeholder').hidden = state === 'ready';
+    $('camera-badge').textContent = state === 'ready' ? 'AIR CONNECTED' : state === 'loading' ? 'CONNECTING' : 'CAMERA OFF';
+    $('camera-button').querySelector('span').textContent = state === 'loading' ? '取消加载' : state === 'ready' ? '关闭手势控制' : state === 'error' ? '重新开启手势' : '开启手势控制';
+    $('camera-button').querySelector('.button-plus').textContent = ['loading', 'ready'].includes(state) ? '−' : '+';
+    if (state !== 'ready') { tracked = false; if (wasReady && handHasControlled && game.state === 'playing') pause('手势控制已断开。\n可以重新开启，或用键盘继续。'); handHasControlled = false; }
+    updateUI();
+  },
+  onTracking: ({ present, label, progress }) => {
+    tracked = present;
+    if (present) lastSeen = performance.now();
+    $('tracking-progress').style.width = `${Math.max(0, Math.min(1, progress || 0)) * 100}%`;
+    if (cameraState === 'ready') { $('camera-status').textContent = label; $('camera-badge').textContent = present ? 'HAND DETECTED' : 'FIND YOUR HAND'; }
+  },
+  onSecret: () => {
+    if (!$('secret').hidden) return;
+    if (game.state === 'playing') pause('留一点心动，再继续。');
+    $('secret').hidden = false; tone('tetris');
+    clearTimeout(secretTimer); secretTimer = setTimeout(() => { $('secret').hidden = true; }, 4200);
+  },
+});
+$('camera-button').addEventListener('click', async () => {
+  if (cameraState === 'loading' || cameraState === 'ready') { air.stop(); return; }
+  if (game.state === 'playing') pause('先把手放进画面，熟悉一下操作。\n准备好了，点击继续游戏。');
+  try { await air.start(); } catch { /* onStatus explains the error and offers retry. */ }
+});
+function leavePage() { heldInputs.clear(); pause('离开了一小会儿，已为你暂停。'); if (cameraState === 'ready' || cameraState === 'loading') air.stop(); }
+window.addEventListener('blur', () => { heldInputs.clear(); pause('窗口失去焦点，已为你暂停。'); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) leavePage(); });
+window.addEventListener('pagehide', leavePage);
+function frame(now) {
+  const dt = previousTime ? Math.min(now - previousTime, 100) : 0; previousTime = now;
+  for (const input of heldInputs.values()) if (now >= input.next && game.state === 'playing') { act(input.action); input.next = now + (input.action === 'soft' ? 40 : 75); }
+  if (cameraState === 'ready' && handHasControlled && !tracked && now - lastSeen > 1500) pause('暂时看不到你的手，已自动暂停。\n回到画面后，点击继续。');
+  game.tick(dt); renderer.draw(game, dt); updateUI(); requestAnimationFrame(frame);
+}
+updateSound(); updateUI(); requestAnimationFrame(frame);
